@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="./characters.js"></script>
+<script src="./objects.js"></script>
+<style>body{margin:0;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;color:#3A2A1E}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}button{font-family:inherit;cursor:pointer}</style>
+</helmet>
+<div data-screen-label="Menu Kotak Dolanan" style="position:relative;overflow:hidden;width:{{ w }}px;height:{{ h }}px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);background:#F6EBD6">
+  <div style="height:20px;position:absolute;left:0;right:0;top:0;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/29px 20px repeat-x"></div>
+  <div style="display:flex;align-items:center;gap:12px;padding:{{ padTop }}px {{ pad }}px 10px">
+    <img src="assets/snt-mark.png" alt="SNT" style="height:{{ logoH }}px">
+    <div style="flex:1;min-width:0;font:800 {{ hSize }}px/1 'Baloo 2';color:#2E4C7A;white-space:nowrap">Kotak Dolanan</div>
+    <div title="Stempel terkumpul" style="height:56px;flex:none;display:flex;align-items:center;gap:8px;padding:0 14px 0 8px;border-radius:999px;background:#FFF8EA;box-shadow:inset 0 0 0 2px #E3D1AE">
+      <svg width="40" height="40" viewBox="0 0 200 200" style="transform:rotate(-10deg)"><circle cx="100" cy="100" r="88" fill="none" stroke="#B5462F" stroke-width="14"></circle><g fill="#B5462F"><ellipse cx="100" cy="68" rx="18" ry="28"></ellipse><ellipse cx="100" cy="132" rx="18" ry="28"></ellipse><ellipse cx="68" cy="100" rx="28" ry="18"></ellipse><ellipse cx="132" cy="100" rx="28" ry="18"></ellipse></g></svg>
+      <span style="font:800 22px 'Baloo 2';color:#8A3321;white-space:nowrap">{{ doneCount }}/9</span>
+    </div>
+    <button aria-label="Avatar" style="height:56px;flex:none;display:flex;align-items:center;gap:8px;padding:0 {{ avPad }}px 0 4px;border:0;border-radius:999px;background:#2E4C7A;box-shadow:0 4px 0 #1F3558">
+      <span style="width:48px;height:48px;border-radius:50%;overflow:hidden;background:#FFD58A"><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="keriting" skin="2" crop="head" style="width:100%;height:100%" hint-size="48px,48px"></x-import></span>
+      <sc-if value="{{ showName }}" hint-placeholder-val="{{ true }}"><span style="font:700 18px 'Baloo 2';color:#fff">Raka</span></sc-if>
+    </button>
+  </div>
+  <div style="display:grid;gap:12px;padding:6px {{ pad }}px 14px">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px;display:grid;gap:6px">
+        <div style="font:700 17px 'Nunito';color:#6B4226">{{ doneCount }} dari 9 benda sudah berwarna lagi</div>
+        <div style="height:12px;border-radius:999px;background:#E3D1AE;overflow:hidden"><div style="height:100%;width:{{ pct }}%;border-radius:999px;background:linear-gradient(90deg,#E8A33D,#6E9F3D)"></div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;overflow-x:auto;padding:2px 2px 6px;margin:0 -2px">
+      <sc-for list="{{ chips }}" as="c" hint-placeholder-count="4">
+        <button onClick="{{ c.pick }}" style="flex:none;min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:{{ c.bg }};color:{{ c.fg }};border:2px solid {{ c.bd }};font:700 17px 'Baloo 2';white-space:nowrap;box-shadow:{{ c.sh }}"><span style="width:13px;height:13px;border-radius:{{ c.dotR }};transform:rotate({{ c.dotRot }});background:{{ c.dot }}"></span>{{ c.label }}</button>
+      </sc-for>
+    </div>
+  </div>
+  <div style="overflow:auto;padding:4px {{ pad }}px {{ pad }}px">
+    <div style="display:grid;grid-template-columns:repeat({{ cols }},minmax(0,1fr));gap:{{ gap }}px">
+      <sc-for list="{{ games }}" as="g" hint-placeholder-count="9">
+        <div style="position:relative;border-radius:24px;padding:7px;background:{{ g.frame }};box-shadow:{{ g.frameSh }}">
+          <sc-if value="{{ g.bonus }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;top:-8px;right:20px;z-index:2;width:54px;height:72px;padding-top:13px;display:grid;justify-items:center;align-content:start;gap:3px;background:#B5462F;clip-path:polygon(0 0,100% 0,100% 100%,50% 84%,0 100%);box-shadow:inset 0 10px 0 #8A3321"><svg width="16" height="16" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#FFD58A"></polygon></svg><span style="font:800 13px 'Baloo 2';color:#fff;letter-spacing:.04em">BONUS</span></div>
+          </sc-if>
+          <div style="height:100%;border-radius:18px;background:{{ g.inner }};overflow:hidden;display:flex;flex-direction:{{ cardDir }}">
+            <div style="position:relative;overflow:hidden;flex:{{ imgFlex }};aspect-ratio:{{ imgAR }}">
+              <x-import component-from-global-scope="kd-obj" from="./objects.js" kind="{{ g.obj }}" gray="{{ g.grayAttr }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+              <sc-if value="{{ g.done }}" hint-placeholder-val="{{ false }}"><svg width="{{ stampS }}" height="{{ stampS }}" viewBox="0 0 200 200" style="position:absolute;bottom:8px;left:8px;transform:rotate(-12deg)"><circle cx="100" cy="100" r="90" fill="#FFF8EA" fill-opacity=".75" stroke="#B5462F" stroke-width="10"></circle><circle cx="100" cy="100" r="70" fill="none" stroke="#B5462F" stroke-width="4"></circle><g fill="#B5462F"><ellipse cx="100" cy="74" rx="14" ry="22"></ellipse><ellipse cx="100" cy="126" rx="14" ry="22"></ellipse><ellipse cx="74" cy="100" rx="22" ry="14"></ellipse><ellipse cx="126" cy="100" rx="22" ry="14"></ellipse></g></svg></sc-if>
+            </div>
+            <div style="flex:1;min-width:0;padding:{{ infoPad }};display:grid;gap:8px;align-content:start">
+              <span style="justify-self:start;padding:2px 11px;border-radius:999px;background:{{ g.chipBg }};color:#fff;font:700 14px 'Baloo 2';white-space:nowrap">{{ g.cat }}</span>
+              <div style="font:800 {{ nameF }}px/1 'Baloo 2';color:{{ g.title }}">{{ g.name }}</div>
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;font:700 16px 'Nunito';color:{{ g.meta }}"><span style="white-space:nowrap">{{ g.players }}</span><span style="display:flex;gap:1px"><sc-for list="{{ g.stars }}" as="s" hint-placeholder-count="3"><svg width="20" height="20" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="{{ s.f }}" stroke="{{ s.s }}" stroke-width="1.6" stroke-linejoin="round"></polygon></svg></sc-for></span></div>
+              <button style="min-height:52px;border:0;border-radius:15px;background:#E8A33D;color:#4A2C17;font:800 20px 'Baloo 2';box-shadow:0 5px 0 #B87A1F" style-active="transform:translateY(5px);box-shadow:none">{{ g.btn }}</button>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1080},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hp&quot;,&quot;tablet&quot;,&quot;pid&quot;],&quot;default&quot;:&quot;pid&quot;,&quot;tsType&quot;:&quot;'hp'|'tablet'|'pid'&quot;}}">
+class Component extends DCLogic {
+  state = { f: 'semua' };
+  renderVals() {
+    const S = {
+      hp: { w: 390, h: 844, pad: 16, padTop: 30, logoH: 36, hSize: 26, cols: 1, gap: 16, cardDir: 'row', imgFlex: '0 0 128px', imgAR: 'auto', infoPad: '12px 12px 12px', nameF: 22, stampS: 40, showName: false, avPad: 4 },
+      tablet: { w: 1024, h: 768, pad: 28, padTop: 34, logoH: 44, hSize: 34, cols: 3, gap: 22, cardDir: 'column', imgFlex: 'none', imgAR: '16/10', infoPad: '14px 16px 16px', nameF: 24, stampS: 52, showName: true, avPad: 16 },
+      pid: { w: 1920, h: 1080, pad: 48, padTop: 44, logoH: 60, hSize: 48, cols: 4, gap: 30, cardDir: 'column', imgFlex: 'none', imgAR: '16/9', infoPad: '18px 20px 20px', nameF: 30, stampS: 64, showName: true, avPad: 18 }
+    };
+    const v = S[this.props.size] || S.pid;
+    const CAT = { s: ['Adu Strategi', '#2E4C7A'], k: ['Adu Ketangkasan', '#B5462F'], t: ['Adu Kekompakan', '#4E7628'] };
+    const G = [
+      ['Dam-daman', 's', '2 pemain', 3, 'papan', 0], ['Sundamanda (Engklek)', 'k', '2–4 pemain', 2, 'gacuk', 0], ['Ular Tangga', 's', '2–4 pemain', 1, 'dadu', 1],
+      ['Gobak Sodor', 't', '2 tim, 3–5 orang', 3, 'kapur', 0], ['Bola Bekel', 'k', '2–4 pemain', 2, 'bekel', 0], ['Bakiak', 't', 'Tim 3 orang', 2, 'bakiak', 1],
+      ['Egrang', 'k', 'Min. 4 pemain', 2, 'egrang', 0], ['Kelereng', 'k', '2–4 pemain', 2, 'kelereng', 1], ['Pecah Balon Air', 't', 'Beregu', 2, 'balon', 0, 1]
+    ];
+    const f = this.state.f;
+    const games = G.filter(g => f === 'semua' || g[1] === f).map(([name, c, players, d, obj, done, bonus]) => ({
+      name, players, obj, done: !!done, bonus: !!bonus, cat: CAT[c][0], grayAttr: done ? '0' : '1',
+      frame: done ? 'repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px),#6B4226' : '#A39C91',
+      frameSh: done ? '0 6px 0 #4A2C17,0 12px 22px rgba(74,44,23,.18)' : '0 6px 0 #8E877C',
+      inner: done ? '#FFF8EA' : '#F3F0EA', title: done ? '#2E4C7A' : '#5E584F', meta: done ? '#6B4226' : '#6F685E',
+      chipBg: done ? CAT[c][1] : '#8E877C', btn: done ? 'Main lagi' : 'Main',
+      stars: [0, 1, 2].map(i => done ? (i < d ? { f: '#E8A33D', s: '#B87A1F' } : { f: '#EADBBE', s: '#D6C29C' }) : (i < d ? { f: '#8E877C', s: '#8E877C' } : { f: '#D3CDC3', s: '#D3CDC3' }))
+    }));
+    const chip = (k, label, col, dotR, dotRot) => { const on = f === k; return { label, bg: on ? col : '#FFF8EA', fg: on ? '#fff' : col, bd: col, dot: on ? '#FFD58A' : col, dotR, dotRot, sh: on ? '0 3px 0 rgba(0,0,0,.25)' : 'none', pick: () => this.setState({ f: k }) }; };
+    const doneCount = G.filter(g => g[5]).length;
+    return {
+      ...v, games, doneCount, pct: Math.round(doneCount / 9 * 100),
+      chips: [chip('semua', 'Semua', '#6B4226', '3px', '0deg'), chip('s', 'Adu Strategi', '#2E4C7A', '3px', '45deg'), chip('k', 'Adu Ketangkasan', '#B5462F', '50%', '0deg'), chip('t', 'Adu Kekompakan', '#4E7628', '50%', '0deg')]
+    };
+  }
+}
+</script>
+</body>
+</html>

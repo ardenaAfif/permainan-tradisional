@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="./characters.js"></script>
+<script src="./objects.js"></script>
+<style>body{margin:0;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;color:#3A2A1E}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}button{font-family:inherit;cursor:pointer}</style>
+</helmet>
+<div data-screen-label="Kenalan Dulu" style="position:relative;overflow:hidden;width:{{ w }}px;height:{{ h }}px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto;background:#F6EBD6">
+  <div style="height:20px;position:absolute;left:0;right:0;top:0;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/29px 20px repeat-x"></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:{{ padTop }}px {{ pad }}px 12px">
+    <button aria-label="Kembali ke menu" style="width:56px;height:56px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226,0 4px 0 #6B4226"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#6B4226" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    <div style="flex:1;min-width:0;display:grid;gap:2px"><div style="font:700 16px 'Nunito';color:#B5462F;letter-spacing:.06em;text-transform:uppercase">Kenalan Dulu</div><div style="font:800 {{ hSize }}px/1 'Baloo 2';color:#2E4C7A">Ular Tangga</div></div>
+    <sc-if value="{{ wide }}" hint-placeholder-val="{{ true }}"><div style="display:flex;gap:8px"><span style="padding:6px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 16px 'Baloo 2';white-space:nowrap">Adu Strategi</span><span style="padding:6px 14px;border-radius:999px;background:#FFF8EA;box-shadow:inset 0 0 0 2px #E3D1AE;color:#6B4226;font:700 16px 'Baloo 2';white-space:nowrap">2–4 pemain</span></div></sc-if>
+    <button aria-label="Suara" style="width:56px;height:56px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;background:#2E4C7A;box-shadow:0 4px 0 #1F3558"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></button>
+  </div>
+
+  <div style="min-height:0;overflow:auto;padding:20px {{ pad }}px 12px;display:flex;flex-direction:{{ dir }};gap:{{ gap }}px">
+    <div style="flex:{{ guruFlex }};min-width:0;display:flex;flex-direction:{{ guruDir }};align-items:{{ guruAlign }};gap:12px">
+      <div style="position:relative;order:{{ bubbleOrder }};flex:1;min-width:0;background:#FFFDF6;border:2.5px solid #4A2C17;border-radius:24px;padding:24px 20px 16px;box-shadow:0 5px 0 rgba(74,44,23,.18)">
+        <span style="position:absolute;top:-16px;left:18px;padding:3px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 {{ smF }}px 'Baloo 2';white-space:nowrap">Pak Guru</span>
+        <div style="position:absolute;width:20px;height:20px;background:#FFFDF6;border-right:2.5px solid #4A2C17;border-bottom:2.5px solid #4A2C17;{{ tailPos }}"></div>
+        <p style="margin:0;font:600 {{ bubbleF }}px/1.5 'Nunito'">Ular tangga ini dulu Bapak mainkan di teras rumah. Lempar dadunya, semoga ketemu tangga, bukan ular!</p>
+      </div>
+      <div style="flex:none;width:{{ guruW }}px;height:{{ guruH }}px;order:2"><x-import component-from-global-scope="kd-char" from="./characters.js" who="guru" pose="talk" motion="1" crop="{{ guruCrop }}" style="width:100%;height:100%" hint-size="100%,100%"></x-import></div>
+    </div>
+
+    <div style="flex:1;min-width:0;display:grid;gap:{{ gap }}px;align-content:start">
+      <div style="display:grid;grid-template-columns:repeat({{ ruleCols }},minmax(0,1fr));gap:{{ gap }}px">
+        <div style="display:grid;gap:10px;align-content:start;background:#FFF8EA;border-radius:24px;padding:{{ cardPad }}px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#6B4226;flex:none"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3" fill="#FFF8EA"></rect><path d="M8 8 H16 M8 12 H16 M8 16 H13" stroke="#6B4226" stroke-width="2" stroke-linecap="round"></path></svg></span><div style="font:800 {{ cardH }}px/1.1 'Baloo 2';color:#6B4226">Aturan asli</div></div>
+          <ul style="margin:0;padding-left:22px;display:grid;gap:8px;font:500 {{ bodyF }}px/1.5 'Nunito'">
+            <li>Naik jika berhenti di kaki tangga.</li>
+            <li>Turun jika berhenti di kepala ular.</li>
+            <li>Pemain pertama yang mencapai kotak 100 menang.</li>
+          </ul>
+        </div>
+        <div style="display:grid;gap:10px;align-content:start;background:#FFF8EA;border-radius:24px;padding:{{ cardPad }}px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="display:flex;align-items:center;gap:10px"><span style="width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#E8A33D;flex:none"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="3" fill="#4A2C17"></rect><rect x="9" y="19" width="6" height="2" rx="1" fill="#4A2C17"></rect></svg></span><div style="font:800 {{ cardH }}px/1.1 'Baloo 2';color:#6B4226">Cara main di web</div></div>
+          <p style="margin:0;font:500 {{ bodyF }}px/1.5 'Nunito'">Papan 10×10 bermotif nusantara. Tap dadu, pion berjalan otomatis. Setiap tangga membuka fakta singkat tentang permainan lain di kotak.</p>
+          <div style="display:flex;align-items:center;gap:14px;padding:10px;border-radius:16px;background:#F6EBD6">
+            <div style="position:relative;width:72px;height:58px;flex:none"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="dadu" bare="" style="position:absolute;inset:0" hint-size="72px,58px"></x-import><span style="position:absolute;right:4px;bottom:0;width:30px;height:30px;border-radius:50%;border:3px solid #2E4C7A;background:rgba(46,76,122,.15)"></span></div>
+            <div style="font:700 {{ smF }}px/1.35 'Nunito';color:#6B4226">Kontrol: tap<br><span style="font:500 {{ monoF }}px ui-monospace,Menlo,monospace;color:#8A5A2B">animasi kontrol di sini</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:12px 16px;border-radius:18px;border:2.5px dashed #CBB48A">
+        <span style="font:700 {{ smF }}px 'Baloo 2';color:#6B4226;white-space:nowrap">Asal daerah &amp; nama lain</span>
+        <span style="font:500 {{ smF }}px 'Nunito';color:#6B4226">Menunggu hasil riset kelompok siswa.</span>
+      </div>
+      <div style="display:grid;gap:10px">
+        <div style="font:800 {{ cardH }}px 'Baloo 2';color:#2E4C7A">Pilih mode</div>
+        <div style="display:grid;grid-template-columns:repeat({{ modeCols }},minmax(0,1fr));gap:12px">
+          <sc-for list="{{ modes }}" as="m" hint-placeholder-count="3">
+            <button onClick="{{ m.pick }}" disabled="{{ m.off }}" style="min-height:{{ modeH }}px;border:0;border-radius:18px;padding:12px 16px;display:flex;align-items:center;gap:12px;text-align:left;background:{{ m.bg }};box-shadow:{{ m.sh }};opacity:{{ m.op }};cursor:{{ m.cur }}">
+              <span style="width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;background:{{ m.iconBg }};font:800 20px 'Baloo 2';color:{{ m.iconFg }}">{{ m.icon }}</span>
+              <span style="display:grid;gap:2px;min-width:0"><span style="font:800 {{ modeF }}px/1.1 'Baloo 2';color:{{ m.fg }}">{{ m.label }}</span><span style="font:600 {{ smF }}px/1.3 'Nunito';color:{{ m.sub }}">{{ m.desc }}</span></span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;justify-content:flex-end;gap:12px;padding:12px {{ pad }}px {{ padBot }}px;background:#F6EBD6;box-shadow:0 -2px 0 #E3D1AE">
+    <button style="flex:{{ playFlex }};min-height:{{ playH }}px;padding:0 56px;border:0;border-radius:22px;display:flex;align-items:center;justify-content:center;gap:12px;background:#E8A33D;color:#4A2C17;font:800 {{ playF }}px 'Baloo 2';box-shadow:0 6px 0 #B87A1F" style-active="transform:translateY(6px);box-shadow:none"><svg width="26" height="26" viewBox="0 0 24 24"><path d="M7 4 L20 12 L7 20 Z" fill="#4A2C17"></path></svg>Main</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1080},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hp&quot;,&quot;tablet&quot;,&quot;pid&quot;],&quot;default&quot;:&quot;pid&quot;,&quot;tsType&quot;:&quot;'hp'|'tablet'|'pid'&quot;}}">
+class Component extends DCLogic {
+  state = { mode: 'cpu' };
+  renderVals() {
+    const S = {
+      hp: { w: 390, h: 844, pad: 16, padTop: 30, padBot: 20, hSize: 28, wide: false, dir: 'column', gap: 14, guruFlex: 'none', guruDir: 'row', guruAlign: 'flex-end', bubbleOrder: 1, guruW: 92, guruH: 108, guruCrop: 'head', tailPos: 'right:-12px;bottom:26px;transform:rotate(-45deg)', bubbleF: 16, smF: 16, monoF: 13, modeF: 19, ruleCols: 1, cardPad: 16, cardH: 20, bodyF: 16, modeCols: 1, modeH: 72, playFlex: 1, playH: 68, playF: 26 },
+      tablet: { w: 1024, h: 768, pad: 28, padTop: 34, padBot: 22, hSize: 34, wide: true, dir: 'row', gap: 18, guruFlex: '0 0 250px', guruDir: 'column', guruAlign: 'stretch', bubbleOrder: 1, guruW: 250, guruH: 330, guruCrop: '', tailPos: 'left:60%;bottom:-12px;transform:rotate(45deg)', bubbleF: 17, smF: 16, monoF: 13, modeF: 19, ruleCols: 2, cardPad: 18, cardH: 20, bodyF: 16, modeCols: 3, modeH: 84, playFlex: 'none', playH: 68, playF: 28 },
+      pid: { w: 1920, h: 1080, pad: 48, padTop: 44, padBot: 32, hSize: 52, wide: true, dir: 'row', gap: 28, guruFlex: '0 0 460px', guruDir: 'column', guruAlign: 'stretch', bubbleOrder: 1, guruW: 460, guruH: 560, guruCrop: '', tailPos: 'left:60%;bottom:-12px;transform:rotate(45deg)', bubbleF: 24, smF: 20, monoF: 16, modeF: 26, ruleCols: 2, cardPad: 28, cardH: 28, bodyF: 22, modeCols: 3, modeH: 108, playFlex: 'none', playH: 88, playF: 38 }
+    };
+    const v = S[this.props.size] || S.pid;
+    const M = [['cpu', 'Lawan Komputer', 'Main sendiri melawan komputer', 'K'], ['hotseat', 'Main Bergantian', 'Satu perangkat, gantian giliran', '⇄'], ['split', 'Duel Satu Layar', 'Tidak tersedia di game ini', '½']];
+    return {
+      ...v,
+      modes: M.map(([k, label, desc, icon]) => {
+        const off = k === 'split', on = this.state.mode === k;
+        return { label, desc, icon, off, op: off ? 0.55 : 1, cur: off ? 'not-allowed' : 'pointer',
+          bg: on ? '#2E4C7A' : off ? '#EDE7DC' : '#FFF8EA', sh: on ? '0 5px 0 #1F3558' : off ? 'inset 0 0 0 2px #D8CFBF' : 'inset 0 0 0 2.5px #6B4226,0 5px 0 #6B4226',
+          fg: on ? '#fff' : off ? '#6F685E' : '#2E4C7A', sub: on ? '#EADBBE' : '#6B4226', iconBg: on ? '#FFD58A' : off ? '#D8CFBF' : '#F6EBD6', iconFg: on ? '#1F3558' : '#6B4226',
+          pick: () => !off && this.setState({ mode: k }) };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

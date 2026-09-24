@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="./characters.js"></script>
+<script src="./objects.js"></script>
+<style>body{margin:0;background:#E9DCC2;font-family:'Nunito',sans-serif;color:#3A2A1E;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}</style>
+</helmet>
+<div style="padding:80px;display:grid;gap:64px;width:max-content">
+  <header style="display:grid;gap:10px;max-width:1100px">
+    <div style="font:700 22px 'Baloo 2';letter-spacing:.12em;text-transform:uppercase;color:#B5462F">Kotak Dolanan · Tahap 4 · SNT 2 Banyumas</div>
+    <h1 style="margin:0;font:800 88px/1 'Baloo 2';color:#2E4C7A">Storyboard intro</h1>
+    <p style="margin:0;font-size:24px;line-height:1.5">7 adegan, sekitar 75 detik, panggung 1280×720. Masa kini berwarna penuh, kilas balik (adegan 4) berupa siluet di atas kelir. Tombol Lewati tampil sejak detik pertama. Waktu di catatan dihitung dari awal adegan. Transisi antar adegan: kain tersingkap atau gunungan berputar, 0,6 dtk.</p>
+  </header>
+  <div style="display:grid;grid-template-columns:repeat(2,1280px);gap:80px 72px;align-items:start">
+
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">0</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Layar judul</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">tap</span></div>
+      <div data-screen-label="Adegan 0" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' fill='%231F3558'/%3E%3Cg fill='%23E8A33D' opacity='.4'%3E%3Cellipse cx='18' cy='9' rx='4.5' ry='7'/%3E%3Cellipse cx='18' cy='27' rx='4.5' ry='7'/%3E%3Cellipse cx='9' cy='18' rx='7' ry='4.5'/%3E%3Cellipse cx='27' cy='18' rx='7' ry='4.5'/%3E%3C/g%3E%3C/svg%3E&quot;);background-size:44px">
+        <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 58%,rgba(255,213,138,.6) 0,rgba(255,213,138,.15) 30%,rgba(31,53,88,0) 55%)"></div>
+        <div style="position:absolute;top:28px;left:32px;display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 10px;border-radius:999px;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17"><img src="assets/snt-mark.png" alt="" style="height:36px"><span style="font:800 18px 'Baloo 2';color:#2E4C7A;white-space:nowrap">SNT 2 Banyumas</span></div>
+        <div style="position:absolute;top:110px;left:0;right:0;text-align:center;font:800 104px/0.9 'Baloo 2';color:#FFF8EA;text-shadow:0 7px 0 #6B4226,0 12px 28px rgba(0,0,0,.35)">Kotak Dolanan</div>
+        <div style="position:absolute;left:470px;top:250px;width:340px;height:272px;transform:rotate(-3deg)"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kotak" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:0;right:0;bottom:64px;display:flex;justify-content:center"><div style="min-height:88px;padding:0 72px;border-radius:26px;display:flex;align-items:center;gap:14px;background:#E8A33D;color:#4A2C17;font:800 40px 'Baloo 2';box-shadow:0 7px 0 #B87A1F,0 0 0 10px rgba(255,213,138,.35)"><svg width="32" height="32" viewBox="0 0 24 24"><path d="M7 4 L20 12 L7 20 Z" fill="#4A2C17"></path></svg>Mulai</div></div>
+        <div style="position:absolute;left:790px;top:300px;font:700 26px 'Baloo 2';color:#FFD58A">↺ ±3°</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>Logo</b> turun dari atas 40px sambil memantul kecil, 0,6 dtk (ease-out-back).</div>
+        <div><b>Kotak kayu</b> bergoyang pelan kiri–kanan ±3°, siklus 2,4 dtk, terus berulang.</div>
+        <div><b>Cahaya di belakang kotak</b> berdenyut 90%–100% opasitas, siklus 3 dtk.</div>
+        <div><b>Tombol Mulai</b> berdenyut skala 1 → 1,05, siklus 1,2 dtk. Tap: tombol turun 7px, suara aktif, lanjut ke adegan 1.</div>
+        <div style="grid-column:1/-1;color:#6B4226"><b>Dialog:</b> tidak ada. <b>Reduce motion:</b> semua diam, tombol tetap.</div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">1</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Jam istirahat</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">10 dtk</span></div>
+      <div data-screen-label="Adegan 1" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:#F2E3C4">
+        <div style="position:absolute;left:0;right:0;top:0;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/32px 22px repeat-x"></div>
+        <div style="position:absolute;left:300px;top:96px;width:560px;height:250px;border-radius:12px;background:#1F3558;box-shadow:0 0 0 12px #6B4226"><div style="position:absolute;left:36px;top:34px;font:700 30px 'Baloo 2';color:#EADBBE;opacity:.8">Kamis · Kokurikuler</div><div style="position:absolute;left:40px;right:40px;bottom:-12px;height:10px;border-radius:5px;background:#8A5A34"></div></div>
+        <div style="position:absolute;left:960px;top:100px;width:220px;height:230px;border-radius:12px;background:#CFE0EE;box-shadow:0 0 0 12px #FFF8EA,0 0 0 16px #D8C7A6"><div style="position:absolute;left:50%;top:0;bottom:0;width:10px;background:#FFF8EA;transform:translateX(-50%)"></div><div style="position:absolute;top:50%;left:0;right:0;height:10px;background:#FFF8EA"></div></div>
+        <div style="position:absolute;left:120px;top:70px;width:64px;height:64px;border-radius:50%;background:#E8A33D;box-shadow:0 5px 0 #B87A1F"></div><div style="position:absolute;left:84px;top:52px;font:800 30px 'Baloo 2';color:#B5462F;transform:rotate(-14deg)">kriiing!</div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:170px;background:repeating-linear-gradient(90deg,#B98A5A 0 158px,#A87A4C 158px 160px)"></div>
+        <div style="position:absolute;left:140px;bottom:30px;width:200px;height:370px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" eyes="closed" mouth="talk-o" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:520px;bottom:30px;width:200px;height:370px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" mouth="flat" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:676px;top:452px;width:34px;height:58px;border-radius:7px;background:#2B211C;transform:rotate(-12deg)"><div style="position:absolute;left:6px;top:14px;width:22px;height:11px;border-radius:2px;border:2px solid #fff"><div style="width:4px;height:100%;background:#B5462F"></div></div></div>
+        <div style="position:absolute;left:1010px;bottom:78px;width:150px;height:280px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="dimas" mouth="flat" eyes="open" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:960px;bottom:30px;width:250px;height:130px;border-radius:10px;background:#8A5A34;box-shadow:inset 0 16px 0 #A06C40"></div>
+        <div style="position:absolute;left:40px;top:176px;width:320px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#B5462F;color:#fff;font:700 20px 'Baloo 2'">Bima</span><div style="position:absolute;left:180px;bottom:-13px;width:22px;height:22px;background:#FFFDF6;border-right:3px solid #4A2C17;border-bottom:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Istirahat kok gini-gini aja, ya."</p></div>
+        <div style="position:absolute;left:640px;top:360px;width:260px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#4E7628;color:#fff;font:700 20px 'Baloo 2'">Sekar</span><div style="position:absolute;left:-13px;bottom:24px;width:22px;height:22px;background:#FFFDF6;border-left:3px solid #4A2C17;border-bottom:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Yah, lowbat…"</p></div>
+        <div style="position:absolute;top:24px;left:24px;width:52px;height:52px;border-radius:50%;background:rgba(43,33,28,.72);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></div>
+        <div style="position:absolute;top:24px;right:24px;height:52px;padding:0 16px 0 22px;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 22px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path></svg></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>0–1 dtk · Bel</b> bergetar kiri–kanan ±8°, 6 kali; teks "kriiing!" muncul skala 0 → 1.</div>
+        <div><b>1–4 dtk · Bima</b> menguap: kepala miring 6° ke belakang, lengan kanan naik ke mulut, mata tertutup, mulut "O" 1,2 dtk. Balon kata muncul di 1,5 dtk.</div>
+        <div><b>4–7 dtk · Sekar</b> menunduk ke HP (kepala 8° ke bawah). Baterai berkedip merah 3 kali, 0,3 dtk tiap kedip. Balon kata di 5 dtk.</div>
+        <div><b>0–10 dtk · Dimas</b> duduk di pojok, bernapas pelan (naik–turun 2px, 3,2 dtk). Tidak bicara; kamera sempat geser 30px ke arahnya di 8–10 dtk.</div>
+        <div style="grid-column:1/-1;color:#6B4226"><b>Semua tokoh</b> berkedip acak tiap 3–5 dtk. Mulut bergantian A/O selama balon kata tampil. Keluar: kain tersingkap 0,6 dtk.</div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">2</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Pak Guru datang</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">12 dtk</span></div>
+      <div data-screen-label="Adegan 2" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:#F2E3C4">
+        <div style="position:absolute;left:0;right:0;top:0;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/32px 22px repeat-x"></div>
+        <div style="position:absolute;left:70px;top:140px;width:300px;height:420px;background:#FFF4DA"></div>
+        <div style="position:absolute;left:370px;top:150px;width:40px;height:410px;background:#8A5A34;transform:skewY(-8deg);transform-origin:left top;box-shadow:inset -6px 0 0 #6B4226"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:170px;background:repeating-linear-gradient(90deg,#B98A5A 0 158px,#A87A4C 158px 160px)"></div>
+        <div style="position:absolute;left:60px;top:140px;width:320px;height:420px;border:18px solid #6B4226;border-bottom:0;border-radius:6px 6px 0 0"></div>
+        <div style="position:absolute;left:150px;top:118px;width:12px;height:420px;border-radius:6px;background:#8A5A34;transform:rotate(-14deg);transform-origin:bottom center"></div>
+        <div style="position:absolute;left:180px;top:122px;width:12px;height:420px;border-radius:6px;background:#8A5A34;transform:rotate(-10deg);transform-origin:bottom center"></div>
+        <div style="position:absolute;left:92px;top:96px;font:800 34px 'Baloo 2';color:#B5462F;transform:rotate(-10deg)">tuk!</div>
+        <div style="position:absolute;left:100px;bottom:30px;width:250px;height:480px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="guru" eyes="happy" mouth="talk-a" pose="talk" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:640px;bottom:30px;width:190px;height:350px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" eyes="surprised" mouth="talk-o" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:830px;bottom:30px;width:190px;height:350px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" eyes="surprised" mouth="smile" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:1030px;bottom:30px;width:180px;height:330px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="dimas" mouth="smile" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:420px;top:100px;width:520px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 24px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">Pak Guru</span><div style="position:absolute;left:-13px;bottom:30px;width:22px;height:22px;background:#FFFDF6;border-left:3px solid #4A2C17;border-bottom:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Dulu waktu Bapak seumuran kalian, jam istirahat nggak pernah sepi."</p></div>
+        <div style="position:absolute;top:24px;left:24px;width:52px;height:52px;border-radius:50%;background:rgba(43,33,28,.72);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></div>
+        <div style="position:absolute;top:24px;right:24px;height:52px;padding:0 16px 0 22px;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 22px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path></svg></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>0–1,5 dtk · Pintu</b> berayun terbuka ke kanan 0° → 70°, 0,8 dtk (ease-out). Cahaya lorong masuk.</div>
+        <div><b>1,5–3 dtk · Pak Guru</b> melangkah masuk dari kiri, geser +120px, langkah naik–turun 6px.</div>
+        <div><b>3–5 dtk · Egrang</b> di punggung tersangkut kusen: badan tertahan, mundur 20px, "tuk!" muncul, layar goyang 4px 0,2 dtk. Pak Guru menunduk 15°, lalu masuk lagi.</div>
+        <div><b>3–4 dtk · Siswa</b> menoleh ke kiri (dibalik), mata kaget, lalu tersenyum di 5 dtk.</div>
+        <div style="grid-column:1/-1;color:#6B4226"><b>6–12 dtk · Dialog</b> Pak Guru bicara, lengan kanan terangkat seperti bercerita. Keluar: gunungan berputar 0,6 dtk. <b>Reduce motion:</b> goyang layar dimatikan.</div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">3</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Kotak dibuka</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">10 dtk</span></div>
+      <div data-screen-label="Adegan 3" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:#E9D6B0">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:220px;background:#A87A4C;box-shadow:inset 0 14px 0 #B98A5A"></div>
+        <div style="position:absolute;left:190px;top:-240px;width:900px;height:900px;border-radius:50%;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,213,138,.55) 0deg 8deg,rgba(255,213,138,0) 8deg 20deg)"></div>
+        <div style="position:absolute;left:340px;top:120px;width:600px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(255,240,204,.95) 0,rgba(255,213,138,.6) 35%,rgba(255,213,138,0) 70%)"></div>
+        <div style="position:absolute;left:470px;top:400px;width:340px;height:272px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kotak" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:250px;top:300px;width:150px;height:120px;transform:rotate(-10deg)"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="papan" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:330px;top:150px;width:130px;height:104px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="gacuk" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:480px;top:70px;width:130px;height:104px;transform:rotate(12deg)"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="dadu" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:630px;top:40px;width:140px;height:112px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kapur" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:780px;top:90px;width:130px;height:104px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="bekel" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:880px;top:220px;width:150px;height:120px;transform:rotate(14deg)"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="bakiak" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:560px;top:230px;width:110px;height:88px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kelereng" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:690px;top:230px;width:120px;height:96px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="balon" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:1040px;bottom:-80px;width:240px;height:450px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" eyes="surprised" mouth="talk-o" pose="talk" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:830px;top:390px;width:230px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#4E7628;color:#fff;font:700 20px 'Baloo 2'">Sekar</span><div style="position:absolute;right:-13px;bottom:24px;width:22px;height:22px;background:#FFFDF6;border-right:3px solid #4A2C17;border-top:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Ini semua apa, Pak?"</p></div>
+        <div style="position:absolute;top:24px;left:24px;width:52px;height:52px;border-radius:50%;background:rgba(43,33,28,.72);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></div>
+        <div style="position:absolute;top:24px;right:24px;height:52px;padding:0 16px 0 22px;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 22px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path></svg></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>0–1,5 dtk · Tutup kotak</b> berputar terbuka 0° → −60° di engsel kiri, 0,7 dtk; kotak melompat 8px.</div>
+        <div><b>1–2 dtk · Cahaya</b> keluar dari kotak: skala 0 → 1, sinar berputar pelan 10°/dtk sampai akhir adegan.</div>
+        <div><b>2–7 dtk · 8 benda</b> melayang naik satu per satu, jeda 0,5 dtk: bidak, gacuk, dadu, kapur, bola bekel, bakiak, kelereng, balon. Tiap benda naik 200–320px dengan lengkung ke luar, lalu mengapung ±6px (siklus 2 dtk).</div>
+        <div><b>6–10 dtk · Sekar</b> masuk dari kanan bawah (+80px ke atas), mata kaget, balon kata di 6,5 dtk.</div>
+        <div style="grid-column:1/-1;color:#6B4226"><b>Kamera</b> zoom pelan 100% → 106% sepanjang adegan. Keluar: layar PID kelas menyala putih 0,3 dtk, lalu masuk ke adegan 4.</div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">4</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Kilas balik wayang</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">20 dtk</span></div>
+      <div data-screen-label="Adegan 4" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:repeating-linear-gradient(92deg,rgba(0,0,0,.1) 0 2px,transparent 2px 9px),#4A2C17">
+        <div style="position:absolute;left:28px;right:28px;top:28px;bottom:28px;border-radius:8px;overflow:hidden;background:radial-gradient(ellipse 60% 75% at 50% 12%,#FFF3D6 0%,#FFD58A 42%,#E9A955 100%)">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:60px;border-radius:0 0 60px 60px;background:#2A1A12"></div>
+          <div style="position:absolute;top:42px;left:50%;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;background:#FFF6DE;box-shadow:0 0 60px 34px rgba(255,240,200,.85)"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;height:120px;background:#2A1A12"></div>
+          <div style="position:absolute;left:130px;bottom:120px;width:290px;height:400px"><div style="position:absolute;left:50%;top:62%;bottom:-100px;width:5px;background:#2A1A12;transform:translateX(-50%)"></div><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="pendek" pose="gobak" silhouette="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+          <div style="position:absolute;left:480px;bottom:120px;width:290px;height:400px"><div style="position:absolute;left:50%;top:62%;bottom:-100px;width:5px;background:#2A1A12;transform:translateX(-50%)"></div><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="kuncir" pose="engklek" silhouette="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+          <div style="position:absolute;left:860px;bottom:116px;width:210px;height:470px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" headwear="peci" pose="egrang" silhouette="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+          <div style="position:absolute;left:170px;right:170px;bottom:18px;padding:16px 26px 14px;border-radius:20px;background:rgba(255,248,234,.94);border:3px solid #2A1A12"><span style="position:absolute;top:-17px;left:22px;padding:3px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">Pak Guru · narasi</span><p style="margin:0;font:700 23px/1.4 'Nunito';color:#2A1A12;text-align:center">"Dulu lapangan adalah taman bermain kami. Dari permainan ini kami belajar sportif, kompak, dan sabar."</p></div>
+        </div>
+        <div style="position:absolute;top:40px;left:40px;width:52px;height:52px;border-radius:50%;background:rgba(43,33,28,.72);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></div>
+        <div style="position:absolute;top:40px;right:40px;height:52px;padding:0 16px 0 22px;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 22px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path></svg></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>0–2 dtk · Masuk</b> kamera menembus layar PID: zoom 100% → 140% dengan fade ke kelir, 1 dtk. Kelir lalu muncul penuh.</div>
+        <div><b>Terus-menerus · Lampu blencong</b> berkedip halus: opasitas cahaya 85%–100% dan geser 2px acak tiap 0,15–0,4 dtk. Bayangan ikut bergoyang ±1,5°.</div>
+        <div><b>2–8 dtk · Gobak sodor</b> siluet masuk dari kiri, geser +260px, badan berayun kiri–kanan seperti dipegang dalang, lalu berhenti dan merentangkan tangan (jaga garis).</div>
+        <div><b>8–14 dtk · Engklek</b> muncul di tengah, lompat satu kaki 3 kali: naik 40px, 0,5 dtk per lompatan, maju 60px tiap lompatan.</div>
+        <div><b>14–20 dtk · Egrang</b> masuk dari kanan, melangkah bergantian (tiap tongkat naik 20px), 0,7 dtk per langkah. Dua siluet lain tetap berayun di tempat.</div>
+        <div><b>3–18 dtk · Narasi</b> Pak Guru dibacakan (suara opsional); subtitle tampil selalu. Keluar: gunungan berputar 0,6 dtk kembali ke kelas. <b>Reduce motion:</b> tiga siluet diam, satu gambar dengan fade.</div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">5</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Warna memudar</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">10 dtk</span></div>
+      <div data-screen-label="Adegan 5" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:#E7DAC0">
+        <div style="position:absolute;left:0;right:0;top:0;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/32px 22px repeat-x"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:170px;background:repeating-linear-gradient(90deg,#B98A5A 0 158px,#A87A4C 158px 160px)"></div>
+        <div style="position:absolute;left:60px;bottom:30px;width:250px;height:480px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="guru" pose="talk" mouth="talk-a" eyes="open" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:880px;bottom:30px;width:160px;height:300px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" mouth="flat" eyes="surprised" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:1000px;bottom:30px;width:160px;height:300px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" mouth="flat" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:1120px;bottom:30px;width:150px;height:280px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="dimas" mouth="flat" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:380px;bottom:60px;width:460px;height:40px;border-radius:10px;background:#8A5A34;box-shadow:0 14px 0 #6B4226"></div>
+        <div style="position:absolute;left:510px;bottom:100px;width:200px;height:160px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kotak" bare="" gray="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:400px;bottom:250px;width:110px;height:88px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="dadu" bare="" gray="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:500px;bottom:320px;width:110px;height:88px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kelereng" bare="" style="position:absolute;inset:0;opacity:.55" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:620px;bottom:330px;width:110px;height:88px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="balon" bare="" gray="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:730px;bottom:250px;width:110px;height:88px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="bekel" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:760px;bottom:340px;font:800 28px 'Baloo 2';color:#8E877C">✦</div><div style="position:absolute;left:470px;bottom:350px;font:800 22px 'Baloo 2';color:#8E877C">✦</div>
+        <div style="position:absolute;left:330px;top:70px;width:520px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 24px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">Pak Guru</span><div style="position:absolute;left:-13px;bottom:30px;width:22px;height:22px;background:#FFFDF6;border-left:3px solid #4A2C17;border-bottom:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Tapi lihat. Kalau tidak ada yang memainkannya lagi, permainan ini bisa hilang."</p></div>
+        <div style="position:absolute;top:24px;left:24px;width:52px;height:52px;border-radius:50%;background:rgba(43,33,28,.72);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></div>
+        <div style="position:absolute;top:24px;right:24px;height:52px;padding:0 16px 0 22px;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 22px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path></svg></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>0–3 dtk · Benda</b> yang masih melayang turun perlahan ke meja (−120px), berkedip 3 kali (opasitas 100% → 40%, 0,25 dtk).</div>
+        <div><b>3–8 dtk · Pudar</b> tiap benda berubah abu-abu satu per satu, jeda 0,4 dtk: saturasi 100% → 0% dalam 1 dtk. Kotak kayu terakhir. Percikan ✦ abu-abu melayang naik 30px lalu hilang.</div>
+        <div><b>0–10 dtk · Latar kelas</b> ikut sedikit lebih kusam (saturasi turun 20%) supaya suasananya berubah.</div>
+        <div><b>2–9 dtk · Pak Guru</b> bicara pelan, lengan menunjuk ke benda. Siswa menatap benda, mata kaget lalu datar.</div>
+        <div style="grid-column:1/-1;color:#6B4226"><b>Keluar:</b> potong langsung ke adegan 6 (tanpa transisi) supaya jeda hening terasa.</div>
+      </div>
+    </div>
+    <div style="display:grid;gap:20px">
+      <div style="display:flex;align-items:baseline;gap:16px"><span style="font:800 44px/1 'Baloo 2';color:#B87A1F">6</span><span style="font:800 40px/1 'Baloo 2';color:#2E4C7A">Misi</span><span style="margin-left:auto;padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">10 dtk</span></div>
+      <div data-screen-label="Adegan 6" style="position:relative;width:1280px;height:720px;overflow:hidden;border-radius:14px;box-shadow:0 0 0 8px #2B211C,0 24px 50px rgba(74,44,23,.25);background:#F2E3C4">
+        <div style="position:absolute;left:0;right:0;top:0;height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/32px 22px repeat-x"></div>
+        <div style="position:absolute;left:0;right:0;bottom:0;height:170px;background:repeating-linear-gradient(90deg,#B98A5A 0 158px,#A87A4C 158px 160px)"></div>
+        <div style="position:absolute;left:560px;top:120px;width:360px;height:520px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,213,138,.7) 0,rgba(255,213,138,0) 65%)"></div>
+        <div style="position:absolute;left:60px;bottom:30px;width:250px;height:480px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="guru" pose="idle" eyes="happy" mouth="smile" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:340px;bottom:30px;width:180px;height:330px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" eyes="surprised" mouth="smile" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:640px;bottom:30px;width:200px;height:370px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="dimas" pose="talk" mouth="talk-a" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:1080px;bottom:30px;width:180px;height:330px;transform:scaleX(-1)"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" eyes="surprised" mouth="smile" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:880px;bottom:40px;width:170px;height:136px"><x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kotak" bare="" gray="1" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+        <div style="position:absolute;left:860px;bottom:24px;width:210px;height:180px;border:4px dashed #B5462F;border-radius:14px"></div><div style="position:absolute;left:868px;bottom:210px;font:700 18px 'Baloo 2';color:#B5462F;white-space:nowrap">zoom akhir</div>
+        <div style="position:absolute;left:560px;top:56px;width:360px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#E8A33D;color:#4A2C17;font:700 20px 'Baloo 2'">Dimas</span><div style="position:absolute;left:170px;bottom:-13px;width:22px;height:22px;background:#FFFDF6;border-right:3px solid #4A2C17;border-bottom:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Kalau begitu… kita mainkan lagi?"</p></div>
+        <div style="position:absolute;left:40px;top:96px;width:440px;background:#FFFDF6;border:3px solid #4A2C17;border-radius:24px;padding:26px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)"><span style="position:absolute;top:-17px;left:18px;padding:3px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2'">Pak Guru</span><div style="position:absolute;left:150px;bottom:-13px;width:22px;height:22px;background:#FFFDF6;border-right:3px solid #4A2C17;border-bottom:3px solid #4A2C17;transform:rotate(45deg)"></div><p style="margin:0;font:700 24px/1.4 'Nunito'">"Itu proyek kokurikuler kita. Siapa mau ikut?"</p></div>
+        <div style="position:absolute;top:24px;left:24px;width:52px;height:52px;border-radius:50%;background:rgba(43,33,28,.72);display:grid;place-items:center"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></div>
+        <div style="position:absolute;top:24px;right:24px;height:52px;padding:0 16px 0 22px;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 22px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path></svg></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font:500 20px/1.45 'Nunito'">
+        <div><b>0–2 dtk · Dimas</b> berdiri pelan dari kursi: naik 60px dalam 1,2 dtk (ease-in-out), kepala sedikit menunduk lalu tegak.</div>
+        <div><b>1,5–2,5 dtk · Bima &amp; Sekar</b> menoleh ke Dimas, kepala berputar 10°, mata kaget lalu tersenyum.</div>
+        <div><b>2,5–5 dtk · Dialog Dimas</b>, mulut A/O. Cahaya hangat di belakangnya membesar 80% → 100%.</div>
+        <div><b>5–8 dtk · Pak Guru</b> tersenyum (mata senang), mengangguk 2 kali (kepala turun 6°, 0,3 dtk). Balon kata di 5,5 dtk.</div>
+        <div style="grid-column:1/-1;color:#6B4226"><b>8–10 dtk · Kamera</b> zoom ke kotak (kotak di tengah layar, 100% → 260%, 1,5 dtk, ease-in). Kotak berkilau sekali, lalu transisi kain tersingkap 0,6 dtk ke layar Buat Avatar.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

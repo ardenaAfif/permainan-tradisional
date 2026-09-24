@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#E9DCC2;font-family:'Nunito',sans-serif;color:#3A2A1E}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}</style>
+</helmet>
+<div style="padding:80px;display:grid;gap:120px;width:max-content">
+  <header style="display:grid;gap:10px;max-width:900px">
+    <div style="font:700 22px 'Baloo 2';letter-spacing:.12em;text-transform:uppercase;color:#B5462F">Kotak Dolanan · Tahap 3 · SNT 2 Banyumas</div>
+    <h1 style="margin:0;font:800 88px/1 'Baloo 2';color:#2E4C7A">Layar utama</h1>
+    <p style="margin:0;font-size:24px;line-height:1.5">5 layar, masing-masing di HP 390×844, tablet 1024×768, dan desktop/PID 1920×1080. Pembuat avatar, filter menu, dan pilihan mode bisa dicoba langsung.</p>
+  </header>
+  <section style="display:grid;gap:28px">
+    <div style="display:flex;align-items:baseline;gap:20px"><span style="font:800 56px/1 'Baloo 2';color:#B87A1F">01</span><h2 style="margin:0;font:800 56px/1 'Baloo 2';color:#2E4C7A;white-space:nowrap">Layar judul</h2></div>
+    <div style="display:flex;align-items:flex-start;gap:64px">
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">HP · 390×844</div>
+        <div style="border-radius:36px;overflow:hidden;box-shadow:0 0 0 10px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:10px">
+          <dc-import name="Judul" size="hp" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Tablet · 1024×768</div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 0 0 14px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:14px">
+          <dc-import name="Judul" size="tablet" hint-size="1024px,768px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Desktop / PID · 1920×1080</div>
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 0 0 18px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:18px">
+          <dc-import name="Judul" size="pid" hint-size="1920px,1080px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="display:grid;gap:28px">
+    <div style="display:flex;align-items:baseline;gap:20px"><span style="font:800 56px/1 'Baloo 2';color:#B87A1F">02</span><h2 style="margin:0;font:800 56px/1 'Baloo 2';color:#2E4C7A;white-space:nowrap">Pembuat avatar</h2></div>
+    <div style="display:flex;align-items:flex-start;gap:64px">
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">HP · 390×844</div>
+        <div style="border-radius:36px;overflow:hidden;box-shadow:0 0 0 10px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:10px">
+          <dc-import name="Avatar" size="hp" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Tablet · 1024×768</div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 0 0 14px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:14px">
+          <dc-import name="Avatar" size="tablet" hint-size="1024px,768px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Desktop / PID · 1920×1080</div>
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 0 0 18px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:18px">
+          <dc-import name="Avatar" size="pid" hint-size="1920px,1080px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="display:grid;gap:28px">
+    <div style="display:flex;align-items:baseline;gap:20px"><span style="font:800 56px/1 'Baloo 2';color:#B87A1F">03</span><h2 style="margin:0;font:800 56px/1 'Baloo 2';color:#2E4C7A;white-space:nowrap">Menu Kotak Dolanan</h2></div>
+    <div style="display:flex;align-items:flex-start;gap:64px">
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">HP · 390×844</div>
+        <div style="border-radius:36px;overflow:hidden;box-shadow:0 0 0 10px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:10px">
+          <dc-import name="Menu" size="hp" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Tablet · 1024×768</div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 0 0 14px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:14px">
+          <dc-import name="Menu" size="tablet" hint-size="1024px,768px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Desktop / PID · 1920×1080</div>
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 0 0 18px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:18px">
+          <dc-import name="Menu" size="pid" hint-size="1920px,1080px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="display:grid;gap:28px">
+    <div style="display:flex;align-items:baseline;gap:20px"><span style="font:800 56px/1 'Baloo 2';color:#B87A1F">04</span><h2 style="margin:0;font:800 56px/1 'Baloo 2';color:#2E4C7A;white-space:nowrap">Kenalan Dulu</h2></div>
+    <div style="display:flex;align-items:flex-start;gap:64px">
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">HP · 390×844</div>
+        <div style="border-radius:36px;overflow:hidden;box-shadow:0 0 0 10px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:10px">
+          <dc-import name="Kenalan" size="hp" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Tablet · 1024×768</div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 0 0 14px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:14px">
+          <dc-import name="Kenalan" size="tablet" hint-size="1024px,768px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Desktop / PID · 1920×1080</div>
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 0 0 18px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:18px">
+          <dc-import name="Kenalan" size="pid" hint-size="1920px,1080px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="display:grid;gap:28px">
+    <div style="display:flex;align-items:baseline;gap:20px"><span style="font:800 56px/1 'Baloo 2';color:#B87A1F">05</span><h2 style="margin:0;font:800 56px/1 'Baloo 2';color:#2E4C7A;white-space:nowrap">Layar hasil</h2></div>
+    <div style="display:flex;align-items:flex-start;gap:64px">
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">HP · 390×844</div>
+        <div style="border-radius:36px;overflow:hidden;box-shadow:0 0 0 10px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:10px">
+          <dc-import name="Hasil" size="hp" hint-size="390px,844px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Tablet · 1024×768</div>
+        <div style="border-radius:24px;overflow:hidden;box-shadow:0 0 0 14px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:14px">
+          <dc-import name="Hasil" size="tablet" hint-size="1024px,768px"></dc-import>
+        </div>
+      </div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 24px 'Baloo 2';color:#6B4226">Desktop / PID · 1920×1080</div>
+        <div style="border-radius:10px;overflow:hidden;box-shadow:0 0 0 18px #2B211C,0 30px 60px rgba(74,44,23,.25);margin:18px">
+          <dc-import name="Hasil" size="pid" hint-size="1920px,1080px"></dc-import>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {}
+</script>
+</body>
+</html>

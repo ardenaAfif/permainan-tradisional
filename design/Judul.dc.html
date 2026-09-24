@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="./objects.js"></script>
+<style>body{margin:0;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}button{font-family:inherit;cursor:pointer}</style>
+</helmet>
+<div data-screen-label="Layar judul" style="position:relative;overflow:hidden;width:{{ w }}px;height:{{ h }}px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr auto;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' fill='%231F3558'/%3E%3Cg fill='%23E8A33D' opacity='.4'%3E%3Cellipse cx='18' cy='9' rx='4.5' ry='7'/%3E%3Cellipse cx='18' cy='27' rx='4.5' ry='7'/%3E%3Cellipse cx='9' cy='18' rx='7' ry='4.5'/%3E%3Cellipse cx='27' cy='18' rx='7' ry='4.5'/%3E%3C/g%3E%3Cg fill='%23FFD58A' opacity='.55'%3E%3Ccircle cx='18' cy='18' r='2'/%3E%3Ccircle r='2.5'/%3E%3Ccircle cx='36' r='2.5'/%3E%3Ccircle cy='36' r='2.5'/%3E%3Ccircle cx='36' cy='36' r='2.5'/%3E%3C/g%3E%3C/svg%3E&quot;);background-size:{{ pat }}px">
+  <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 56%,rgba(255,213,138,.62) 0,rgba(255,213,138,.18) 32%,rgba(31,53,88,0) 58%),linear-gradient(rgba(31,53,88,.1),rgba(31,53,88,.55))"></div>
+  <div style="position:relative;display:flex;justify-content:space-between;align-items:center;padding:{{ pad }}px">
+    <div style="display:flex;align-items:center;gap:10px;height:56px;padding:0 18px 0 10px;border-radius:999px;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17"><img src="assets/snt-mark.png" alt="" style="height:36px"><span style="font:800 17px 'Baloo 2';color:#2E4C7A;white-space:nowrap">SNT 2 Banyumas</span></div>
+    <button aria-label="Suara" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#2E4C7A"></path><path d="M19 10 L25 18 M25 10 L19 18" stroke="#B5462F" stroke-width="2.8" stroke-linecap="round"></path></svg></button>
+  </div>
+  <div style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:{{ gap }}px;padding:0 {{ pad }}px">
+    <div style="display:grid;justify-items:center;gap:4px;text-align:center">
+      <div style="font:800 {{ tSize }}px/0.92 'Baloo 2';color:#FFF8EA;text-shadow:0 6px 0 #6B4226,0 10px 24px rgba(0,0,0,.35);letter-spacing:-.01em">Kotak<br>Dolanan</div>
+      <div style="font:700 {{ sSize }}px 'Baloo 2';color:#FFD58A">9 permainan tradisional</div>
+    </div>
+    <div style="position:relative;width:{{ box }}px;height:{{ boxH }}px">
+      <div style="position:absolute;left:10%;right:10%;bottom:-4%;height:12%;border-radius:50%;background:rgba(0,0,0,.35)"></div>
+      <x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kotak" bare="" style="position:absolute;inset:0" hint-size="100%,100%"></x-import>
+      <x-import component-from-global-scope="kd-obj" from="./objects.js" kind="dadu" bare="" style="position:absolute;width:32%;height:32%;left:-12%;top:-6%;transform:rotate(-16deg)" hint-size="30%,30%"></x-import>
+      <x-import component-from-global-scope="kd-obj" from="./objects.js" kind="kelereng" bare="" style="position:absolute;width:28%;height:28%;left:-18%;top:52%" hint-size="30%,30%"></x-import>
+      <x-import component-from-global-scope="kd-obj" from="./objects.js" kind="balon" bare="" style="position:absolute;width:30%;height:30%;right:-18%;top:42%" hint-size="28%,28%"></x-import>
+    </div>
+    <button style="min-height:{{ btnH }}px;padding:0 {{ btnPad }}px;border:0;border-radius:24px;display:flex;align-items:center;gap:14px;background:#E8A33D;color:#4A2C17;font:800 {{ btnF }}px 'Baloo 2';box-shadow:0 7px 0 #B87A1F,0 16px 30px rgba(0,0,0,.3)" style-active="transform:translateY(7px);box-shadow:0 0 0 #B87A1F">
+      <svg width="{{ btnI }}" height="{{ btnI }}" viewBox="0 0 24 24"><path d="M7 4 L20 12 L7 20 Z" fill="#4A2C17"></path></svg>Mulai
+    </button>
+    <div style="font:600 {{ hintF }}px 'Nunito';color:#EADBBE;text-align:center;white-space:nowrap">Tap Mulai untuk menyalakan suara</div>
+  </div>
+  <div style="position:relative;padding:{{ pad }}px;text-align:center;font:700 {{ hintF }}px 'Nunito';color:#FFF8EA;opacity:.9">Kokurikuler SMP · SNT 2 Banyumas</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1080},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hp&quot;,&quot;tablet&quot;,&quot;pid&quot;],&quot;default&quot;:&quot;pid&quot;,&quot;tsType&quot;:&quot;'hp'|'tablet'|'pid'&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const S = {
+      hp: { w: 390, h: 844, pad: 20, gap: 26, tSize: 64, sSize: 20, box: 250, btnH: 76, btnPad: 44, btnF: 32, btnI: 26, pat: 36, hintF: 16 },
+      tablet: { w: 1024, h: 768, pad: 28, gap: 22, tSize: 80, sSize: 24, box: 290, btnH: 80, btnPad: 56, btnF: 34, btnI: 28, pat: 40, hintF: 17 },
+      pid: { w: 1920, h: 1080, pad: 44, gap: 34, tSize: 128, sSize: 36, box: 420, btnH: 108, btnPad: 84, btnF: 48, btnI: 38, pat: 56, hintF: 24 }
+    };
+    const v = S[this.props.size] || S.pid;
+    return { ...v, boxH: Math.round(v.box * 0.8) };
+  }
+}
+</script>
+</body>
+</html>

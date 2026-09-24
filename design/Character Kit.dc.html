@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6EBD6;color:#3A2A1E;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2E4C7A;text-decoration-thickness:2px;text-underline-offset:3px}a:hover{color:#B5462F}
+*{box-sizing:border-box}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F6EBD6 url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .26 0 0 0 0 .15 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)">
+  <div style="height:28px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3Cpath d='M20 11 L23 14 L20 17 L17 14Z' fill='%238A3321'/%3E%3Ccircle cx='2' cy='14' r='2' fill='%23E8A33D'/%3E%3Ccircle cx='38' cy='14' r='2' fill='%23E8A33D'/%3E%3C/svg%3E&quot;) repeat-x"></div>
+
+  <div style="max-width:1200px;margin:0 auto;padding:48px clamp(18px,4vw,40px) 80px;display:grid;gap:8px">
+    <header style="display:grid;gap:10px;padding-bottom:28px">
+      <div style="font:700 16px 'Baloo 2';letter-spacing:.12em;text-transform:uppercase;color:#B5462F">Kotak Dolanan · Tahap 1b</div>
+      <h1 style="margin:0;font:800 clamp(40px,6vw,64px)/1 'Baloo 2';color:#2E4C7A">Character Kit</h1>
+      <p style="margin:0;max-width:680px;font-size:18px;line-height:1.55;text-wrap:pretty">Flat geometris dari lingkaran dan kotak membulat, maksimal 2 tone per warna. Semua tokoh dibangun dari rangka yang sama sehingga bisa dianimasikan per bagian. Seragam putih-biru dengan tanda SNT di saku.</p>
+    </header>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">01</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Anatomi &amp; titik putar</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:640px">Setiap bagian adalah <code style="font-family:ui-monospace,Menlo,monospace;font-size:15px;background:#EADBBE;padding:1px 6px;border-radius:6px">&lt;g data-part&gt;</code> yang titik asalnya tepat di titik putar (titik merah). Bagian bersarang: lengan atas → lengan bawah → tangan, kaki → sepatu, kepala → rambut, alis, mata, mulut.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:28px;align-items:center">
+        <div style="background:#FFF8EA;border-radius:24px;padding:24px;box-shadow:inset 0 0 0 2px #E3D1AE;height:500px">
+          <x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" pose="idle" pivots="1" guides="1" style="width:100%;height:100%" hint-size="100%,450px"></x-import>
+        </div>
+        <div style="display:grid;gap:0;background:#FFF8EA;border-radius:24px;box-shadow:inset 0 0 0 2px #E3D1AE;overflow:hidden">
+          <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:14px 20px;background:#2E4C7A;color:#fff;font:700 16px 'Baloo 2'"><span>id</span><span>Bagian</span><span>Titik putar</span></div>
+          <sc-for list="{{ parts }}" as="p" hint-placeholder-count="11">
+            <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px;padding:10px 20px;border-top:1px solid #EADBBE;font-size:16px;align-items:center">
+              <code style="font-family:ui-monospace,Menlo,monospace;font-size:14px;color:#8A3321">{{ p.id }}</code><span style="font-weight:700">{{ p.name }}</span><span>{{ p.pivot }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">02</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Variasi mata &amp; mulut</h2></div>
+      <div style="display:grid;gap:14px">
+        <div style="font:700 20px 'Baloo 2';color:#6B4226">Mata</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+          <sc-for list="{{ eyeVars }}" as="v" hint-placeholder-count="4">
+            <div style="display:grid;gap:8px;justify-items:center;background:#FFF8EA;border-radius:20px;padding:16px 12px 12px;box-shadow:inset 0 0 0 2px #E3D1AE">
+              <x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" crop="head" eyes="{{ v.key }}" mouth="flat" style="width:120px;height:130px" hint-size="120px,130px"></x-import>
+              <div style="font:700 17px 'Baloo 2'">{{ v.label }}</div><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#8A3321">eyes="{{ v.key }}"</code>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font:700 20px 'Baloo 2';color:#6B4226;margin-top:10px">Mulut</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+          <sc-for list="{{ mouthVars }}" as="v" hint-placeholder-count="4">
+            <div style="display:grid;gap:8px;justify-items:center;background:#FFF8EA;border-radius:20px;padding:16px 12px 12px;box-shadow:inset 0 0 0 2px #E3D1AE">
+              <x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" crop="head" eyes="open" mouth="{{ v.key }}" style="width:120px;height:130px" hint-size="120px,130px"></x-import>
+              <div style="font:700 17px 'Baloo 2'">{{ v.label }}</div><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#8A3321">mouth="{{ v.key }}"</code>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">03</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Tokoh</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:640px">Pak Guru ditampilkan sedikit lebih tinggi karena orang dewasa; proporsinya tetap sama.</p></div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-end;gap:clamp(8px,3vw,40px);padding:28px 16px 0;background:#FFF8EA;border-radius:28px;box-shadow:inset 0 0 0 2px #E3D1AE, inset 0 -46px 0 #EADBBE">
+        <x-import component-from-global-scope="kd-char" from="./characters.js" who="guru" pose="idle" motion="{{ motion }}" pivots="{{ pivots }}" style="width:200px;height:380px" hint-size="200px,380px"></x-import>
+        <x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" pose="idle" motion="{{ motion }}" pivots="{{ pivots }}" style="width:175px;height:330px" hint-size="175px,330px"></x-import>
+        <x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" pose="idle" motion="{{ motion }}" pivots="{{ pivots }}" style="width:175px;height:330px" hint-size="175px,330px"></x-import>
+        <x-import component-from-global-scope="kd-char" from="./characters.js" who="dimas" pose="idle" motion="{{ motion }}" pivots="{{ pivots }}" style="width:175px;height:330px" hint-size="175px,330px"></x-import>
+      </div>
+      <sc-for list="{{ chars }}" as="c" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px;background:#FFF8EA;border-radius:28px;padding:24px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="display:grid;gap:10px;align-content:start">
+            <div style="font:800 32px/1 'Baloo 2';color:#2E4C7A">{{ c.name }}</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px"><span style="padding:4px 12px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 15px 'Baloo 2';white-space:nowrap">{{ c.role }}</span></div>
+            <p style="margin:0;font-size:16px;line-height:1.5"><b>Sifat:</b> {{ c.trait }}</p>
+            <p style="margin:0;font-size:16px;line-height:1.5"><b>Ciri visual:</b> {{ c.look }}</p>
+          </div>
+          <div style="grid-column:span 2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;min-width:0">
+            <sc-for list="{{ c.poses }}" as="p" hint-placeholder-count="3">
+              <div style="display:grid;gap:8px;justify-items:center;background:#F6EBD6;border-radius:20px;padding:14px 8px 10px">
+                <x-import component-from-global-scope="kd-char" from="./characters.js" who="{{ c.id }}" pose="{{ p.key }}" motion="{{ motion }}" pivots="{{ pivots }}" style="width:100%;height:270px" hint-size="100%,270px"></x-import>
+                <div style="font:700 17px 'Baloo 2';color:#6B4226">{{ p.label }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">04</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Template avatar pemain</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:640px">Pilihan ini jadi dasar layar Buat Avatar. Kerudung otomatis memakai lengan panjang dan rok.</p></div>
+      <div style="font:700 20px 'Baloo 2';color:#6B4226">Gaya rambut</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+        <sc-for list="{{ hairVars }}" as="v" hint-placeholder-count="5">
+          <div style="display:grid;gap:6px;justify-items:center;background:#FFF8EA;border-radius:20px;padding:16px 12px 12px;box-shadow:inset 0 0 0 2px #E3D1AE">
+            <x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" crop="head" hair="{{ v.key }}" skin="{{ v.skin }}" motion="{{ motion }}" style="width:120px;height:130px" hint-size="120px,130px"></x-import>
+            <div style="font:700 17px 'Baloo 2'">{{ v.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:700 20px 'Baloo 2';color:#6B4226;margin-top:10px">Penutup kepala</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px">
+        <sc-for list="{{ wearVars }}" as="v" hint-placeholder-count="3">
+          <div style="display:grid;gap:6px;justify-items:center;background:#FFF8EA;border-radius:20px;padding:16px 12px 12px;box-shadow:inset 0 0 0 2px #E3D1AE">
+            <x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" headwear="{{ v.key }}" skin="{{ v.skin }}" motion="{{ motion }}" style="width:150px;height:280px" hint-size="150px,280px"></x-import>
+            <div style="font:700 17px 'Baloo 2'">{{ v.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:700 20px 'Baloo 2';color:#6B4226;margin-top:10px">Warna kulit</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:16px">
+        <sc-for list="{{ skins }}" as="v" hint-placeholder-count="5">
+          <div style="display:grid;gap:8px;justify-items:center;background:#FFF8EA;border-radius:20px;padding:16px 12px 14px;box-shadow:inset 0 0 0 2px #E3D1AE">
+            <x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" crop="head" skin="{{ v.i }}" style="width:110px;height:120px" hint-size="110px,120px"></x-import>
+            <div style="display:flex;gap:6px"><span style="width:28px;height:28px;border-radius:50%;background:{{ v.a }}"></span><span style="width:28px;height:28px;border-radius:50%;background:{{ v.b }}"></span></div>
+            <code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">{{ v.a }} · {{ v.b }}</code>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">05</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Siluet untuk kilas balik</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Rangka yang sama diisi gelap solid, lalu ditopang tongkat seperti wayang di atas kelir bercahaya #FFD58A. Siluet bergoyang pelan mengikuti nyala lampu blencong. Bukan tiruan tokoh wayang tertentu.</p></div>
+      <div style="border-radius:30px;padding:14px;background:repeating-linear-gradient(92deg,rgba(0,0,0,.07) 0 2px,transparent 2px 9px),repeating-linear-gradient(88deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px),#6B4226;box-shadow:0 8px 0 #4A2C17,0 18px 36px rgba(74,44,23,.25)">
+        <div style="position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;background:radial-gradient(ellipse 70% 80% at 50% 18%,#FFF0CC 0%,#FFD58A 45%,#F0B55C 100%)">
+          <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:10%;aspect-ratio:1;border-radius:0 0 50% 50%;background:#4A2C17"></div>
+          <div style="position:absolute;top:4%;left:50%;transform:translateX(-50%);width:3%;aspect-ratio:1;border-radius:50%;background:#FFF6DE;box-shadow:0 0 40px 22px rgba(255,240,200,.8)"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;height:13%;background:#4E7628;box-shadow:inset 0 6px 0 #6E9F3D"></div>
+          <div style="position:absolute;left:4%;right:4%;bottom:12%;top:10%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:2%">
+            <div style="position:relative;width:60%;margin:0 auto;aspect-ratio:280/412"><div style="position:absolute;left:50%;top:62%;bottom:-40%;width:4px;background:#2A1A12;transform:translateX(-50%)"></div><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="pendek" pose="gobak" silhouette="1" motion="{{ motion }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+            <div style="position:relative;width:60%;margin:0 auto;aspect-ratio:280/412"><div style="position:absolute;left:50%;top:62%;bottom:-40%;width:4px;background:#2A1A12;transform:translateX(-50%)"></div><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="kuncir" pose="engklek" silhouette="1" motion="{{ motion }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+            <div style="position:relative;width:47%;margin:0 auto;aspect-ratio:220/486"><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" headwear="peci" pose="egrang" silhouette="1" motion="{{ motion }}" style="position:absolute;inset:0" hint-size="100%,100%"></x-import></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;text-align:center;font:700 18px 'Baloo 2';color:#6B4226"><span>Gobak sodor</span><span>Engklek</span><span>Egrang</span></div>
+    </section>
+
+    <section style="display:grid;gap:14px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">06</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Catatan untuk tahap berikutnya</h2></div>
+      <ul style="margin:0;padding-left:22px;display:grid;gap:8px;font-size:17px;line-height:1.5;max-width:760px">
+        <li>Seragam memakai putih-biru SMP. Warna baju dan celana/rok cukup diganti di satu tempat saat seragam SNT sudah pasti.</li>
+        <li>Animasi bawaan yang sudah aktif: berkedip, bernapas, bicara (mulut A/O bergantian), melompat senang, dan goyang siluet. Semua mati otomatis bila perangkat memakai <i>reduce motion</i>.</li>
+        <li>Belum dibuat: pose melambai dan pose khusus per game. Bisa ditambah tanpa menggambar ulang, cukup atur sudut tiap bagian.</li>
+      </ul>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;motion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pivots&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const motion = this.props.motion === false ? '0' : '1';
+    const pivots = this.props.pivots ? '1' : '0';
+    const poses = [{ key: 'idle', label: 'Diam' }, { key: 'talk', label: 'Bicara' }, { key: 'happy', label: 'Senang / melompat' }];
+    return {
+      motion, pivots,
+      parts: [
+        { id: 'head', name: 'Kepala', pivot: 'Leher' },
+        { id: 'hair (di dalam head)', name: 'Rambut', pivot: 'Ikut kepala' },
+        { id: 'brows', name: 'Alis', pivot: 'Tengah dahi' },
+        { id: 'eyes', name: 'Mata', pivot: 'Tengah mata' },
+        { id: 'mouth', name: 'Mulut', pivot: 'Tengah mulut' },
+        { id: 'torso', name: 'Badan', pivot: 'Pinggul' },
+        { id: 'arm-upper-l / r', name: 'Lengan atas', pivot: 'Bahu' },
+        { id: 'arm-lower-l / r', name: 'Lengan bawah', pivot: 'Siku' },
+        { id: 'hand-l / r', name: 'Tangan', pivot: 'Pergelangan' },
+        { id: 'leg-l / r', name: 'Kaki', pivot: 'Pangkal paha' },
+        { id: 'shoe-l / r', name: 'Sepatu', pivot: 'Pergelangan kaki' }
+      ],
+      eyeVars: [{ key: 'open', label: 'Terbuka' }, { key: 'closed', label: 'Tertutup' }, { key: 'happy', label: 'Senang' }, { key: 'surprised', label: 'Kaget' }],
+      mouthVars: [{ key: 'smile', label: 'Senyum' }, { key: 'talk-a', label: 'Bicara "A"' }, { key: 'talk-o', label: 'Bicara "O"' }, { key: 'flat', label: 'Datar' }],
+      chars: [
+        { id: 'guru', name: 'Pak Guru', role: 'Narator & pemandu', trait: 'Hangat, suka bercerita, sedikit jenaka.', look: 'Kemeja batik, kacamata, kumis, membawa kotak kayu.', poses },
+        { id: 'bima', name: 'Bima', role: 'Komentator layar hasil', trait: 'Kompetitif, semangat.', look: 'Rambut jabrik, lengan baju digulung, alis tebal.', poses },
+        { id: 'sekar', name: 'Sekar', role: 'Penanya di intro', trait: 'Penasaran, suka bertanya.', look: 'Kerudung putih, membawa buku catatan.', poses },
+        { id: 'dimas', name: 'Dimas', role: 'Pencetus misi', trait: 'Pemalu tapi berani di saat penting.', look: 'Rambut belah samping, kacamata bundar.', poses }
+      ],
+      hairVars: [{ key: 'pendek', label: 'Pendek', skin: 2 }, { key: 'jabrik', label: 'Jabrik', skin: 1 }, { key: 'belah', label: 'Belah samping', skin: 3 }, { key: 'keriting', label: 'Keriting', skin: 4 }, { key: 'kuncir', label: 'Kuncir', skin: 0 }],
+      wearVars: [{ key: 'none', label: 'Tanpa', skin: 1 }, { key: 'kerudung', label: 'Kerudung', skin: 2 }, { key: 'peci', label: 'Peci', skin: 3 }],
+      skins: [['#F4D2AE', '#E0B28A'], ['#E6B887', '#CD9A67'], ['#C68D5C', '#AA7445'], ['#9E6840', '#825330'], ['#6E4428', '#56331C']].map((s, i) => ({ i, a: s[0], b: s[1] }))
+    };
+  }
+}
+</script>
+</body>
+</html>

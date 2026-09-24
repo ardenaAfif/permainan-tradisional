@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="./characters.js"></script>
+<style>body{margin:0;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;color:#3A2A1E}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}button{font-family:inherit;cursor:pointer}</style>
+</helmet>
+<div data-screen-label="Buat avatar" style="position:relative;overflow:hidden;width:{{ w }}px;height:{{ h }}px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);background:#F6EBD6">
+  <div style="height:20px;position:absolute;left:0;right:0;top:0;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/29px 20px repeat-x"></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:{{ padTop }}px {{ pad }}px 12px">
+    <button aria-label="Kembali" style="width:56px;height:56px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226,0 4px 0 #6B4226"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#6B4226" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+    <div style="flex:1;min-width:0;display:grid"><div style="font:800 {{ hSize }}px/1 'Baloo 2';color:#2E4C7A">Buat avatarmu</div><div style="font:600 {{ subF }}px 'Nunito';color:#6B4226">Siswa baru SNT 2 Banyumas</div></div>
+    <button aria-label="Suara" style="width:56px;height:56px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;background:#2E4C7A;box-shadow:0 4px 0 #1F3558"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></button>
+  </div>
+  <div style="display:flex;flex-direction:{{ dir }};gap:{{ gap }}px;padding:0 {{ pad }}px {{ pad }}px;min-height:0">
+    <div style="flex:{{ prevFlex }};min-width:0;border-radius:28px;padding:10px;background:repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px),#6B4226;box-shadow:0 6px 0 #4A2C17">
+      <div style="position:relative;height:100%;border-radius:20px;overflow:hidden;background:radial-gradient(ellipse 70% 70% at 50% 30%,#FFF0CC 0%,#FFD58A 55%,#F0B55C 100%);display:grid;grid-template-rows:minmax(0,1fr) auto">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:22%;background:#E8C68A"></div>
+        <x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" skin="{{ skin }}" hair="{{ hair }}" headwear="{{ headwear }}" pose="{{ pose }}" motion="1" style="position:relative;width:100%;height:100%;padding-top:14px" hint-size="100%,100%"></x-import>
+        <div style="position:relative;justify-self:center;margin:8px 0 14px;padding:6px 20px;border-radius:999px;background:#FFF8EA;box-shadow:0 3px 0 #6B4226;font:800 {{ nameSize }}px 'Baloo 2';color:#2E4C7A;white-space:nowrap">{{ name }}</div>
+      </div>
+    </div>
+    <div style="flex:1;min-width:0;min-height:0;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:14px;background:#FFF8EA;border-radius:28px;box-shadow:inset 0 0 0 2px #E3D1AE">
+      <div style="overflow:auto;padding:{{ optPad }}px {{ optPad }}px 0;display:grid;gap:{{ secGap }}px;align-content:start">
+        <label style="display:grid;gap:8px"><span style="font:700 {{ lab }}px 'Baloo 2';color:#6B4226">Nama panggilan</span>
+          <input value="{{ name }}" onChange="{{ onName }}" maxlength="12" style="height:{{ ctlH }}px;border:0;border-radius:16px;padding:0 18px;background:#fff;box-shadow:inset 0 0 0 2.5px #CBB48A;font:700 {{ ctlF }}px 'Nunito';color:#2E4C7A;outline:none" style-focus="box-shadow:inset 0 0 0 3px #E8A33D">
+        </label>
+        <div style="display:grid;gap:10px"><span style="font:700 {{ lab }}px 'Baloo 2';color:#6B4226">Warna kulit</span>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <sc-for list="{{ skins }}" as="s" hint-placeholder-count="5">
+              <button aria-label="{{ s.label }}" onClick="{{ s.pick }}" style="width:{{ sw }}px;height:{{ sw }}px;border:0;border-radius:50%;background:{{ s.a }};box-shadow:{{ s.ring }}"></button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;gap:10px"><span style="font:700 {{ lab }}px 'Baloo 2';color:#6B4226">Penutup kepala</span>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+            <sc-for list="{{ wears }}" as="o" hint-placeholder-count="3">
+              <button onClick="{{ o.pick }}" style="min-height:{{ ctlH }}px;border:0;border-radius:16px;background:{{ o.bg }};color:{{ o.fg }};box-shadow:{{ o.ring }};font:700 {{ ctlF }}px 'Baloo 2'">{{ o.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;gap:10px"><div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px"><span style="font:700 {{ lab }}px 'Baloo 2';color:#6B4226">Gaya rambut</span><span style="font:600 15px 'Nunito';color:#8A5A2B">{{ hairNote }}</span></div>
+          <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;opacity:{{ hairOp }}">
+            <sc-for list="{{ hairs }}" as="o" hint-placeholder-count="5">
+              <button aria-label="{{ o.label }}" onClick="{{ o.pick }}" style="aspect-ratio:1;min-height:56px;border:0;border-radius:16px;padding:4px;background:#F6EBD6;box-shadow:{{ o.ring }}"><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" crop="head" hair="{{ o.key }}" skin="{{ skin }}" style="width:100%;height:100%" hint-size="100%,100%"></x-import></button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="padding:0 {{ optPad }}px {{ optPad }}px;display:flex;gap:12px">
+        <button onClick="{{ shuffle }}" style="min-height:{{ goH }}px;padding:0 24px;border:0;border-radius:18px;background:#FFF8EA;color:#6B4226;font:700 {{ ctlF }}px 'Baloo 2';box-shadow:inset 0 0 0 2.5px #6B4226,0 5px 0 #6B4226;white-space:nowrap">Acak</button>
+        <button style="flex:1;min-height:{{ goH }}px;border:0;border-radius:18px;background:#E8A33D;color:#4A2C17;font:800 {{ goF }}px 'Baloo 2';box-shadow:0 5px 0 #B87A1F" style-active="transform:translateY(5px);box-shadow:none">Simpan &amp; lanjut</button>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1080},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hp&quot;,&quot;tablet&quot;,&quot;pid&quot;],&quot;default&quot;:&quot;pid&quot;,&quot;tsType&quot;:&quot;'hp'|'tablet'|'pid'&quot;}}">
+class Component extends DCLogic {
+  state = { skin: 2, hair: 'keriting', wear: 'none', name: 'Raka', happy: false };
+  renderVals() {
+    const S = {
+      hp: { w: 390, h: 844, pad: 16, padTop: 30, gap: 14, hSize: 28, dir: 'column', prevFlex: '0 0 300px', optPad: 16, secGap: 18, lab: 18, sw: 52, ctlH: 56, ctlF: 18, goH: 60, goF: 22, subF: 16, nameSize: 20 },
+      tablet: { w: 1024, h: 768, pad: 28, padTop: 34, gap: 24, hSize: 34, dir: 'row', prevFlex: '0 0 40%', optPad: 24, secGap: 22, lab: 19, sw: 56, ctlH: 56, ctlF: 18, goH: 60, goF: 22, subF: 16, nameSize: 24 },
+      pid: { w: 1920, h: 1080, pad: 48, padTop: 44, gap: 40, hSize: 48, dir: 'row', prevFlex: '0 0 44%', optPad: 36, secGap: 30, lab: 24, sw: 72, ctlH: 72, ctlF: 26, goH: 84, goF: 32, subF: 20, nameSize: 32 }
+    };
+    const v = S[this.props.size] || S.pid;
+    const st = this.state, ker = st.wear === 'kerudung';
+    const ring = on => on ? '0 0 0 4px #FFF8EA,0 0 0 7px #E8A33D' : 'inset 0 0 0 2px rgba(74,44,23,.18)';
+    const SK = ['#F4D2AE', '#E6B887', '#C68D5C', '#9E6840', '#6E4428'];
+    const bump = p => { this.setState(p); this.setState({ happy: true }); clearTimeout(this._t); this._t = setTimeout(() => this.setState({ happy: false }), 1200); };
+    const HAIR = [['pendek', 'Pendek'], ['jabrik', 'Jabrik'], ['belah', 'Belah samping'], ['keriting', 'Keriting'], ['kuncir', 'Kuncir']];
+    return {
+      ...v, skin: String(st.skin), hair: ker ? 'none' : st.hair, headwear: st.wear, name: st.name || 'Pemain',
+      pose: st.happy ? 'happy' : 'idle',
+      onName: e => this.setState({ name: e.target.value }),
+      skins: SK.map((a, i) => ({ a, label: 'Warna kulit ' + (i + 1), ring: ring(st.skin === i), pick: () => bump({ skin: i }) })),
+      wears: [['none', 'Tanpa'], ['kerudung', 'Kerudung'], ['peci', 'Peci']].map(([k, label]) => ({ label, bg: st.wear === k ? '#2E4C7A' : '#F6EBD6', fg: st.wear === k ? '#fff' : '#6B4226', ring: st.wear === k ? '0 4px 0 #1F3558' : 'inset 0 0 0 2px rgba(74,44,23,.18)', pick: () => bump({ wear: k }) })),
+      hairs: HAIR.map(([key, label]) => ({ key, label, ring: ring(!ker && st.hair === key), pick: () => bump({ hair: key, wear: ker ? 'none' : st.wear }) })),
+      hairNote: ker ? 'Tertutup kerudung' : '',
+      hairOp: ker ? 0.45 : 1,
+      shuffle: () => bump({ skin: Math.floor(Math.random() * 5), hair: HAIR[Math.floor(Math.random() * 5)][0], wear: ['none', 'none', 'kerudung', 'peci'][Math.floor(Math.random() * 4)] })
+    };
+  }
+}
+</script>
+</body>
+</html>

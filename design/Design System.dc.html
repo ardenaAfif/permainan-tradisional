@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="./characters.js"></script>
+<style>
+body{margin:0;background:#F6EBD6;color:#3A2A1E;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#2E4C7A;text-decoration-thickness:2px;text-underline-offset:3px}a:hover{color:#B5462F}
+*{box-sizing:border-box}
+button{font-family:inherit;cursor:pointer}
+</style>
+</helmet>
+<div style="position:relative;min-height:100vh;background:#F6EBD6">
+  <sc-if value="{{ texture }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;pointer-events:none;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .26 0 0 0 0 .15 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div></sc-if>
+  <div style="position:relative;height:28px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3Cpath d='M20 11 L23 14 L20 17 L17 14Z' fill='%238A3321'/%3E%3Ccircle cx='2' cy='14' r='2' fill='%23E8A33D'/%3E%3Ccircle cx='38' cy='14' r='2' fill='%23E8A33D'/%3E%3C/svg%3E&quot;) repeat-x"></div>
+  <div style="position:relative;max-width:1200px;margin:0 auto;padding:48px clamp(18px,4vw,40px) 80px;display:grid;gap:8px">
+    <header style="display:grid;gap:10px;padding-bottom:28px">
+      <div style="font:700 16px 'Baloo 2';letter-spacing:.12em;text-transform:uppercase;color:#B5462F">Kotak Dolanan · Tahap 1a</div>
+      <h1 style="margin:0;font:800 clamp(40px,6vw,64px)/1 'Baloo 2';color:#2E4C7A">Design System</h1>
+      <p style="margin:0;max-width:680px;font-size:18px;line-height:1.55;text-wrap:pretty">Hangat seperti mainan kayu di atas kertas, cukup dewasa untuk siswa SMP. Warna diambil dari palet brief; setiap warna punya satu tone gelap untuk sisi tebal tombol dan bayangan. Lihat juga <a href="Character Kit.dc.html">Character Kit</a>.</p>
+    </header>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">00</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Logo SNT</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Logo lengkap dipakai di layar judul dan halaman kredit. Tanda (tanpa tulisan) dipakai di ukuran kecil: pojok menu, HUD, dan saku seragam karakter. Logo selalu di atas latar terang, tidak diwarnai ulang.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px">
+        <div style="display:grid;gap:10px">
+          <div style="height:240px;min-width:0;overflow:hidden;border-radius:24px;background:#FFF8EA;box-shadow:inset 0 0 0 2px #E3D1AE;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);place-items:stretch;padding:28px"><img src="assets/snt-logo.png" alt="Logo Sekolah Nasional Terintegrasi 2 Banyumas" style="width:100%;height:100%;min-height:0;object-fit:contain"></div>
+          <div style="font:700 18px 'Baloo 2'">Logo lengkap</div>
+        </div>
+        <div style="display:grid;gap:10px">
+          <div style="height:240px;min-width:0;overflow:hidden;border-radius:24px;background:#FFF8EA;box-shadow:inset 0 0 0 2px #E3D1AE;display:grid;place-items:center;align-content:center;gap:16px;padding:24px">
+            <div style="display:flex;align-items:center;gap:14px"><img src="assets/snt-mark.png" alt="" style="height:56px"><span style="width:2px;height:48px;background:#DCC7A1"></span><span style="font:800 32px/0.95 'Baloo 2';color:#2E4C7A">Kotak<br>Dolanan</span></div>
+            <div style="font:700 15px 'Nunito';color:#6B4226;text-align:center">Kokurikuler SMP · SNT 2 Banyumas</div>
+          </div>
+          <div style="font:700 18px 'Baloo 2'">Lockup layar judul</div>
+        </div>
+        <div style="display:grid;gap:10px">
+          <div style="height:240px;min-width:0;overflow:hidden;border-radius:24px;background:#FFF8EA;box-shadow:inset 0 0 0 2px #E3D1AE;display:grid;place-items:center;gap:12px;padding:20px">
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 16px 6px 8px;border-radius:999px;background:#FFFDF8;box-shadow:0 4px 0 #6B4226,inset 0 0 0 2px #6B4226"><img src="assets/snt-mark.png" alt="SNT" style="height:36px"><span style="font:800 20px 'Baloo 2';color:#2E4C7A">Kotak Dolanan</span></div>
+            <div style="width:120px;height:150px"><x-import component-from-global-scope="kd-char" from="./characters.js" who="dimas" style="width:100%;height:100%" hint-size="120px,150px"></x-import></div>
+          </div>
+          <div style="font:700 18px 'Baloo 2'">Tanda kecil: menu &amp; seragam</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">01</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Warna</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:18px">
+        <sc-for list="{{ colors }}" as="c" hint-placeholder-count="7">
+          <div style="display:grid;gap:8px;align-content:start">
+            <div style="height:112px;border-radius:20px;background:{{ c.hex }};box-shadow:inset 0 -22px 0 {{ c.dark }}, inset 0 0 0 1px rgba(74,44,23,.12)"></div>
+            <div style="font:700 19px/1.1 'Baloo 2';color:#2B211C">{{ c.name }}</div>
+            <code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">{{ c.hex }} · {{ c.dark }}</code>
+            <div style="font-size:15px;line-height:1.4">{{ c.use }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:18px">
+        <sc-for list="{{ neutrals }}" as="c" hint-placeholder-count="4">
+          <div style="display:flex;gap:12px;align-items:center">
+            <div style="width:48px;height:48px;border-radius:14px;flex:none;background:{{ c.hex }};box-shadow:inset 0 0 0 1px rgba(74,44,23,.15)"></div>
+            <div style="display:grid;gap:2px"><div style="font:700 16px 'Baloo 2'">{{ c.name }}</div><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">{{ c.hex }}</code></div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">02</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Tipografi</h2><p style="margin:0;font-size:17px;line-height:1.5">Baloo 2 untuk judul dan label tombol, Nunito untuk isi. Teks paling kecil 16px di HP.</p></div>
+      <div style="display:grid;gap:0;background:#FFF8EA;border-radius:24px;box-shadow:inset 0 0 0 2px #E3D1AE;overflow:hidden">
+        <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:20px 24px;align-items:baseline"><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">Display · Baloo 800 · 56</code><div style="font:800 clamp(38px,5vw,56px)/1 'Baloo 2';color:#2E4C7A">Kotak Dolanan</div></div>
+        <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:18px 24px;border-top:1px solid #EADBBE;align-items:baseline"><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">H1 · Baloo 700 · 40</code><div style="font:700 clamp(30px,4vw,40px)/1.1 'Baloo 2';color:#2E4C7A">Pilih permainanmu</div></div>
+        <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:18px 24px;border-top:1px solid #EADBBE;align-items:baseline"><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">H2 · Baloo 700 · 28</code><div style="font:700 28px/1.15 'Baloo 2';color:#2E4C7A">Kenalan Dulu: Ular Tangga</div></div>
+        <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:18px 24px;border-top:1px solid #EADBBE;align-items:baseline"><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">Tombol · Baloo 700 · 20</code><div style="font:700 20px 'Baloo 2';color:#4A2C17">Main · Lewati · Coba lagi</div></div>
+        <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:18px 24px;border-top:1px solid #EADBBE;align-items:baseline"><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">Isi · Nunito 500 · 18</code><div style="font:500 18px/1.55 'Nunito';max-width:560px">Tap dadu, pion berjalan otomatis. Setiap tangga membuka fakta singkat tentang permainan lain di kotak.</div></div>
+        <div style="display:grid;grid-template-columns:140px minmax(0,1fr);gap:16px;padding:18px 24px;border-top:1px solid #EADBBE;align-items:baseline"><code style="font-family:ui-monospace,Menlo,monospace;font-size:13px;color:#6B4226">Kecil · Nunito 700 · 16</code><div style="font:700 16px/1.4 'Nunito';color:#6B4226">2–4 pemain asli · Adu Strategi</div></div>
+      </div>
+    </section>
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">03</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Ornamen &amp; tekstur</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Motif disusun dari bentuk dasar (belah ketupat, segitiga, elips) supaya ringan di HP dan bisa diulang sebagai pola.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px">
+        <div style="display:grid;gap:10px"><div style="height:150px;border-radius:20px;overflow:hidden;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3Cpath d='M20 11 L23 14 L20 17 L17 14Z' fill='%238A3321'/%3E%3Ccircle cx='2' cy='14' r='2' fill='%23E8A33D'/%3E%3Ccircle cx='38' cy='14' r='2' fill='%23E8A33D'/%3E%3C/svg%3E&quot;);background-size:60px 42px"></div><div style="font:700 18px 'Baloo 2'">Pita tapis Lampung</div><div style="font-size:15px;line-height:1.4">Aksen: tepi atas halaman, kepala panel, pita Bonus.</div></div>
+        <div style="display:grid;gap:10px"><div style="height:150px;border-radius:20px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' fill='%231F3558'/%3E%3Cg fill='%23E8A33D' opacity='.55'%3E%3Cellipse cx='18' cy='9' rx='4.5' ry='7'/%3E%3Cellipse cx='18' cy='27' rx='4.5' ry='7'/%3E%3Cellipse cx='9' cy='18' rx='7' ry='4.5'/%3E%3Cellipse cx='27' cy='18' rx='7' ry='4.5'/%3E%3C/g%3E%3Cg fill='%23FFD58A' opacity='.7'%3E%3Ccircle cx='18' cy='18' r='2'/%3E%3Ccircle r='2.5'/%3E%3Ccircle cx='36' r='2.5'/%3E%3Ccircle cy='36' r='2.5'/%3E%3Ccircle cx='36' cy='36' r='2.5'/%3E%3C/g%3E%3C/svg%3E&quot;)"></div><div style="font:700 18px 'Baloo 2'">Pola kain (letterbox)</div><div style="font-size:15px;line-height:1.4">Mengisi area di luar panggung 1280×720, bukan hitam.</div></div>
+        <div style="display:grid;gap:10px"><div style="height:150px;border-radius:20px;box-shadow:inset 0 0 0 1px #E3D1AE;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .26 0 0 0 0 .15 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;),#F6EBD6"></div><div style="font:700 18px 'Baloo 2'">Tekstur kertas</div><div style="font-size:15px;line-height:1.4">Derau halus di latar krem. Bisa dimatikan lewat Tweaks.</div></div>
+        <div style="display:grid;gap:10px"><div style="height:150px;border-radius:20px;background:repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px),repeating-linear-gradient(88deg,rgba(255,255,255,.05) 0 1px,transparent 1px 14px),#6B4226"></div><div style="font:700 18px 'Baloo 2'">Tekstur kayu</div><div style="font-size:15px;line-height:1.4">Serat tipis untuk bingkai kartu, panel, dan kotak.</div></div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">04</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Tombol</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Tombol timbul dengan sisi tebal 5px; saat ditekan turun rata. Tinggi minimal 56px (area tap ≥ 48px). Tidak ada fungsi yang hanya muncul saat hover.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px">
+        <div style="display:grid;gap:16px;align-content:start;background:#FFF8EA;border-radius:24px;padding:24px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Utama</div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+            <button style="min-height:60px;padding:0 34px;border:0;border-radius:18px;background:#E8A33D;color:#4A2C17;font:800 22px 'Baloo 2';box-shadow:0 5px 0 #B87A1F,0 10px 18px rgba(74,44,23,.18);transition:transform .08s,box-shadow .08s" style-active="transform:translateY(5px);box-shadow:0 0 0 #B87A1F">Mulai</button>
+            <button style="min-height:60px;padding:0 34px;border:0;border-radius:18px;background:#E8A33D;color:#4A2C17;font:800 22px 'Baloo 2';transform:translateY(5px);box-shadow:0 0 0 #B87A1F">Ditekan</button>
+            <button disabled style="min-height:60px;padding:0 34px;border:0;border-radius:18px;background:#DDD8CF;color:#8E877C;font:800 22px 'Baloo 2';box-shadow:0 5px 0 #B9B2A6;cursor:not-allowed">Terkunci</button>
+          </div>
+          <div style="font:700 16px 'Baloo 2';color:#6B4226;margin-top:6px">Sekunder</div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+            <button style="min-height:56px;padding:0 28px;border:0;border-radius:18px;background:#FFF8EA;color:#6B4226;font:700 20px 'Baloo 2';box-shadow:inset 0 0 0 2.5px #6B4226,0 5px 0 #6B4226;transition:transform .08s,box-shadow .08s" style-active="transform:translateY(5px);box-shadow:inset 0 0 0 2.5px #6B4226,0 0 0 #6B4226">Cara main</button>
+            <button style="min-height:56px;padding:0 28px;border:0;border-radius:18px;background:#2E4C7A;color:#fff;font:700 20px 'Baloo 2';box-shadow:0 5px 0 #1F3558;transition:transform .08s,box-shadow .08s" style-active="transform:translateY(5px);box-shadow:0 0 0 #1F3558">Ulang intro</button>
+            <button style="min-height:56px;padding:0 28px;border:0;border-radius:18px;background:#B5462F;color:#fff;font:700 20px 'Baloo 2';box-shadow:0 5px 0 #8A3321;transition:transform .08s,box-shadow .08s" style-active="transform:translateY(5px);box-shadow:0 0 0 #8A3321">Keluar</button>
+          </div>
+        </div>
+        <div style="display:grid;gap:16px;align-content:start;background:#FFF8EA;border-radius:24px;padding:24px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Ikon · 56px</div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px">
+            <button aria-label="Kembali" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226,0 4px 0 #6B4226" style-active="transform:translateY(4px);box-shadow:inset 0 0 0 2.5px #6B4226"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M15 5 L8 12 L15 19" stroke="#6B4226" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></button>
+            <button aria-label="Menu" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226,0 4px 0 #6B4226" style-active="transform:translateY(4px);box-shadow:inset 0 0 0 2.5px #6B4226"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 11 L12 4 L20 11 V20 H4 Z" fill="#6B4226"></path></svg></button>
+            <button aria-label="Jeda" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226,0 4px 0 #6B4226" style-active="transform:translateY(4px);box-shadow:inset 0 0 0 2.5px #6B4226"><svg width="24" height="24" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="#6B4226"></rect><rect x="14" y="5" width="4" height="14" rx="1.5" fill="#6B4226"></rect></svg></button>
+            <button aria-label="Tutup" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226,0 4px 0 #6B4226" style-active="transform:translateY(4px);box-shadow:inset 0 0 0 2.5px #6B4226"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M6 6 L18 18 M18 6 L6 18" stroke="#6B4226" stroke-width="3.5" stroke-linecap="round"></path></svg></button>
+            <button aria-label="Main" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#E8A33D;box-shadow:0 4px 0 #B87A1F" style-active="transform:translateY(4px);box-shadow:none"><svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5 L19 12 L8 19 Z" fill="#4A2C17"></path></svg></button>
+          </div>
+          <div style="font:700 16px 'Baloo 2';color:#6B4226;margin-top:6px">Tombol suara · tap untuk coba</div>
+          <div style="display:flex;gap:14px;align-items:center">
+            <button aria-label="Suara" onClick="{{ toggleSound }}" style="width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#2E4C7A;box-shadow:0 4px 0 #1F3558" style-active="transform:translateY(4px);box-shadow:none">
+              <sc-if value="{{ sound }}" hint-placeholder-val="{{ true }}"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></sc-if>
+              <sc-if value="{{ muted }}" hint-placeholder-val="{{ false }}"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 L25 18 M25 10 L19 18" stroke="#F3A08C" stroke-width="2.8" stroke-linecap="round"></path></svg></sc-if>
+            </button>
+            <div style="font:700 17px 'Nunito'">{{ soundLabel }}</div>
+          </div>
+        </div>
+        <div style="display:grid;gap:16px;align-content:start;border-radius:24px;padding:24px;background:#1F3558">
+          <div style="font:700 16px 'Baloo 2';color:#FFD58A">Tombol Lewati · di atas adegan intro</div>
+          <div style="position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:radial-gradient(ellipse 70% 80% at 50% 18%,#FFF0CC 0%,#FFD58A 45%,#F0B55C 100%)">
+            <div style="position:absolute;inset:0;display:grid;place-items:center;font:500 13px ui-monospace,Menlo,monospace;color:#8A5A2B">adegan intro</div>
+            <button aria-label="Suara" style="position:absolute;top:12px;left:12px;width:48px;height:48px;border:0;border-radius:50%;display:grid;place-items:center;background:rgba(43,33,28,.72)"><svg width="24" height="24" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></button>
+            <button style="position:absolute;top:12px;right:12px;min-height:48px;padding:0 14px 0 20px;border:0;border-radius:999px;display:flex;align-items:center;gap:8px;background:rgba(43,33,28,.72);color:#fff;font:700 18px 'Baloo 2'">Lewati<svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 6 L11 12 L4 18 Z M12 6 L19 12 L12 18 Z" fill="#FFD58A"></path><rect x="19" y="6" width="2.5" height="12" rx="1" fill="#FFD58A"></rect></svg></button>
+          </div>
+          <div style="font-size:15px;line-height:1.45;color:#EADBBE">Muncul sejak detik pertama. Latar gelap transparan supaya terbaca di adegan terang maupun gelap.</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">05</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Chip kategori &amp; rating</h2></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:20px">
+        <div style="display:grid;gap:14px;align-content:start;background:#FFF8EA;border-radius:24px;padding:24px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Normal</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <button style="min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:#FFF8EA;color:#1F3558;border:2px solid #2E4C7A;font:700 17px 'Baloo 2'"><span style="width:14px;height:14px;background:#2E4C7A;transform:rotate(45deg);border-radius:3px"></span>Adu Strategi</button>
+            <button style="min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:#FFF8EA;color:#8A3321;border:2px solid #B5462F;font:700 17px 'Baloo 2'"><span style="width:15px;height:15px;background:#B5462F;border-radius:50%"></span>Adu Ketangkasan</button>
+            <button style="min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:#FFF8EA;color:#4E7628;border:2px solid #4E7628;font:700 17px 'Baloo 2'"><span style="display:flex"><span style="width:12px;height:12px;background:#4E7628;border-radius:50%"></span><span style="width:12px;height:12px;background:#6E9F3D;border-radius:50%;margin-left:-4px"></span></span>Adu Kekompakan</button>
+          </div>
+          <div style="font:700 16px 'Baloo 2';color:#6B4226;margin-top:6px">Terpilih (filter aktif)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px">
+            <button style="min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:#2E4C7A;color:#fff;border:2px solid #2E4C7A;font:700 17px 'Baloo 2';box-shadow:0 3px 0 #1F3558"><span style="width:14px;height:14px;background:#FFD58A;transform:rotate(45deg);border-radius:3px"></span>Adu Strategi</button>
+            <button style="min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:#B5462F;color:#fff;border:2px solid #B5462F;font:700 17px 'Baloo 2';box-shadow:0 3px 0 #8A3321"><span style="width:15px;height:15px;background:#FFD58A;border-radius:50%"></span>Adu Ketangkasan</button>
+            <button style="min-height:48px;padding:0 18px 0 14px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;background:#4E7628;color:#fff;border:2px solid #4E7628;font:700 17px 'Baloo 2';box-shadow:0 3px 0 #3A5A1D"><span style="display:flex"><span style="width:12px;height:12px;background:#FFD58A;border-radius:50%"></span><span style="width:12px;height:12px;background:#fff;border-radius:50%;margin-left:-4px"></span></span>Adu Kekompakan</button>
+          </div>
+          <div style="font-size:15px;line-height:1.4">Warna chip: nila untuk strategi, merah bata untuk ketangkasan, daun pisang tua untuk kekompakan (teks putih tetap kontras).</div>
+        </div>
+        <div style="display:grid;gap:14px;align-content:start;background:#FFF8EA;border-radius:24px;padding:24px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Tingkat kesulitan 1–3 bintang</div>
+          <sc-for list="{{ ratings }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;align-items:center;gap:16px;min-height:48px">
+              <div style="display:flex;gap:4px">
+                <sc-for list="{{ r.stars }}" as="on" hint-placeholder-count="3">
+                  <svg width="30" height="30" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="{{ on.fill }}" stroke="{{ on.stroke }}" stroke-width="1.6" stroke-linejoin="round"></polygon></svg>
+                </sc-for>
+              </div>
+              <div style="font:700 18px 'Baloo 2'">{{ r.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">06</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Kartu game</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Belum dimainkan: gambar dan bingkai abu-abu, tapi tombol Main tetap berwarna supaya tetap mengundang. Sudah dimainkan: bingkai kayu, gambar berwarna, dan cap kecil di pojok.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:28px;align-items:start">
+
+        <div style="display:grid;gap:10px">
+          <div style="position:relative;border-radius:24px;padding:8px;background:repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px),#6B4226;box-shadow:0 6px 0 #4A2C17,0 14px 24px rgba(74,44,23,.2)">
+            <div style="border-radius:17px;background:#FFF8EA;overflow:hidden;display:grid">
+              <div style="position:relative;aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#F6D89C 0 10px,#F1CD88 10px 20px);display:grid;place-items:center">
+                <span style="font:500 13px ui-monospace,Menlo,monospace;color:#8A5A2B;background:rgba(255,248,234,.85);padding:4px 8px;border-radius:6px">ilustrasi benda: dadu</span>
+                <svg width="66" height="66" viewBox="0 0 100 100" style="position:absolute;top:10px;right:10px;transform:rotate(-12deg)"><circle cx="50" cy="50" r="44" fill="none" stroke="#B5462F" stroke-width="5"></circle><circle cx="50" cy="50" r="35" fill="#FFF8EA" fill-opacity=".6" stroke="#B5462F" stroke-width="2"></circle><g fill="#B5462F"><ellipse cx="50" cy="36" rx="7" ry="11"></ellipse><ellipse cx="50" cy="64" rx="7" ry="11"></ellipse><ellipse cx="36" cy="50" rx="11" ry="7"></ellipse><ellipse cx="64" cy="50" rx="11" ry="7"></ellipse></g></svg>
+              </div>
+              <div style="padding:16px 18px 18px;display:grid;gap:10px">
+                <span style="justify-self:start;padding:3px 12px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 15px 'Baloo 2'">Adu Strategi</span>
+                <div style="font:800 26px/1 'Baloo 2';color:#2E4C7A">Ular Tangga</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font:700 16px 'Nunito';color:#6B4226"><span>2–4 pemain asli</span><span style="display:flex;gap:2px"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#E8A33D" stroke="#B87A1F" stroke-width="1.6" stroke-linejoin="round"></polygon></svg><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#EADBBE" stroke="#D6C29C" stroke-width="1.6" stroke-linejoin="round"></polygon></svg><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#EADBBE" stroke="#D6C29C" stroke-width="1.6" stroke-linejoin="round"></polygon></svg></span></div>
+                <button style="min-height:56px;border:0;border-radius:16px;background:#E8A33D;color:#4A2C17;font:800 21px 'Baloo 2';box-shadow:0 5px 0 #B87A1F" style-active="transform:translateY(5px);box-shadow:none">Main lagi</button>
+              </div>
+            </div>
+          </div>
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Sudah dimainkan</div>
+        </div>
+
+        <div style="display:grid;gap:10px">
+          <div style="position:relative;border-radius:24px;padding:8px;background:#A39C91;box-shadow:0 6px 0 #8E877C,0 14px 24px rgba(74,44,23,.12)">
+            <div style="border-radius:17px;background:#F3F0EA;overflow:hidden;display:grid">
+              <div style="position:relative;aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#DDD8CF 0 10px,#D3CDC3 10px 20px);display:grid;place-items:center">
+                <span style="font:500 13px ui-monospace,Menlo,monospace;color:#6F685E;background:rgba(243,240,234,.85);padding:4px 8px;border-radius:6px">ilustrasi benda: papan &amp; bidak</span>
+                <span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:#6F685E;color:#fff;font:700 14px 'Baloo 2'">Belum dimainkan</span>
+              </div>
+              <div style="padding:16px 18px 18px;display:grid;gap:10px">
+                <span style="justify-self:start;padding:3px 12px;border-radius:999px;background:#8E877C;color:#fff;font:700 15px 'Baloo 2'">Adu Strategi</span>
+                <div style="font:800 26px/1 'Baloo 2';color:#5E584F">Dam-daman</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font:700 16px 'Nunito';color:#6F685E"><span>2 pemain asli</span><span style="display:flex;gap:2px"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#8E877C"></polygon></svg><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#8E877C"></polygon></svg><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#8E877C"></polygon></svg></span></div>
+                <button style="min-height:56px;border:0;border-radius:16px;background:#E8A33D;color:#4A2C17;font:800 21px 'Baloo 2';box-shadow:0 5px 0 #B87A1F" style-active="transform:translateY(5px);box-shadow:none">Main</button>
+              </div>
+            </div>
+          </div>
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Belum dimainkan</div>
+        </div>
+
+        <div style="display:grid;gap:10px">
+          <div style="position:relative;border-radius:24px;padding:8px;background:#A39C91;box-shadow:0 6px 0 #8E877C,0 14px 24px rgba(74,44,23,.12)">
+            <div style="position:absolute;top:-8px;right:22px;z-index:1;width:58px;height:78px;padding-top:14px;display:grid;justify-items:center;align-content:start;gap:4px;background:#B5462F;clip-path:polygon(0 0,100% 0,100% 100%,50% 84%,0 100%);box-shadow:inset 0 10px 0 #8A3321">
+              <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#FFD58A"></polygon></svg>
+              <span style="font:800 14px 'Baloo 2';color:#fff;letter-spacing:.04em">BONUS</span>
+            </div>
+            <div style="border-radius:17px;background:#F3F0EA;overflow:hidden;display:grid">
+              <div style="position:relative;aspect-ratio:4/3;background:repeating-linear-gradient(135deg,#DDD8CF 0 10px,#D3CDC3 10px 20px);display:grid;place-items:center">
+                <span style="font:500 13px ui-monospace,Menlo,monospace;color:#6F685E;background:rgba(243,240,234,.85);padding:4px 8px;border-radius:6px">ilustrasi benda: balon air</span>
+                <span style="position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:#6F685E;color:#fff;font:700 14px 'Baloo 2'">Belum dimainkan</span>
+              </div>
+              <div style="padding:16px 18px 18px;display:grid;gap:10px">
+                <span style="justify-self:start;padding:3px 12px;border-radius:999px;background:#8E877C;color:#fff;font:700 15px 'Baloo 2'">Adu Kekompakan</span>
+                <div style="font:800 26px/1 'Baloo 2';color:#5E584F">Pecah Balon Air</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font:700 16px 'Nunito';color:#6F685E"><span>Beregu</span><span style="display:flex;gap:2px"><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#8E877C"></polygon></svg><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#8E877C"></polygon></svg><svg width="22" height="22" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="#D3CDC3"></polygon></svg></span></div>
+                <button style="min-height:56px;border:0;border-radius:16px;background:#E8A33D;color:#4A2C17;font:800 21px 'Baloo 2';box-shadow:0 5px 0 #B87A1F" style-active="transform:translateY(5px);box-shadow:none">Main</button>
+              </div>
+            </div>
+          </div>
+          <div style="font:700 16px 'Baloo 2';color:#6B4226">Game Bonus · pita khusus</div>
+        </div>
+      </div>
+    </section>
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">07</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Balon kata</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Subtitle selalu aktif. Label nama memakai warna tokoh; ekor balon menunjuk ke arah pembicara.</p></div>
+      <div style="display:grid;gap:22px;max-width:860px">
+        <div style="display:flex;align-items:flex-end;gap:14px">
+          <div style="flex:none;width:92px;height:92px;border-radius:50%;background:#EADBBE;overflow:hidden;box-shadow:inset 0 0 0 3px #6B4226"><x-import component-from-global-scope="kd-char" from="./characters.js" who="guru" crop="head" mouth="talk-a" style="width:100%;height:100%" hint-size="92px,92px"></x-import></div>
+          <div style="position:relative;flex:1;min-width:0;background:#FFFDF6;border:2.5px solid #4A2C17;border-radius:24px;padding:24px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)">
+            <span style="position:absolute;top:-16px;left:18px;padding:3px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 16px 'Baloo 2';white-space:nowrap">Pak Guru</span>
+            <div style="position:absolute;left:-12px;bottom:22px;width:20px;height:20px;background:#FFFDF6;border-left:2.5px solid #4A2C17;border-bottom:2.5px solid #4A2C17;transform:rotate(45deg)"></div>
+            <p style="margin:0;font:600 18px/1.5 'Nunito';color:#3A2A1E">Dulu waktu Bapak seumuran kalian, jam istirahat nggak pernah sepi.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:14px;flex-direction:row-reverse">
+          <div style="flex:none;width:92px;height:92px;border-radius:50%;background:#EADBBE;overflow:hidden;box-shadow:inset 0 0 0 3px #6B4226"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" crop="head" mouth="talk-o" eyes="surprised" style="width:100%;height:100%" hint-size="92px,92px"></x-import></div>
+          <div style="position:relative;flex:1;min-width:0;background:#FFFDF6;border:2.5px solid #4A2C17;border-radius:24px;padding:24px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)">
+            <span style="position:absolute;top:-16px;right:18px;padding:3px 14px;border-radius:999px;background:#4E7628;color:#fff;font:700 16px 'Baloo 2';white-space:nowrap">Sekar</span>
+            <div style="position:absolute;right:-12px;bottom:22px;width:20px;height:20px;background:#FFFDF6;border-right:2.5px solid #4A2C17;border-top:2.5px solid #4A2C17;transform:rotate(45deg)"></div>
+            <p style="margin:0;font:600 18px/1.5 'Nunito';color:#3A2A1E">Ini semua apa, Pak?</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:14px">
+          <div style="flex:none;width:92px;height:92px;border-radius:50%;background:#EADBBE;overflow:hidden;box-shadow:inset 0 0 0 3px #6B4226"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" crop="head" eyes="happy" mouth="talk-a" style="width:100%;height:100%" hint-size="92px,92px"></x-import></div>
+          <div style="position:relative;flex:1;min-width:0;background:#FFFDF6;border:2.5px solid #4A2C17;border-radius:24px;padding:24px 22px 18px;box-shadow:0 5px 0 rgba(74,44,23,.18)">
+            <span style="position:absolute;top:-16px;left:18px;padding:3px 14px;border-radius:999px;background:#B5462F;color:#fff;font:700 16px 'Baloo 2';white-space:nowrap">Bima</span>
+            <div style="position:absolute;left:-12px;bottom:22px;width:20px;height:20px;background:#FFFDF6;border-left:2.5px solid #4A2C17;border-bottom:2.5px solid #4A2C17;transform:rotate(45deg)"></div>
+            <p style="margin:0;font:600 18px/1.5 'Nunito';color:#3A2A1E">Istirahat kok gini-gini aja, ya.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">08</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Stempel cap batik</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Cincin ganda, nama permainan melingkar, motif empat kelopak di tengah. Tinta sedikit tidak rata seperti cap sungguhan.</p></div>
+      <svg width="0" height="0" style="position:absolute"><filter id="kd-ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.5"></feDisplacementMap></filter></svg>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:22px">
+        <div style="display:grid;gap:10px;justify-items:center;background:#FFF8EA;border-radius:24px;padding:24px 16px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <svg width="170" height="170" viewBox="0 0 200 200" style="transform:rotate(-9deg)"><defs><path id="kd-ring1" d="M100 100 m-66 0 a66 66 0 1 1 132 0 a66 66 0 1 1 -132 0"></path></defs><g filter="url(#kd-ink)" opacity=".92"><circle cx="100" cy="100" r="92" fill="none" stroke="#B5462F" stroke-width="7"></circle><circle cx="100" cy="100" r="80" fill="none" stroke="#B5462F" stroke-width="2.5"></circle><circle cx="100" cy="100" r="50" fill="none" stroke="#B5462F" stroke-width="2.5"></circle><text font-family="Baloo 2" font-weight="800" font-size="17" letter-spacing="2.4" fill="#B5462F"><textPath href="#kd-ring1">KOTAK DOLANAN • ULAR TANGGA •</textPath></text><g fill="#B5462F"><ellipse cx="100" cy="78" rx="10" ry="16"></ellipse><ellipse cx="100" cy="122" rx="10" ry="16"></ellipse><ellipse cx="78" cy="100" rx="16" ry="10"></ellipse><ellipse cx="122" cy="100" rx="16" ry="10"></ellipse></g><circle cx="100" cy="100" r="5" fill="#FFF8EA"></circle></g></svg>
+          <div style="font:700 18px 'Baloo 2'">Stempel game</div><div style="font-size:15px;text-align:center">Didapat setelah selesai main</div>
+        </div>
+        <div style="display:grid;gap:10px;justify-items:center;background:#FFF8EA;border-radius:24px;padding:24px 16px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <svg width="170" height="170" viewBox="0 0 200 200" style="transform:rotate(7deg)"><defs><path id="kd-ring2" d="M100 100 m-66 0 a66 66 0 1 1 132 0 a66 66 0 1 1 -132 0"></path></defs><circle cx="100" cy="100" r="96" fill="#FFD58A"></circle><g filter="url(#kd-ink)"><circle cx="100" cy="100" r="92" fill="none" stroke="#B87A1F" stroke-width="7"></circle><circle cx="100" cy="100" r="80" fill="none" stroke="#B87A1F" stroke-width="2.5"></circle><circle cx="100" cy="100" r="50" fill="#E8A33D" stroke="#B87A1F" stroke-width="2.5"></circle><text font-family="Baloo 2" font-weight="800" font-size="16" letter-spacing="2" fill="#8A5A18"><textPath href="#kd-ring2">TANTANGAN LAPANGAN • EMAS •</textPath></text><polygon points="100,62 111,87 138,89 117,106 124,132 100,118 76,132 83,106 62,89 89,87" fill="#FFF8EA"></polygon></g></svg>
+          <div style="font:700 18px 'Baloo 2'">Stempel emas</div><div style="font-size:15px;text-align:center">Diberikan guru lewat PIN</div>
+        </div>
+        <div style="display:grid;gap:10px;justify-items:center;background:#FFF8EA;border-radius:24px;padding:24px 16px;box-shadow:inset 0 0 0 2px #E3D1AE">
+          <div style="width:170px;height:170px;display:grid;place-items:center"><div style="width:150px;height:150px;border-radius:50%;border:3px dashed #B9B2A6;display:grid;place-items:center;text-align:center;font:700 16px/1.2 'Baloo 2';color:#8E877C">Belum<br>ada cap</div></div>
+          <div style="font:700 18px 'Baloo 2'">Slot kosong</div><div style="font-size:15px;text-align:center">Di halaman koleksi stempel</div>
+        </div>
+      </div>
+    </section>
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">09</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">Panel modal</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Bingkai kayu, isi kertas, kepala panel memakai pita tapis. Contoh: PIN guru untuk Tantangan Lapangan.</p></div>
+      <div style="border-radius:28px;padding:clamp(20px,5vw,56px) 16px;display:grid;place-items:center;background:linear-gradient(rgba(31,53,88,.55),rgba(31,53,88,.55)),url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' fill='%231F3558'/%3E%3Cg fill='%23E8A33D' opacity='.55'%3E%3Cellipse cx='18' cy='9' rx='4.5' ry='7'/%3E%3Cellipse cx='18' cy='27' rx='4.5' ry='7'/%3E%3Cellipse cx='9' cy='18' rx='7' ry='4.5'/%3E%3Cellipse cx='27' cy='18' rx='7' ry='4.5'/%3E%3C/g%3E%3C/svg%3E&quot;)">
+        <div style="width:100%;max-width:480px;border-radius:30px;padding:10px;background:repeating-linear-gradient(92deg,rgba(0,0,0,.08) 0 2px,transparent 2px 9px),#6B4226;box-shadow:0 8px 0 #4A2C17,0 24px 48px rgba(0,0,0,.3)">
+          <div style="position:relative;border-radius:22px;background:#F6EBD6;overflow:hidden">
+            <div style="height:22px;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/32px 22px repeat-x"></div>
+            <button aria-label="Tutup" style="position:absolute;top:34px;right:16px;width:48px;height:48px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M6 6 L18 18 M18 6 L6 18" stroke="#6B4226" stroke-width="3.5" stroke-linecap="round"></path></svg></button>
+            <div style="padding:28px 28px 28px;display:grid;gap:16px">
+              <div style="font:800 30px/1.05 'Baloo 2';color:#2E4C7A;padding-right:56px">PIN Guru</div>
+              <p style="margin:0;font-size:17px;line-height:1.5">Sudah memainkan Ular Tangga versi aslinya di lapangan? Minta guru memasukkan PIN untuk memberi stempel emas.</p>
+              <div style="display:grid;grid-template-columns:repeat(4,56px);gap:12px;justify-content:center;padding:6px 0">
+                <div style="height:64px;border-radius:14px;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226;display:grid;place-items:center;font:800 30px 'Baloo 2';color:#2E4C7A">•</div>
+                <div style="height:64px;border-radius:14px;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #6B4226;display:grid;place-items:center;font:800 30px 'Baloo 2';color:#2E4C7A">•</div>
+                <div style="height:64px;border-radius:14px;background:#FFF8EA;box-shadow:inset 0 0 0 3px #E8A33D, 0 0 0 4px rgba(232,163,61,.3)"></div>
+                <div style="height:64px;border-radius:14px;background:#FFF8EA;box-shadow:inset 0 0 0 2.5px #CBB48A"></div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end">
+                <button style="min-height:56px;padding:0 24px;border:0;border-radius:16px;background:#FFF8EA;color:#6B4226;font:700 19px 'Baloo 2';box-shadow:inset 0 0 0 2.5px #6B4226,0 5px 0 #6B4226">Batal</button>
+                <button style="min-height:56px;padding:0 24px;border:0;border-radius:16px;background:#E8A33D;color:#4A2C17;font:800 19px 'Baloo 2';box-shadow:0 5px 0 #B87A1F">Beri stempel emas</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="display:grid;gap:24px;padding:36px 0;border-top:2px dashed #DCC7A1">
+      <div style="display:grid;gap:6px"><div style="font:700 18px 'Baloo 2';color:#B87A1F">10</div><h2 style="margin:0;font:700 34px/1.1 'Baloo 2';color:#2E4C7A">HUD skor</h2><p style="margin:0;font-size:17px;line-height:1.5;max-width:680px">Menempel di tepi atas panggung game. Pemain yang sedang giliran diberi cincin kunyit.</p></div>
+      <div style="font:700 16px 'Baloo 2';color:#6B4226">Main Bergantian / Lawan Komputer</div>
+      <div style="border-radius:24px;overflow:hidden;background:#6E9F3D;box-shadow:inset 0 0 0 2px rgba(0,0,0,.08)">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(rgba(43,33,28,.28),rgba(43,33,28,0))">
+          <button aria-label="Jeda" style="width:52px;height:52px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="#6B4226"></rect><rect x="14" y="5" width="4" height="14" rx="1.5" fill="#6B4226"></rect></svg></button>
+          <div style="height:52px;flex:none;padding:0 12px;border-radius:999px;background:#FFF8EA;display:flex;align-items:center;box-shadow:0 4px 0 #4A2C17"><img src="assets/snt-mark.png" alt="SNT" style="height:34px"></div>
+          <div style="flex:1;display:flex;flex-wrap:wrap;gap:12px;justify-content:center">
+            <div style="position:relative;display:flex;align-items:center;gap:10px;padding:5px 16px 5px 5px;border-radius:999px;background:#FFF8EA;box-shadow:0 0 0 4px #E8A33D,0 4px 0 4px #B87A1F">
+              <span style="position:absolute;top:-14px;left:50%;transform:translateX(-50%);padding:1px 10px;border-radius:999px;background:#E8A33D;color:#4A2C17;font:800 13px 'Baloo 2';white-space:nowrap">GILIRANMU</span>
+              <div style="width:44px;height:44px;border-radius:50%;background:#EADBBE;overflow:hidden"><x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="keriting" skin="3" crop="head" style="width:100%;height:100%" hint-size="44px,44px"></x-import></div>
+              <span style="font:700 16px 'Nunito';color:#3A2A1E">Kamu</span><span style="font:800 24px 'Baloo 2';color:#2E4C7A">47</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:5px 16px 5px 5px;border-radius:999px;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17">
+              <div style="width:44px;height:44px;border-radius:50%;background:#EADBBE;overflow:hidden"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" crop="head" style="width:100%;height:100%" hint-size="44px,44px"></x-import></div>
+              <span style="font:700 16px 'Nunito';color:#3A2A1E">Bima</span><span style="font:800 24px 'Baloo 2';color:#2E4C7A">32</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:5px 16px 5px 5px;border-radius:999px;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17">
+              <div style="width:44px;height:44px;border-radius:50%;background:#EADBBE;overflow:hidden"><x-import component-from-global-scope="kd-char" from="./characters.js" who="sekar" crop="head" style="width:100%;height:100%" hint-size="44px,44px"></x-import></div>
+              <span style="font:700 16px 'Nunito';color:#3A2A1E">Sekar</span><span style="font:800 24px 'Baloo 2';color:#2E4C7A">28</span>
+            </div>
+          </div>
+          <button aria-label="Suara" style="width:52px;height:52px;flex:none;border:0;border-radius:50%;display:grid;place-items:center;background:#2E4C7A;box-shadow:0 4px 0 #1F3558"><svg width="26" height="26" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></button>
+        </div>
+        <div style="height:150px;display:grid;place-items:center;font:500 13px ui-monospace,Menlo,monospace;color:#EAF3DA">area permainan</div>
+      </div>
+      <div style="font:700 16px 'Baloo 2';color:#6B4226;margin-top:6px">Duel Satu Layar</div>
+      <div style="border-radius:24px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;position:relative;min-height:220px">
+        <div style="background:#F3D9CF;padding:16px;display:grid;align-content:start;justify-items:start;gap:4px"><span style="padding:4px 14px;border-radius:999px;background:#B5462F;color:#fff;font:700 16px 'Baloo 2';white-space:nowrap">Kiri · A</span><span style="font:800 64px/1 'Baloo 2';color:#8A3321">3</span></div>
+        <div style="background:#D6DEEA;padding:16px;display:grid;align-content:start;justify-items:end;gap:4px"><span style="padding:4px 14px;border-radius:999px;background:#2E4C7A;color:#fff;font:700 16px 'Baloo 2';white-space:nowrap">Kanan · L</span><span style="font:800 64px/1 'Baloo 2';color:#1F3558">2</span></div>
+        <div style="position:absolute;top:0;bottom:0;left:50%;width:6px;transform:translateX(-50%);background:#FFF8EA"></div>
+        <div style="position:absolute;top:14px;left:50%;transform:translateX(-50%);display:grid;justify-items:center;gap:8px">
+          <span style="padding:6px 18px;border-radius:16px;background:#2B211C;color:#FFD58A;font:800 26px 'Baloo 2';letter-spacing:.04em">01:24</span>
+          <button aria-label="Jeda" style="width:48px;height:48px;border:0;border-radius:50%;display:grid;place-items:center;background:#FFF8EA;box-shadow:0 4px 0 #4A2C17"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="#6B4226"></rect><rect x="14" y="5" width="4" height="14" rx="1.5" fill="#6B4226"></rect></svg></button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;texture&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { sound: true, chip: 'semua' };
+  renderVals() {
+    return {
+      texture: this.props.texture !== false,
+      sound: this.state.sound,
+      muted: !this.state.sound,
+      soundLabel: this.state.sound ? 'Suara aktif' : 'Suara mati',
+      ratings: [['Mudah', 1], ['Sedang', 2], ['Sulit', 3]].map(([label, n]) => ({ label, stars: [0, 1, 2].map(i => i < n ? { fill: '#E8A33D', stroke: '#B87A1F' } : { fill: '#EADBBE', stroke: '#D6C29C' }) })),
+      toggleSound: () => this.setState(s => ({ sound: !s.sound })),
+      colors: [
+        { name: 'Kunyit', hex: '#E8A33D', dark: '#B87A1F', use: 'Tombol utama, sorotan' },
+        { name: 'Merah bata', hex: '#B5462F', dark: '#8A3321', use: 'Aksen, tanda bahaya' },
+        { name: 'Daun pisang', hex: '#6E9F3D', dark: '#4E7628', use: 'Berhasil, lapangan' },
+        { name: 'Biru nila', hex: '#2E4C7A', dark: '#1F3558', use: 'Teks judul, seragam' },
+        { name: 'Kertas krem', hex: '#F6EBD6', dark: '#EADBBE', use: 'Latar utama' },
+        { name: 'Kayu', hex: '#6B4226', dark: '#4A2C17', use: 'Kotak dolanan, bingkai kartu' },
+        { name: 'Cahaya kelir', hex: '#FFD58A', dark: '#F0B55C', use: 'Adegan wayang, efek cahaya' }
+      ],
+      neutrals: [
+        { name: 'Tinta (teks isi)', hex: '#3A2A1E' },
+        { name: 'Kertas terang (panel)', hex: '#FFF8EA' },
+        { name: 'Abu kartu', hex: '#A39C91' },
+        { name: 'Abu kartu muda', hex: '#DDD8CF' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

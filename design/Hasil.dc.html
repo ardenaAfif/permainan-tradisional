@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="./characters.js"></script>
+<style>body{margin:0;font-family:'Nunito',sans-serif;-webkit-font-smoothing:antialiased;color:#3A2A1E}*{box-sizing:border-box}a{color:#2E4C7A}a:hover{color:#B5462F}button{font-family:inherit;cursor:pointer}</style>
+</helmet>
+<div data-screen-label="Layar hasil" style="position:relative;overflow:hidden;width:{{ w }}px;height:{{ h }}px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;background:#F6EBD6">
+  <div style="height:20px;position:absolute;left:0;right:0;top:0;z-index:1;background:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3C/svg%3E&quot;) 0 center/29px 20px repeat-x"></div>
+  <div style="min-height:0;overflow:auto;padding:{{ padTop }}px {{ pad }}px 12px;display:grid;grid-template-columns:{{ cols }};gap:{{ gap }}px;align-content:start">
+    <div style="position:relative;border-radius:28px;overflow:hidden;background:radial-gradient(ellipse 80% 70% at 50% 20%,#FFF0CC 0%,#FFD58A 55%,#F0B55C 100%);display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-height:{{ heroMin }}px">
+      <div style="position:relative;padding:{{ heroPad }}px {{ heroPad }}px 0;padding-right:80px;display:grid;gap:4px">
+        <div style="font:700 {{ smF }}px 'Nunito';color:#8A3321">Ular Tangga · Lawan Komputer</div>
+        <div style="font:800 {{ winF }}px/0.95 'Baloo 2';color:#2E4C7A">Raka menang!</div>
+      </div>
+      <div style="position:relative;min-height:{{ avMin }}px">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:24%;background:#E8C68A"></div>
+        <x-import component-from-global-scope="kd-char" from="./characters.js" who="avatar" hair="keriting" skin="2" pose="happy" motion="1" style="position:absolute;inset:6% 0 0" hint-size="100%,100%"></x-import>
+      </div>
+      <div style="position:relative;display:grid;gap:8px;padding:0 {{ heroPad }}px {{ heroPad }}px;background:#E8C68A">
+        <sc-for list="{{ ranks }}" as="r" hint-placeholder-count="3">
+          <div style="display:flex;align-items:center;gap:12px;min-height:52px;padding:4px 16px 4px 4px;border-radius:999px;background:{{ r.bg }};box-shadow:{{ r.sh }}">
+            <span style="width:44px;height:44px;flex:none;border-radius:50%;display:grid;place-items:center;background:{{ r.numBg }};color:{{ r.numFg }};font:800 22px 'Baloo 2'">{{ r.n }}</span>
+            <span style="flex:1;font:700 {{ bodyF }}px 'Nunito';color:#3A2A1E">{{ r.name }}</span>
+            <span style="font:700 {{ smF }}px 'Nunito';color:#6B4226;white-space:nowrap">{{ r.note }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display:grid;gap:{{ gap }}px;align-content:start;min-width:0">
+      <div style="display:flex;align-items:center;gap:{{ gap }}px;background:#FFF8EA;border-radius:28px;padding:{{ cardPad }}px;box-shadow:inset 0 0 0 2px #E3D1AE">
+        <svg width="{{ stampS }}" height="{{ stampS }}" viewBox="0 0 200 200" style="flex:none;transform:rotate(-9deg)"><defs><path id="hs-ring" d="M100 100 m-66 0 a66 66 0 1 1 132 0 a66 66 0 1 1 -132 0"></path><filter id="hs-ink"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="4"></feTurbulence><feDisplacementMap in="SourceGraphic" scale="3.5"></feDisplacementMap></filter></defs><g filter="url(#hs-ink)" opacity=".92"><circle cx="100" cy="100" r="92" fill="none" stroke="#B5462F" stroke-width="7"></circle><circle cx="100" cy="100" r="80" fill="none" stroke="#B5462F" stroke-width="2.5"></circle><circle cx="100" cy="100" r="50" fill="none" stroke="#B5462F" stroke-width="2.5"></circle><text font-family="Baloo 2" font-weight="800" font-size="17" letter-spacing="2.4" fill="#B5462F"><textPath href="#hs-ring">KOTAK DOLANAN • ULAR TANGGA •</textPath></text><g fill="#B5462F"><ellipse cx="100" cy="78" rx="10" ry="16"></ellipse><ellipse cx="100" cy="122" rx="10" ry="16"></ellipse><ellipse cx="78" cy="100" rx="16" ry="10"></ellipse><ellipse cx="122" cy="100" rx="16" ry="10"></ellipse></g><circle cx="100" cy="100" r="5" fill="#FFF8EA"></circle></g></svg>
+        <div style="display:grid;gap:6px;min-width:0">
+          <div style="font:800 {{ cardH }}px/1.05 'Baloo 2';color:#8A3321">Stempel baru!</div>
+          <div style="font:500 {{ bodyF }}px/1.45 'Nunito'">Kartu Ular Tangga di kotak sudah berwarna lagi. Stempelmu sekarang 3 dari 9.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;align-items:flex-end;gap:12px">
+        <div style="flex:none;width:{{ headS }}px;height:{{ headS }}px;border-radius:50%;background:#EADBBE;overflow:hidden;box-shadow:inset 0 0 0 3px #6B4226"><x-import component-from-global-scope="kd-char" from="./characters.js" who="bima" crop="head" eyes="happy" mouth="talk-a" style="width:100%;height:100%" hint-size="100%,100%"></x-import></div>
+        <div style="position:relative;flex:1;min-width:0;background:#FFFDF6;border:2.5px solid #4A2C17;border-radius:24px;padding:22px 20px 16px;box-shadow:0 5px 0 rgba(74,44,23,.18)">
+          <span style="position:absolute;top:-16px;left:18px;padding:3px 14px;border-radius:999px;background:#B5462F;color:#fff;font:700 {{ smF }}px 'Baloo 2';white-space:nowrap">Bima</span>
+          <div style="position:absolute;left:-12px;bottom:22px;width:20px;height:20px;background:#FFFDF6;border-left:2.5px solid #4A2C17;border-bottom:2.5px solid #4A2C17;transform:rotate(45deg)"></div>
+          <p style="margin:0;font:600 {{ bodyF }}px/1.5 'Nunito'">Dadumu lagi hoki! Ronde depan giliranku, ya.</p>
+        </div>
+      </div>
+
+      <div style="border-radius:28px;padding:{{ cardPad }}px;background:#4E7628;box-shadow:0 6px 0 #3A5A1D;display:grid;gap:12px;color:#fff">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="width:{{ goldS }}px;height:{{ goldS }}px;flex:none;border-radius:50%;border:3px dashed #FFD58A;display:grid;place-items:center"><svg width="50%" height="50%" viewBox="0 0 24 24"><polygon points="12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6" fill="none" stroke="#FFD58A" stroke-width="2" stroke-linejoin="round"></polygon></svg></div>
+          <div style="display:grid;gap:2px;min-width:0"><div style="font:700 {{ smF }}px 'Nunito';color:#FFD58A;letter-spacing:.06em;text-transform:uppercase">Tantangan Lapangan</div><div style="font:800 {{ cardH }}px/1.05 'Baloo 2'">Main versi aslinya</div></div>
+        </div>
+        <p style="margin:0;font:600 {{ bodyF }}px/1.5 'Nunito'">Gambar papan ular tangga dengan kapur di lapangan sekolah, lalu mainkan bersama 2–4 teman. Setelah selesai, minta guru mencentang tantangan ini.</p>
+        <button style="justify-self:start;min-height:{{ pinH }}px;padding:0 22px;border:0;border-radius:16px;display:flex;align-items:center;gap:10px;background:#FFD58A;color:#4A2C17;font:800 {{ pinF }}px 'Baloo 2';box-shadow:0 5px 0 #B87A1F"><svg width="20" height="20" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="3" fill="#4A2C17"></rect><path d="M8 10 V7 a4 4 0 0 1 8 0 V10" stroke="#4A2C17" stroke-width="2.6" fill="none"></path></svg>PIN guru: beri stempel emas</button>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;gap:12px;justify-content:flex-end;padding:12px {{ pad }}px {{ padBot }}px;box-shadow:0 -2px 0 #E3D1AE;align-items:center">
+      <button aria-label="Suara" style="flex:none;margin-right:auto;width:56px;height:56px;border:0;border-radius:50%;display:grid;place-items:center;background:#2E4C7A;box-shadow:0 4px 0 #1F3558"><svg width="28" height="28" viewBox="0 0 28 28"><path d="M4 10 H9 L15 5 V23 L9 18 H4 Z" fill="#fff"></path><path d="M19 10 Q22 14 19 18 M22 7 Q27 14 22 21" stroke="#FFD58A" stroke-width="2.6" fill="none" stroke-linecap="round"></path></svg></button>
+    <button style="flex:{{ btnFlex }};min-height:{{ btnH }}px;padding:0 26px;border:0;border-radius:20px;background:#FFF8EA;color:#6B4226;font:700 {{ btnF }}px 'Baloo 2';box-shadow:inset 0 0 0 2.5px #6B4226,0 5px 0 #6B4226;white-space:nowrap">Main lagi</button>
+    <button style="flex:{{ btnFlex }};min-height:{{ btnH }}px;padding:0 30px;border:0;border-radius:20px;background:#E8A33D;color:#4A2C17;font:800 {{ btnF }}px 'Baloo 2';box-shadow:0 5px 0 #B87A1F;white-space:nowrap">Ke menu</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1080},&quot;size&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;hp&quot;,&quot;tablet&quot;,&quot;pid&quot;],&quot;default&quot;:&quot;pid&quot;,&quot;tsType&quot;:&quot;'hp'|'tablet'|'pid'&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const S = {
+      hp: { w: 390, h: 844, pad: 16, padTop: 32, padBot: 20, cols: 'minmax(0,1fr)', gap: 16, heroMin: 470, heroPad: 18, winF: 40, avMin: 220, cardPad: 16, stampS: 104, cardH: 22, bodyF: 16, smF: 16, pinF: 18, pinH: 56, headS: 72, goldS: 56, btnFlex: 1, btnH: 60, btnF: 20 },
+      tablet: { w: 1024, h: 768, pad: 28, padTop: 36, padBot: 20, cols: 'minmax(0,0.9fr) minmax(0,1.1fr)', gap: 18, heroMin: 560, heroPad: 22, winF: 48, avMin: 240, cardPad: 18, stampS: 110, cardH: 24, bodyF: 16, smF: 16, pinF: 19, pinH: 56, headS: 76, goldS: 60, btnFlex: 'none', btnH: 60, btnF: 21 },
+      pid: { w: 1920, h: 1080, pad: 48, padTop: 48, padBot: 30, cols: 'minmax(0,0.85fr) minmax(0,1.15fr)', gap: 30, heroMin: 860, heroPad: 36, winF: 84, avMin: 380, cardPad: 30, stampS: 190, cardH: 36, bodyF: 22, smF: 20, pinF: 26, pinH: 72, headS: 120, goldS: 88, btnFlex: 'none', btnH: 84, btnF: 30 }
+    };
+    const v = S[this.props.size] || S.pid;
+    const R = [['1', 'Raka', 'Kotak 100'], ['2', 'Bima (komputer)', 'Kotak 87'], ['3', 'Sekar (komputer)', 'Kotak 64']];
+    return { ...v, ranks: R.map(([n, name, note], i) => ({ n, name, note, bg: i ? 'rgba(255,248,234,.7)' : '#FFF8EA', sh: i ? 'none' : '0 0 0 3px #E8A33D', numBg: i ? '#EADBBE' : '#E8A33D', numFg: i ? '#6B4226' : '#4A2C17' })) };
+  }
+}
+</script>
+</body>
+</html>
