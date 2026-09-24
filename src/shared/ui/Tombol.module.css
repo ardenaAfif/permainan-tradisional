@@ -1,0 +1,110 @@
+/* Tombol timbul dari design system: sisi tebal 5px, turun rata saat ditekan. */
+.tombol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ruang-2);
+  min-height: var(--tombol-tinggi);
+  padding: 0 var(--ruang-7);
+  border: 0;
+  border-radius: 18px;
+  font: 700 var(--teks-tombol) / 1 var(--font-judul);
+  white-space: nowrap;
+  text-decoration: none;
+  transition:
+    transform var(--durasi-tekan),
+    box-shadow var(--durasi-tekan);
+}
+
+.tombol:active:not(:disabled) {
+  transform: translateY(var(--tebal-tombol));
+}
+
+.utama {
+  min-height: var(--tombol-utama-tinggi);
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+  font-weight: 800;
+  box-shadow: var(--bayang-kunyit);
+}
+.utama:active:not(:disabled) {
+  box-shadow: 0 0 0 var(--kunyit-gelap);
+}
+
+.sekunder {
+  background: var(--kertas-terang);
+  color: var(--kayu);
+  box-shadow: var(--bayang-kayu);
+}
+.sekunder:active:not(:disabled) {
+  box-shadow: var(--bayang-kayu-tekan);
+}
+
+.nila {
+  background: var(--biru-nila);
+  color: var(--putih);
+  box-shadow: var(--bayang-nila);
+}
+.nila:active:not(:disabled) {
+  box-shadow: none;
+}
+
+.merah {
+  background: var(--merah-bata);
+  color: var(--putih);
+  box-shadow: var(--bayang-merah);
+}
+.merah:active:not(:disabled) {
+  box-shadow: none;
+}
+
+.tombol:disabled {
+  background: var(--abu-kartu-muda);
+  color: var(--abu-teks);
+  box-shadow: 0 var(--tebal-tombol) 0 var(--abu-garis);
+}
+
+.penuh {
+  width: 100%;
+}
+
+/* Tombol ikon bulat 56px */
+.ikon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--tombol-tinggi);
+  height: var(--tombol-tinggi);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--kertas-terang);
+  color: var(--kayu);
+  box-shadow: inset 0 0 0 2.5px var(--kayu), 0 4px 0 var(--kayu);
+  transition: transform var(--durasi-tekan);
+}
+.ikon:active {
+  transform: translateY(4px);
+  box-shadow: inset 0 0 0 2.5px var(--kayu);
+}
+
+.ikonNila {
+  background: var(--biru-nila);
+  color: var(--putih);
+  box-shadow: 0 4px 0 var(--biru-nila-gelap);
+}
+.ikonNila:active {
+  box-shadow: none;
+}
+
+/* Versi di atas adegan (intro/game): latar gelap transparan */
+.ikonTabir {
+  width: 52px;
+  height: 52px;
+  background: var(--tabir-gelap);
+  color: var(--putih);
+  box-shadow: none;
+}
+.ikonTabir:active {
+  box-shadow: none;
+}

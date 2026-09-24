@@ -1,0 +1,77 @@
+.halaman {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--tekstur-kertas), var(--kertas-krem);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pita {
+  height: 20px;
+  flex: none;
+  background: var(--pola-tapis) 0 center / 29px 20px repeat-x;
+}
+
+.kepala {
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-3);
+  padding: var(--ruang-3) max(var(--ruang-4), env(safe-area-inset-right)) var(--ruang-3)
+    max(var(--ruang-4), env(safe-area-inset-left));
+}
+
+.judulWadah {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.label {
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--merah-bata);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.judul {
+  margin: 0;
+  font: 800 28px/1.05 var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.isi {
+  flex: 1;
+  width: 100%;
+  max-width: 1760px;
+  margin: 0 auto;
+  padding: var(--ruang-2) max(var(--ruang-4), env(safe-area-inset-right)) var(--ruang-6)
+    max(var(--ruang-4), env(safe-area-inset-left));
+}
+
+@media (min-width: 700px) {
+  .kepala,
+  .isi {
+    padding-left: var(--ruang-7);
+    padding-right: var(--ruang-7);
+  }
+  .judul {
+    font-size: 34px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .kepala,
+  .isi {
+    padding-left: var(--ruang-12);
+    padding-right: var(--ruang-12);
+  }
+  .kepala {
+    padding-top: var(--ruang-6);
+  }
+  .judul {
+    font-size: 48px;
+  }
+}

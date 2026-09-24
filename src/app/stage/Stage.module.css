@@ -1,0 +1,70 @@
+.wadah {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--pola-kain);
+  background-size: 44px;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.panggung {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  transform-origin: 0 0;
+  background: var(--kertas-krem);
+  box-shadow: 0 0 0 4px var(--kayu-gelap);
+}
+
+.ui {
+  position: absolute;
+  pointer-events: none;
+}
+
+.ui > * {
+  pointer-events: auto;
+}
+
+.putar {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--ruang-3);
+  padding: var(--ruang-6);
+  text-align: center;
+  background: linear-gradient(var(--tabir-nila), var(--tabir-nila)), var(--pola-kain);
+  background-size: auto, 44px;
+  color: var(--kertas-terang);
+}
+
+.putarIkon {
+  animation: miring 2.4s ease-in-out infinite;
+}
+
+.putarJudul {
+  margin: 0;
+  font: 800 36px/1 var(--font-judul);
+  color: var(--cahaya-kelir);
+}
+
+.putarTeks {
+  margin: 0;
+  max-width: 300px;
+  font: 600 var(--teks-isi) / 1.45 var(--font-isi);
+}
+
+@keyframes miring {
+  0%,
+  30% {
+    transform: rotate(0);
+  }
+  60%,
+  100% {
+    transform: rotate(-90deg);
+  }
+}

@@ -1,0 +1,313 @@
+/* Menu "Kotak Dolanan" — layout responsif biasa (bukan Stage). Lihat design/Menu.dc.html. */
+.menu {
+  --pad: max(16px, env(safe-area-inset-left));
+  --gap: 16px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--tekstur-kertas), var(--kertas-krem);
+  padding-bottom: calc(var(--ruang-6) + env(safe-area-inset-bottom));
+}
+
+.pita {
+  height: 20px;
+  background: var(--pola-tapis) 0 center / 29px 20px repeat-x;
+}
+
+.kepala,
+.alat,
+.filter,
+.grid {
+  max-width: 1840px;
+  margin: 0 auto;
+  padding-left: var(--pad);
+  padding-right: var(--pad);
+}
+
+.kepala {
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-3);
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.logo {
+  height: 36px;
+  width: auto;
+  flex: none;
+}
+
+.judul {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font: 800 26px/1 var(--font-judul);
+  color: var(--biru-nila);
+  white-space: nowrap;
+}
+
+.stempel {
+  height: var(--tombol-tinggi);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-2);
+  padding: 0 14px 0 8px;
+  border-radius: var(--radius-pil);
+  background: var(--kertas-terang);
+  box-shadow: var(--bayang-panel);
+  font: 800 22px var(--font-judul);
+  color: var(--merah-bata-gelap);
+  white-space: nowrap;
+}
+
+.stempelIkon {
+  transform: rotate(-10deg);
+}
+
+.avatar {
+  height: var(--tombol-tinggi);
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-2);
+  padding: 0 4px;
+  border-radius: var(--radius-pil);
+  background: var(--biru-nila);
+  box-shadow: 0 4px 0 var(--biru-nila-gelap);
+  color: var(--putih);
+  text-decoration: none;
+  font: 700 18px var(--font-judul);
+  transition: transform var(--durasi-tekan);
+}
+
+.avatar:active {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.avatarWajah {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--cahaya-kelir);
+}
+
+.avatarNama {
+  display: none;
+  max-width: 12ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alat {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ruang-3);
+  padding-top: 6px;
+  padding-bottom: var(--ruang-3);
+}
+
+.progres {
+  flex: 1 1 260px;
+  display: grid;
+  gap: 6px;
+}
+
+.progresTeks {
+  font: 700 17px var(--font-isi);
+  color: var(--kayu);
+}
+
+.progresBar {
+  height: 12px;
+  border-radius: var(--radius-pil);
+  background: var(--garis-krem);
+  overflow: hidden;
+}
+
+.progresIsi {
+  height: 100%;
+  border-radius: var(--radius-pil);
+  background: linear-gradient(90deg, var(--kunyit), var(--daun-pisang));
+  transition: width var(--durasi-warna) ease;
+}
+
+.aksi {
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-3);
+  flex: 0 0 auto;
+}
+
+.tombolIntro {
+  padding: 0 var(--ruang-5);
+  font-size: 18px;
+}
+
+.filter {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-top: 2px;
+  padding-bottom: 14px;
+  scrollbar-width: none;
+}
+
+.chip {
+  flex: none;
+  min-height: var(--tap-min);
+  padding: 0 18px 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ruang-2);
+  border-radius: var(--radius-pil);
+  border: 2px solid var(--warna-kategori);
+  background: var(--kertas-terang);
+  color: var(--warna-kategori);
+  font: 700 17px var(--font-judul);
+  white-space: nowrap;
+}
+
+.chipAktif {
+  background: var(--warna-kategori);
+  color: var(--putih);
+  box-shadow: 0 3px 0 var(--warna-kategori-gelap);
+}
+
+.titik {
+  position: relative;
+  display: flex;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--warna-kategori);
+}
+
+.titikBelah {
+  border-radius: 3px;
+  transform: rotate(45deg);
+}
+
+.titikKedua {
+  position: absolute;
+  left: 8px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--daun-pisang);
+}
+
+.chipAktif .titik {
+  background: var(--cahaya-kelir);
+}
+
+.chipAktif .titikKedua {
+  background: var(--putih);
+}
+
+.chip:has(.titikKedua) {
+  padding-left: 14px;
+}
+
+.chip:has(.titikKedua) .titik {
+  margin-right: 8px;
+}
+
+/* ── Grid kartu: 1 kolom HP tegak ── */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap);
+  padding-top: 8px;
+}
+
+@media (min-width: 480px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .avatarNama {
+    display: block;
+  }
+  .avatar {
+    padding-right: 16px;
+  }
+}
+
+/* Tablet: 3 kolom */
+@media (min-width: 700px) {
+  .menu {
+    --pad: 28px;
+    --gap: 22px;
+  }
+  .logo {
+    height: 44px;
+  }
+  .judul {
+    font-size: 34px;
+  }
+  .kepala {
+    padding-top: 14px;
+  }
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Laptop, desktop, PID: 4 kolom */
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* PID: kartu dan teks lebih besar */
+@media (min-width: 1600px) {
+  .menu {
+    --pad: 48px;
+    --gap: 30px;
+  }
+  .logo {
+    height: 60px;
+  }
+  .judul {
+    font-size: 48px;
+  }
+  .kepala {
+    padding-top: 24px;
+  }
+  .progresTeks {
+    font-size: 20px;
+  }
+}
+
+/* HP mendatar: 2 kolom, kepala lebih rapat */
+@media (orientation: landscape) and (max-height: 500px) {
+  .menu {
+    --pad: max(16px, env(safe-area-inset-left));
+    --gap: 14px;
+  }
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .logo {
+    height: 36px;
+  }
+  .judul {
+    font-size: 26px;
+  }
+}
+
+/* HP tegak: judul dipecah dua baris supaya stempel dan avatar tetap muat */
+@media (max-width: 479px) {
+  .judul {
+    font-size: 24px;
+    line-height: 0.95;
+    white-space: normal;
+    max-width: 7ch;
+  }
+}

@@ -1,0 +1,133 @@
+/* Semua ukuran dalam piksel panggung 1280x720 (diskalakan oleh Stage). */
+.adegan {
+  position: absolute;
+  inset: 0;
+  background: var(--tekstur-kayu), var(--kayu-gelap);
+}
+
+.kelir {
+  position: absolute;
+  inset: 28px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: radial-gradient(ellipse 60% 75% at 50% 12%, var(--kelir-terang) 0%, var(--cahaya-kelir) 42%, var(--kelir-tepi) 100%);
+}
+
+.blencongTudung {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 60px;
+  border-radius: 0 0 60px 60px;
+  background: var(--siluet);
+}
+
+.blencong {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  border-radius: 50%;
+  background: var(--blencong);
+  box-shadow: 0 0 60px 34px var(--sinar-blencong);
+  animation: nyala 0.9s steps(3) infinite alternate;
+}
+
+.tanah {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  background: var(--siluet);
+}
+
+.siluet {
+  position: absolute;
+  bottom: 120px;
+}
+
+.gobak {
+  left: 130px;
+  width: 290px;
+  height: 400px;
+}
+
+.engklek {
+  left: 480px;
+  width: 290px;
+  height: 400px;
+}
+
+.egrang {
+  left: 860px;
+  bottom: 116px;
+  width: 210px;
+  height: 470px;
+}
+
+.narasi {
+  position: absolute;
+  left: 170px;
+  right: 170px;
+  bottom: 18px;
+  padding: 16px 26px 14px;
+  border-radius: 20px;
+  background: var(--kertas-narasi);
+  border: 3px solid var(--siluet);
+}
+
+.narasi p {
+  margin: 0;
+  font: 700 23px/1.4 var(--font-isi);
+  color: var(--siluet);
+  text-align: center;
+}
+
+.nama {
+  position: absolute;
+  top: -17px;
+  left: 22px;
+  padding: 3px 14px;
+  border-radius: var(--radius-pil);
+  background: var(--biru-nila);
+  color: var(--putih);
+  font: 700 20px var(--font-judul);
+}
+
+.suara {
+  position: absolute;
+  top: clamp(8px, 3.5%, 40px);
+  left: clamp(8px, 2%, 40px);
+}
+
+.lewati {
+  position: absolute;
+  top: clamp(8px, 3.5%, 40px);
+  right: clamp(8px, 2%, 40px);
+  min-height: 52px;
+  padding: 0 16px 0 22px;
+  border: 0;
+  border-radius: var(--radius-pil);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tabir-gelap);
+  color: var(--putih);
+  font: 700 22px var(--font-judul);
+}
+
+@keyframes nyala {
+  from {
+    opacity: 0.85;
+    transform: translateX(-1px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(1px);
+  }
+}

@@ -1,0 +1,64 @@
+.tabir {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: var(--ruang-4);
+  background: linear-gradient(var(--tabir-nila), var(--tabir-nila)), var(--pola-kain);
+  background-size: auto, 36px;
+  animation: muncul 180ms ease-out;
+}
+
+.bingkai {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 30px;
+  padding: 10px;
+  background: var(--tekstur-kayu), var(--kayu);
+  box-shadow: var(--bayang-modal);
+}
+
+.panel {
+  position: relative;
+  border-radius: 22px;
+  background: var(--kertas-krem);
+  overflow: hidden;
+}
+
+.pita {
+  height: 22px;
+  background: var(--pola-tapis) 0 center / 32px 22px repeat-x;
+}
+
+.tutup {
+  position: absolute;
+  top: 34px;
+  right: 16px;
+}
+
+.isi {
+  display: grid;
+  gap: var(--ruang-4);
+  padding: var(--ruang-7);
+}
+
+.judul {
+  margin: 0;
+  padding-right: 56px;
+  font: 800 30px/1.05 var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ruang-3);
+  justify-content: flex-end;
+}
+
+@keyframes muncul {
+  from {
+    opacity: 0;
+  }
+}

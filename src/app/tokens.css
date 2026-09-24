@@ -1,0 +1,143 @@
+/*
+ * Design token Kotak Dolanan.
+ * Sumber: design/Design System.dc.html (warna, tipografi, ornamen, tombol, kartu)
+ * dan mockup layar di design/. Semua warna & font di aplikasi diambil dari sini.
+ */
+
+@import '@fontsource/baloo-2/latin-600.css';
+@import '@fontsource/baloo-2/latin-700.css';
+@import '@fontsource/baloo-2/latin-800.css';
+@import '@fontsource/nunito/latin-500.css';
+@import '@fontsource/nunito/latin-600.css';
+@import '@fontsource/nunito/latin-700.css';
+@import '@fontsource/nunito/latin-800.css';
+
+:root {
+  /* ── Palet utama (warna + tone gelap untuk sisi tebal & bayangan) ── */
+  --kunyit: #e8a33d;
+  --kunyit-gelap: #b87a1f;
+  --merah-bata: #b5462f;
+  --merah-bata-gelap: #8a3321;
+  --daun-pisang: #6e9f3d;
+  --daun-pisang-gelap: #4e7628;
+  --daun-pisang-tua: #3a5a1d;
+  --biru-nila: #2e4c7a;
+  --biru-nila-gelap: #1f3558;
+  --kertas-krem: #f6ebd6;
+  --kertas-krem-gelap: #eadbbe;
+  --kayu: #6b4226;
+  --kayu-gelap: #4a2c17;
+  --kayu-muda: #8a5a34;
+  --cahaya-kelir: #ffd58a;
+  --cahaya-kelir-gelap: #f0b55c;
+  --cahaya-kelir-muda: #fff0cc;
+
+  /* ── Adegan wayang (kelir) ── */
+  --siluet: #2a1a12;
+  --kelir-terang: #fff3d6;
+  --kelir-tepi: #e9a955;
+  --blencong: #fff6de;
+
+  /* ── Warna kulit avatar (tone utama dari character kit) ── */
+  --kulit-0: #f4d2ae;
+  --kulit-1: #e6b887;
+  --kulit-2: #c68d5c;
+  --kulit-3: #9e6840;
+  --kulit-4: #6e4428;
+
+  /* ── Netral ── */
+  --tinta: #3a2a1e;
+  --tinta-gelap: #2b211c;
+  --kertas-terang: #fff8ea;
+  --kertas-balon: #fffdf6;
+  --garis-krem: #e3d1ae;
+  --garis-krem-gelap: #cbb48a;
+  --garis-putus: #dcc7a1;
+  --teks-kayu-muda: #8a5a2b;
+  --lantai: #e8c68a;
+  --putih: #ffffff;
+
+  /* ── Abu (kartu belum dimainkan, tombol terkunci) ── */
+  --abu-kartu: #a39c91;
+  --abu-kartu-gelap: #8e877c;
+  --abu-kartu-muda: #ddd8cf;
+  --abu-kartu-isi: #f3f0ea;
+  --abu-teks: #6f685e;
+  --abu-judul: #5e584f;
+  --abu-bintang: #d3cdc3;
+  --abu-garis: #b9b2a6;
+
+  /* ── Tipografi ── */
+  --font-judul: 'Baloo 2', 'Nunito', system-ui, sans-serif;
+  --font-isi: 'Nunito', system-ui, sans-serif;
+  --teks-kecil: 16px; /* batas minimum di HP */
+  --teks-isi: 18px;
+  --teks-tombol: 20px;
+  --teks-h2: 28px;
+  --teks-h1: 40px;
+  --teks-display: 56px;
+
+  /* ── Radius ── */
+  --radius-s: 12px;
+  --radius-m: 16px;
+  --radius-l: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 28px;
+  --radius-pil: 999px;
+
+  /* ── Jarak ── */
+  --ruang-1: 4px;
+  --ruang-2: 8px;
+  --ruang-3: 12px;
+  --ruang-4: 16px;
+  --ruang-5: 20px;
+  --ruang-6: 24px;
+  --ruang-7: 28px;
+  --ruang-8: 32px;
+  --ruang-10: 40px;
+  --ruang-12: 48px;
+
+  /* ── Area tap ── */
+  --tap-min: 48px;
+  --tombol-tinggi: 56px;
+  --tombol-utama-tinggi: 60px;
+
+  /* ── Bayangan (tombol timbul: sisi tebal 5px, turun rata saat ditekan) ── */
+  --tebal-tombol: 5px;
+  --bayang-kunyit: 0 var(--tebal-tombol) 0 var(--kunyit-gelap);
+  --bayang-nila: 0 var(--tebal-tombol) 0 var(--biru-nila-gelap);
+  --bayang-merah: 0 var(--tebal-tombol) 0 var(--merah-bata-gelap);
+  --bayang-kayu: inset 0 0 0 2.5px var(--kayu), 0 var(--tebal-tombol) 0 var(--kayu);
+  --bayang-kayu-tekan: inset 0 0 0 2.5px var(--kayu);
+  --bayang-kartu: 0 6px 0 var(--kayu-gelap), 0 12px 22px rgba(74, 44, 23, 0.18);
+  --bayang-kartu-abu: 0 6px 0 var(--abu-kartu-gelap);
+  --bayang-panel: inset 0 0 0 2px var(--garis-krem);
+  --bayang-modal: 0 8px 0 var(--kayu-gelap), 0 24px 48px rgba(0, 0, 0, 0.3);
+  --bayang-balon: 0 5px 0 rgba(74, 44, 23, 0.18);
+  --cincin-fokus: 0 0 0 4px var(--kertas-terang), 0 0 0 7px var(--kunyit);
+
+  /* ── Lapisan transparan ── */
+  --tabir-gelap: rgba(43, 33, 28, 0.72);
+  --tabir-nila: rgba(31, 53, 88, 0.55);
+  --garis-halus: rgba(74, 44, 23, 0.18);
+  --bayang-dalam: inset 0 2px 0 rgba(0, 0, 0, 0.12);
+  --bayang-kenop: 0 2px 0 rgba(0, 0, 0, 0.2);
+  --bayang-gelap: rgba(0, 0, 0, 0.35);
+  --bayang-melayang: 0 16px 30px rgba(0, 0, 0, 0.3);
+  --sinar-blencong: rgba(255, 240, 200, 0.85);
+  --kertas-narasi: rgba(255, 248, 234, 0.94);
+  --cahaya-judul: radial-gradient(circle at 50% 56%, rgba(255, 213, 138, 0.62) 0, rgba(255, 213, 138, 0.18) 32%, rgba(31, 53, 88, 0) 58%),
+    linear-gradient(rgba(31, 53, 88, 0.1), rgba(31, 53, 88, 0.55));
+
+  /* ── Durasi ── */
+  --durasi-tekan: 80ms;
+  --durasi-warna: 700ms;
+
+  /* ── Ornamen (dari "Ornamen & tekstur" di design system) ── */
+  --pola-tapis: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='28'%3E%3Crect width='40' height='28' fill='%238A3321'/%3E%3Crect y='3' width='40' height='22' fill='%23B5462F'/%3E%3Cpath d='M0 3 L5 8 L10 3 L15 8 L20 3 L25 8 L30 3 L35 8 L40 3Z M0 25 L5 20 L10 25 L15 20 L20 25 L25 20 L30 25 L35 20 L40 25Z' fill='%23E8A33D'/%3E%3Cpath d='M20 8 L26 14 L20 20 L14 14Z' fill='%23FFD58A'/%3E%3Cpath d='M20 11 L23 14 L20 17 L17 14Z' fill='%238A3321'/%3E%3Ccircle cx='2' cy='14' r='2' fill='%23E8A33D'/%3E%3Ccircle cx='38' cy='14' r='2' fill='%23E8A33D'/%3E%3C/svg%3E");
+  --pola-kain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Crect width='36' height='36' fill='%231F3558'/%3E%3Cg fill='%23E8A33D' opacity='.55'%3E%3Cellipse cx='18' cy='9' rx='4.5' ry='7'/%3E%3Cellipse cx='18' cy='27' rx='4.5' ry='7'/%3E%3Cellipse cx='9' cy='18' rx='7' ry='4.5'/%3E%3Cellipse cx='27' cy='18' rx='7' ry='4.5'/%3E%3C/g%3E%3Cg fill='%23FFD58A' opacity='.7'%3E%3Ccircle cx='18' cy='18' r='2'/%3E%3Ccircle r='2.5'/%3E%3Ccircle cx='36' r='2.5'/%3E%3Ccircle cy='36' r='2.5'/%3E%3Ccircle cx='36' cy='36' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  --tekstur-kertas: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .26 0 0 0 0 .15 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --tekstur-kayu: repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.08) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(88deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 14px);
+  --cahaya-panggung: radial-gradient(ellipse 70% 70% at 50% 30%, var(--cahaya-kelir-muda) 0%, var(--cahaya-kelir) 55%, var(--cahaya-kelir-gelap) 100%);
+}

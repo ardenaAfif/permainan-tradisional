@@ -1,0 +1,17 @@
+/* Warna chip: nila untuk strategi, merah bata untuk ketangkasan, daun pisang tua untuk kekompakan. */
+.semua {
+  --warna-kategori: var(--kayu);
+  --warna-kategori-gelap: var(--kayu-gelap);
+}
+.strategi {
+  --warna-kategori: var(--biru-nila);
+  --warna-kategori-gelap: var(--biru-nila-gelap);
+}
+.ketangkasan {
+  --warna-kategori: var(--merah-bata);
+  --warna-kategori-gelap: var(--merah-bata-gelap);
+}
+.kekompakan {
+  --warna-kategori: var(--daun-pisang-gelap);
+  --warna-kategori-gelap: var(--daun-pisang-tua);
+}
