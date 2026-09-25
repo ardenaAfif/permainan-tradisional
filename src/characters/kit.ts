@@ -21,7 +21,7 @@ export type Mata = 'open' | 'closed' | 'happy' | 'surprised'
 export type Mulut = 'smile' | 'talk-a' | 'talk-o' | 'flat'
 export const SEMUA_MATA: Mata[] = ['open', 'closed', 'happy', 'surprised']
 export const SEMUA_MULUT: Mulut[] = ['smile', 'talk-a', 'talk-o', 'flat']
-type Rambut = GayaRambut | 'guru' | 'none'
+type Rambut = GayaRambut | 'guru' | 'guruMuda' | 'none'
 
 export interface KitOptions {
   uid: string
@@ -56,12 +56,20 @@ interface CharDef {
   skin: WarnaKulit
   hair?: Rambut
   hairC?: [string, string]
-  glasses?: 'rect' | 'round'
-  mustache?: boolean
-  shirt?: 'batik'
+  glasses?: 'rect' | 'round' | 'tebal'
+  mustache?: boolean | 'tipis'
+  /** rompi = rompi nila berritsleting di atas kemeja (warna kemeja = sleeveC). */
+  shirt?: 'batik' | 'rompi'
   sleeve: 'long' | 'short' | 'rolled'
+  /** Warna lengan pendek bila berbeda dari baju (kemeja di bawah rompi). */
+  sleeveC?: [string, string]
   pants?: [string, string]
   W?: number
+  /** Setengah lebar wajah (bawaan 34); lebih besar = wajah lebih berisi. */
+  headW?: number
+  /** Lebar kaki (bawaan 22). */
+  legW?: number
+  watch?: boolean
   prop?: 'box' | 'book'
   headwear?: PenutupKepala | null
   bottom?: 'skirt'
@@ -69,7 +77,23 @@ interface CharDef {
 }
 
 const CHARS: Record<Tokoh, CharDef> = {
-  guru: { skin: 2, hair: 'guru', hairC: ['#4F4843', '#6E665F'], glasses: 'rect', mustache: true, shirt: 'batik', sleeve: 'long', pants: ['#3F3532', '#5A4C47'], W: 82, prop: 'box' },
+  // Pak Guru muda (±25 th), badan berisi: rompi nila SNT, kemeja cokelat, kacamata tebal, jam tangan.
+  guru: {
+    skin: 2,
+    hair: 'guruMuda',
+    glasses: 'tebal',
+    mustache: 'tipis',
+    boldBrow: true,
+    shirt: 'rompi',
+    sleeve: 'short',
+    sleeveC: ['#8A5A34', '#6B4226'],
+    pants: ['#2A2320', '#3A322D'],
+    W: 96,
+    headW: 37,
+    legW: 27,
+    watch: true,
+    prop: 'box',
+  },
   bima: { skin: 3, hair: 'jabrik', sleeve: 'rolled', boldBrow: true },
   sekar: { skin: 1, headwear: 'kerudung', sleeve: 'long', bottom: 'skirt', prop: 'book' },
   dimas: { skin: 0, hair: 'belah', glasses: 'round', sleeve: 'short' },
@@ -128,7 +152,10 @@ export function karakterSvg(a: KitOptions): string {
   const col = (c: string) => (sil ? SIL : c)
   const sk = (SKINS[C.skin] ?? SKINS[2]!).map(col)
   const hc = (C.hairC ?? HAIR).map(col)
-  const sh = (C.shirt === 'batik' ? ['url(#' + u + '-batik)', '#4A2C17'] : WHITE).map(col)
+  const sh = (C.shirt === 'batik' ? ['url(#' + u + '-batik)', '#4A2C17'] : C.shirt === 'rompi' ? NILA : WHITE).map(col)
+  const sc = (C.sleeveC ?? sh).map(col)
+  const hw = C.headW ?? 34
+  const lw = C.legW ?? 22
   const pants = (C.pants ?? NILA).map(col)
   const shoe = SHOE.map(col)
   const kc = WHITE.map(col)
@@ -159,10 +186,11 @@ export function karakterSvg(a: KitOptions): string {
     const L = s === 'l'
     const sx = L ? 100 - (W / 2 - 8) : 100 + (W / 2 - 8)
     let up = `<rect x="-10" y="-8" width="20" height="58" rx="10" fill="${long ? sh[0] : sk[0]}"/>`
-    if (C.sleeve === 'short') up += `<rect x="-12" y="-10" width="24" height="34" rx="11" fill="${sh[0]}"/><rect x="-12" y="19" width="24" height="5" rx="2.5" fill="${sh[1]}"/>`
+    if (C.sleeve === 'short') up += `<rect x="-12" y="-10" width="24" height="34" rx="11" fill="${sc[0]}"/><rect x="-12" y="19" width="24" height="5" rx="2.5" fill="${sc[1]}"/>`
     if (C.sleeve === 'rolled') up += `<rect x="-12" y="-10" width="24" height="40" rx="11" fill="${sh[0]}"/><rect x="-12.5" y="26" width="25" height="10" rx="5" fill="${sh[1]}"/>`
     let lo = `<rect x="-9" y="-6" width="18" height="52" rx="9" fill="${long ? sh[0] : sk[0]}"/>`
     if (long) lo += `<rect x="-10" y="36" width="20" height="8" rx="4" fill="${sh[1]}"/>`
+    if (C.watch && !L) lo += `<rect x="-10" y="33" width="20" height="8" rx="3" fill="${col('#C9CDD2')}"/><rect x="-6" y="31.5" width="12" height="11" rx="3" fill="${col('#3A3F45')}"/>`
     const hand =
       (L && C.prop ? grup('prop', prop(C.prop)) : '') +
       `<circle cy="3" r="11" fill="${sk[0]}"/>` +
@@ -185,8 +213,8 @@ export function karakterSvg(a: KitOptions): string {
       'leg-' + s,
       `translate(${cx},246)`,
       t,
-      `<rect x="-11" y="-6" width="22" height="118" rx="10" fill="${pants[0]}"/>` +
-        (face && !skirt ? `<rect x="-11" y="96" width="22" height="6" rx="3" fill="${pants[1]}"/>` : '') +
+      `<rect x="${-lw / 2}" y="-6" width="${lw}" height="118" rx="10" fill="${pants[0]}"/>` +
+        (face && !skirt ? `<rect x="${-lw / 2}" y="96" width="${lw}" height="6" rx="3" fill="${pants[1]}"/>` : '') +
         sho,
     )
   }
@@ -197,10 +225,23 @@ export function karakterSvg(a: KitOptions): string {
     const waist = `<rect x="${x0 + 4}" y="210" width="${W - 8}" height="42" rx="12" fill="${pants[0]}"/>`
     let s = `<rect x="91" y="92" width="18" height="24" rx="6" fill="${sk[1]}"/>`
     if (C.shirt === 'batik') s += waist + shirt
+    else if (C.shirt === 'rompi')
+      // Ujung kemeja cokelat mengintip di bawah rompi, lalu celana & ikat pinggang.
+      s +=
+        `<rect x="${x0 + 6}" y="190" width="${W - 12}" height="26" rx="10" fill="${sc[0]}"/>` +
+        `<rect x="${x0}" y="106" width="${W}" height="98" rx="28" fill="${sh[0]}"/>` +
+        waist +
+        `<rect x="${x0 + 4}" y="210" width="${W - 8}" height="7" rx="3" fill="${col('#2A2320')}"/>`
     else if (skirt)
       s += shirt + `<path d="M70 206 L130 206 L144 352 Q100 360 56 352 Z" fill="${pants[0]}"/>` + (face ? `<path d="M86 214 L80 352 M114 214 L120 352" stroke="${pants[1]}" stroke-width="3"/>` : '')
     else s += shirt + waist + `<rect x="${x0 + 4}" y="210" width="${W - 8}" height="7" rx="3" fill="${col('#2A2320')}"/>`
-    if (face) {
+    if (face && C.shirt === 'rompi') {
+      // Kerah berdiri, ritsleting, bendera merah putih, dan badge SNT.
+      s += `<path d="M82 100 Q100 112 118 100 L120 114 Q100 126 80 114Z" fill="${sh[1]}"/>`
+      s += `<rect x="98.5" y="116" width="3" height="88" rx="1.5" fill="#1A2233"/>`
+      s += `<rect x="75" y="134" width="18" height="12" rx="1.5" fill="#FFFFFF"/><rect x="75" y="134" width="18" height="6" rx="1.5" fill="#D8322E"/>`
+      s += `<circle cx="117" cy="141" r="11" fill="#E8A33D"/><circle cx="117" cy="141" r="9" fill="#FFF8EA"/><image href="${a.logo}" x="109" y="135" width="16" height="12" preserveAspectRatio="xMidYMid meet"/>`
+    } else if (face) {
       s += `<rect x="98.5" y="124" width="3" height="${C.shirt === 'batik' ? 104 : 84}" rx="1.5" fill="${sh[1]}"/>`
       if (!kerudung) s += `<path d="M86 106 L100 124 L92 132 L80 112Z M114 106 L100 124 L108 132 L120 112Z" fill="${sh[1]}"/>`
       if (C.shirt !== 'batik')
@@ -230,6 +271,14 @@ export function karakterSvg(a: KitOptions): string {
         )
       case 'kuncir':
         return `<path d="M64 70 Q60 20 100 20 Q140 20 136 70 Q130 46 112 42 Q100 50 88 42 Q70 46 64 70Z" fill="${f0}"/>` + hl('M80 30 Q100 22 120 30')
+      case 'guruMuda':
+        // Rambut hitam pendek, samping tipis, atas bervolume disisir ke atas-samping.
+        return (
+          `<path d="M62 66 Q58 32 90 20 Q112 10 130 20 Q146 30 140 60 L138 68 Q134 48 122 40 Q106 34 88 38 Q70 44 62 66Z" fill="${f0}"/>` +
+          `<path d="M78 28 Q98 6 126 14 Q138 20 136 32 Q124 20 104 25 Q90 24 78 28Z" fill="${f0}"/>` +
+          `<rect x="60" y="50" width="7" height="16" rx="3.5" fill="${f0}"/><rect x="133" y="50" width="7" height="16" rx="3.5" fill="${f0}"/>` +
+          hl('M90 26 Q108 14 126 22')
+        )
       case 'guru':
         return `<path d="M66 60 Q64 24 100 22 Q136 24 134 60 Q130 44 118 40 Q100 36 82 40 Q70 44 66 60Z" fill="${f0}"/><rect x="62" y="48" width="8" height="20" rx="4" fill="${f1}"/><rect x="130" y="48" width="8" height="20" rx="4" fill="${f1}"/>`
       default:
@@ -258,10 +307,12 @@ export function karakterSvg(a: KitOptions): string {
     if (C.hair === 'kuncir' && !kerudung)
       s += grup('hair-back', `<ellipse cx="142" cy="76" rx="11" ry="24" transform="rotate(-18 142 76)" fill="${hc[0]}"/><circle cx="135" cy="52" r="5" fill="${col('#E8A33D')}"/>`)
     if (!kerudung)
-      s += `<circle cx="66" cy="68" r="8" fill="${sk[0]}"/><circle cx="134" cy="68" r="8" fill="${sk[0]}"/>` + (face ? `<circle cx="66" cy="68" r="3.5" fill="${sk[1]}"/><circle cx="134" cy="68" r="3.5" fill="${sk[1]}"/>` : '')
-    s += `<ellipse cx="100" cy="64" rx="${kerudung ? 31 : 34}" ry="${kerudung ? 36 : 38}" fill="${sk[0]}"/>`
+      s +=
+        `<circle cx="${100 - hw + 2}" cy="68" r="8" fill="${sk[0]}"/><circle cx="${100 + hw - 2}" cy="68" r="8" fill="${sk[0]}"/>` +
+        (face ? `<circle cx="${100 - hw + 2}" cy="68" r="3.5" fill="${sk[1]}"/><circle cx="${100 + hw - 2}" cy="68" r="3.5" fill="${sk[1]}"/>` : '')
+    s += `<ellipse cx="100" cy="64" rx="${kerudung ? 31 : hw}" ry="${kerudung ? 36 : 38}" fill="${sk[0]}"/>`
     if (face)
-      s += `<ellipse cx="100" cy="77" rx="3.6" ry="2.6" fill="${sk[1]}"/><circle cx="79" cy="82" r="5.5" fill="#B5462F" opacity=".16"/><circle cx="121" cy="82" r="5.5" fill="#B5462F" opacity=".16"/>`
+      s += `<ellipse cx="100" cy="77" rx="3.6" ry="2.6" fill="${sk[1]}"/><circle cx="${100 - hw + 13}" cy="82" r="5.5" fill="#B5462F" opacity=".16"/><circle cx="${100 + hw - 13}" cy="82" r="5.5" fill="#B5462F" opacity=".16"/>`
     s += grup('hair', hair(kerudung ? 'none' : C.hair))
     let wear = ''
     if (kerudung)
@@ -269,7 +320,8 @@ export function karakterSvg(a: KitOptions): string {
     if (C.headwear === 'peci')
       wear += `<path d="M66 42 L70 14 Q100 8 130 14 L134 42 Q100 36 66 42Z" fill="${col('#24211F')}"/>` + (face ? `<path d="M67 35 Q100 29 133 35 L134 42 Q100 36 66 42Z" fill="#3E3935"/>` : '')
     s += grup('headwear', wear)
-    if (C.mustache) s += grup('mustache', `<path d="M86 84 Q100 76 114 84 Q107 88 100 85 Q93 88 86 84Z" fill="${hc[0]}"/>`)
+    if (C.mustache === 'tipis') s += grup('mustache', `<path d="M90 83 Q100 79.5 110 83" stroke="${hc[0]}" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".55"/>`)
+    else if (C.mustache) s += grup('mustache', `<path d="M86 84 Q100 76 114 84 Q107 88 100 85 Q93 88 86 84Z" fill="${hc[0]}"/>`)
     let inner = abs(100, 108, s)
     if (face) {
       const bh = C.boldBrow ? 6 : 4.5
@@ -283,9 +335,11 @@ export function karakterSvg(a: KitOptions): string {
       inner += part('eyes', 'translate(0,-42)', '', `<g data-anim="kedip">${mata}</g>`)
       if (C.glasses === 'rect')
         inner += part('glasses', 'translate(0,-42)', '', `<g stroke="${INK}" stroke-width="2.6" fill="#fff" fill-opacity=".18"><rect x="-26" y="-9" width="23" height="17" rx="5"/><rect x="3" y="-9" width="23" height="17" rx="5"/></g><path d="M-3 -3 Q0 -5 3 -3 M-26 -4 L-33 -2 M26 -4 L33 -2" stroke="${INK}" stroke-width="2.6" fill="none"/>`)
+      if (C.glasses === 'tebal')
+        inner += part('glasses', 'translate(0,-42)', '', `<g stroke="${INK}" stroke-width="4.4" fill="#9FB6D6" fill-opacity=".32"><rect x="-29" y="-10" width="25" height="19" rx="6"/><rect x="4" y="-10" width="25" height="19" rx="6"/></g><path d="M-4 -3 Q0 -6 4 -3 M-29 -5 L-37 -3 M29 -5 L37 -3" stroke="${INK}" stroke-width="4" fill="none"/><circle cx="-25.5" cy="-6.5" r="1.3" fill="#D8DCE0"/><circle cx="25.5" cy="-6.5" r="1.3" fill="#D8DCE0"/>`)
       if (C.glasses === 'round')
         inner += part('glasses', 'translate(0,-42)', '', `<g stroke="${INK}" stroke-width="2.6" fill="#fff" fill-opacity=".18"><circle cx="-14" r="11"/><circle cx="14" r="11"/></g><path d="M-3 -2 Q0 -4 3 -2 M-25 -3 L-33 -1 M25 -3 L33 -1" stroke="${INK}" stroke-width="2.6" fill="none"/>`)
-      const my = C.mustache ? -16 : -20
+      const my = C.mustache === true ? -16 : -20
       const m = SEMUA_MULUT.map((k) => `<g data-mulut="${k}"${k === P.mouth ? '' : ' display="none"'}>${MOUTH[k]}</g>`).join('')
       inner += part('mouth', `translate(0,${my})`, '', m)
     }
