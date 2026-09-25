@@ -1,0 +1,444 @@
+/*
+ * Adegan intro. Semua ukuran dalam px panggung 1280x720 (diskalakan oleh Stage).
+ * Posisi & warna mengikuti design/Storyboard Intro.dc.html.
+ * Aturan: keadaan CSS = frame storyboard (dipakai apa adanya saat reduce motion);
+ * GSAP hanya menganimasikan transform/opacity dari keadaan awal ke frame itu.
+ */
+.adegan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--dinding-kelas);
+}
+
+.kamera {
+  position: absolute;
+  inset: 0;
+}
+
+.kusam {
+  background: var(--dinding-kusam);
+}
+
+.hangat {
+  background: var(--dinding-hangat);
+}
+
+.abs {
+  position: absolute;
+}
+
+/* ── Kelas ───────────────────────────────────────────── */
+.listTapis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 22px;
+  background: var(--pola-tapis) 0 center / 32px 22px repeat-x;
+}
+
+.lantai {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 170px;
+  background: repeating-linear-gradient(90deg, var(--lantai-papan) 0 158px, var(--lantai-papan-gelap) 158px 160px);
+}
+
+.papan {
+  position: absolute;
+  left: 300px;
+  top: 96px;
+  width: 560px;
+  height: 250px;
+  border-radius: 12px;
+  background: var(--biru-nila-gelap);
+  box-shadow: 0 0 0 12px var(--kayu);
+}
+
+.papanTeks {
+  position: absolute;
+  left: 36px;
+  top: 34px;
+  font: 700 30px var(--font-judul);
+  color: var(--kertas-krem-gelap);
+  opacity: 0.8;
+}
+
+.papanLogo {
+  position: absolute;
+  right: 22px;
+  bottom: 22px;
+  height: 52px;
+  width: auto;
+  padding: 6px 8px;
+  border-radius: var(--radius-s);
+  background: var(--kertas-terang);
+}
+
+.papanRak {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  bottom: -12px;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--kayu-muda);
+}
+
+.jendela {
+  position: absolute;
+  left: 960px;
+  top: 100px;
+  width: 220px;
+  height: 230px;
+  border-radius: 12px;
+  background: var(--langit-jendela);
+  box-shadow:
+    0 0 0 12px var(--kertas-terang),
+    0 0 0 16px var(--bingkai-jendela);
+}
+
+.jendela::before,
+.jendela::after {
+  content: '';
+  position: absolute;
+  background: var(--kertas-terang);
+}
+
+.jendela::before {
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  margin-left: -5px;
+}
+
+.jendela::after {
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 10px;
+  margin-top: -5px;
+}
+
+.bel {
+  position: absolute;
+  left: 120px;
+  top: 70px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--kunyit);
+  box-shadow: 0 5px 0 var(--kunyit-gelap);
+}
+
+.bel::after {
+  content: '';
+  position: absolute;
+  left: 26px;
+  top: 26px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--kayu-gelap);
+}
+
+.bunyi {
+  position: absolute;
+  font: 800 30px var(--font-judul);
+  color: var(--merah-bata);
+  white-space: nowrap;
+}
+
+.meja {
+  position: absolute;
+  border-radius: 10px;
+  background: var(--kayu-muda);
+  box-shadow: inset 0 16px 0 var(--lantai-papan);
+}
+
+.mejaPanjang {
+  position: absolute;
+  border-radius: 10px;
+  background: var(--kayu-muda);
+  box-shadow: 0 14px 0 var(--kayu);
+}
+
+/* HP Sekar */
+.hp {
+  position: absolute;
+  width: 34px;
+  height: 58px;
+  border-radius: 7px;
+  background: var(--tinta-gelap);
+}
+
+.baterai {
+  position: absolute;
+  left: 6px;
+  top: 14px;
+  width: 22px;
+  height: 11px;
+  border-radius: 2px;
+  border: 2px solid var(--putih);
+}
+
+.bateraiIsi {
+  width: 4px;
+  height: 100%;
+  background: var(--merah-bata);
+}
+
+/* ── Tokoh ──────────────────────────────────────────── */
+.tokoh {
+  position: absolute;
+}
+
+.isi {
+  width: 100%;
+  height: 100%;
+}
+
+.balik {
+  transform: scaleX(-1);
+}
+
+/* Pak Guru tanpa kotak di tangan (kotaknya sudah diletakkan). */
+.tanpaProp :global([data-part='prop']) {
+  display: none;
+}
+
+/* ── Adegan 2: pintu ────────────────────────────────── */
+.lorong {
+  position: absolute;
+  left: 70px;
+  top: 140px;
+  width: 300px;
+  height: 420px;
+  background: var(--cahaya-lorong);
+}
+
+.sinarLorong {
+  position: absolute;
+  left: 78px;
+  bottom: 0;
+  width: 420px;
+  height: 170px;
+  background: linear-gradient(90deg, var(--cahaya-lorong), transparent);
+  clip-path: polygon(0 0, 68% 0, 100% 100%, 0 100%);
+  opacity: 0.6;
+}
+
+.pintuTutup {
+  position: absolute;
+  left: 78px;
+  top: 158px;
+  width: 284px;
+  height: 402px;
+  background: var(--kayu-muda);
+  box-shadow: inset -8px 0 0 var(--kayu);
+  transform-origin: 100% 50%;
+  opacity: 0;
+}
+
+/* Wadah tanpa transform (dianimasikan GSAP); daun pintu miring ada di ::before. */
+.pintuBuka {
+  position: absolute;
+  left: 370px;
+  top: 150px;
+  width: 40px;
+  height: 410px;
+  transform-origin: 0 50%;
+}
+
+.pintuBuka::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--kayu-muda);
+  transform: skewY(-8deg);
+  transform-origin: left top;
+  box-shadow: inset -6px 0 0 var(--kayu);
+}
+
+.kusen {
+  position: absolute;
+  left: 60px;
+  top: 140px;
+  width: 320px;
+  height: 420px;
+  border: 18px solid var(--kayu);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+}
+
+.egrangPunggung {
+  position: absolute;
+  width: 12px;
+  height: 420px;
+  border-radius: 6px;
+  background: var(--kayu-muda);
+  transform-origin: 50% 100%;
+}
+
+/* ── Adegan 3: kotak terbuka ────────────────────────── */
+.sinar {
+  position: absolute;
+  left: 190px;
+  top: -240px;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 0deg at 50% 50%, var(--sinar-kotak) 0deg 8deg, var(--sinar-kotak-pudar) 8deg 20deg);
+}
+
+.pendar {
+  position: absolute;
+  left: 340px;
+  top: 120px;
+  width: 600px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--pendar-kotak) 0, var(--pendar-kotak-tengah) 35%, var(--sinar-kotak-pudar) 70%);
+}
+
+.lantaiHangat {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220px;
+  background: var(--lantai-papan-gelap);
+  box-shadow: inset 0 14px 0 var(--lantai-papan);
+}
+
+.benda {
+  position: absolute;
+}
+
+.benda svg {
+  width: 100%;
+  height: 100%;
+}
+
+.abu {
+  position: absolute;
+  inset: 0;
+  filter: grayscale(1);
+  opacity: 0.85;
+}
+
+.warna {
+  position: absolute;
+  inset: 0;
+}
+
+.percik {
+  position: absolute;
+  font: 800 26px var(--font-judul);
+  color: var(--abu-kartu-gelap);
+}
+
+.tabirKusam {
+  position: absolute;
+  inset: 0;
+  background: var(--tabir-kusam);
+}
+
+/* ── Adegan 4: kelir wayang ─────────────────────────── */
+.kayu {
+  background: var(--tekstur-kayu), var(--kayu-gelap);
+}
+
+.kelir {
+  position: absolute;
+  inset: 28px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--kelir-tepi);
+}
+
+.cahayaKelir {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 75% at 50% 12%, var(--kelir-terang) 0%, var(--cahaya-kelir) 42%, var(--kelir-tepi) 100%);
+}
+
+.blencongTudung {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 120px;
+  height: 60px;
+  margin-left: -60px;
+  border-radius: 0 0 60px 60px;
+  background: var(--siluet);
+}
+
+.blencong {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  width: 26px;
+  height: 26px;
+  margin-left: -13px;
+  border-radius: 50%;
+  background: var(--blencong);
+  box-shadow: 0 0 60px 34px var(--sinar-blencong);
+}
+
+.tanah {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  background: var(--siluet);
+}
+
+.gapit {
+  position: absolute;
+  left: 50%;
+  top: 62%;
+  bottom: -100px;
+  width: 5px;
+  margin-left: -2.5px;
+  background: var(--siluet);
+}
+
+.pid {
+  position: absolute;
+  inset: 0;
+  background: var(--kertas-terang);
+  box-shadow: inset 0 0 0 26px var(--kayu);
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* ── Adegan 6 ───────────────────────────────────────── */
+.pendarDimas {
+  position: absolute;
+  left: 560px;
+  top: 120px;
+  width: 360px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, var(--pendar-hangat) 0, var(--sinar-kotak-pudar) 65%);
+}
+
+.kilau {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.kilau path {
+  fill: var(--cahaya-kelir);
+  stroke: var(--kunyit);
+  stroke-width: 3;
+}

@@ -1,0 +1,143 @@
+/*
+ * Balon kata dari storyboard. Semua ukuran = px storyboard × --u
+ * (--u = px layar per px panggung, diatur Balon.tsx).
+ */
+.balon {
+  --u: 1;
+  position: absolute;
+  pointer-events: none;
+  padding: calc(26px * var(--u)) calc(22px * var(--u)) calc(18px * var(--u));
+  border: max(2px, calc(3px * var(--u))) solid var(--kayu-gelap);
+  border-radius: calc(24px * var(--u));
+  background: var(--kertas-balon);
+  box-shadow: 0 calc(5px * var(--u)) 0 var(--garis-halus);
+  color: var(--tinta);
+  animation: muncul 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-origin: 30% 100%;
+}
+
+.teks {
+  margin: 0;
+  font: 700 calc(24px * var(--u)) / 1.4 var(--font-isi);
+  overflow-wrap: break-word;
+}
+
+.nama {
+  position: absolute;
+  top: calc(-17px * var(--u));
+  left: calc(18px * var(--u));
+  padding: calc(3px * var(--u)) calc(14px * var(--u));
+  border-radius: var(--radius-pil);
+  color: var(--putih);
+  font: 700 calc(20px * var(--u)) / 1.2 var(--font-judul);
+  white-space: nowrap;
+}
+
+.guru {
+  background: var(--biru-nila);
+}
+
+.bima {
+  background: var(--merah-bata);
+}
+
+.sekar {
+  background: var(--tokoh-sekar);
+}
+
+.dimas {
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+}
+
+.ekor {
+  position: absolute;
+  width: calc(22px * var(--u));
+  height: calc(22px * var(--u));
+  background: var(--kertas-balon);
+  border: 0 solid var(--kayu-gelap);
+  transform: rotate(45deg);
+}
+
+.ekor-bawah {
+  left: var(--ekor-x, 50%);
+  bottom: calc(-13px * var(--u));
+  border-right-width: max(2px, calc(3px * var(--u)));
+  border-bottom-width: max(2px, calc(3px * var(--u)));
+}
+
+.ekor-kiri {
+  left: calc(-13px * var(--u));
+  bottom: calc(24px * var(--u));
+  border-left-width: max(2px, calc(3px * var(--u)));
+  border-bottom-width: max(2px, calc(3px * var(--u)));
+}
+
+.ekor-kanan {
+  right: calc(-13px * var(--u));
+  bottom: calc(24px * var(--u));
+  border-right-width: max(2px, calc(3px * var(--u)));
+  border-top-width: max(2px, calc(3px * var(--u)));
+}
+
+/* Narasi kilas balik: panel lebar di bawah kelir, teks di tengah. */
+.narasi {
+  padding: calc(16px * var(--u)) calc(26px * var(--u)) calc(14px * var(--u));
+  border-radius: calc(20px * var(--u));
+  border-color: var(--siluet);
+  background: var(--kertas-narasi);
+  transform-origin: 50% 100%;
+}
+
+.narasi .teks {
+  font-size: calc(23px * var(--u));
+  color: var(--siluet);
+  text-align: center;
+}
+
+.narasi .nama {
+  left: calc(22px * var(--u));
+}
+
+/* HP tegak: subtitle di bawah panggung, ekor menunjuk ke atas (ke tokoh). */
+.panel {
+  position: relative;
+  padding: 12px 18px 14px;
+  border-width: 3px;
+  border-radius: var(--radius-l);
+  transform-origin: 50% 0;
+}
+
+.panel .teks {
+  font-size: var(--teks-isi);
+}
+
+/* Nama ikut alur teks supaya tidak bertabrakan dengan ekor. */
+.panel .nama {
+  position: static;
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 2px 12px;
+  font-size: var(--teks-kecil);
+}
+
+.panel .ekor-bawah {
+  top: -13px;
+  bottom: auto;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  border-width: 3px 0 0 3px;
+  border-style: solid;
+}
+
+.panel.narasi .teks {
+  font-size: var(--teks-isi);
+}
+
+@keyframes muncul {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}

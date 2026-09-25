@@ -1,102 +1,7 @@
-/* Semua ukuran dalam piksel panggung 1280x720 (diskalakan oleh Stage). */
-.adegan {
-  position: absolute;
+/* Layar intro. Kontrol (suara, Lewati, subtitle) ada di lapisan ui Stage: tidak diskalakan. */
+.intro {
+  position: fixed;
   inset: 0;
-  background: var(--tekstur-kayu), var(--kayu-gelap);
-}
-
-.kelir {
-  position: absolute;
-  inset: 28px;
-  border-radius: 8px;
-  overflow: hidden;
-  background: radial-gradient(ellipse 60% 75% at 50% 12%, var(--kelir-terang) 0%, var(--cahaya-kelir) 42%, var(--kelir-tepi) 100%);
-}
-
-.blencongTudung {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 60px;
-  border-radius: 0 0 60px 60px;
-  background: var(--siluet);
-}
-
-.blencong {
-  position: absolute;
-  top: 42px;
-  left: 50%;
-  width: 26px;
-  height: 26px;
-  margin-left: -13px;
-  border-radius: 50%;
-  background: var(--blencong);
-  box-shadow: 0 0 60px 34px var(--sinar-blencong);
-  animation: nyala 0.9s steps(3) infinite alternate;
-}
-
-.tanah {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 120px;
-  background: var(--siluet);
-}
-
-.siluet {
-  position: absolute;
-  bottom: 120px;
-}
-
-.gobak {
-  left: 130px;
-  width: 290px;
-  height: 400px;
-}
-
-.engklek {
-  left: 480px;
-  width: 290px;
-  height: 400px;
-}
-
-.egrang {
-  left: 860px;
-  bottom: 116px;
-  width: 210px;
-  height: 470px;
-}
-
-.narasi {
-  position: absolute;
-  left: 170px;
-  right: 170px;
-  bottom: 18px;
-  padding: 16px 26px 14px;
-  border-radius: 20px;
-  background: var(--kertas-narasi);
-  border: 3px solid var(--siluet);
-}
-
-.narasi p {
-  margin: 0;
-  font: 700 23px/1.4 var(--font-isi);
-  color: var(--siluet);
-  text-align: center;
-}
-
-.nama {
-  position: absolute;
-  top: -17px;
-  left: 22px;
-  padding: 3px 14px;
-  border-radius: var(--radius-pil);
-  background: var(--biru-nila);
-  color: var(--putih);
-  font: 700 20px var(--font-judul);
 }
 
 .suara {
@@ -121,13 +26,53 @@
   font: 700 22px var(--font-judul);
 }
 
-@keyframes nyala {
-  from {
-    opacity: 0.85;
-    transform: translateX(-1px);
+.lewati:active {
+  transform: translateY(2px);
+}
+
+.lapisSubtitle {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* HP tegak: subtitle + petunjuk di area letterbox di bawah panggung. */
+.panelBawah {
+  position: fixed;
+  z-index: 5;
+  left: 12px;
+  right: 12px;
+  display: grid;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.petunjuk {
+  margin: 0;
+  justify-self: center;
+  padding: 6px 14px;
+  border-radius: var(--radius-pil);
+  background: var(--tabir-gelap);
+  color: var(--kertas-terang);
+  font: 700 var(--teks-kecil) / 1.2 var(--font-isi);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: denyut 2.4s ease-in-out infinite;
+}
+
+/* Pojok kanan bawah panggung: area lantai, tidak tertutup balon. */
+.petunjukSudut {
+  position: absolute;
+  right: clamp(8px, 2%, 40px);
+  bottom: clamp(8px, 3%, 32px);
+}
+
+@keyframes denyut {
+  0%,
+  100% {
+    opacity: 0.55;
   }
-  to {
+  50% {
     opacity: 1;
-    transform: translateX(1px);
   }
 }
