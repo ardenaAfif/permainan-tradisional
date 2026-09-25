@@ -1,0 +1,50 @@
+.layar {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: var(--ruang-5);
+  background: var(--pola-kain);
+  background-size: 44px;
+}
+
+.kartu {
+  width: min(460px, 100%);
+  display: grid;
+  gap: var(--ruang-4);
+  padding: var(--ruang-7) var(--ruang-6);
+  border-radius: var(--radius-2xl);
+  background: var(--kertas-terang);
+  box-shadow: var(--bayang-modal);
+  text-align: center;
+}
+
+.judul {
+  margin: 0;
+  font: 800 var(--teks-h2) / 1.15 var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.teks {
+  margin: 0;
+  font: 600 var(--teks-isi) / 1.5 var(--font-isi);
+  color: var(--tinta);
+}
+
+.aksi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ruang-3);
+}
+
+.detail {
+  margin: 0;
+  padding: var(--ruang-3);
+  border-radius: var(--radius-s);
+  background: var(--kertas-krem-gelap);
+  font-size: var(--teks-kecil);
+  text-align: left;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
