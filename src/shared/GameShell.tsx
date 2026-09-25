@@ -16,6 +16,13 @@ import { Tombol, TombolIkon } from './ui/Tombol'
 import { TombolSuara } from './ui/TombolSuara'
 import s from './GameShell.module.css'
 
+const IkonJeda = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+    <rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor" />
+    <rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor" />
+  </svg>
+)
+
 export interface StateHasil {
   sesi: Sesi
   hasil: GameResult
@@ -125,6 +132,7 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
       players={sesi.players}
       hud={hud}
       split={sesi.mode === 'split'}
+      hanyaTombol={modul?.hud === 'tombol'}
       onJeda={bukaJeda}
     />
   )
@@ -178,21 +186,30 @@ function Hud({
   players,
   hud,
   split,
+  hanyaTombol,
   onJeda,
 }: {
   game: GameData
   players: Player[]
   hud: HudData
   split: boolean
+  hanyaTombol: boolean
   onJeda: () => void
 }) {
+  if (hanyaTombol) {
+    return (
+      <div className={`${s.hud} ${s.hudTombol}`}>
+        <TombolIkon aria-label="Jeda" onClick={onJeda}>
+          <IkonJeda />
+        </TombolIkon>
+        <TombolSuara />
+      </div>
+    )
+  }
   return (
     <div className={s.hud}>
       <TombolIkon aria-label="Jeda" onClick={onJeda}>
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor" />
-          <rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor" />
-        </svg>
+        <IkonJeda />
       </TombolIkon>
       <div className={s.tengah}>
         <div className={s.namaGame}>{game.nama}</div>

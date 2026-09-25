@@ -45,6 +45,8 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
   const [kesulitan, setKesulitan] = useState<Kesulitan>('sedang')
   const [minPemain, maksPemain] = game.pemainBergantian
   const [jumlah, setJumlah] = useState(minPemain)
+  const [minCpu, maksCpu] = game.lawanKomputer
+  const [jumlahCpu, setJumlahCpu] = useState(minCpu)
   const [nama, setNama] = useState<string[]>([namaUtama, 'Pemain 2', 'Pemain 3', 'Pemain 4'])
 
   // Pak Guru menyapa: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
@@ -73,7 +75,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
       difficulty: kesulitan,
       pemainUtama: avatar,
       namaPemain: nama.slice(0, jumlahMain),
-      lawanKomputer: game.lawanKomputer,
+      lawanKomputer: jumlahCpu,
     })
     navigate(`/main/${game.id}`, { state: { sesi } })
   }
@@ -131,6 +133,12 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
                 Cara main di web
               </h2>
               <p className={s.teks}>{game.caraMainWeb}</p>
+              {game.catatanWeb?.map((c) => (
+                <p key={c} className={s.catatanWeb}>
+                  <span className={s.catatanLabel}>Penting</span>
+                  {c}
+                </p>
+              ))}
               <AnimasiKontrol jenis={game.jenisKontrol} />
             </section>
           </div>
@@ -167,7 +175,29 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
             </div>
           </section>
 
-          {mode === 'cpu' && (
+          {mode === 'cpu' && maksCpu > minCpu && (
+            <section className={s.pengaturanMain} aria-labelledby="judul-lawan">
+              <h2 id="judul-lawan" className={s.subJudul}>
+                Jumlah lawan komputer
+              </h2>
+              <div className={s.pilSegmen} role="radiogroup" aria-labelledby="judul-lawan">
+                {Array.from({ length: maksCpu - minCpu + 1 }, (_, i) => minCpu + i).map((n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    role="radio"
+                    aria-checked={jumlahCpu === n}
+                    className={`${s.segmen} ${jumlahCpu === n ? s.segmenAktif : ''}`}
+                    onClick={() => setJumlahCpu(n)}
+                  >
+                    {n} lawan
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {mode === 'cpu' && game.pakaiKesulitan !== false && (
             <section className={s.pengaturanMain} aria-labelledby="judul-kesulitan">
               <h2 id="judul-kesulitan" className={s.subJudul}>
                 Tingkat kesulitan

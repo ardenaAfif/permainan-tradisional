@@ -40,14 +40,18 @@ export interface GameData {
   deskripsi: string
   aturanAsli: string[]
   caraMainWeb: string
+  /** Aturan tambahan khusus versi web (ditampilkan di Kenalan Dulu). */
+  catatanWeb?: string[]
   kontrol: string
   /** Jenis animasi kontrol di layar Kenalan Dulu. */
   jenisKontrol: JenisKontrol
   mode: GameMode[]
   /** Jumlah pemain untuk mode Main Bergantian [min, maks]. */
   pemainBergantian: [number, number]
-  /** Jumlah lawan komputer di mode Lawan Komputer. */
-  lawanKomputer: number
+  /** false jika tingkat kesulitan komputer tidak berpengaruh (mis. murni dadu). Bawaan: true. */
+  pakaiKesulitan?: boolean
+  /** Jumlah lawan komputer di mode Lawan Komputer [min, maks]. */
+  lawanKomputer: [number, number]
   /** Ajakan memainkan versi asli di layar hasil (draf, perlu dicek guru). */
   tantanganLapangan: string
   orientasi: Orientasi
@@ -85,6 +89,8 @@ export interface GameResult {
   pemenang: Player | Player[] | null
   /** Skor akhir per id pemain (opsional, untuk urutan di layar hasil). */
   skor?: Record<string, number>
+  /** Teks skor per id pemain untuk layar hasil, mis. "Kotak 87" (pengganti "x poin"). */
+  keteranganSkor?: Record<string, string>
   durasiDetik: number
 }
 
@@ -104,6 +110,12 @@ export interface GameModule {
   id: string
   modes: GameMode[]
   orientation: Orientasi
+  /**
+   * 'lengkap' (bawaan): HUD GameShell menampilkan nama game dan chip pemain.
+   * 'tombol': hanya tombol jeda & suara di pojok — untuk game yang sudah
+   * menampilkan pemain/giliran sendiri di panggung.
+   */
+  hud?: 'lengkap' | 'tombol'
   mount(el: HTMLElement, opts: MountOptions): void
   unmount(): void
   pause(): void

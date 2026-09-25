@@ -7,9 +7,7 @@ type GameLoader = () => Promise<{ default: GameModule }>
  * otomatis terdaftar dan dimuat secara lazy (dynamic import per folder).
  * Game yang foldernya belum ada tampil "Segera hadir".
  */
-const modul = import.meta.env.DEV
-  ? import.meta.glob<{ default: GameModule }>('./*/index.ts')
-  : import.meta.glob<{ default: GameModule }>(['./*/index.ts', '!./dummy/index.ts'])
+const modul = import.meta.glob<{ default: GameModule }>('./*/index.ts')
 
 export const GAME_LOADERS: Record<string, GameLoader> = Object.fromEntries(
   Object.entries(modul).map(([path, load]) => [path.split('/')[1]!, load]),

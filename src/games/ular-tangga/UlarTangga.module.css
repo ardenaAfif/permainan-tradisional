@@ -1,0 +1,399 @@
+/*
+ * Semua ukuran dalam piksel panggung 1280x720. Di HP mendatar panggung
+ * diskalakan ±0,54×, jadi teks penting minimal 30px (±16px di layar).
+ * Pojok kiri/kanan atas (y < 120) dibiarkan kosong untuk tombol jeda & suara.
+ */
+.arena {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    var(--tekstur-kertas),
+    radial-gradient(ellipse 60% 70% at 50% 50%, var(--kertas-krem) 0%, var(--kertas-krem-gelap) 100%);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* ── Papan ── */
+.papan {
+  position: absolute;
+  filter: drop-shadow(0 8px 0 var(--kayu-gelap));
+}
+
+.papanSvg {
+  display: block;
+}
+
+.angka {
+  font: 700 19px var(--font-judul);
+  fill: var(--kayu);
+  opacity: 0.85;
+}
+
+.alasMulai {
+  position: absolute;
+  width: 236px;
+  height: 110px;
+  border-radius: 22px;
+  padding: 6px 0 0 16px;
+  background: var(--tekstur-kayu), var(--kayu);
+  box-shadow: 0 6px 0 var(--kayu-gelap);
+}
+
+.alasMulai span {
+  font: 800 24px var(--font-judul);
+  color: var(--cahaya-kelir);
+}
+
+/* ── Pion ── */
+.pion {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+.pionDalam {
+  position: absolute;
+  left: -26px;
+  top: -30px;
+  width: 52px;
+  height: 58px;
+}
+
+.pionDalam::before {
+  /* bayangan di lantai papan */
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -2px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bayang-gelap);
+}
+
+.pionKepala {
+  position: absolute;
+  inset: 0 0 6px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--kertas-terang);
+  box-shadow:
+    0 0 0 4px var(--warna-pemain),
+    0 0 0 6px var(--kertas-terang),
+    0 4px 0 6px var(--kayu-gelap);
+}
+
+/* ── Daftar pemain (kiri) ── */
+.daftarPemain {
+  position: absolute;
+  left: 22px;
+  top: 124px;
+  width: 256px;
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pemain {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 8px 8px;
+  border-radius: 22px;
+  background: var(--kertas-terang);
+  box-shadow:
+    inset 0 0 0 4px var(--warna-pemain),
+    0 5px 0 var(--kayu-gelap);
+}
+
+.pemainAktif {
+  box-shadow:
+    inset 0 0 0 4px var(--warna-pemain),
+    0 0 0 6px var(--kunyit),
+    0 5px 0 6px var(--kunyit-gelap);
+}
+
+.pemainMenang {
+  background: var(--cahaya-kelir);
+}
+
+.tandaGiliran {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0 12px;
+  border-radius: var(--radius-pil);
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+  font: 800 20px/1.4 var(--font-judul);
+}
+
+.kepalaPemain {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--kertas-krem-gelap);
+}
+
+.infoPemain {
+  display: grid;
+  min-width: 0;
+}
+
+.namaPemain {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font: 800 28px/1.1 var(--font-judul);
+  color: var(--tinta);
+}
+
+.cpu {
+  display: none;
+}
+
+.kotakPemain {
+  white-space: nowrap;
+  font: 700 24px/1.2 var(--font-isi);
+  color: var(--kayu);
+}
+
+/* ── Panel dadu (kanan) ── */
+.panelDadu {
+  position: absolute;
+  left: 1010px;
+  top: 128px;
+  width: 250px;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.giliran {
+  font: 800 34px/1.1 var(--font-judul);
+  color: var(--biru-nila);
+  overflow-wrap: anywhere;
+}
+
+.dadu {
+  width: 190px;
+  height: 190px;
+  padding: 12px;
+  border: 0;
+  border-radius: 40px;
+  background: var(--kertas-terang);
+  box-shadow:
+    inset 0 0 0 4px var(--kayu),
+    0 8px 0 var(--kayu);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--durasi-tekan);
+}
+
+.dadu:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.daduSiap {
+  animation: siap 1.2s ease-in-out infinite;
+  box-shadow:
+    inset 0 0 0 4px var(--kayu),
+    0 8px 0 var(--kayu),
+    0 0 0 10px var(--cahaya-kelir);
+}
+
+.daduSiap:active {
+  animation: none;
+  transform: translateY(8px);
+  box-shadow: inset 0 0 0 4px var(--kayu);
+}
+
+.mukaDadu {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.berguling .mukaDadu {
+  animation: guling 0.2s linear infinite;
+}
+
+.petunjuk {
+  min-height: 32px;
+  font: 700 26px/1.2 var(--font-isi);
+  color: var(--kayu);
+}
+
+.pesan {
+  margin: 0;
+  min-height: 150px;
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: var(--kertas-balon);
+  box-shadow: inset 0 0 0 3px var(--garis-krem);
+  font: 700 26px/1.3 var(--font-isi);
+  color: var(--tinta);
+}
+
+/* ── Kartu "Tahukah kamu?" ── */
+.tabirKartu {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--tabir-nila);
+  z-index: 10;
+  animation: muncul 0.25s ease-out;
+}
+
+.kartu {
+  width: 700px;
+  border-radius: 34px;
+  padding: 12px;
+  background: var(--tekstur-kayu), var(--kayu);
+  box-shadow: var(--bayang-modal);
+  animation: kartuMasuk 0.35s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.pitaKartu {
+  height: 28px;
+  border-radius: 22px 22px 0 0;
+  background: var(--pola-tapis) 0 center / 40px 28px repeat-x;
+}
+
+.isiKartu {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  padding: 24px 32px 30px;
+  border-radius: 0 0 24px 24px;
+  background: var(--kertas-krem);
+  overflow: hidden;
+}
+
+.kepalaKartu {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.bendaKartu {
+  flex: none;
+  width: 120px;
+  height: 96px;
+  border-radius: 20px;
+  background: var(--kertas-terang);
+  box-shadow: inset 0 0 0 3px var(--garis-krem);
+}
+
+.judulKartu {
+  font: 800 30px var(--font-judul);
+  color: var(--merah-bata);
+}
+
+.namaKartu {
+  font: 800 46px/1 var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.teksKartu {
+  margin: 0;
+  font: 600 32px/1.4 var(--font-isi);
+  color: var(--tinta);
+}
+
+.kakiKartu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sumberKartu {
+  padding: 4px 16px;
+  border-radius: var(--radius-pil);
+  background: var(--kertas-krem-gelap);
+  font: 700 24px var(--font-judul);
+  color: var(--kayu);
+}
+
+.lanjut {
+  min-height: 88px;
+  padding: 0 48px;
+  border: 0;
+  border-radius: 24px;
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+  font: 800 36px var(--font-judul);
+  box-shadow: 0 8px 0 var(--kunyit-gelap);
+}
+
+.lanjut:active {
+  transform: translateY(8px);
+  box-shadow: none;
+}
+
+.waktuKartu {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 8px;
+  width: 100%;
+  background: var(--kunyit);
+  transform-origin: left;
+  animation: waktu linear forwards;
+}
+
+@keyframes siap {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes guling {
+  0% {
+    transform: rotate(-14deg) scale(0.92);
+  }
+  50% {
+    transform: rotate(14deg) scale(1.02);
+  }
+  100% {
+    transform: rotate(-14deg) scale(0.92);
+  }
+}
+
+@keyframes muncul {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes kartuMasuk {
+  from {
+    transform: scale(0.6) rotate(-4deg);
+    opacity: 0;
+  }
+}
+
+@keyframes waktu {
+  to {
+    transform: scaleX(0);
+  }
+}

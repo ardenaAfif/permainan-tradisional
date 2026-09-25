@@ -59,7 +59,7 @@ export const useKotak = create<KotakState>()(
       tandaiIntroDilihat: () => set({ introSudahDilihat: true }),
       catatHasil: (id, menang) => {
         const lama = get().progres[id as GameId]
-        if (!lama) return false // game uji (dummy) tidak dicatat
+        if (!lama) return false // id di luar games.json tidak dicatat
         set((s) => ({
           progres: {
             ...s.progres,

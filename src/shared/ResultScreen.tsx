@@ -112,7 +112,7 @@ function Hasil({ game, sesi, hasil, stempelBaru }: StateHasil & { game: GameData
           <ol className={s.peringkat}>
             {urutan.map((p, i) => {
               const menang = daftarMenang.some((w) => w.id === p.id)
-              const skor = hasil.skor?.[p.id]
+              const skor = hasil.keteranganSkor?.[p.id] ?? (hasil.skor?.[p.id] !== undefined ? `${hasil.skor[p.id]} poin` : undefined)
               return (
                 <li key={p.id} className={`${s.baris} ${menang ? s.barisMenang : ''}`}>
                   <span className={s.nomor}>{hasil.pemenang ? i + 1 : '='}</span>
@@ -120,7 +120,7 @@ function Hasil({ game, sesi, hasil, stempelBaru }: StateHasil & { game: GameData
                     {p.nama}
                     {p.avatar === 'cpu' && ' (komputer)'}
                   </span>
-                  {skor !== undefined && <span className={s.catatan}>{skor} poin</span>}
+                  {skor !== undefined && <span className={s.catatan}>{skor}</span>}
                 </li>
               )
             })}

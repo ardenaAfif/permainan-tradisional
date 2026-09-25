@@ -35,6 +35,11 @@
   pointer-events: none;
 }
 
+.hudTombol {
+  justify-content: space-between;
+  background: none;
+}
+
 .hud > * {
   pointer-events: auto;
 }

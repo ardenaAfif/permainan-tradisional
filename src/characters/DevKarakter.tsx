@@ -3,7 +3,6 @@
  */
 import gsap from 'gsap'
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router'
 import { useKotak } from '../app/store'
 import { Halaman } from '../shared/ui/Halaman'
 import { Tombol } from '../shared/ui/Tombol'
@@ -129,11 +128,6 @@ export function DevKarakter() {
         ))}
       </div>
 
-      <div className={s.baris}>
-        <Link className={s.tautan} to="/kenalan/dummy">
-          Uji GameShell dengan game dummy →
-        </Link>
-      </div>
     </Halaman>
   )
 }

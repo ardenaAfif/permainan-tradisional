@@ -77,10 +77,3 @@
   color: var(--kayu-gelap);
 }
 
-.tautan {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap-min);
-  font: 800 18px var(--font-judul);
-  color: var(--biru-nila);
-}
