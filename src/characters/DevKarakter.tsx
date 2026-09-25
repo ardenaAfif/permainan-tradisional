@@ -105,7 +105,7 @@ export function DevKarakter() {
             {lipSync ? 'Lip-sync berjalan…' : 'Tes lip-sync (nada 4 dtk)'}
           </Tombol>
           <Tombol varian="sekunder" onClick={angguk}>
-            Pak Guru mengangguk (ref.part)
+            Pak Ahsan mengangguk (ref.part)
           </Tombol>
           <Tombol varian="sekunder" onClick={() => guru.current?.kedip()}>
             Kedip sekarang

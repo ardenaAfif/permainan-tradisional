@@ -77,7 +77,7 @@ interface CharDef {
 }
 
 const CHARS: Record<Tokoh, CharDef> = {
-  // Pak Guru muda (±25 th), badan berisi: rompi nila SNT, kemeja cokelat, kacamata tebal, jam tangan.
+  // Pak Ahsan, guru muda (±25 th), badan berisi: rompi nila SNT, kemeja cokelat, kacamata tebal, jam tangan.
   guru: {
     skin: 2,
     hair: 'guruMuda',
@@ -320,7 +320,7 @@ export function karakterSvg(a: KitOptions): string {
     if (C.headwear === 'peci')
       wear += `<path d="M66 42 L70 14 Q100 8 130 14 L134 42 Q100 36 66 42Z" fill="${col('#24211F')}"/>` + (face ? `<path d="M67 35 Q100 29 133 35 L134 42 Q100 36 66 42Z" fill="#3E3935"/>` : '')
     s += grup('headwear', wear)
-    if (C.mustache === 'tipis') s += grup('mustache', `<path d="M90 83 Q100 79.5 110 83" stroke="${hc[0]}" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".55"/>`)
+    if (C.mustache === 'tipis') s += grup('mustache', `<path d="M92 83 Q100 80.5 108 83" stroke="${hc[0]}" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".38"/>`)
     else if (C.mustache) s += grup('mustache', `<path d="M86 84 Q100 76 114 84 Q107 88 100 85 Q93 88 86 84Z" fill="${hc[0]}"/>`)
     let inner = abs(100, 108, s)
     if (face) {

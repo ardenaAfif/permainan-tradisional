@@ -18,7 +18,7 @@
     },
     {
       "id": "guru-datang",
-      "judul": "Pak Guru datang",
+      "judul": "Pak Ahsan datang",
       "durasi": 12,
       "latar": "Kelas dengan pintu di kiri, cahaya lorong.",
       "transisiKeluar": "gunungan",
@@ -29,7 +29,7 @@
       "tahan": [],
       "aksi": [
         { "id": "pintu", "t": 0, "durasi": 0.8, "tokoh": "pintu", "keterangan": "Pintu berayun terbuka, cahaya lorong masuk." },
-        { "id": "guru-masuk", "t": 1.5, "durasi": 1.5, "tokoh": "guru", "keterangan": "Pak Guru melangkah masuk dari kiri sambil membawa kotak kayu." },
+        { "id": "guru-masuk", "t": 1.5, "durasi": 1.5, "tokoh": "guru", "keterangan": "Pak Ahsan melangkah masuk dari kiri sambil membawa kotak kayu." },
         { "id": "egrang-nyangkut", "t": 3, "durasi": 2, "tokoh": "guru", "keterangan": "Egrang di punggung tersangkut kusen: mundur, \"tuk!\", menunduk, lalu masuk lagi." },
         { "id": "siswa-menoleh", "t": 3, "durasi": 2, "tokoh": "siswa", "keterangan": "Siswa menoleh ke pintu dengan mata kaget, lalu tersenyum." },
         { "id": "guru-bercerita", "t": 6, "durasi": 6, "tokoh": "guru", "keterangan": "Lengan kanan terangkat seperti bercerita." }
@@ -79,7 +79,7 @@
       "aksi": [
         { "id": "benda-turun", "t": 0, "durasi": 3, "tokoh": "benda", "keterangan": "Benda turun perlahan ke meja dan berkedip 3 kali." },
         { "id": "pudar", "t": 3, "durasi": 0.4, "tokoh": "benda", "keterangan": "Benda berubah abu-abu satu per satu, kotak terakhir; percikan ✦ naik." },
-        { "id": "guru-menunjuk", "t": 2, "durasi": 7, "tokoh": "guru", "keterangan": "Pak Guru menunjuk benda sambil bicara pelan." },
+        { "id": "guru-menunjuk", "t": 2, "durasi": 7, "tokoh": "guru", "keterangan": "Pak Ahsan menunjuk benda sambil bicara pelan." },
         { "id": "siswa-datar", "t": 6, "durasi": 0, "tokoh": "siswa", "keterangan": "Mata siswa dari kaget menjadi datar." }
       ]
     },
@@ -95,7 +95,7 @@
         { "id": "dimas-berdiri", "t": 0, "durasi": 1.2, "tokoh": "dimas", "keterangan": "Dimas berdiri pelan dari kursinya." },
         { "id": "siswa-menoleh", "t": 1.5, "durasi": 1, "tokoh": "siswa", "keterangan": "Bima dan Sekar menoleh ke Dimas, kaget lalu tersenyum." },
         { "id": "cahaya-dimas", "t": 2.5, "durasi": 2.5, "tokoh": "dimas", "keterangan": "Cahaya hangat di belakang Dimas membesar." },
-        { "id": "guru-mengangguk", "t": 5, "durasi": 0.6, "tokoh": "guru", "keterangan": "Pak Guru tersenyum dan mengangguk dua kali." },
+        { "id": "guru-mengangguk", "t": 5, "durasi": 0.6, "tokoh": "guru", "keterangan": "Pak Ahsan tersenyum dan mengangguk dua kali." },
         { "id": "zoom-kotak", "t": 8, "durasi": 1.5, "tokoh": "kamera", "keterangan": "Kamera zoom ke kotak, kotak berkilau dan kembali berwarna." }
       ]
     }

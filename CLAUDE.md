@@ -1,7 +1,7 @@
 # Kotak Dolanan
 
 Web game berisi 9 permainan tradisional Indonesia untuk kokurikuler SMP di SNT (Sekolah Nasional Terintegrasi).
-Alur: layar judul → intro bercerita (Pak Guru + siswa SNT) → buat avatar → menu "Kotak Dolanan" → Kenalan Dulu → main → hasil + stempel → Tantangan Lapangan.
+Alur: layar judul → intro bercerita (Pak Ahsan, guru muda, + siswa SNT) → buat avatar → menu "Kotak Dolanan" → Kenalan Dulu → main → hasil + stempel → Tantangan Lapangan.
 Sekolah: SNT 2 Banyumas. Pakai nama ini di teks UI, kredit, dan lockup.
 Brief lengkap: `docs/brief.md`. Daftar resmi permainan (aturan asli, jumlah pemain): `docs/daftar-permainan.docx`.
 Hasil Claude Design (design system, karakter, mockup, storyboard): `design/` (file `.dc.html` dibuka di Claude Design; `support.js` hanya runtime pratinjau, bukan kode aplikasi).

@@ -13,7 +13,7 @@ export const KOMENTAR: Record<Komentator, Record<JenisHasil, string[]>> = {
   },
   sekar: {
     menang: ['Selamat, {pemenang}! Strategimu apa? Aku mau catat.', 'Hebat! Di lapangan aslinya pasti lebih seru lagi.', 'Wah, {pemenang} jago juga. Boleh ajari aku?'],
-    kalah: ['Tidak apa-apa. Kata Pak Guru, yang penting sportif.', 'Tadi sudah bagus. Coba lagi dengan cara berbeda?', '{pemenang} menang kali ini. Kamu pasti bisa menyusul!'],
+    kalah: ['Tidak apa-apa. Kata Pak Ahsan, yang penting sportif.', 'Tadi sudah bagus. Coba lagi dengan cara berbeda?', '{pemenang} menang kali ini. Kamu pasti bisa menyusul!'],
     seri: ['Seri! Kalian sama-sama jago.', 'Menarik, hasilnya imbang. Coba lagi yuk!'],
   },
   dimas: {

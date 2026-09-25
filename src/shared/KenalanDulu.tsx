@@ -94,7 +94,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
       <div className={s.tata}>
         <div className={s.guru}>
           <div className={s.balon}>
-            <span className={s.namaTokoh}>Pak Guru</span>
+            <span className={s.namaTokoh}>Pak Ahsan</span>
             <p>{game.deskripsi}</p>
           </div>
           <div className={s.guruTokoh}>

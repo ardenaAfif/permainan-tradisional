@@ -48,7 +48,7 @@ export function Pengaturan() {
           />
           <Sakelar
             label="Suara tokoh (VO)"
-            ket="Pak Guru dan teman-teman membacakan dialog. Subtitle selalu tampil."
+            ket="Pak Ahsan dan teman-teman membacakan dialog. Subtitle selalu tampil."
             nilai={pengaturan.vo}
             nonaktif={!pengaturan.suara}
             onUbah={(v) => setPengaturan({ vo: v })}
