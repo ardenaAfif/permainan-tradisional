@@ -1,8 +1,14 @@
 /*
  * Character kit Kotak Dolanan — port TypeScript dari design/characters.js.
  * Bentuk, warna, dan pose sama persis dengan hasil Claude Design. Perubahan
- * struktur saja: rambut, penutup kepala, dan benda bawaan (kotak/buku) kini
- * punya <g data-part> sendiri supaya bisa dianimasikan terpisah.
+ * struktur untuk animasi GSAP:
+ * - Setiap bagian adalah <g data-part="..."> di dalam <g> posisi, sehingga
+ *   titik asal (0,0) bagian = titik putarnya. Putar dengan
+ *   gsap.to(el, { rotation, svgOrigin: '0 0' }).
+ * - Rambut, penutup kepala, dan benda bawaan (kotak/buku) punya grup sendiri.
+ * - Semua varian mata (data-mata) dan mulut (data-mulut) ikut dirender; yang
+ *   tidak aktif disembunyikan, jadi ekspresi bisa diganti tanpa render ulang.
+ * - Animasi (napas, kedip, bicara, dll.) diatur Karakter.tsx lewat GSAP.
  *
  * Warna di file ini adalah bagian dari aset gambar (bukan warna UI), sama
  * seperti gambar SVG; warna UI tetap diambil dari tokens.css.
@@ -13,11 +19,12 @@ export type Tokoh = 'guru' | 'bima' | 'sekar' | 'dimas' | 'avatar'
 export type Pose = 'idle' | 'talk' | 'happy' | 'gobak' | 'engklek' | 'egrang'
 export type Mata = 'open' | 'closed' | 'happy' | 'surprised'
 export type Mulut = 'smile' | 'talk-a' | 'talk-o' | 'flat'
+export const SEMUA_MATA: Mata[] = ['open', 'closed', 'happy', 'surprised']
+export const SEMUA_MULUT: Mulut[] = ['smile', 'talk-a', 'talk-o', 'flat']
 type Rambut = GayaRambut | 'guru' | 'none'
 
 export interface KitOptions {
   uid: string
-  seed: number
   who: Tokoh
   pose?: Pose
   eyes?: Mata
@@ -28,7 +35,6 @@ export interface KitOptions {
   silhouette?: boolean
   crop?: 'head'
   pivots?: boolean
-  motion?: boolean
   logo: string
 }
 
@@ -85,9 +91,7 @@ interface PoseDef {
   eyes: Mata
   mouth: Mulut
   brow: number
-  talking?: boolean
   shadow?: number
-  bounce?: boolean
   vb?: string
   stilts?: boolean
   ground?: number
@@ -95,8 +99,8 @@ interface PoseDef {
 
 const POSES: Record<Pose, PoseDef> = {
   idle: { uL: 6, lL: -6, uR: -6, lR: 6, eyes: 'open', mouth: 'smile', brow: 0 },
-  talk: { uL: 6, lL: -6, uR: -38, lR: -68, eyes: 'open', mouth: 'talk-a', brow: -2, talking: true },
-  happy: { y: -28, uL: 150, lL: 16, uR: -150, lR: -16, legL: 'rotate(9)', legR: 'rotate(-9)', eyes: 'happy', mouth: 'talk-a', brow: -3, shadow: 0.62, bounce: true },
+  talk: { uL: 6, lL: -6, uR: -38, lR: -68, eyes: 'open', mouth: 'talk-a', brow: -2 },
+  happy: { y: -28, uL: 150, lL: 16, uR: -150, lR: -16, legL: 'rotate(9)', legR: 'rotate(-9)', eyes: 'happy', mouth: 'talk-a', brow: -3, shadow: 0.62 },
   gobak: { rot: -5, uL: 84, lL: -14, uR: -84, lR: 14, legL: 'rotate(17)', legR: 'rotate(-17)', eyes: 'open', mouth: 'flat', brow: 0, vb: VBW },
   engklek: { y: -22, uL: 104, lL: -26, uR: -66, lR: 32, legL: 'rotate(3)', legR: 'translate(0,-6) rotate(-30) scale(1,.64)', eyes: 'open', mouth: 'flat', brow: 0, shadow: 0.7, vb: VBW },
   egrang: { y: -70, uL: 14, lL: -12, uR: -14, lR: 12, stilts: true, eyes: 'open', mouth: 'flat', brow: 0, vb: '-10 -80 220 486', ground: 400 },
@@ -133,8 +137,9 @@ export function karakterSvg(a: KitOptions): string {
   const skirt = C.bottom === 'skirt'
   const kerudung = C.headwear === 'kerudung'
   const pvm = a.pivots && !sil ? '<circle r="4.2" fill="#B5462F" stroke="#fff" stroke-width="1.8"/>' : ''
-  const part = (n: string, tf: string, inner: string) =>
-    `<g id="${u}-${n}" data-part="${n}" transform="${tf}">${inner}${pvm}</g>`
+  /** Bagian beranimasi: <g posisi><g data-part transform=putaran>…</g></g>. */
+  const part = (n: string, pos: string, putar: string, inner: string) =>
+    `<g transform="${pos}"><g id="${u}-${n}" data-part="${n}"${putar ? ` transform="${putar}"` : ''}>${inner}${pvm}</g></g>`
   const grup = (n: string, inner: string) => (inner ? `<g id="${u}-${n}" data-part="${n}">${inner}</g>` : '')
   const abs = (x: number, y: number, s: string) => `<g transform="translate(${-x},${-y})">${s}</g>`
 
@@ -164,8 +169,9 @@ export function karakterSvg(a: KitOptions): string {
       (face ? `<path d="M-6 9 Q0 13 6 9" stroke="${sk[1]}" stroke-width="2.5" fill="none" stroke-linecap="round"/>` : '')
     return part(
       'arm-upper-' + s,
-      `translate(${sx},122) rotate(${L ? P.uL : P.uR})`,
-      up + part('arm-lower-' + s, `translate(0,48) rotate(${L ? P.lL : P.lR})`, lo + part('hand-' + s, 'translate(0,46)', hand)),
+      `translate(${sx},122)`,
+      `rotate(${L ? P.uL : P.uR})`,
+      up + part('arm-lower-' + s, 'translate(0,48)', `rotate(${L ? P.lL : P.lR})`, lo + part('hand-' + s, 'translate(0,46)', '', hand)),
     )
   }
 
@@ -174,10 +180,11 @@ export function karakterSvg(a: KitOptions): string {
     const cx = L ? 86 : 114
     const t = (L ? P.legL : P.legR) ?? ''
     const sx = L ? -17 : -13
-    const sho = part('shoe-' + s, 'translate(0,112)', `<rect x="${sx}" y="-6" width="30" height="20" rx="10" fill="${shoe[0]}"/><rect x="${sx}" y="9" width="30" height="5" rx="2.5" fill="${shoe[1]}"/>`)
+    const sho = part('shoe-' + s, 'translate(0,112)', '', `<rect x="${sx}" y="-6" width="30" height="20" rx="10" fill="${shoe[0]}"/><rect x="${sx}" y="9" width="30" height="5" rx="2.5" fill="${shoe[1]}"/>`)
     return part(
       'leg-' + s,
-      `translate(${cx},246) ${t}`,
+      `translate(${cx},246)`,
+      t,
       `<rect x="-11" y="-6" width="22" height="118" rx="10" fill="${pants[0]}"/>` +
         (face && !skirt ? `<rect x="-11" y="96" width="22" height="6" rx="3" fill="${pants[1]}"/>` : '') +
         sho,
@@ -199,7 +206,7 @@ export function karakterSvg(a: KitOptions): string {
       if (C.shirt !== 'batik')
         s += `<rect x="105" y="140" width="22" height="19" rx="4" fill="${sh[1]}"/><image href="${a.logo}" x="107" y="141.5" width="18" height="14.5" preserveAspectRatio="xMidYMid meet"/>`
     }
-    return part('torso', 'translate(100,244)', abs(100, 244, s))
+    return part('torso', 'translate(100,244)', '', abs(100, 244, s))
   }
 
   function hair(st: Rambut | undefined): string {
@@ -268,20 +275,21 @@ export function karakterSvg(a: KitOptions): string {
       const bh = C.boldBrow ? 6 : 4.5
       inner += part(
         'brows',
-        `translate(0,${-55 + P.brow})`,
+        'translate(0,-55)',
+        `translate(0,${P.brow})`,
         `<rect x="-22" y="${-bh / 2}" width="15" height="${bh}" rx="${bh / 2}" fill="${hc[0]}" transform="rotate(-4 -14.5 0)"/><rect x="7" y="${-bh / 2}" width="15" height="${bh}" rx="${bh / 2}" fill="${hc[0]}" transform="rotate(4 14.5 0)"/>`,
       )
-      const blink = a.motion && (P.eyes === 'open' || P.eyes === 'surprised')
-      inner += part('eyes', 'translate(0,-42)', `<g class="${blink ? 'kd-blink' : ''}" style="animation-delay:-${(a.seed % 40) / 10}s">${eye(-14, P.eyes)}${eye(14, P.eyes)}</g>`)
+      const mata = SEMUA_MATA.map((m) => `<g data-mata="${m}"${m === P.eyes ? '' : ' display="none"'}>${eye(-14, m)}${eye(14, m)}</g>`).join('')
+      inner += part('eyes', 'translate(0,-42)', '', `<g data-anim="kedip">${mata}</g>`)
       if (C.glasses === 'rect')
-        inner += part('glasses', 'translate(0,-42)', `<g stroke="${INK}" stroke-width="2.6" fill="#fff" fill-opacity=".18"><rect x="-26" y="-9" width="23" height="17" rx="5"/><rect x="3" y="-9" width="23" height="17" rx="5"/></g><path d="M-3 -3 Q0 -5 3 -3 M-26 -4 L-33 -2 M26 -4 L33 -2" stroke="${INK}" stroke-width="2.6" fill="none"/>`)
+        inner += part('glasses', 'translate(0,-42)', '', `<g stroke="${INK}" stroke-width="2.6" fill="#fff" fill-opacity=".18"><rect x="-26" y="-9" width="23" height="17" rx="5"/><rect x="3" y="-9" width="23" height="17" rx="5"/></g><path d="M-3 -3 Q0 -5 3 -3 M-26 -4 L-33 -2 M26 -4 L33 -2" stroke="${INK}" stroke-width="2.6" fill="none"/>`)
       if (C.glasses === 'round')
-        inner += part('glasses', 'translate(0,-42)', `<g stroke="${INK}" stroke-width="2.6" fill="#fff" fill-opacity=".18"><circle cx="-14" r="11"/><circle cx="14" r="11"/></g><path d="M-3 -2 Q0 -4 3 -2 M-25 -3 L-33 -1 M25 -3 L33 -1" stroke="${INK}" stroke-width="2.6" fill="none"/>`)
+        inner += part('glasses', 'translate(0,-42)', '', `<g stroke="${INK}" stroke-width="2.6" fill="#fff" fill-opacity=".18"><circle cx="-14" r="11"/><circle cx="14" r="11"/></g><path d="M-3 -2 Q0 -4 3 -2 M-25 -3 L-33 -1 M25 -3 L33 -1" stroke="${INK}" stroke-width="2.6" fill="none"/>`)
       const my = C.mustache ? -16 : -20
-      const m = P.talking && a.motion ? `<g class="kd-ma">${MOUTH['talk-a']}</g><g class="kd-mo">${MOUTH['talk-o']}</g>` : MOUTH[P.mouth]
-      inner += part('mouth', `translate(0,${my})`, m)
+      const m = SEMUA_MULUT.map((k) => `<g data-mulut="${k}"${k === P.mouth ? '' : ' display="none"'}>${MOUTH[k]}</g>`).join('')
+      inner += part('mouth', `translate(0,${my})`, '', m)
     }
-    return part('head', 'translate(100,108)', inner)
+    return part('head', 'translate(100,108)', '', inner)
   }
 
   const defs =
@@ -293,10 +301,9 @@ export function karakterSvg(a: KitOptions): string {
   const stilts = P.stilts
     ? `<g fill="${col('#8A5A34')}"><rect x="54" y="186" width="9" height="284" rx="4"/><rect x="137" y="186" width="9" height="284" rx="4"/><rect x="54" y="370" width="26" height="8" rx="3"/><rect x="120" y="370" width="26" height="8" rx="3"/></g>`
     : ''
-  const upper = `<g class="${a.motion ? 'kd-breathe' : ''}">${torso()}${arm('l')}${arm('r')}${head()}</g>`
-  const body = `<g transform="translate(0,${P.y ?? 0}) rotate(${P.rot ?? 0} 100 300)"><g class="${a.motion && P.bounce ? 'kd-bounce' : ''}">${leg('l')}${leg('r')}${upper}</g></g>`
+  const upper = `<g data-part="upper">${torso()}${arm('l')}${arm('r')}${head()}</g>`
+  const body = `<g transform="translate(0,${P.y ?? 0}) rotate(${P.rot ?? 0} 100 300)"><g data-part="body">${leg('l')}${leg('r')}${upper}</g></g>`
   const body2 = P.stilts ? grup('stilts', `<g transform="translate(0,${P.y})">${stilts}</g>`) : ''
   const vb = a.crop === 'head' ? '46 -2 108 122' : (P.vb ?? VB)
-  const sway = sil && a.motion ? 'kd-sway' : ''
-  return `<svg viewBox="${vb}" preserveAspectRatio="xMidYMax meet" style="${a.crop === 'head' ? 'overflow:hidden' : ''}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${defs}${shadow}<g id="${u}-root" data-part="root" class="${sway}" style="animation-delay:-${(a.seed % 30) / 10}s">${body2}${body}</g></svg>`
+  return `<svg viewBox="${vb}" preserveAspectRatio="xMidYMax meet" style="${a.crop === 'head' ? 'overflow:hidden' : ''}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${defs}${shadow}<g id="${u}-root" data-part="root">${body2}${body}</g></svg>`
 }

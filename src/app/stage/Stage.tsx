@@ -28,6 +28,7 @@ export function Stage({ children, wajibMendatar = false, ui, className }: StageP
   }, [])
 
   const api = useMemo(() => ({ scale, toStage }), [scale, toStage])
+  const atas = y > 90 ? Math.min(y, 160) : 0
   const putar = wajibMendatar && portrait
 
   return (
@@ -41,7 +42,9 @@ export function Stage({ children, wajibMendatar = false, ui, className }: StageP
         <StageContext.Provider value={api}>{children}</StageContext.Provider>
       </div>
       {ui && !putar && (
-        <div className={s.ui} style={{ left: x, top: y, width: STAGE_W * scale, height: STAGE_H * scale }}>
+        // Di HP tegak, lapisan UI melebar ke area letterbox di atas panggung supaya
+        // HUD/tombol tidak menutupi panggung yang kecil.
+        <div className={s.ui} style={{ left: x, top: y - atas, width: STAGE_W * scale, height: STAGE_H * scale + atas }}>
           {ui}
         </div>
       )}

@@ -28,8 +28,9 @@ interface KotakState {
 
   setAvatar: (avatar: AvatarConfig) => void
   tandaiIntroDilihat: () => void
-  catatHasil: (id: GameId, menang: boolean) => void
-  beriStempelEmas: (id: GameId) => void
+  /** Catat selesai main; mengembalikan true jika stempel ini baru didapat. */
+  catatHasil: (id: string, menang: boolean) => boolean
+  beriStempelEmas: (id: string) => void
   setPengaturan: (ubah: Partial<Pengaturan>) => void
   resetProgres: () => void
 }
@@ -48,7 +49,7 @@ const semuaProgresKosong = () =>
 
 export const useKotak = create<KotakState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       avatar: null,
       progres: semuaProgresKosong(),
       introSudahDilihat: false,
@@ -56,23 +57,22 @@ export const useKotak = create<KotakState>()(
 
       setAvatar: (avatar) => set({ avatar }),
       tandaiIntroDilihat: () => set({ introSudahDilihat: true }),
-      catatHasil: (id, menang) =>
-        set((s) => {
-          const lama = s.progres[id]
-          return {
-            progres: {
-              ...s.progres,
-              [id]: {
-                ...lama,
-                sudahDimainkan: true,
-                stempel: true,
-                jumlahMenang: lama.jumlahMenang + (menang ? 1 : 0),
-              },
-            },
-          }
-        }),
-      beriStempelEmas: (id) =>
-        set((s) => ({ progres: { ...s.progres, [id]: { ...s.progres[id], stempelEmas: true } } })),
+      catatHasil: (id, menang) => {
+        const lama = get().progres[id as GameId]
+        if (!lama) return false // game uji (dummy) tidak dicatat
+        set((s) => ({
+          progres: {
+            ...s.progres,
+            [id]: { ...lama, sudahDimainkan: true, stempel: true, jumlahMenang: lama.jumlahMenang + (menang ? 1 : 0) },
+          },
+        }))
+        return !lama.stempel
+      },
+      beriStempelEmas: (id) => {
+        const lama = get().progres[id as GameId]
+        if (!lama) return
+        set((s) => ({ progres: { ...s.progres, [id]: { ...lama, stempelEmas: true } } }))
+      },
       setPengaturan: (ubah) => set((s) => ({ pengaturan: { ...s.pengaturan, ...ubah } })),
       resetProgres: () => set({ progres: semuaProgresKosong() }),
     }),

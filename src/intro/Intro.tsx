@@ -40,13 +40,13 @@ export function Intro() {
           <div className={s.blencong} />
           <div className={s.tanah} />
           <div className={`${s.siluet} ${s.gobak}`}>
-            <Karakter who="avatar" hair="pendek" pose="gobak" silhouette motion />
+            <Karakter who="avatar" hair="pendek" pose="gobak" silhouette />
           </div>
           <div className={`${s.siluet} ${s.engklek}`}>
-            <Karakter who="avatar" hair="kuncir" pose="engklek" silhouette motion />
+            <Karakter who="avatar" hair="kuncir" pose="engklek" silhouette />
           </div>
           <div className={`${s.siluet} ${s.egrang}`}>
-            <Karakter who="avatar" headwear="peci" pose="egrang" silhouette motion />
+            <Karakter who="avatar" headwear="peci" pose="egrang" silhouette />
           </div>
           <div className={s.narasi}>
             <span className={s.nama}>Pak Guru · narasi</span>

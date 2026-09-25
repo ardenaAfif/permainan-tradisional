@@ -27,6 +27,8 @@ export type Benda =
   | 'kelereng'
   | 'balon'
 
+export type JenisKontrol = 'tap' | 'irama' | 'joystick' | 'swipe-tap' | 'kiri-kanan' | 'tarik-lepas' | 'seret'
+
 /** Satu entri di src/data/games.json. */
 export interface GameData {
   id: GameId
@@ -39,7 +41,15 @@ export interface GameData {
   aturanAsli: string[]
   caraMainWeb: string
   kontrol: string
+  /** Jenis animasi kontrol di layar Kenalan Dulu. */
+  jenisKontrol: JenisKontrol
   mode: GameMode[]
+  /** Jumlah pemain untuk mode Main Bergantian [min, maks]. */
+  pemainBergantian: [number, number]
+  /** Jumlah lawan komputer di mode Lawan Komputer. */
+  lawanKomputer: number
+  /** Ajakan memainkan versi asli di layar hasil (draf, perlu dicek guru). */
+  tantanganLapangan: string
   orientasi: Orientasi
   isBonus: boolean
   asalDaerah: string
@@ -57,31 +67,45 @@ export interface AvatarConfig {
   penutupKepala: PenutupKepala
 }
 
+export type Kesulitan = 'mudah' | 'sedang' | 'sulit'
+
 export interface Player {
   id: string
   nama: string
-  isCpu: boolean
-  avatar?: AvatarConfig
-  /** Untuk game tim dan Duel Satu Layar. */
-  sisi?: 'kiri' | 'kanan'
+  /** Avatar pemain manusia, atau 'cpu' untuk lawan komputer. */
+  avatar: AvatarConfig | 'cpu'
+  /** Warna pion/tim (hex dari WARNA_PEMAIN di app/tokens.ts). */
+  warna: string
+  /** Tokoh yang memerankan pemain komputer. */
+  tokoh?: 'bima' | 'sekar' | 'dimas'
 }
 
 export interface GameResult {
-  gameId: GameId
-  mode: GameMode
-  /** id pemain yang menang (bisa lebih dari satu untuk game tim). */
-  pemenang: string[]
-  /** true jika pemain manusia di perangkat ini ikut menang. */
-  pemainMenang: boolean
+  /** Pemenang: satu pemain, satu tim (array), atau null jika seri. */
+  pemenang: Player | Player[] | null
+  /** Skor akhir per id pemain (opsional, untuk urutan di layar hasil). */
   skor?: Record<string, number>
+  durasiDetik: number
 }
 
-/** Antarmuka yang diekspor setiap game di src/games/<id>/ (lihat brief). */
+export interface MountOptions {
+  mode: GameMode
+  players: Player[]
+  difficulty: Kesulitan
+  onFinish(result: GameResult): void
+}
+
+/**
+ * Antarmuka setiap game di src/games/<id>/index.ts (export default).
+ * Untuk memperbarui HUD (giliran, skor), game memanggil kirimHud(el, ...)
+ * dari src/shared/hud.ts pada elemen yang diterima di mount().
+ */
 export interface GameModule {
-  id: GameId
+  id: string
   modes: GameMode[]
   orientation: Orientasi
-  mount(el: HTMLElement, opts: { mode: GameMode; players: Player[] }): void
+  mount(el: HTMLElement, opts: MountOptions): void
   unmount(): void
-  onFinish?: (result: GameResult) => void
+  pause(): void
+  resume(): void
 }

@@ -153,14 +153,6 @@
   font: 500 var(--teks-kecil) / 1.5 var(--font-isi);
 }
 
-.kontrol {
-  margin: 0;
-  padding: 10px 14px;
-  border-radius: var(--radius-m);
-  background: var(--kertas-krem);
-  font: 700 var(--teks-kecil) var(--font-isi);
-  color: var(--kayu);
-}
 
 .riset {
   display: flex;
@@ -271,6 +263,72 @@
   font-size: 26px;
 }
 
+.pengaturanMain {
+  display: grid;
+  gap: 10px;
+}
+
+.subJudul {
+  margin: 0;
+  font: 800 18px var(--font-judul);
+  color: var(--kayu);
+}
+
+.pilSegmen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ruang-2);
+}
+
+.segmen {
+  min-height: var(--tap-min);
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--radius-pil);
+  background: var(--kertas-terang);
+  box-shadow: inset 0 0 0 2.5px var(--kayu);
+  color: var(--kayu);
+  font: 700 18px var(--font-judul);
+}
+
+.segmenAktif {
+  background: var(--kayu);
+  color: var(--kertas-terang);
+}
+
+.daftarNama {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--ruang-3);
+}
+
+.kolomNama {
+  display: grid;
+  gap: 4px;
+}
+
+.labelNama {
+  font: 700 var(--teks-kecil) var(--font-judul);
+  color: var(--kayu);
+}
+
+.masukan {
+  height: var(--tombol-tinggi);
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 14px;
+  background: var(--putih);
+  box-shadow: inset 0 0 0 2.5px var(--garis-krem-gelap);
+  font: 700 18px var(--font-isi);
+  color: var(--biru-nila);
+  outline: none;
+}
+
+.masukan:focus {
+  box-shadow: inset 0 0 0 3px var(--kunyit);
+}
+
 @media (min-width: 700px) {
   .tata {
     flex-direction: row;
@@ -285,6 +343,9 @@
     width: 100%;
     height: 330px;
   }
+  .balon {
+    flex: none;
+  }
   .balon::after {
     right: auto;
     left: 60%;
@@ -295,7 +356,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .barisMode {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
   }
   .kaki {
     margin-left: calc(-1 * var(--ruang-7));
@@ -335,9 +397,17 @@
     font-size: 26px;
   }
   .modeDesc,
-  .kontrol,
-  .riset {
+  .riset,
+  .labelNama {
     font-size: 20px;
+  }
+  .subJudul,
+  .segmen {
+    font-size: 24px;
+  }
+  .segmen,
+  .masukan {
+    min-height: 64px;
   }
   .tombolMode {
     min-height: 108px;

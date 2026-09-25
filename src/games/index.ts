@@ -1,13 +1,26 @@
-import type { GameId, GameModule } from '../shared/types'
+import type { GameModule } from '../shared/types'
 
 type GameLoader = () => Promise<{ default: GameModule }>
 
 /**
- * Game yang sudah dibuat, dimuat secara lazy. Tambahkan entri di sini saat
- * sebuah game di src/games/<id>/ selesai; game lain tampil "Segera hadir".
+ * Registry game: setiap folder src/games/<id>/index.ts (export default GameModule)
+ * otomatis terdaftar dan dimuat secara lazy (dynamic import per folder).
+ * Game yang foldernya belum ada tampil "Segera hadir".
  */
-export const GAME_LOADERS: Partial<Record<GameId, GameLoader>> = {}
+const modul = import.meta.env.DEV
+  ? import.meta.glob<{ default: GameModule }>('./*/index.ts')
+  : import.meta.glob<{ default: GameModule }>(['./*/index.ts', '!./dummy/index.ts'])
 
-export function isGameReady(id: GameId): boolean {
+export const GAME_LOADERS: Record<string, GameLoader> = Object.fromEntries(
+  Object.entries(modul).map(([path, load]) => [path.split('/')[1]!, load]),
+)
+
+export function isGameReady(id: string): boolean {
   return id in GAME_LOADERS
+}
+
+export async function muatGame(id: string): Promise<GameModule | null> {
+  const load = GAME_LOADERS[id]
+  if (!load) return null
+  return (await load()).default
 }

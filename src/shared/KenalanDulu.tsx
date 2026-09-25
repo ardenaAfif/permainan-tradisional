@@ -1,31 +1,82 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
-import { Karakter } from '../characters/Karakter'
+import { useKotak } from '../app/store'
+import { PakGuru } from '../characters/Karakter'
 import { getGame } from '../data/games'
 import { isGameReady } from '../games'
 import { kelasKategori } from '../menu/kategori'
-import type { GameMode } from './types'
+import { AnimasiKontrol } from './AnimasiKontrol'
+import { audio } from './audio/AudioManager'
+import { buatSesi, type Sesi } from './sesi'
+import type { GameData, GameMode, Kesulitan } from './types'
 import { Halaman } from './ui/Halaman'
 import { IkonKembali, IkonMain } from './ui/Ikon'
 import { Tombol, TombolIkon } from './ui/Tombol'
 import { TombolSuara } from './ui/TombolSuara'
 import s from './KenalanDulu.module.css'
 
-const MODE: { id: GameMode; label: string; desc: string; ikon: string }[] = [
-  { id: 'cpu', label: 'Lawan Komputer', desc: 'Main sendiri melawan komputer', ikon: 'K' },
-  { id: 'hotseat', label: 'Main Bergantian', desc: 'Satu perangkat, gantian giliran', ikon: '⇄' },
-  { id: 'split', label: 'Duel Satu Layar', desc: 'Layar dibagi dua, main bersamaan', ikon: '½' },
+const MODE: Record<GameMode, { label: string; desc: string; ikon: string }> = {
+  cpu: { label: 'Lawan Komputer', desc: 'Main sendiri melawan komputer', ikon: 'K' },
+  hotseat: { label: 'Main Bergantian', desc: 'Satu perangkat, gantian giliran', ikon: '⇄' },
+  split: { label: 'Duel Satu Layar', desc: 'Layar dibagi dua, main bersamaan', ikon: '½' },
+}
+
+const KESULITAN: { id: Kesulitan; label: string }[] = [
+  { id: 'mudah', label: 'Mudah' },
+  { id: 'sedang', label: 'Sedang' },
+  { id: 'sulit', label: 'Sulit' },
 ]
 
-/** Kenalan Dulu — design/Kenalan.dc.html. Versi lengkap (animasi kontrol) menyusul di tahap 3. */
+/** Kenalan Dulu — design/Kenalan.dc.html. */
 export function KenalanDulu() {
   const { gameId } = useParams()
-  const navigate = useNavigate()
   const game = getGame(gameId)
-  const [mode, setMode] = useState<GameMode | undefined>(game?.mode[0])
-
+  const avatar = useKotak((st) => st.avatar)
   if (!game) return <Navigate to="/menu" replace />
+  if (!avatar) return <Navigate to="/avatar" replace />
+  return <IsiKenalan key={game.id} game={game} namaUtama={avatar.nama} />
+}
+
+function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) {
+  const navigate = useNavigate()
+  const avatar = useKotak((st) => st.avatar)!
   const siap = isGameReady(game.id)
+  const [mode, setMode] = useState<GameMode>(game.mode[0]!)
+  const [kesulitan, setKesulitan] = useState<Kesulitan>('sedang')
+  const [minPemain, maksPemain] = game.pemainBergantian
+  const [jumlah, setJumlah] = useState(minPemain)
+  const [nama, setNama] = useState<string[]>([namaUtama, 'Pemain 2', 'Pemain 3', 'Pemain 4'])
+
+  // Pak Guru menyapa: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
+  const lineVO = `kenalan-${game.id}`
+  const pakaiVO = audio.adaVO(lineVO)
+  const [bicara, setBicara] = useState(true)
+  useEffect(() => {
+    let batal = false
+    if (pakaiVO) {
+      void audio.vo(lineVO).then(() => !batal && setBicara(false))
+    } else {
+      const t = window.setTimeout(() => setBicara(false), 3500)
+      return () => window.clearTimeout(t)
+    }
+    return () => {
+      batal = true
+      audio.hentikanVO()
+    }
+  }, [lineVO, pakaiVO])
+
+  const jumlahMain = mode === 'split' ? 2 : jumlah
+  const main = () => {
+    audio.sfx('tap')
+    const sesi: Sesi = buatSesi({
+      mode,
+      difficulty: kesulitan,
+      pemainUtama: avatar,
+      namaPemain: nama.slice(0, jumlahMain),
+      lawanKomputer: game.lawanKomputer,
+    })
+    navigate(`/main/${game.id}`, { state: { sesi } })
+  }
 
   return (
     <Halaman
@@ -45,7 +96,11 @@ export function KenalanDulu() {
             <p>{game.deskripsi}</p>
           </div>
           <div className={s.guruTokoh}>
-            <Karakter who="guru" pose="talk" motion label="Pak Guru" />
+            <PakGuru
+              pose="talk"
+              bicara={bicara && !pakaiVO}
+              lipSync={bicara && pakaiVO ? audio.levelVO : null}
+            />
           </div>
         </div>
 
@@ -76,50 +131,107 @@ export function KenalanDulu() {
                 Cara main di web
               </h2>
               <p className={s.teks}>{game.caraMainWeb}</p>
-              <p className={s.kontrol}>Kontrol: {game.kontrol}</p>
+              <AnimasiKontrol jenis={game.jenisKontrol} />
             </section>
           </div>
 
-          <div className={s.riset}>
-            <span className={s.risetJudul}>Asal daerah &amp; nama lain</span>
-            <span>{game.asalDaerah || 'Menunggu hasil riset kelompok siswa.'}</span>
-          </div>
+          {(game.asalDaerah || game.namaLain.length > 0) && (
+            <div className={s.riset}>
+              <span className={s.risetJudul}>Asal daerah &amp; nama lain</span>
+              <span>{[game.asalDaerah, game.namaLain.join(', ')].filter(Boolean).join(' · ')}</span>
+            </div>
+          )}
 
-          <section className={s.mode}>
-            <h2 className={s.kartuJudulNila}>Pilih mode</h2>
+          <section className={s.mode} aria-labelledby="judul-mode">
+            <h2 id="judul-mode" className={s.kartuJudulNila}>
+              Pilih mode
+            </h2>
             <div className={s.barisMode}>
-              {MODE.map((m) => {
-                const didukung = game.mode.includes(m.id)
-                return (
-                  <button
-                    key={m.id}
-                    type="button"
-                    className={`${s.tombolMode} ${mode === m.id ? s.modeAktif : ''}`}
-                    disabled={!didukung}
-                    aria-pressed={mode === m.id}
-                    onClick={() => setMode(m.id)}
-                  >
-                    <span className={s.modeIkon} aria-hidden="true">
-                      {m.ikon}
-                    </span>
-                    <span className={s.modeTeks}>
-                      <span className={s.modeLabel}>{m.label}</span>
-                      <span className={s.modeDesc}>{didukung ? m.desc : 'Tidak tersedia di game ini'}</span>
-                    </span>
-                  </button>
-                )
-              })}
+              {game.mode.map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={`${s.tombolMode} ${mode === m ? s.modeAktif : ''}`}
+                  aria-pressed={mode === m}
+                  onClick={() => setMode(m)}
+                >
+                  <span className={s.modeIkon} aria-hidden="true">
+                    {MODE[m].ikon}
+                  </span>
+                  <span className={s.modeTeks}>
+                    <span className={s.modeLabel}>{MODE[m].label}</span>
+                    <span className={s.modeDesc}>{MODE[m].desc}</span>
+                  </span>
+                </button>
+              ))}
             </div>
           </section>
+
+          {mode === 'cpu' && (
+            <section className={s.pengaturanMain} aria-labelledby="judul-kesulitan">
+              <h2 id="judul-kesulitan" className={s.subJudul}>
+                Tingkat kesulitan
+              </h2>
+              <div className={s.pilSegmen} role="radiogroup" aria-labelledby="judul-kesulitan">
+                {KESULITAN.map((k) => (
+                  <button
+                    key={k.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={kesulitan === k.id}
+                    className={`${s.segmen} ${kesulitan === k.id ? s.segmenAktif : ''}`}
+                    onClick={() => setKesulitan(k.id)}
+                  >
+                    {k.label}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {mode !== 'cpu' && (
+            <section className={s.pengaturanMain} aria-labelledby="judul-pemain">
+              <h2 id="judul-pemain" className={s.subJudul}>
+                {mode === 'split' ? 'Nama pemain kiri & kanan' : 'Jumlah & nama pemain'}
+              </h2>
+              {mode === 'hotseat' && maksPemain > minPemain && (
+                <div className={s.pilSegmen} role="radiogroup" aria-label="Jumlah pemain">
+                  {Array.from({ length: maksPemain - minPemain + 1 }, (_, i) => minPemain + i).map((n) => (
+                    <button
+                      key={n}
+                      type="button"
+                      role="radio"
+                      aria-checked={jumlah === n}
+                      className={`${s.segmen} ${jumlah === n ? s.segmenAktif : ''}`}
+                      onClick={() => setJumlah(n)}
+                    >
+                      {n} pemain
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className={s.daftarNama}>
+                {nama.slice(0, jumlahMain).map((n, i) => (
+                  <label key={i} className={s.kolomNama}>
+                    <span className={s.labelNama}>
+                      {mode === 'split' ? (i === 0 ? 'Kiri' : 'Kanan') : `Pemain ${i + 1}`}
+                    </span>
+                    <input
+                      className={s.masukan}
+                      value={n}
+                      maxLength={12}
+                      onChange={(e) => setNama(nama.map((x, j) => (j === i ? e.target.value : x)))}
+                    />
+                  </label>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
 
       <div className={s.kaki}>
-        <Tombol
-          className={s.main}
-          disabled={!siap}
-          onClick={() => navigate(`/main/${game.id}`, { state: { mode } })}
-        >
+        <Tombol className={s.main} disabled={!siap} onClick={main}>
           <IkonMain ukuran={26} />
           {siap ? 'Main' : 'Segera hadir'}
         </Tombol>

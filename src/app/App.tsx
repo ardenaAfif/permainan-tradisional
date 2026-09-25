@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react'
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router'
+import { createBrowserRouter, Navigate, RouterProvider, type RouteObject } from 'react-router'
 import { BuatAvatar } from '../avatar/BuatAvatar'
 import { Judul } from '../intro/Judul'
 import { Menu } from '../menu/Menu'
@@ -7,10 +7,21 @@ import { KenalanDulu } from '../shared/KenalanDulu'
 
 // Layar yang lebih berat (intro dengan GSAP, game) dimuat saat dibuka.
 const Intro = lazy(() => import('../intro/Intro').then((m) => ({ default: m.Intro })))
-const SegeraHadir = lazy(() => import('../shared/SegeraHadir').then((m) => ({ default: m.SegeraHadir })))
+const GameShell = lazy(() => import('../shared/GameShell').then((m) => ({ default: m.GameShell })))
+const ResultScreen = lazy(() => import('../shared/ResultScreen').then((m) => ({ default: m.ResultScreen })))
 const Pengaturan = lazy(() => import('./Pengaturan').then((m) => ({ default: m.Pengaturan })))
 
 const tunggu = (el: ReactNode) => <Suspense fallback={<div className="memuat" aria-busy="true" />}>{el}</Suspense>
+
+// Halaman pengembang: tidak ikut ke build produksi.
+const ruteDev: RouteObject[] = import.meta.env.DEV
+  ? [
+      {
+        path: '/dev/karakter',
+        lazy: async () => ({ Component: (await import('../characters/DevKarakter')).DevKarakter }),
+      },
+    ]
+  : []
 
 const router = createBrowserRouter([
   { path: '/', element: <Judul /> },
@@ -18,9 +29,10 @@ const router = createBrowserRouter([
   { path: '/avatar', element: <BuatAvatar /> },
   { path: '/menu', element: <Menu /> },
   { path: '/kenalan/:gameId', element: <KenalanDulu /> },
-  { path: '/main/:gameId', element: tunggu(<SegeraHadir layar="main" />) },
-  { path: '/hasil/:gameId', element: tunggu(<SegeraHadir layar="hasil" />) },
+  { path: '/main/:gameId', element: tunggu(<GameShell />) },
+  { path: '/hasil/:gameId', element: tunggu(<ResultScreen />) },
   { path: '/pengaturan', element: tunggu(<Pengaturan />) },
+  ...ruteDev,
   { path: '*', element: <Navigate to="/" replace /> },
 ])
 

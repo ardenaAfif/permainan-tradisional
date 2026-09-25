@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router'
 import { useKotak } from '../app/store'
+import { audio } from '../shared/audio/AudioManager'
 import logoSnt from '../assets/snt-mark.png'
 import { BendaGambar } from '../shared/benda/BendaGambar'
 import { IkonMain } from '../shared/ui/Ikon'
@@ -9,11 +10,13 @@ import s from './Judul.module.css'
 /** Layar judul (adegan 0). Tombol Mulai sekaligus menyalakan suara (tahap audio). */
 export function Judul() {
   const navigate = useNavigate()
-  const sudahLengkap = useKotak((st) => st.introSudahDilihat && st.avatar !== null)
+  const introDilihat = useKotak((st) => st.introSudahDilihat)
+  const punyaAvatar = useKotak((st) => st.avatar !== null)
 
   const mulai = () => {
-    // Kunjungan pertama: intro → avatar → menu. Berikutnya langsung ke menu.
-    navigate(sudahLengkap ? '/menu' : '/intro')
+    audio.buka()
+    // Intro otomatis hanya pada kunjungan pertama (bisa diputar ulang dari menu).
+    navigate(!introDilihat ? '/intro' : punyaAvatar ? '/menu' : '/avatar')
   }
 
   return (

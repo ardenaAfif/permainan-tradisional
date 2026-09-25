@@ -1,0 +1,498 @@
+/* Layar hasil — design/Hasil.dc.html */
+.hasil {
+  --pad: max(16px, env(safe-area-inset-left));
+  --gap: 16px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--tekstur-kertas), var(--kertas-krem);
+}
+
+.pita {
+  height: 20px;
+  flex: none;
+  background: var(--pola-tapis) 0 center / 29px 20px repeat-x;
+}
+
+.isi {
+  flex: 1;
+  width: 100%;
+  max-width: 1840px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--gap);
+  align-content: start;
+  padding: 12px var(--pad);
+}
+
+/* ── Pahlawan (pemenang) ── */
+.pahlawan {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(220px, 1fr) auto;
+  border-radius: var(--radius-2xl);
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 70% at 50% 20%, var(--cahaya-kelir-muda) 0%, var(--cahaya-kelir) 55%, var(--cahaya-kelir-gelap) 100%);
+}
+
+.kepalaPahlawan {
+  display: grid;
+  gap: 4px;
+  padding: 18px 18px 0;
+}
+
+.subjudul {
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--merah-bata-gelap);
+}
+
+.judul {
+  margin: 0;
+  font: 800 40px/0.95 var(--font-judul);
+  color: var(--biru-nila);
+  overflow-wrap: anywhere;
+}
+
+.panggung {
+  position: relative;
+  min-height: 220px;
+}
+
+.lantai {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24%;
+  background: var(--lantai);
+}
+
+.tokoh {
+  position: absolute;
+  inset: 6% 0 0;
+}
+
+.peringkat {
+  display: grid;
+  gap: var(--ruang-2);
+  margin: 0;
+  padding: 0 18px 18px;
+  list-style: none;
+  background: var(--lantai);
+}
+
+.baris {
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-3);
+  min-height: 52px;
+  padding: 4px 16px 4px 4px;
+  border-radius: var(--radius-pil);
+  background: var(--kertas-narasi);
+}
+
+.barisMenang {
+  background: var(--kertas-terang);
+  box-shadow: 0 0 0 3px var(--kunyit);
+}
+
+.nomor {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--kertas-krem-gelap);
+  color: var(--kayu);
+  font: 800 22px var(--font-judul);
+}
+
+.barisMenang .nomor {
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+}
+
+.namaPemain {
+  flex: 1;
+  min-width: 0;
+  font: 700 var(--teks-kecil) var(--font-isi);
+}
+
+.catatan {
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--kayu);
+  white-space: nowrap;
+}
+
+/* ── Kolom kanan ── */
+.kolomKanan {
+  display: grid;
+  gap: var(--gap);
+  align-content: start;
+  min-width: 0;
+}
+
+.kartuStempel {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding: var(--ruang-4);
+  border-radius: var(--radius-2xl);
+  background: var(--kertas-terang);
+  box-shadow: var(--bayang-panel);
+}
+
+.wadahStempel {
+  flex: none;
+}
+
+.stempel {
+  width: 104px;
+  height: 104px;
+  transform: rotate(-9deg);
+}
+
+.teksStempel {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.judulKartu {
+  margin: 0;
+  font: 800 22px/1.05 var(--font-judul);
+  color: var(--merah-bata-gelap);
+}
+
+.teks {
+  margin: 0;
+  font: 500 var(--teks-kecil) / 1.45 var(--font-isi);
+}
+
+.komentar {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ruang-3);
+}
+
+.wajahKomentator {
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--kertas-krem-gelap);
+  box-shadow: inset 0 0 0 3px var(--kayu);
+}
+
+.balon {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  padding: 22px 20px 16px;
+  border: 2.5px solid var(--kayu-gelap);
+  border-radius: var(--radius-xl);
+  background: var(--kertas-balon);
+  box-shadow: var(--bayang-balon);
+}
+
+.balon::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  bottom: 22px;
+  width: 20px;
+  height: 20px;
+  background: var(--kertas-balon);
+  border-left: 2.5px solid var(--kayu-gelap);
+  border-bottom: 2.5px solid var(--kayu-gelap);
+  transform: rotate(45deg);
+}
+
+.balon p {
+  margin: 0;
+  font: 600 var(--teks-kecil) / 1.5 var(--font-isi);
+}
+
+.namaTokoh {
+  position: absolute;
+  top: -16px;
+  left: 18px;
+  padding: 3px 14px;
+  border-radius: var(--radius-pil);
+  color: var(--putih);
+  font: 700 var(--teks-kecil) var(--font-judul);
+}
+
+.bima {
+  background: var(--merah-bata);
+}
+
+.sekar {
+  background: var(--daun-pisang-gelap);
+}
+
+.dimas {
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+}
+
+/* ── Tantangan Lapangan ── */
+.tantangan {
+  display: grid;
+  gap: var(--ruang-3);
+  padding: var(--ruang-4);
+  border-radius: var(--radius-2xl);
+  background: var(--daun-pisang-gelap);
+  box-shadow: 0 6px 0 var(--daun-pisang-tua);
+  color: var(--putih);
+}
+
+.kepalaTantangan {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.slotEmas {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  border-radius: 50%;
+  border: 3px dashed var(--cahaya-kelir);
+  display: grid;
+  place-items: center;
+}
+
+.stempelEmas {
+  width: 72px;
+  height: 72px;
+  transform: rotate(7deg);
+}
+
+.slotEmas:has(.stempelEmas) {
+  border-color: transparent;
+}
+
+.labelTantangan {
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--cahaya-kelir);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.judulTantangan {
+  margin: 0;
+  font: 800 22px/1.05 var(--font-judul);
+}
+
+.teksTantangan {
+  margin: 0;
+  font: 600 var(--teks-kecil) / 1.5 var(--font-isi);
+}
+
+.tombolPin {
+  justify-self: start;
+  min-height: var(--tombol-tinggi);
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--radius-m);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--cahaya-kelir);
+  color: var(--kayu-gelap);
+  font: 800 18px/1.15 var(--font-judul);
+  text-align: left;
+  box-shadow: var(--bayang-kunyit);
+}
+
+.tombolPin:active {
+  transform: translateY(var(--tebal-tombol));
+  box-shadow: none;
+}
+
+/* ── Kaki ── */
+.kaki {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ruang-3);
+  padding: 12px var(--pad) calc(12px + env(safe-area-inset-bottom));
+  background: var(--kertas-krem);
+  box-shadow: 0 -2px 0 var(--garis-krem);
+}
+
+.pengisi {
+  flex: 1;
+}
+
+/* ── PIN guru ── */
+.formPin {
+  position: relative;
+  display: grid;
+  justify-content: center;
+}
+
+.masukanPin {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  font-size: 16px; /* cegah zoom otomatis di iPhone */
+}
+
+.titikPin {
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  gap: 12px;
+  pointer-events: none;
+}
+
+.kotakPin {
+  height: 64px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--kertas-terang);
+  box-shadow: inset 0 0 0 2.5px var(--garis-krem-gelap);
+  font: 800 30px var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.kotakIsi {
+  box-shadow: inset 0 0 0 2.5px var(--kayu);
+}
+
+.formPin:focus-within .kotakAktif {
+  box-shadow:
+    inset 0 0 0 3px var(--kunyit),
+    0 0 0 4px var(--cahaya-kelir);
+}
+
+.goyang + .titikPin {
+  animation: goyang 0.35s ease-in-out;
+}
+
+.pinSalah {
+  margin: 0;
+  text-align: center;
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--merah-bata);
+}
+
+@keyframes goyang {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-8px);
+  }
+  75% {
+    transform: translateX(8px);
+  }
+}
+
+/* Tablet ke atas & HP mendatar: dua kolom */
+@media (min-width: 700px), (orientation: landscape) and (max-height: 500px) {
+  .hasil {
+    --pad: 28px;
+    --gap: 18px;
+  }
+  .isi {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    padding-top: 20px;
+  }
+  .judul {
+    font-size: 48px;
+  }
+  .stempel {
+    width: 110px;
+    height: 110px;
+  }
+  .judulKartu,
+  .judulTantangan {
+    font-size: 24px;
+  }
+  .wajahKomentator {
+    width: 76px;
+    height: 76px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .hasil {
+    --pad: max(16px, env(safe-area-inset-left));
+    --gap: 14px;
+  }
+  .judul {
+    font-size: 34px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .hasil {
+    --pad: 48px;
+    --gap: 30px;
+  }
+  .isi {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    padding-top: 30px;
+  }
+  .kepalaPahlawan {
+    padding: 36px 36px 0;
+  }
+  .peringkat {
+    padding: 0 36px 36px;
+  }
+  .panggung {
+    min-height: 380px;
+  }
+  .subjudul,
+  .namaPemain,
+  .catatan {
+    font-size: 20px;
+  }
+  .judul {
+    font-size: 84px;
+  }
+  .kartuStempel,
+  .tantangan {
+    padding: 30px;
+  }
+  .stempel {
+    width: 190px;
+    height: 190px;
+  }
+  .judulKartu,
+  .judulTantangan {
+    font-size: 36px;
+  }
+  .teks,
+  .balon p,
+  .teksTantangan {
+    font-size: 22px;
+  }
+  .wajahKomentator {
+    width: 120px;
+    height: 120px;
+  }
+  .slotEmas {
+    width: 88px;
+    height: 88px;
+  }
+  .stempelEmas {
+    width: 104px;
+    height: 104px;
+  }
+  .tombolPin {
+    min-height: 72px;
+    font-size: 26px;
+  }
+}

@@ -68,7 +68,7 @@ export function BuatAvatar() {
           <div className={s.pratinjau}>
             <div className={s.lantai} aria-hidden="true" />
             <div className={s.tokoh}>
-              <AvatarKarakter avatar={a} pose={senang ? 'happy' : 'idle'} motion label={`Avatar ${a.nama || 'Pemain'}`} />
+              <AvatarKarakter avatar={a} aksi={senang ? 'jump' : null} ekspresi={senang ? 'happy' : 'normal'} label={`Avatar ${a.nama || 'Pemain'}`} />
             </div>
             <div className={s.papanNama}>{a.nama.trim() || 'Pemain'}</div>
           </div>
@@ -137,7 +137,7 @@ export function BuatAvatar() {
                     aria-pressed={!kerudung && a.rambut === k}
                     onClick={() => ubah({ rambut: k })}
                   >
-                    <Karakter who="avatar" crop="head" hair={k} skin={a.kulit} />
+                    <Karakter who="avatar" crop="head" hair={k} skin={a.kulit} hidup={false} />
                   </button>
                 ))}
               </div>

@@ -16,11 +16,15 @@
     ],
     "caraMainWeb": "Papan bergaris diagonal (varian papan 5×5 sebagai dasar). Tap bidak, langkah yang sah menyala, lalu tap tujuan. Lompatan beruntun untuk menangkap. Menang jika bidak lawan habis atau tidak bisa bergerak.",
     "kontrol": "Tap",
+    "jenisKontrol": "tap",
     "mode": ["cpu", "hotseat"],
+    "pemainBergantian": [2, 2],
+    "lawanKomputer": 1,
     "orientasi": "any",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Gambar papan dam-daman dengan kapur di lantai atau lapangan, pakai batu kecil atau tutup botol sebagai bidak, lalu bertanding dengan satu teman."
   },
   {
     "id": "engklek",
@@ -40,11 +44,15 @@
     ],
     "caraMainWeb": "Fase 1: lempar gacuk dengan meter kekuatan yang berayun, tap untuk berhenti. Fase 2: lompat dengan tap tepat waktu; kotak berpasangan butuh tap dua tombol bersamaan. Kotak bergacuk dilewati. Salah waktu berarti menginjak garis, giliran pindah. Saat kembali, tahan tombol untuk mengambil gacuk sambil menjaga meter keseimbangan.",
     "kontrol": "Tap berirama",
+    "jenisKontrol": "irama",
     "mode": ["cpu", "hotseat"],
+    "pemainBergantian": [2, 4],
+    "lawanKomputer": 1,
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Gambar kotak engklek dengan kapur di lapangan sekolah, siapkan gacuk dari batu pipih atau pecahan genting, lalu main bergiliran bersama teman."
   },
   {
     "id": "ular-tangga",
@@ -64,11 +72,15 @@
     ],
     "caraMainWeb": "Papan 10×10 bermotif nusantara. Tap dadu, pion berjalan otomatis. Setiap tangga membuka fakta singkat tentang permainan lain di kotak.",
     "kontrol": "Tap",
+    "jenisKontrol": "tap",
     "mode": ["cpu", "hotseat"],
+    "pemainBergantian": [2, 4],
+    "lawanKomputer": 2,
     "orientasi": "any",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Gambar papan ular tangga dengan kapur di lapangan sekolah, lalu mainkan bersama 2–4 teman memakai dadu besar."
   },
   {
     "id": "gobak-sodor",
@@ -88,11 +100,15 @@
     ],
     "caraMainWeb": "Lapangan tampak atas dengan garis jaga. Pemain mengendalikan satu penyerang untuk melewati semua garis lalu kembali. Penjaga komputer hanya bisa bergerak di garisnya. Tersentuh berarti gugur. Setelah satu ronde, peran bertukar dan pemain mengendalikan penjaga.",
     "kontrol": "Joystick virtual / tombol panah",
+    "jenisKontrol": "joystick",
     "mode": ["cpu", "split"],
+    "pemainBergantian": [2, 2],
+    "lawanKomputer": 1,
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Buat lapangan bergaris dengan kapur, bentuk dua tim berisi 4–6 orang, lalu bergantian menjadi penjaga dan penyerang."
   },
   {
     "id": "bola-bekel",
@@ -110,11 +126,15 @@
     ],
     "caraMainWeb": "Swipe ke atas untuk melempar bola. Selama bola di udara (ditandai lingkaran menyusut), tap biji bekel sesuai tahap. Tap zona tangkap saat bola turun. Tahap naik dari ambil 1 biji sampai membalik biji ke sisi tertentu. Gagal berarti giliran pindah.",
     "kontrol": "Swipe + tap",
+    "jenisKontrol": "swipe-tap",
     "mode": ["cpu", "hotseat"],
+    "pemainBergantian": [2, 4],
+    "lawanKomputer": 1,
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Siapkan bola bekel dan biji bekel, duduk melingkar di lantai kelas atau teras, lalu main bergiliran dari tahap paling mudah."
   },
   {
     "id": "bakiak",
@@ -134,11 +154,15 @@
     ],
     "caraMainWeb": "Game ritme. Tim melangkah saat tombol kiri dan kanan ditekan bergantian sesuai aba-aba. Salah irama membuat meter goyang naik; jika penuh, tim jatuh dan harus menyelesaikan tantangan singkat untuk bangkit.",
     "kontrol": "Tap kiri-kanan",
+    "jenisKontrol": "kiri-kanan",
     "mode": ["cpu", "split"],
+    "pemainBergantian": [2, 2],
+    "lawanKomputer": 1,
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Pakai bakiak panjang untuk 3–5 orang per tim, tentukan garis start dan finish di lapangan, lalu berlomba dengan aba-aba bersama."
   },
   {
     "id": "egrang",
@@ -157,11 +181,15 @@
     ],
     "caraMainWeb": "Tampak samping, balapan 4 jalur (memenuhi minimal 4 pemain). Angkat egrang kiri dan kanan bergantian sambil menjaga badan tetap tegak. Rintangan: tanah bergelombang dan genangan. Tidak ada aksi mendorong.",
     "kontrol": "Tap kiri-kanan, opsional miring HP",
+    "jenisKontrol": "kiri-kanan",
     "mode": ["cpu", "split"],
+    "pemainBergantian": [2, 2],
+    "lawanKomputer": 3,
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Berlatih berjalan dengan egrang bambu atau batok kelapa di lapangan, didampingi guru, lalu berlomba perlahan sampai garis finish tanpa saling dorong."
   },
   {
     "id": "kelereng",
@@ -181,11 +209,15 @@
     ],
     "caraMainWeb": "Tampak atas di tanah. Tarik ke belakang untuk membidik (garis bidik + kekuatan), lepas untuk menyentil. Dua mode: Lubang (pemain bebas menaruh lubang di awal, sesuai aturan) dan Tembak (kenai kelereng lawan). Poin terbanyak menang.",
     "kontrol": "Tarik-lepas",
+    "jenisKontrol": "tarik-lepas",
     "mode": ["cpu", "hotseat"],
+    "pemainBergantian": [2, 4],
+    "lawanKomputer": 1,
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Buat area bermain dan lubang kecil di tanah, bawa beberapa kelereng, lalu bergiliran menyentil bersama teman."
   },
   {
     "id": "pecah-balon-air",
@@ -205,10 +237,14 @@
     ],
     "caraMainWeb": "Estafet membawa balon ke tujuan. Balon punya meter tekanan; gerakan terlalu cepat atau tiba-tiba membuatnya pecah dan pemain mengambil balon baru. Setiap ronde punya cara membawa yang berbeda, misalnya dua tangan atau di atas kepala. Tim tercepat menang.",
     "kontrol": "Seret",
+    "jenisKontrol": "seret",
     "mode": ["cpu", "split"],
+    "pemainBergantian": [2, 2],
+    "lawanKomputer": 1,
     "orientasi": "landscape",
     "isBonus": true,
     "asalDaerah": "",
-    "namaLain": []
+    "namaLain": [],
+    "tantanganLapangan": "Isi balon dengan air, bagi kelas menjadi beberapa kelompok, lalu estafet membawa balon ke garis tujuan dengan cara yang ditentukan guru."
   }
 ]

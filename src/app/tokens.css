@@ -32,6 +32,12 @@
   --cahaya-kelir-gelap: #f0b55c;
   --cahaya-kelir-muda: #fff0cc;
 
+  /* ── Warna pemain (pion/tim), dicerminkan di app/tokens.ts untuk Phaser ── */
+  --pemain-1: #e8a33d;
+  --pemain-2: #b5462f;
+  --pemain-3: #2e4c7a;
+  --pemain-4: #6e9f3d;
+
   /* ── Adegan wayang (kelir) ── */
   --siluet: #2a1a12;
   --kelir-terang: #fff3d6;
@@ -126,6 +132,7 @@
   --bayang-melayang: 0 16px 30px rgba(0, 0, 0, 0.3);
   --sinar-blencong: rgba(255, 240, 200, 0.85);
   --kertas-narasi: rgba(255, 248, 234, 0.94);
+  --gradasi-hud: linear-gradient(rgba(43, 33, 28, 0.28), rgba(43, 33, 28, 0));
   --cahaya-judul: radial-gradient(circle at 50% 56%, rgba(255, 213, 138, 0.62) 0, rgba(255, 213, 138, 0.18) 32%, rgba(31, 53, 88, 0) 58%),
     linear-gradient(rgba(31, 53, 88, 0.1), rgba(31, 53, 88, 0.55));
 
@@ -140,4 +147,23 @@
   --tekstur-kayu: repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.08) 0 2px, transparent 2px 9px),
     repeating-linear-gradient(88deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 14px);
   --cahaya-panggung: radial-gradient(ellipse 70% 70% at 50% 30%, var(--cahaya-kelir-muda) 0%, var(--cahaya-kelir) 55%, var(--cahaya-kelir-gelap) 100%);
+}
+
+/* ── Adegan intro (design/Storyboard Intro.dc.html) ── */
+:root {
+  --dinding-kelas: #f2e3c4;
+  --dinding-kusam: #e7dac0;
+  --dinding-hangat: #e9d6b0;
+  --lantai-papan: #b98a5a;
+  --lantai-papan-gelap: #a87a4c;
+  --langit-jendela: #cfe0ee;
+  --bingkai-jendela: #d8c7a6;
+  --cahaya-lorong: #fff4da;
+  --tokoh-sekar: #4e7628;
+  --sinar-kotak: rgba(255, 213, 138, 0.55);
+  --sinar-kotak-pudar: rgba(255, 213, 138, 0);
+  --pendar-kotak: rgba(255, 240, 204, 0.95);
+  --pendar-kotak-tengah: rgba(255, 213, 138, 0.6);
+  --pendar-hangat: rgba(255, 213, 138, 0.7);
+  --tabir-kusam: rgba(163, 156, 145, 0.28);
 }
