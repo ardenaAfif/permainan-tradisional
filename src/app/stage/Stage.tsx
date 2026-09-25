@@ -28,7 +28,8 @@ export function Stage({ children, wajibMendatar = false, ui, className }: StageP
   }, [])
 
   const api = useMemo(() => ({ scale, toStage }), [scale, toStage])
-  const atas = y > 90 ? Math.min(y, 160) : 0
+  // Hanya saat layar tegak (HP); di tablet 4:3 lapisan UI tetap pas di atas panggung.
+  const atas = portrait && y > 90 ? Math.min(y, 160) : 0
   const putar = wajibMendatar && portrait
 
   return (
