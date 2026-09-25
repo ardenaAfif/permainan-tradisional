@@ -113,9 +113,21 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
     return () => document.removeEventListener('visibilitychange', onVis)
   }, [bukaJeda])
 
+  // HP tegak di game layar lebar: game dijeda diam-diam dan hanya ajakan
+  // "Putar HP-mu" yang tampil (menu jeda tidak boleh menutupinya). Setelah HP
+  // mendatar lagi, menu jeda muncul supaya pemain melanjutkan saat siap.
+  const perluPutar = wajibMendatar && portrait
+  const jedaKarenaPutar = useRef(false)
   useEffect(() => {
-    if (wajibMendatar && portrait) bukaJeda()
-  }, [wajibMendatar, portrait, bukaJeda])
+    if (!modul || selesai.current) return
+    if (perluPutar) {
+      modul.pause()
+      jedaKarenaPutar.current = true
+    } else if (jedaKarenaPutar.current) {
+      jedaKarenaPutar.current = false
+      bukaJeda()
+    }
+  }, [perluPutar, modul, bukaJeda])
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -149,7 +161,7 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
         )}
       </Stage>
 
-      {jeda && (
+      {jeda && !perluPutar && (
         <Modal
           judul="Jeda"
           onTutup={lanjut}

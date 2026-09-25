@@ -59,6 +59,7 @@ export function Stage({ children, wajibMendatar = false, ui, className }: StageP
           </svg>
           <p className={s.putarJudul}>Putar HP-mu</p>
           <p className={s.putarTeks}>Permainan ini butuh layar lebar. Miringkan HP supaya mendatar.</p>
+          <p className={s.putarCatatan}>Layar tidak ikut berputar? Nyalakan &ldquo;Putar otomatis&rdquo; (auto-rotate) di pengaturan cepat HP.</p>
         </div>
       )}
     </div>

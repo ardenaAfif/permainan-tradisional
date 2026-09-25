@@ -58,6 +58,16 @@
   font: 600 var(--teks-isi) / 1.45 var(--font-isi);
 }
 
+.putarCatatan {
+  margin: 0;
+  max-width: 300px;
+  padding: 10px 14px;
+  border-radius: var(--radius-m);
+  background: var(--tabir-gelap);
+  font: 600 var(--teks-kecil) / 1.45 var(--font-isi);
+  color: var(--kertas-krem-gelap);
+}
+
 @keyframes miring {
   0%,
   30% {
