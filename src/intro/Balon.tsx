@@ -55,6 +55,11 @@ export function Balon({ baris, scale, mode }: Props) {
       <span className={`${s.nama} ${s[baris.tokoh]}`}>{nama}</span>
       {ekor !== 'tanpa' && <span className={`${s.ekor} ${s['ekor-' + ekor]}`} aria-hidden="true" />}
       <p className={s.teks}>“{baris.teks}”</p>
+      {baris.teksEn && (
+        <p className={s.en} lang="en">
+          "{baris.teksEn}"
+        </p>
+      )}
     </div>
   )
 }

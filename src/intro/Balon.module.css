@@ -80,6 +80,14 @@
   border-top-width: max(2px, calc(3px * var(--u)));
 }
 
+/* Terjemahan Inggris: lebih kecil & miring, tapi tetap ≥ 16px (aturan teks HP). */
+.en {
+  margin: calc(6px * var(--u)) 0 0;
+  font: italic 600 max(var(--teks-kecil), calc(17px * var(--u))) / 1.35 var(--font-isi);
+  color: var(--abu-teks);
+  overflow-wrap: break-word;
+}
+
 /* Narasi kilas balik: panel lebar di bawah kelir, teks di tengah. */
 .narasi {
   padding: calc(16px * var(--u)) calc(26px * var(--u)) calc(14px * var(--u));
@@ -92,6 +100,10 @@
 .narasi .teks {
   font-size: calc(23px * var(--u));
   color: var(--siluet);
+  text-align: center;
+}
+
+.narasi .en {
   text-align: center;
 }
 
@@ -110,6 +122,11 @@
 
 .panel .teks {
   font-size: var(--teks-isi);
+}
+
+.panel .en {
+  margin-top: 4px;
+  font-size: var(--teks-kecil);
 }
 
 /* Nama ikut alur teks supaya tidak bertabrakan dengan ekor. */

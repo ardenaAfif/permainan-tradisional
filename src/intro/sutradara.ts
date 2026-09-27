@@ -106,7 +106,7 @@ export class Sutradara {
         if (id === this.token) this.selesaiBaris()
       })
     } else {
-      this.timerBaris = gsap.delayedCall(durasiTeks(b.teks), () => {
+      this.timerBaris = gsap.delayedCall(durasiTeks(b), () => {
         if (id === this.token) this.selesaiBaris()
       })
     }

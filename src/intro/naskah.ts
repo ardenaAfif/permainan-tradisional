@@ -44,6 +44,8 @@ export interface Baris {
   /** Detik sejak awal adegan saat baris mulai (bisa mundur bila baris sebelumnya belum selesai). */
   mulai: number
   teks: string
+  /** Terjemahan bahasa Inggris, tampil lebih kecil di bawah teks utama. */
+  teksEn?: string
   /** Naskah untuk perekam suara jika berbeda dari subtitle. */
   teksVO?: string
   balon: PosisiBalon
@@ -70,8 +72,8 @@ export function waktuAksi(id: IdAdegan): (aksi: string) => AksiAdegan {
   return (aksi) => daftar.find((x) => x.id === aksi) ?? { id: aksi, t: 0, durasi: 0, tokoh: '', keterangan: '' }
 }
 
-/** Lama baris tanpa VO: sekitar 14 karakter per detik, minimal 1,8 detik. */
-export const durasiTeks = (teks: string) => Math.max(1.8, teks.length / 14)
+/** Lama baris tanpa VO: sekitar 14 karakter per detik (dari teks terpanjang), minimal 1,8 detik. */
+export const durasiTeks = (b: Pick<Baris, 'teks' | 'teksEn'>) => Math.max(1.8, Math.max(b.teks.length, b.teksEn?.length ?? 0) / 14)
 
 export const NAMA_TOKOH: Record<TokohBicara, string> = {
   guru: 'Pak Ahsan',

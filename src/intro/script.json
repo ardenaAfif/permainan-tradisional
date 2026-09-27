@@ -107,6 +107,7 @@
       "tokoh": "bima",
       "mulai": 1.5,
       "teks": "Istirahat kok gini-gini aja sih…",
+      "teksEn": "Break time is always so boring…",
       "balon": { "x": 40, "y": 176, "lebar": 320, "ekor": "bawah", "ekorX": 180 }
     },
     {
@@ -115,6 +116,7 @@
       "tokoh": "sekar",
       "mulai": 5,
       "teks": "Yaah… lowbat lagi.",
+      "teksEn": "Aww… low battery again.",
       "balon": { "x": 690, "y": 350, "lebar": 260, "ekor": "kiri", "ekorX": 0 }
     },
     {
@@ -123,6 +125,7 @@
       "tokoh": "guru",
       "mulai": 6,
       "teks": "Hmm… dulu ya, waktu Bapak seumuran kalian… jam istirahat itu nggak pernah sepi.",
+      "teksEn": "Hmm… back when I was your age… break time was never quiet.",
       "teksVO": "Hmm... dulu ya, waktu Bapak seumuran kalian... jam istirahat itu nggak pernah sepi. (nada mengenang, pelan)",
       "balon": { "x": 420, "y": 100, "lebar": 520, "ekor": "kiri", "ekorX": 0 }
     },
@@ -132,6 +135,7 @@
       "tokoh": "sekar",
       "mulai": 6.5,
       "teks": "Ini semua apa, Pak?",
+      "teksEn": "What are all these, sir?",
       "balon": { "x": 830, "y": 390, "lebar": 230, "ekor": "kanan", "ekorX": 230 }
     },
     {
@@ -141,6 +145,7 @@
       "gaya": "narasi",
       "mulai": 3,
       "teks": "Dulu lapangan itu taman bermain kami. Dari permainan ini kami belajar sportif, kompak, dan sabar.",
+      "teksEn": "Back then, the field was our playground. These games taught us to play fair, work as a team, and be patient.",
       "teksVO": "Dulu lapangan itu taman bermain kami. Dari permainan ini kami belajar sportif, kompak, dan sabar. (narasi, tenang)",
       "balon": { "x": 198, "y": 560, "lebar": 884, "ekor": "tanpa", "ekorX": 442 }
     },
@@ -150,6 +155,7 @@
       "tokoh": "guru",
       "mulai": 2,
       "teks": "Tapi lihat. Kalau nggak ada yang memainkannya lagi… permainan ini bisa hilang.",
+      "teksEn": "But look. If no one plays them anymore… these games could disappear.",
       "teksVO": "Tapi lihat. Kalau nggak ada yang memainkannya lagi... permainan ini bisa hilang. (pelan, sedih)",
       "balon": { "x": 330, "y": 70, "lebar": 520, "ekor": "kiri", "ekorX": 0 }
     },
@@ -159,6 +165,7 @@
       "tokoh": "dimas",
       "mulai": 2.5,
       "teks": "Eh… kalau gitu… kita mainin lagi aja, Pak?",
+      "teksEn": "Uh… then… why don't we play them again, sir?",
       "balon": { "x": 560, "y": 56, "lebar": 360, "ekor": "bawah", "ekorX": 170 }
     },
     {
@@ -167,6 +174,7 @@
       "tokoh": "guru",
       "mulai": 5.5,
       "teks": "Nah! Itu proyek kokurikuler kita. Siapa mau ikut?",
+      "teksEn": "There we go! That's our co-curricular project. Who's in?",
       "teksVO": "Nah! Itu proyek kokurikuler kita. Siapa mau ikut? (bersemangat)",
       "balon": { "x": 40, "y": 96, "lebar": 440, "ekor": "bawah", "ekorX": 150 }
     }
