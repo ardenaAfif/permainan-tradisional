@@ -74,7 +74,7 @@ export function DevKarakter() {
 
   const angguk = () => {
     const kepala = guru.current?.part('head')
-    if (kepala) gsap.to(kepala, { rotation: 8, svgOrigin: '0 0', duration: 0.18, yoyo: true, repeat: 3 })
+    if (kepala) gsap.fromTo(kepala, { attr: { transform: 'rotate(0)' } }, { attr: { transform: 'rotate(8)' }, duration: 0.18, yoyo: true, repeat: 3 })
   }
 
   const props = {

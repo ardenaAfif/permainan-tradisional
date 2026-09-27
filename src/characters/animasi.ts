@@ -22,6 +22,21 @@ const EKSPRESI: Record<Ekspresi, Partial<Wajah>> = {
 const acak = (min: number, maks: number) => min + Math.random() * (maks - min)
 
 /**
+ * Putar bagian di titik putarnya sendiri (0,0 lokal <g data-part>) lewat atribut transform.
+ * Jangan pakai rotation + svgOrigin: svgOrigin GSAP dihitung di koordinat global SVG, sehingga
+ * bagian bersarang (lengan, kaki, kepala) ikut bergeser dan terlihat "putus".
+ */
+const putar = (derajat: number) => ({ attr: { transform: `rotate(${derajat})` } })
+
+/** Rotasi awal bagian dari atributnya ('rotate(-6)' → -6, kosong → 0). null jika ada transform lain. */
+function rotasiAtribut(el: Element): number | null {
+  const t = (el.getAttribute('transform') ?? '').trim()
+  if (!t) return 0
+  const m = /^rotate\((-?[\d.]+)\)$/.exec(t)
+  return m ? Number(m[1]) : null
+}
+
+/**
  * Menggerakkan satu SVG karakter dari kit.ts dengan GSAP.
  * Semua tween dicatat supaya bisa dihentikan bersih saat komponen dilepas.
  */
@@ -50,7 +65,7 @@ export class AnimatorKarakter {
     if (this.gerak) this.mulaiIdle(opsi.siluet)
   }
 
-  /** Elemen bagian, mis. part('arm-upper-r'). Putar dengan svgOrigin '0 0'. */
+  /** Elemen bagian, mis. part('arm-upper-r'). Putar lewat atribut transform, lihat putar(). */
   part(nama: string): SVGGElement | null {
     return this.svg.querySelector(`[data-part="${nama}"]`)
   }
@@ -171,46 +186,50 @@ export class AnimatorKarakter {
     if (aksi === 'jump') this.aksiTl = this.lompat()
   }
 
-  private simpanPutaran(el: Element | null) {
-    if (el && !this.putaranAwal.has(el)) this.putaranAwal.set(el, Number(gsap.getProperty(el, 'rotation')) || 0)
+  /** Simpan rotasi awal bagian; false jika bagian tidak ada atau transformnya bukan rotate() biasa. */
+  private simpanPutaran(el: Element | null): el is Element {
+    if (!el) return false
+    if (this.putaranAwal.has(el)) return true
+    const r = rotasiAtribut(el)
+    if (r === null) return false
+    this.putaranAwal.set(el, r)
+    return true
   }
 
   private lambai() {
     const atas = this.part('arm-upper-r')
     const bawah = this.part('arm-lower-r')
-    this.simpanPutaran(atas)
-    this.simpanPutaran(bawah)
     const tl = gsap.timeline()
-    if (!atas || !bawah) return tl
+    if (!this.simpanPutaran(atas) || !this.simpanPutaran(bawah)) return tl
     if (!this.gerak) {
-      tl.set(atas, { rotation: -150, svgOrigin: '0 0' }).set(bawah, { rotation: -10, svgOrigin: '0 0' })
+      tl.set(atas, putar(-150)).set(bawah, putar(-10))
       return tl
     }
-    tl.to(atas, { rotation: -150, svgOrigin: '0 0', duration: 0.3, ease: 'back.out(1.6)' })
-      .to(bawah, { rotation: -35, svgOrigin: '0 0', duration: 0.25, ease: 'sine.inOut' }, '<')
-      .to(bawah, { rotation: 15, svgOrigin: '0 0', duration: 0.28, ease: 'sine.inOut', yoyo: true, repeat: -1 })
+    tl.fromTo(atas, putar(this.putaranAwal.get(atas) ?? 0), { ...putar(-150), duration: 0.3, ease: 'back.out(1.6)' })
+      .fromTo(bawah, putar(this.putaranAwal.get(bawah) ?? 0), { ...putar(-35), duration: 0.25, ease: 'sine.inOut' }, '<')
+      .to(bawah, { ...putar(15), duration: 0.28, ease: 'sine.inOut', yoyo: true, repeat: -1 })
     return tl
   }
 
   private lompat() {
     const root = this.part('root')
-    const kakiL = this.part('leg-l')
-    const kakiR = this.part('leg-r')
-    ;[kakiL, kakiR].forEach((k) => this.simpanPutaran(k))
+    // Kaki berpose khusus (mis. engklek: translate + scale) tidak ikut diputar.
+    const kaki = [this.part('leg-l'), this.part('leg-r')].filter((k): k is SVGGElement => this.simpanPutaran(k))
     this.tampilMata('happy')
     const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.12 })
     if (!root || !this.gerak) return tl
+    const awal = (i: number) => this.putaranAwal.get(kaki[i]!) ?? 0
     tl.to(root, { y: -30, duration: 0.28, ease: 'power2.out' })
-      .to([kakiL, kakiR], { rotation: (i: number) => (i ? -9 : 9), svgOrigin: '0 0', duration: 0.2 }, '<')
-      .to(root, { y: 0, duration: 0.26, ease: 'power2.in' })
-      .to([kakiL, kakiR], { rotation: 0, svgOrigin: '0 0', duration: 0.2 }, '<0.06')
+    kaki.forEach((k, i) => tl.fromTo(k, putar(awal(i)), { ...putar(awal(i) + (k.dataset.part === 'leg-l' ? 9 : -9)), duration: 0.2 }, '<'))
+    tl.to(root, { y: 0, duration: 0.26, ease: 'power2.in' })
+    kaki.forEach((k, i) => tl.to(k, { ...putar(awal(i)), duration: 0.2 }, i === 0 ? '<0.06' : '<'))
     return tl
   }
 
   private hentikanAksi() {
     this.aksiTl?.kill()
     this.aksiTl = null
-    for (const [el, rot] of this.putaranAwal) gsap.to(el, { rotation: rot, svgOrigin: '0 0', duration: this.gerak ? 0.2 : 0 })
+    for (const [el, rot] of this.putaranAwal) gsap.to(el, { ...putar(rot), duration: this.gerak ? 0.2 : 0 })
     const root = this.part('root')
     if (root && this.aksiAktif === 'jump') gsap.to(root, { y: 0, duration: this.gerak ? 0.15 : 0 })
     if (this.aksiAktif === 'jump') this.tampilMata(this.wajah.mata)

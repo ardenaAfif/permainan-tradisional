@@ -3,8 +3,9 @@
  * Bentuk, warna, dan pose sama persis dengan hasil Claude Design. Perubahan
  * struktur untuk animasi GSAP:
  * - Setiap bagian adalah <g data-part="..."> di dalam <g> posisi, sehingga
- *   titik asal (0,0) bagian = titik putarnya. Putar dengan
- *   gsap.to(el, { rotation, svgOrigin: '0 0' }).
+ *   titik asal (0,0) bagian = titik putarnya. Putar dengan men-tween atributnya:
+ *   gsap.to(el, { attr: { transform: 'rotate(30)' } }). Jangan rotation + svgOrigin
+ *   (svgOrigin dihitung di koordinat global SVG, bagian bersarang jadi bergeser).
  * - Rambut, penutup kepala, dan benda bawaan (kotak/buku) punya grup sendiri.
  * - Semua varian mata (data-mata) dan mulut (data-mulut) ikut dirender; yang
  *   tidak aktif disembunyikan, jadi ekspresi bisa diganti tanpa render ulang.
