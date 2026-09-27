@@ -57,7 +57,7 @@ export function Adegan1Istirahat({ ref, ...p }: AdeganProps) {
       <div ref={kamera} className={s.kamera}>
         <div className={s.listTapis} />
         <div className={s.papan}>
-          <div className={s.papanTeks}>Kamis · Kokurikuler</div>
+          <div className={s.papanTeks}>Jum'at · Kokurikuler</div>
           <img className={s.papanLogo} src={logoSnt} alt="" />
           <div className={s.papanRak} />
         </div>
