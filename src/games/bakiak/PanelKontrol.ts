@@ -302,17 +302,36 @@ export class PanelKontrol {
     const c = this.scene.add.container(0, 0).setVisible(false)
     c.add(this.scene.add.graphics())
     c.add(this.scene.add.triangle(0, 0, 0, 0, 0, 26, 18, 13, w('kertas-terang')))
+    c.add(teks(this.scene, 0, -2, '', { ukuran: 30 }, this.o.resolusi))
     return c
+  }
+
+  /**
+   * Huruf keyboard di catatan, sama dengan huruf di tombol: biasa A (kiri) / S (kanan);
+   * Tim Kompak semua huruf sisi itu (ASD / JKL) karena ketiganya ditekan bersamaan.
+   * Tanpa petunjuk keyboard (layar sentuh) catatan tetap bergambar panah.
+   */
+  private hurufCatatan(kaki: 'kiri' | 'kanan'): string | null {
+    const p = this.o.petunjuk
+    if (!p?.length) return null
+    if (this.o.kepala) return p.join('')
+    return p[kaki === 'kiri' ? 0 : 1] ?? null
   }
 
   private warnaiCatatan(c: Phaser.GameObjects.Container, kaki: 'kiri' | 'kanan') {
     c.setData('kaki', kaki)
     const g = c.getAt(0) as Phaser.GameObjects.Graphics
     const panah = c.getAt(1) as Phaser.GameObjects.Triangle
+    const label = c.getAt(2) as Phaser.GameObjects.Text
+    const huruf = this.hurufCatatan(kaki)
+    label.setText(huruf ?? '').setVisible(!!huruf)
+    panah.setVisible(!huruf)
+    const lebar = huruf ? Math.max(60, label.width + 28) : 60
+    const x = -lebar / 2
     g.clear()
-    g.fillStyle(w(WARNA_KAKI[kaki][1])).fillRoundedRect(-30, -21, 60, 46, 14)
-    g.fillStyle(w(WARNA_KAKI[kaki][0])).fillRoundedRect(-30, -24, 60, 44, 14)
-    g.lineStyle(3, w('kertas-terang')).strokeRoundedRect(-30, -24, 60, 44, 14)
+    g.fillStyle(w(WARNA_KAKI[kaki][1])).fillRoundedRect(x, -21, lebar, 46, 14)
+    g.fillStyle(w(WARNA_KAKI[kaki][0])).fillRoundedRect(x, -24, lebar, 44, 14)
+    g.lineStyle(3, w('kertas-terang')).strokeRoundedRect(x, -24, lebar, 44, 14)
     panah.setScale(kaki === 'kiri' ? -1 : 1, 1).setPosition(kaki === 'kiri' ? -2 : 2, -2)
   }
 }

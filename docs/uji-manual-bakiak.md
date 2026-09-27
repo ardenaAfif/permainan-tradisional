@@ -49,7 +49,7 @@ Butuh 6 siswa (3 per tim). Tes ini yang paling penting untuk multi-touch.
 
 | # | Langkah | Hasil yang diharapkan |
 |---|---------|-----------------------|
-| D1 | Lawan Komputer: main dengan A/S, lalu dengan ←/→, lalu dengan klik mouse. | Ketiganya bekerja. Huruf petunjuk tampil di pojok tombol. |
+| D1 | Lawan Komputer: main dengan A/S, lalu dengan ←/→, lalu dengan klik mouse. | Ketiganya bekerja. Huruf petunjuk tampil di pojok tombol dan di catatan aba-aba yang berjalan (A/S; duel K/L; Tim Kompak ASD/JKL). |
 | D2 | Duel Biasa: satu orang A/S, satu orang K/L, ditekan bersamaan. | Kedua tim maju. |
 | D3 | Duel Tim Kompak: A/S/D dan J/K/L ditekan bersamaan. | Kedua tim maju. (Beberapa keyboard murah tidak bisa membaca 6 tombol sekaligus; catat jika ada.) |
 | D4 | Tekan Esc di tengah lomba. | Menu Jeda muncul, lomba berhenti. |
