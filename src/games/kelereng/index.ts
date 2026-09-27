@@ -2,7 +2,7 @@ import { GELAP_PEMAIN, WARNA, WARNA_PEMAIN, type NamaWarna } from '../../app/tok
 import { buatModulPhaser } from '../../shared/phaser/modul'
 import { AdeganKelereng, KUNCI, type JenisKelereng } from './AdeganKelereng'
 import { JUMLAH_TARUHAN, R_GACOAN, R_LUBANG, R_TARUHAN } from './config'
-import { gambarBayangan, gambarKelereng, gambarLatar, gambarLubang } from './tekstur'
+import { gambarBadan, gambarBayangan, gambarKelereng, gambarKilau, gambarLatar, gambarLubang, gambarUratGulir } from './tekstur'
 
 /** Nama token untuk warna pemain (Player.warna berisi hex dari WARNA_PEMAIN). */
 const namaWarna = (hex: string): NamaWarna =>
@@ -29,13 +29,19 @@ export default buatModulPhaser({
       [KUNCI.lubang, gambarLubang(R_LUBANG, r)],
       [KUNCI.bayangGacoan, gambarBayangan(R_GACOAN, r)],
       [KUNCI.bayangTaruhan, gambarBayangan(R_TARUHAN, r)],
+      [KUNCI.kilauGacoan, gambarKilau(R_GACOAN, r)],
+      [KUNCI.kilauTaruhan, gambarKilau(R_TARUHAN, r)],
     ])
     opts.players.forEach((p, i) => {
-      const dasar = namaWarna(p.warna ?? WARNA_PEMAIN[i % WARNA_PEMAIN.length]!)
-      kanvas.set(KUNCI.gacoan(i), gambarKelereng(R_GACOAN, dasar, GELAP_PEMAIN[WARNA[dasar]] ?? 'kayu-gelap', 'kertas-terang', r))
+      const dasar = namaWarna(p.warna || WARNA_PEMAIN[i % WARNA_PEMAIN.length]!)
+      const tepi = GELAP_PEMAIN[WARNA[dasar]] ?? 'kayu-gelap'
+      kanvas.set(KUNCI.gacoan(i), gambarKelereng(R_GACOAN, dasar, tepi, 'kertas-terang', r))
+      kanvas.set(KUNCI.badan(`g${i}`), gambarBadan(R_GACOAN, dasar, tepi, r))
+      kanvas.set(KUNCI.urat(`g${i}`), gambarUratGulir(R_GACOAN, 'kertas-terang', r))
     })
     for (let i = 0; i < JUMLAH_TARUHAN; i++) {
-      kanvas.set(KUNCI.taruhan(i), gambarKelereng(R_TARUHAN, 'langit-jendela', 'biru-nila', URAT_TARUHAN[i % URAT_TARUHAN.length]!, r))
+      kanvas.set(KUNCI.badan(`t${i}`), gambarBadan(R_TARUHAN, 'langit-jendela', 'biru-nila', r))
+      kanvas.set(KUNCI.urat(`t${i}`), gambarUratGulir(R_TARUHAN, URAT_TARUHAN[i % URAT_TARUHAN.length]!, r))
     }
     return new AdeganKelereng({
       jenis,

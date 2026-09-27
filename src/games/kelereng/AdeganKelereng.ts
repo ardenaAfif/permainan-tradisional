@@ -29,6 +29,7 @@ import {
   type Titik,
 } from './aturan'
 import { bunyi } from './bunyi'
+import { FRAME_GULIR } from './tekstur'
 import {
   AWAL_Y,
   BATAS,
@@ -73,8 +74,13 @@ export const KUNCI = {
   lubang: 'lubang',
   bayangGacoan: 'bayang-gacoan',
   bayangTaruhan: 'bayang-taruhan',
+  /** Gacoan utuh (ikon papan skor). */
   gacoan: (i: number) => `gacoan-${i}`,
-  taruhan: (i: number) => `taruhan-${i}`,
+  /** Lapisan kelereng per nama ('g0' = gacoan pemain 0, 't3' = taruhan ke-3). */
+  badan: (nama: string) => `badan-${nama}`,
+  urat: (nama: string) => `urat-${nama}`,
+  kilauGacoan: 'kilau-gacoan',
+  kilauTaruhan: 'kilau-taruhan',
 }
 
 /** Kedalaman gambar. */
@@ -88,7 +94,12 @@ interface Kelereng {
   pemilik: number
   r: number
   body: MatterJS.BodyType | null
-  img: Phaser.GameObjects.Image
+  /** Badan kaca + urat + kilau; posisinya mengikuti body. */
+  tampil: Phaser.GameObjects.Container
+  /** Lapisan urat: diputar searah laju, frame maju sesuai jarak gelinding. */
+  urat: Phaser.GameObjects.Image
+  /** Sudut gelinding (radian) = jarak tempuh / jari-jari. */
+  putaran: number
   bayang: Phaser.GameObjects.Image
   /** Melewati garis batas pada sentilan ini. */
   keluar: boolean
@@ -161,7 +172,15 @@ export class AdeganKelereng extends Phaser.Scene {
   create() {
     const o = this.o
     this.res = o.env.resolusi
-    for (const [kunci, kanvas] of o.kanvas) if (!this.textures.exists(kunci)) this.textures.addCanvas(kunci, kanvas)
+    for (const [kunci, kanvas] of o.kanvas) {
+      if (this.textures.exists(kunci)) continue
+      const t = this.textures.addCanvas(kunci, kanvas)
+      // Lembar urat: FRAME_GULIR frame berjajar ke kanan.
+      if (t && kunci.startsWith('urat-')) {
+        const lebar = kanvas.width / FRAME_GULIR
+        for (let f = 0; f < FRAME_GULIR; f++) t.add(f, 0, f * lebar, 0, lebar, kanvas.height)
+      }
+    }
     this.cameras.main.setZoom(this.res).centerOn(STAGE_W / 2, STAGE_H / 2)
     this.skor = o.pemain.map(() => 0)
     this.gacoan = o.pemain.map(() => null)
@@ -185,7 +204,7 @@ export class AdeganKelereng extends Phaser.Scene {
 
     if (o.jenis === 'lubang') this.mulaiLubang()
     else {
-      susunTaruhan(PUSAT_LINGKARAN).forEach((p, i) => this.buatKelereng('taruhan', -1, p, KUNCI.taruhan(i)))
+      susunTaruhan(PUSAT_LINGKARAN).forEach((p, i) => this.buatKelereng('taruhan', -1, p, `t${i}`))
       this.mulaiGiliran()
     }
     if (this.dijeda) this.jeda()
@@ -205,8 +224,10 @@ export class AdeganKelereng extends Phaser.Scene {
     }
     for (const k of this.kelereng) {
       if (!k.body) continue
-      k.img.setPosition(k.body.position.x, k.body.position.y)
-      k.bayang.setPosition(k.body.position.x + 3, k.body.position.y + 4)
+      const { x, y } = k.body.position
+      this.gelindingkan(k, x - k.tampil.x, y - k.tampil.y)
+      k.tampil.setPosition(x, y)
+      k.bayang.setPosition(x + 3, y + 4)
     }
   }
 
@@ -227,17 +248,46 @@ export class AdeganKelereng extends Phaser.Scene {
     return this.add.image(x, y, kunci).setScale(1 / this.res)
   }
 
-  private buatKelereng(jenis: Kelereng['jenis'], pemilik: number, p: Titik, kunci: string): Kelereng {
+  private buatKelereng(jenis: Kelereng['jenis'], pemilik: number, p: Titik, nama: string): Kelereng {
     const r = jenis === 'gacoan' ? R_GACOAN : R_TARUHAN
     const bayang = this.gambar(p.x + 3, p.y + 4, jenis === 'gacoan' ? KUNCI.bayangGacoan : KUNCI.bayangTaruhan).setDepth(D.bayang)
-    const img = this.gambar(p.x, p.y, kunci).setDepth(D.kelereng)
-    const k: Kelereng = { jenis, pemilik, r, body: this.matter.add.circle(p.x, p.y, r, OPSI_BODY), img, bayang, keluar: false, diGaris: false }
+    const urat = this.gambar(0, 0, KUNCI.urat(nama)).setFrame(0)
+    const kilau = this.gambar(0, 0, jenis === 'gacoan' ? KUNCI.kilauGacoan : KUNCI.kilauTaruhan)
+    const tampil = this.add.container(p.x, p.y, [this.gambar(0, 0, KUNCI.badan(nama)), urat, kilau]).setDepth(D.kelereng)
+    const k: Kelereng = {
+      jenis,
+      pemilik,
+      r,
+      body: this.matter.add.circle(p.x, p.y, r, OPSI_BODY),
+      tampil,
+      urat,
+      putaran: Math.random() * Math.PI * 2,
+      bayang,
+      keluar: false,
+      diGaris: false,
+    }
+    urat.setRotation(Math.random() * Math.PI * 2)
+    this.gelindingkan(k, 0, 0)
     this.kelereng.push(k)
     return k
   }
 
+  /**
+   * Kelereng menggelinding sejauh (dx, dy): urat diputar ke arah laju dan
+   * bergeser di permukaan bola sebanyak jarak / jari-jari. Kilau tetap diam.
+   */
+  private gelindingkan(k: Kelereng, dx: number, dy: number) {
+    const d = Math.hypot(dx, dy)
+    if (d > 0.01 && this.o.env.gerak) {
+      k.putaran += d / k.r
+      k.urat.setRotation(Math.atan2(dy, dx))
+    }
+    const putaran = ((k.putaran % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)
+    k.urat.setFrame(Math.floor((putaran / (Math.PI * 2)) * FRAME_GULIR) % FRAME_GULIR)
+  }
+
   private posisi(k: Kelereng): Titik {
-    return k.body ? { x: k.body.position.x, y: k.body.position.y } : { x: k.img.x, y: k.img.y }
+    return k.body ? { x: k.body.position.x, y: k.body.position.y } : { x: k.tampil.x, y: k.tampil.y }
   }
 
   private lepasBody(k: Kelereng) {
@@ -250,9 +300,9 @@ export class AdeganKelereng extends Phaser.Scene {
     this.kelereng = this.kelereng.filter((x) => x !== k)
     this.gacoan = this.gacoan.map((g) => (g === k ? null : g))
     if (pudar && this.o.env.gerak) {
-      this.tweens.add({ targets: [k.img, k.bayang], alpha: 0, duration: 250, onComplete: () => (k.img.destroy(), k.bayang.destroy()) })
+      this.tweens.add({ targets: [k.tampil, k.bayang], alpha: 0, duration: 250, onComplete: () => (k.tampil.destroy(), k.bayang.destroy()) })
     } else {
-      k.img.destroy()
+      k.tampil.destroy()
       k.bayang.destroy()
     }
   }
@@ -262,7 +312,7 @@ export class AdeganKelereng extends Phaser.Scene {
     const lain = this.kelereng.filter((x) => x !== k).map((x) => this.posisi(x))
     const p = tempatDiGaris(y, lain, R_GACOAN * 2 + 6)
     if (!k) {
-      k = this.buatKelereng('gacoan', pemain, p, KUNCI.gacoan(pemain))
+      k = this.buatKelereng('gacoan', pemain, p, `g${pemain}`)
       this.gacoan[pemain] = k
     } else if (k.body) {
       this.matter.body.setPosition(k.body, p, false)
@@ -481,13 +531,13 @@ export class AdeganKelereng extends Phaser.Scene {
     bunyi.masukLubang()
     this.tampilPlus(l, '+1')
     this.tweens.add({
-      targets: k.img,
+      targets: k.tampil,
       x: l.x,
       y: l.y,
-      scale: 0.55 / this.res,
+      scale: 0.55,
       alpha: 0.2,
       duration: 260,
-      onComplete: () => k.img.destroy(),
+      onComplete: () => k.tampil.destroy(),
     })
     k.bayang.destroy()
   }
@@ -496,7 +546,7 @@ export class AdeganKelereng extends Phaser.Scene {
     this.lepasBody(k)
     k.keluar = true
     k.bayang.setVisible(false)
-    k.img.setAlpha(0.45)
+    k.tampil.setAlpha(0.45)
     if (k === this.gacoanAktif) {
       this.hangus = true
       bunyi.keluar()
@@ -529,13 +579,13 @@ export class AdeganKelereng extends Phaser.Scene {
           this.kelereng = this.kelereng.filter((x) => x !== k)
           k.bayang.destroy()
           this.tweens.add({
-            targets: k.img,
+            targets: k.tampil,
             x: papan.x + 30,
             y: 36,
             alpha: this.o.env.gerak ? 1 : 0,
             duration: this.o.env.gerak ? 450 : 150,
             ease: 'Sine.easeIn',
-            onComplete: () => k.img.destroy(),
+            onComplete: () => k.tampil.destroy(),
           })
         }
       }
@@ -567,7 +617,7 @@ export class AdeganKelereng extends Phaser.Scene {
       }
     }
     k.keluar = false
-    k.img.setAlpha(1).setPosition(p.x, p.y)
+    k.tampil.setAlpha(1).setPosition(p.x, p.y)
     k.bayang.setVisible(true).setPosition(p.x + 3, p.y + 4)
     k.body = this.matter.add.circle(p.x, p.y, k.r, OPSI_BODY)
   }

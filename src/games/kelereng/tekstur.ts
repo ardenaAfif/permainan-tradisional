@@ -152,6 +152,100 @@ export function gambarKelereng(r: number, dasar: NamaWarna, tepi: NamaWarna, ura
   return c
 }
 
+/** Jumlah frame urat yang berputar saat kelereng menggelinding (satu putaran penuh). */
+export const FRAME_GULIR = 16
+
+/** Badan kaca tanpa urat dan kilau (lapisan paling bawah, tidak ikut berputar). */
+export function gambarBadan(r: number, dasar: NamaWarna, tepi: NamaWarna, resolusi: number): HTMLCanvasElement {
+  const s = r * 2 + 4
+  const { c, ctx } = kanvas(s, s, resolusi)
+  const p = s / 2
+  const g = ctx.createRadialGradient(p - r * 0.35, p - r * 0.4, r * 0.1, p, p, r)
+  g.addColorStop(0, WARNA['kertas-terang'])
+  g.addColorStop(0.35, WARNA[dasar])
+  g.addColorStop(1, WARNA[tepi])
+  ctx.fillStyle = g
+  ctx.beginPath()
+  ctx.arc(p, p, r, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.globalAlpha = 0.4
+  ctx.strokeStyle = WARNA['tinta-gelap']
+  ctx.lineWidth = 1
+  ctx.beginPath()
+  ctx.arc(p, p, r - 0.5, 0, Math.PI * 2)
+  ctx.stroke()
+  return c
+}
+
+/** Kilau cahaya di atas kaca (tidak berputar: cahaya tetap dari kiri atas). */
+export function gambarKilau(r: number, resolusi: number): HTMLCanvasElement {
+  const s = r * 2 + 4
+  const { c, ctx } = kanvas(s, s, resolusi)
+  const p = s / 2
+  ctx.fillStyle = WARNA['kertas-terang']
+  ctx.globalAlpha = 0.9
+  ctx.beginPath()
+  ctx.ellipse(p - r * 0.38, p - r * 0.42, r * 0.32, r * 0.18, -0.6, 0, Math.PI * 2)
+  ctx.fill()
+  ctx.globalAlpha = 0.45
+  ctx.beginPath()
+  ctx.arc(p + r * 0.45, p + r * 0.48, r * 0.12, 0, Math.PI * 2)
+  ctx.fill()
+  return c
+}
+
+const rgb = (hex: string) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)) as [number, number, number]
+const bungkus = (a: number) => ((((a + Math.PI) % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)) - Math.PI
+
+/**
+ * Urat "mata kucing" yang digambar pada permukaan bola lalu diproyeksikan ke
+ * lingkaran, untuk FRAME_GULIR fase putaran (frame berjajar ke kanan). Pada
+ * frame berikutnya urat bergeser ke arah +x, jadi gambar ini diputar searah
+ * laju kelereng dan frame-nya dimajukan sesuai jarak tempuh.
+ */
+export function gambarUratGulir(r: number, urat: NamaWarna, resolusi: number): HTMLCanvasElement {
+  const s = Math.ceil((r * 2 + 4) * resolusi)
+  const c = document.createElement('canvas')
+  c.width = s * FRAME_GULIR
+  c.height = s
+  const ctx = c.getContext('2d')!
+  const [cr, cg, cb] = rgb(WARNA[urat])
+  const R = r * resolusi
+  const tengah = s / 2
+  for (let f = 0; f < FRAME_GULIR; f++) {
+    const fase = (f / FRAME_GULIR) * Math.PI * 2
+    const data = ctx.createImageData(s, s)
+    for (let py = 0; py < s; py++) {
+      for (let px = 0; px < s; px++) {
+        const u = (px + 0.5 - tengah) / R
+        const v = (py + 0.5 - tengah) / R
+        const d2 = u * u + v * v
+        if (d2 >= 1) continue
+        const z = Math.sqrt(1 - d2)
+        const bujur = Math.atan2(u, z) - fase
+        const lintang = Math.asin(v)
+        // Pita berkelok mengelilingi bola + satu bintik.
+        const t = Math.abs(lintang - 0.5 * Math.sin(2 * bujur + 0.6)) / 0.24
+        const pita = t < 1 ? Math.pow(1 - t, 0.7) : 0
+        const db = bungkus(bujur - Math.PI) * Math.cos(lintang)
+        const jarakBintik = Math.hypot(db, lintang + 0.45)
+        const bintik = jarakBintik < 0.28 ? 1 - jarakBintik / 0.28 : 0
+        // Memudar ke tepi bola dan dihaluskan di garis lingkaran.
+        const tepi = Math.min(1, ((1 - Math.sqrt(d2)) * R) / 1.2)
+        const a = Math.max(pita, bintik) * 0.85 * (0.45 + 0.55 * z) * tepi
+        if (a <= 0) continue
+        const i = (py * s + px) * 4
+        data.data[i] = cr
+        data.data[i + 1] = cg
+        data.data[i + 2] = cb
+        data.data[i + 3] = Math.round(a * 255)
+      }
+    }
+    ctx.putImageData(data, f * s, 0)
+  }
+  return c
+}
+
 /** Bayangan lembut di bawah kelereng. */
 export function gambarBayangan(r: number, resolusi: number): HTMLCanvasElement {
   const s = r * 2 + 8
