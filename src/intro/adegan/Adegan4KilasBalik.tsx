@@ -3,7 +3,7 @@ import { useRef } from 'react'
 import { Karakter, type KarakterHandle } from '../../characters/Karakter'
 import { waktuAksi } from '../naskah'
 import { Tokoh } from './Tokoh'
-import { bagian, PUTAR, useAdegan, type AdeganProps } from './umum'
+import { bagian, rot, useAdegan, type AdeganProps } from './umum'
 import s from './adegan.module.css'
 
 const T = waktuAksi('kilas-balik')
@@ -36,8 +36,8 @@ export function Adegan4KilasBalik({ ref }: AdeganProps) {
     tl.fromTo(gobak.current, { x: -440 }, { x: 0, duration: 2, ease: 'power1.out' }, g.t)
       .fromTo(gobak.current, { rotation: -6 }, { rotation: 6, ...DASAR, duration: 0.4, ease: 'sine.inOut', yoyo: true, repeat: 4 }, g.t)
       .to(gobak.current, { rotation: 0, duration: 0.3, ease: 'sine.out' }, g.t + 2)
-      .fromTo(bagian(gobakK, 'arm-upper-l'), { rotation: 10 }, { rotation: 84, ...PUTAR, duration: 0.5, ease: 'back.out(1.8)' }, g.t + 2.2)
-      .fromTo(bagian(gobakK, 'arm-upper-r'), { rotation: -10 }, { rotation: -84, ...PUTAR, duration: 0.5, ease: 'back.out(1.8)' }, g.t + 2.2)
+      .fromTo(bagian(gobakK, 'arm-upper-l'), rot(10), { ...rot(84), duration: 0.5, ease: 'back.out(1.8)' }, g.t + 2.2)
+      .fromTo(bagian(gobakK, 'arm-upper-r'), rot(-10), { ...rot(-84), duration: 0.5, ease: 'back.out(1.8)' }, g.t + 2.2)
 
     // Engklek: muncul di tengah, lompat satu kaki 3 kali (naik 40px, maju 60px).
     const e = T('engklek')

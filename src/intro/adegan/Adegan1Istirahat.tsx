@@ -4,7 +4,7 @@ import type { Mata, Mulut } from '../../characters/kit'
 import { Karakter, type KarakterHandle } from '../../characters/Karakter'
 import { waktuAksi } from '../naskah'
 import { Tokoh } from './Tokoh'
-import { bagian, mulut, PUTAR, useAdegan, type AdeganProps } from './umum'
+import { bagian, mulut, rot, useAdegan, type AdeganProps } from './umum'
 import s from './adegan.module.css'
 
 const T = waktuAksi('istirahat')
@@ -33,17 +33,17 @@ export function Adegan1Istirahat({ ref, ...p }: AdeganProps) {
     // Bima menguap: kepala miring ke belakang, tangan ke mulut, mata tertutup, mulut O.
     const m = T('bima-menguap')
     tl.call(() => setWajahBima({ mata: 'closed', mulut: 'talk-o' }), [], m.t)
-      .fromTo(bagian(bima, 'head'), { rotation: 0 }, { rotation: -6, ...PUTAR, duration: 0.35, ease: 'power2.out' }, m.t)
-      .fromTo(bagian(bima, 'arm-upper-r'), { rotation: -6 }, { rotation: 100, ...PUTAR, duration: 0.4, ease: 'power2.out' }, m.t)
-      .fromTo(bagian(bima, 'arm-lower-r'), { rotation: 6 }, { rotation: 105, ...PUTAR, duration: 0.4, ease: 'power2.out' }, m.t)
-      .to(bagian(bima, 'head'), { rotation: 0, ...PUTAR, duration: 0.4, ease: 'sine.inOut' }, m.t + m.durasi)
-      .to(bagian(bima, 'arm-upper-r'), { rotation: -6, ...PUTAR, duration: 0.45, ease: 'sine.inOut' }, m.t + m.durasi)
-      .to(bagian(bima, 'arm-lower-r'), { rotation: 6, ...PUTAR, duration: 0.45, ease: 'sine.inOut' }, m.t + m.durasi)
+      .fromTo(bagian(bima, 'head'), rot(0), { ...rot(-6), duration: 0.35, ease: 'power2.out' }, m.t)
+      .fromTo(bagian(bima, 'arm-upper-r'), rot(-6), { ...rot(100), duration: 0.4, ease: 'power2.out' }, m.t)
+      .fromTo(bagian(bima, 'arm-lower-r'), rot(6), { ...rot(105), duration: 0.4, ease: 'power2.out' }, m.t)
+      .to(bagian(bima, 'head'), { ...rot(0), duration: 0.4, ease: 'sine.inOut' }, m.t + m.durasi)
+      .to(bagian(bima, 'arm-upper-r'), { ...rot(-6), duration: 0.45, ease: 'sine.inOut' }, m.t + m.durasi)
+      .to(bagian(bima, 'arm-lower-r'), { ...rot(6), duration: 0.45, ease: 'sine.inOut' }, m.t + m.durasi)
       .call(() => setWajahBima({ mata: 'open', mulut: 'flat' }), [], m.t + m.durasi)
 
     // Sekar menunduk ke HP; baterai berkedip merah 3 kali.
     const k = T('sekar-menunduk')
-    tl.fromTo(bagian(sekar, 'head'), { rotation: 0, y: 0 }, { rotation: 8, y: 3, ...PUTAR, duration: k.durasi, ease: 'power2.out' }, k.t)
+    tl.fromTo(bagian(sekar, 'head'), rot(0, 0), { ...rot(8, 3), duration: k.durasi, ease: 'power2.out' }, k.t)
     const bt = T('baterai')
     tl.fromTo(isiBaterai.current, { autoAlpha: 1 }, { autoAlpha: 0, duration: bt.durasi / 6, ease: 'steps(1)', yoyo: true, repeat: 5 }, bt.t)
 

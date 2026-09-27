@@ -43,7 +43,12 @@ export function Adegan3KotakDibuka({ ref, ...p }: AdeganProps) {
 
     // Tutup berputar terbuka di engsel kiri, kotak melompat 8px.
     const tp = T('tutup')
-    tl.fromTo(tutup.current, { rotation: 0 }, { rotation: -60, svgOrigin: '26 58', duration: tp.durasi, ease: 'back.out(1.4)' }, tp.t).fromTo(
+    tl.fromTo(
+      tutup.current,
+      { attr: { transform: 'rotate(0 26 58)' } },
+      { attr: { transform: 'rotate(-60 26 58)' }, duration: tp.durasi, ease: 'back.out(1.4)' },
+      tp.t,
+    ).fromTo(
       kotak.current,
       { y: 0 },
       { y: -8, duration: 0.15, ease: 'power2.out', yoyo: true, repeat: 1 },

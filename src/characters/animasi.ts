@@ -224,7 +224,11 @@ export class AnimatorKarakter {
     this.bicaraBerikut?.kill()
     this.aksiTl?.kill()
     if (this.lipSync) gsap.ticker.remove(this.lipSync)
-    gsap.killTweensOf(this.svg.querySelectorAll('[data-part], [data-anim]'))
+    // Hanya tween milik animator ini (alis, kedip, pengembalian aksi). Jangan killTweensOf semua
+    // [data-part]: itu ikut mematikan timeline luar (intro/game) yang menggerakkan lengan/kepala,
+    // mis. saat StrictMode menjalankan ulang efek Karakter setelah timeline intro dibangun.
+    const milik = [this.part('brows'), this.svg.querySelector('[data-anim="kedip"]'), this.part('root'), ...this.putaranAwal.keys()]
+    gsap.killTweensOf(milik.filter((el): el is Element => !!el))
   }
 }
 

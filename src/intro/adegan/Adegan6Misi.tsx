@@ -4,7 +4,7 @@ import { Karakter, type KarakterHandle } from '../../characters/Karakter'
 import { BendaGambar } from '../../shared/benda/BendaGambar'
 import { waktuAksi } from '../naskah'
 import { Tokoh } from './Tokoh'
-import { bagian, mulut, PUTAR, useAdegan, type AdeganProps } from './umum'
+import { bagian, mulut, rot, useAdegan, type AdeganProps } from './umum'
 import s from './adegan.module.css'
 
 const T = waktuAksi('misi')
@@ -32,14 +32,14 @@ export function Adegan6Misi({ ref, ...p }: AdeganProps) {
     const db = T('dimas-berdiri')
     tl.fromTo(dimas.current, { y: 60 }, { y: 0, duration: db.durasi, ease: 'power1.inOut' }, db.t).fromTo(
       bagian(dimasK, 'head'),
-      { rotation: 0, y: 0 },
-      { rotation: 6, y: 3, ...PUTAR, duration: db.durasi / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 },
+      rot(0, 0),
+      { ...rot(6, 3), duration: db.durasi / 2, ease: 'sine.inOut', yoyo: true, repeat: 1 },
       db.t,
     )
 
     // Bima & Sekar menoleh ke Dimas: kaget lalu tersenyum.
     const sm = T('siswa-menoleh')
-    tl.fromTo([...bagian(bima, 'head'), ...bagian(sekar, 'head')], { rotation: 0 }, { rotation: 10, ...PUTAR, duration: 0.3, ease: 'power2.out' }, sm.t)
+    tl.fromTo([...bagian(bima, 'head'), ...bagian(sekar, 'head')], rot(0), { ...rot(10), duration: 0.3, ease: 'power2.out' }, sm.t)
       .call(() => setSiswa('surprised'), [], sm.t)
       .call(() => setSiswa('happy'), [], sm.t + sm.durasi + 0.5)
 
@@ -51,8 +51,8 @@ export function Adegan6Misi({ ref, ...p }: AdeganProps) {
     const ga = T('guru-mengangguk')
     tl.call(() => setGuruEk('happy'), [], ga.t).fromTo(
       bagian(guru, 'head'),
-      { y: 0, rotation: 0 },
-      { y: 5, rotation: 6, ...PUTAR, duration: ga.durasi / 4, ease: 'sine.inOut', yoyo: true, repeat: 3 },
+      rot(0, 0),
+      { ...rot(6, 5), duration: ga.durasi / 4, ease: 'sine.inOut', yoyo: true, repeat: 3 },
       ga.t,
     )
 

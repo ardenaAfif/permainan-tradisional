@@ -4,10 +4,12 @@ import type { Ekspresi } from '../../characters/animasi'
 import { Karakter, type KarakterHandle } from '../../characters/Karakter'
 import { waktuAksi } from '../naskah'
 import { Tokoh } from './Tokoh'
-import { bagian, mulut, PUTAR, useAdegan, type AdeganProps } from './umum'
+import { bagian, mulut, rot, useAdegan, type AdeganProps } from './umum'
 import s from './adegan.module.css'
 
 const T = waktuAksi('guru-datang')
+/** Tepi dalam kusen (kiri & bawah balok atas), px panggung: lihat .kusen di adegan.module.css. */
+const LUBANG_PINTU = { kiri: 78, atas: 158 }
 
 /** Adegan 2 · Pak Guru datang: pintu terbuka, egrang di punggung tersangkut kusen. */
 export function Adegan2GuruDatang({ ref, ...p }: AdeganProps) {
@@ -17,6 +19,7 @@ export function Adegan2GuruDatang({ ref, ...p }: AdeganProps) {
   const pintuBuka = useRef<HTMLDivElement>(null)
   const sinar = useRef<HTMLDivElement>(null)
   const grupGuru = useRef<HTMLDivElement>(null)
+  const klipGuru = useRef<HTMLDivElement>(null)
   const guru = useRef<KarakterHandle>(null)
   const tuk = useRef<HTMLDivElement>(null)
   const hadapBima = useRef<HTMLDivElement>(null)
@@ -32,7 +35,10 @@ export function Adegan2GuruDatang({ ref, ...p }: AdeganProps) {
       .fromTo(pintuBuka.current, { scaleX: 0 }, { scaleX: 1, duration: pt.durasi * 0.4, ease: 'power2.out' })
       .fromTo(sinar.current, { autoAlpha: 0 }, { autoAlpha: 0.6, duration: 0.6 }, pt.t + 0.3)
 
-    // Pak Guru melangkah masuk dari kiri, langkah naik-turun 6px.
+    // Pak Ahsan masih di lorong: terpotong kusen kiri & dinding di atas pintu (di belakang kusen).
+    tl.set(klipGuru.current, { zIndex: 1, clipPath: `inset(${LUBANG_PINTU.atas}px 0px 0px ${LUBANG_PINTU.kiri}px)` }, 0)
+
+    // Pak Ahsan melangkah masuk dari kiri (muncul dari balik kusen), langkah naik-turun 6px.
     const gm = T('guru-masuk')
     tl.fromTo(grupGuru.current, { x: -320 }, { x: 0, duration: gm.durasi, ease: 'power1.out' }, gm.t).fromTo(
       grupGuru.current,
@@ -48,7 +54,9 @@ export function Adegan2GuruDatang({ ref, ...p }: AdeganProps) {
       .fromTo(kamera.current, { x: 0 }, { x: 4, duration: 0.05, ease: 'none', yoyo: true, repeat: 3 }, en.t)
       .set(kamera.current, { x: 0 }, en.t + 0.2)
       .fromTo(grupGuru.current, { rotation: 0 }, { rotation: 15, transformOrigin: '50% 100%', duration: 0.35, ease: 'power2.inOut' }, en.t + 0.45)
-      .to(grupGuru.current, { x: 0, duration: 0.5, ease: 'power1.inOut' }, en.t + 0.9)
+      // Sambil menunduk, melangkah melewati pintu masuk ke kelas (sekarang di depan kusen).
+      .to(grupGuru.current, { x: 40, duration: 0.6, ease: 'power1.inOut' }, en.t + 0.9)
+      .set(klipGuru.current, { zIndex: 3, clipPath: 'none' }, en.t + 1.2)
       .to(tuk.current, { autoAlpha: 0, duration: 0.3 }, en.t + 1.2)
       .to(grupGuru.current, { rotation: 0, duration: 0.45, ease: 'power2.out' }, en.t + en.durasi - 0.5)
 
@@ -61,15 +69,15 @@ export function Adegan2GuruDatang({ ref, ...p }: AdeganProps) {
 
     // Pak Guru bercerita: lengan kanan terangkat, bergerak pelan.
     const gb = T('guru-bercerita')
-    tl.fromTo(bagian(guru, 'arm-upper-r'), { rotation: -6 }, { rotation: -38, ...PUTAR, duration: 0.4, ease: 'back.out(1.6)' }, gb.t)
-      .fromTo(bagian(guru, 'arm-lower-r'), { rotation: 6 }, { rotation: -68, ...PUTAR, duration: 0.4, ease: 'back.out(1.6)' }, gb.t)
+    tl.fromTo(bagian(guru, 'arm-upper-r'), rot(-6), { ...rot(-38), duration: 0.4, ease: 'back.out(1.6)' }, gb.t)
+      .fromTo(bagian(guru, 'arm-lower-r'), rot(6), { ...rot(-68), duration: 0.4, ease: 'back.out(1.6)' }, gb.t)
       .call(
         () =>
           lepas(() => {
             gsap.fromTo(
               bagian(guru, 'arm-lower-r'),
-              { rotation: -68 },
-              { rotation: -50, ...PUTAR, duration: 0.7, ease: 'sine.inOut', yoyo: true, repeat: -1 },
+              rot(-68),
+              { ...rot(-50), duration: 0.7, ease: 'sine.inOut', yoyo: true, repeat: -1 },
             )
           }),
         [],
@@ -86,14 +94,17 @@ export function Adegan2GuruDatang({ ref, ...p }: AdeganProps) {
         <div className={s.lantai} />
         <div ref={sinar} className={s.sinarLorong} />
 
-        <Tokoh kotak={{ left: 100, bottom: 30, width: 250, height: 480 }} luarRef={grupGuru}>
-          <div className={s.egrangPunggung} style={{ left: 50, top: -92, transform: 'rotate(-14deg)' }} />
-          <div className={s.egrangPunggung} style={{ left: 80, top: -88, transform: 'rotate(-10deg)' }} />
-          <Karakter ref={guru} who="guru" pose={p.gerak ? 'idle' : 'talk'} ekspresi="happy" {...mulut(p, 'guru')} />
-        </Tokoh>
+        {/* Lapisan pemotong: saat di lorong hanya bagian di dalam lubang pintu yang terlihat. */}
+        <div ref={klipGuru} className={s.klipGuru}>
+          <Tokoh kotak={{ left: 100, bottom: 30, width: 250, height: 480 }} luarRef={grupGuru}>
+            <div className={s.egrangPunggung} style={{ left: 50, top: -92, transform: 'rotate(-14deg)' }} />
+            <div className={s.egrangPunggung} style={{ left: 80, top: -88, transform: 'rotate(-10deg)' }} />
+            <Karakter ref={guru} who="guru" pose={p.gerak ? 'idle' : 'talk'} ekspresi="happy" {...mulut(p, 'guru')} />
+          </Tokoh>
+        </div>
         <div ref={pintuTutup} className={s.pintuTutup} />
         <div className={s.kusen} />
-        <div ref={tuk} className={s.bunyi} style={{ left: 92, top: 96, fontSize: 34, transform: 'rotate(-10deg)' }}>
+        <div ref={tuk} className={s.bunyi} style={{ left: 92, top: 96, fontSize: 34, zIndex: 4, transform: 'rotate(-10deg)' }}>
           tuk!
         </div>
 

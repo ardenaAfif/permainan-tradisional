@@ -234,6 +234,7 @@
 
 .pintuTutup {
   position: absolute;
+  z-index: 2;
   left: 78px;
   top: 158px;
   width: 284px;
@@ -266,6 +267,7 @@
 
 .kusen {
   position: absolute;
+  z-index: 2;
   left: 60px;
   top: 140px;
   width: 320px;
@@ -273,6 +275,14 @@
   border: 18px solid var(--kayu);
   border-bottom: 0;
   border-radius: 6px 6px 0 0;
+}
+
+/* Pak Ahsan: default (frame storyboard) di depan kusen; GSAP memotongnya saat masih di lorong. */
+.klipGuru {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
 }
 
 .egrangPunggung {

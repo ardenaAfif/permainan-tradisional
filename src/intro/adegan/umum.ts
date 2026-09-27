@@ -40,5 +40,10 @@ export function bagian(k: RefObject<KarakterHandle | null>, nama: string): Eleme
   return el ? [el] : []
 }
 
-/** Rotasi bagian karakter di titik putarnya. */
-export const PUTAR = { svgOrigin: '0 0' } as const
+/**
+ * Putar bagian karakter di titik putarnya sendiri (0,0 lokal <g data-part>), opsional geser turun `y`.
+ * Sengaja lewat atribut transform, bukan `rotation` + `svgOrigin`: svgOrigin GSAP dihitung di koordinat
+ * global SVG, sehingga bagian bersarang (lengan, kepala) ikut bergeser dan terlihat "putus".
+ * Pakai fromTo(el, rot(a), { ...rot(b), duration }) supaya format string awal & akhir sama.
+ */
+export const rot = (derajat: number, y = 0) => ({ attr: { transform: `translate(0,${y}) rotate(${derajat})` } })

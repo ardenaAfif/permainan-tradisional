@@ -2,8 +2,8 @@ import type { Ref } from 'react'
 
 /**
  * Kotak kayu Kotak Dolanan (bentuk sama dengan BENDA_SVG.kotak dari design/objects.js),
- * tapi tutupnya grup terpisah supaya bisa dibuka: putar `tutupRef` dengan
- * svgOrigin '26 58' (engsel kiri). rotation 0 = tertutup, bawaan -60 = terbuka.
+ * tapi tutupnya grup terpisah supaya bisa dibuka: tween atribut transform `tutupRef`
+ * dari 'rotate(0 26 58)' (tertutup, engsel kiri) ke bawaan 'rotate(-60 26 58)' (terbuka).
  */
 export function KotakKayu({ tutupRef, className }: { tutupRef?: Ref<SVGGElement>; className?: string }) {
   return (

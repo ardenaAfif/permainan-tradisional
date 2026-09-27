@@ -5,7 +5,7 @@ import { BendaGambar } from '../../shared/benda/BendaGambar'
 import type { JenisBenda } from '../../shared/benda/benda'
 import { waktuAksi } from '../naskah'
 import { Tokoh } from './Tokoh'
-import { bagian, mulut, PUTAR, useAdegan, type AdeganProps } from './umum'
+import { bagian, mulut, rot, useAdegan, type AdeganProps } from './umum'
 import s from './adegan.module.css'
 
 const T = waktuAksi('memudar')
@@ -61,10 +61,10 @@ export function Adegan5Memudar({ ref, ...p }: AdeganProps) {
 
     // Pak Guru menunjuk ke benda.
     const gm = T('guru-menunjuk')
-    tl.fromTo(bagian(guru, 'arm-upper-r'), { rotation: -6 }, { rotation: -78, ...PUTAR, duration: 0.5, ease: 'power2.out' }, gm.t).fromTo(
+    tl.fromTo(bagian(guru, 'arm-upper-r'), rot(-6), { ...rot(-78), duration: 0.5, ease: 'power2.out' }, gm.t).fromTo(
       bagian(guru, 'arm-lower-r'),
-      { rotation: 6 },
-      { rotation: -12, ...PUTAR, duration: 0.5, ease: 'power2.out' },
+      rot(6),
+      { ...rot(-12), duration: 0.5, ease: 'power2.out' },
       gm.t,
     )
 
