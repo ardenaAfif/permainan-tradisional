@@ -157,7 +157,12 @@
       "Jika terjatuh, berhenti dan memperbaiki posisi sebelum melanjutkan.",
       "Kelompok yang mencapai finish terlebih dahulu menjadi pemenang."
     ],
-    "caraMainWeb": "Game ritme. Tim melangkah saat tombol kiri dan kanan ditekan bergantian sesuai aba-aba. Salah irama membuat meter goyang naik; jika penuh, tim jatuh dan harus menyelesaikan tantangan singkat untuk bangkit.",
+    "caraMainWeb": "Game ritme tampak samping: tiga siswa di atas satu pasang bakiak. Tekan KIRI atau KANAN tepat saat aba-aba muncul. Pas = maju penuh, Oke = maju setengah, Meleset = tidak maju. Aba-aba makin lama makin cepat. Tim yang lebih dulu sampai garis finis 25 meter menang.",
+    "catatanWeb": [
+      "Salah tombol atau meleset membuat meter goyang naik, ketukan Pas menurunkannya. Kalau penuh, tim jatuh. Ketuk cepat 6 kali dalam 2 detik untuk bangkit.",
+      "Duel Satu Layar: layar kiri untuk tim kiri, layar kanan untuk tim kanan. Keyboard: A/S untuk tim kiri, K/L untuk tim kanan.",
+      "Pilihan Tim Kompak (untuk papan interaktif): tiap siswa memegang satu tombol kaki. Tim hanya maju kalau ketiga tombol ditekan bersamaan."
+    ],
     "kontrol": "Tap kiri-kanan",
     "jenisKontrol": "kiri-kanan",
     "mode": ["cpu", "split"],
