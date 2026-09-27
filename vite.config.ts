@@ -40,4 +40,13 @@ function manifestAudio(): Plugin {
 // PWA (vite-plugin-pwa) dipasang di tahap 7.
 export default defineConfig({
   plugins: [react(), manifestAudio()],
+  build: {
+    rolldownOptions: {
+      output: {
+        // Phaser (±1,2 MB) jadi satu berkas sendiri yang dipakai bersama semua game
+        // Phaser, supaya tetap ter-cache walau kode game berubah.
+        codeSplitting: { groups: [{ name: 'phaser', test: /node_modules[\\/]phaser/ }] },
+      },
+    },
+  },
 })

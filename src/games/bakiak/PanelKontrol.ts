@@ -5,6 +5,7 @@
  * jadi beberapa tombol bisa ditekan bersamaan (multi-touch).
  */
 import * as Phaser from 'phaser'
+import { teks } from '../../shared/phaser/teks'
 import { WARNA, type NamaWarna } from '../../app/tokens'
 import { BANGKIT_KETUK, BANGKIT_WAKTU, GOYANG_MAKS } from './config'
 import { kakiKetukan, waktuKetukan, type Nilai } from './aturan'
@@ -17,7 +18,6 @@ import {
   LAJU_CATATAN,
   TOMBOL_T,
   TOMBOL_Y,
-  teks,
   w,
 } from './tata'
 

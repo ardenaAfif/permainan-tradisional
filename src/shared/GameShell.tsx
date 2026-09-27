@@ -87,7 +87,7 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
     selesai.current = false
     const onHud = (e: Event) => setHud((lama) => ({ ...lama, ...(e as CustomEvent<HudData>).detail }))
     el.addEventListener(HUD_EVENT, onHud)
-    modul.mount(el, { mode: sesi.mode, players: sesi.players, difficulty: sesi.difficulty, onFinish })
+    modul.mount(el, { mode: sesi.mode, players: sesi.players, difficulty: sesi.difficulty, opsi: sesi.opsi ?? {}, onFinish })
     return () => {
       el.removeEventListener(HUD_EVENT, onHud)
       modul.unmount()

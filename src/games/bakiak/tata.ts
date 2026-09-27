@@ -1,9 +1,9 @@
 /**
  * Tata letak panggung 1280x720 dan pembantu gambar Phaser untuk Bakiak.
- * Teks yang harus terbaca di HP ≥ 30px panggung (≈16px di HP mendatar 390px).
  */
 import type * as Phaser from 'phaser'
-import { FONT_ISI, FONT_JUDUL, WARNA, warnaAngka, type NamaWarna } from '../../app/tokens'
+import { warnaAngka } from '../../app/tokens'
+import { teks } from '../../shared/phaser/teks'
 import { JARAK_LOMBA } from './config'
 
 export const LEBAR = 1280
@@ -47,30 +47,6 @@ export const TOMBOL_T = 184
 export const LAJU_CATATAN = 0.3
 
 export const w = warnaAngka
-
-export type GayaTeks = {
-  ukuran: number
-  warna?: NamaWarna
-  judul?: boolean
-  tebal?: number
-  garis?: NamaWarna
-  tebalGaris?: number
-}
-
-/** Teks Phaser dengan font token; resolusi mengikuti skala render supaya tajam di PID. */
-export function teks(scene: Phaser.Scene, x: number, y: number, isi: string, g: GayaTeks, resolusi: number) {
-  return scene.add
-    .text(x, y, isi, {
-      fontFamily: g.judul === false ? FONT_ISI : FONT_JUDUL,
-      fontSize: `${g.ukuran}px`,
-      fontStyle: String(g.tebal ?? 800),
-      color: WARNA[g.warna ?? 'kertas-terang'],
-      ...(g.garis && { stroke: WARNA[g.garis], strokeThickness: g.tebalGaris ?? 6 }),
-      resolution: resolusi,
-      align: 'center',
-    })
-    .setOrigin(0.5)
-}
 
 /** Latar lapangan sekolah + lintasan + penanda meter. Digambar sekali. */
 export function gambarLintasan(scene: Phaser.Scene, resolusi: number) {

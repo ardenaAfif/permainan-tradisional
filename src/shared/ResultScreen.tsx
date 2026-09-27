@@ -33,6 +33,11 @@ export function ResultScreen() {
   return <Hasil key={lokasi.key} game={game} {...state} />
 }
 
+/** Label pilihan yang dipakai (mis. "Lubang", "5 giliran") untuk subjudul hasil. */
+function labelPilihan(game: GameData, opsi: Record<string, string> | undefined): string[] {
+  return (game.pilihan ?? []).flatMap((p) => p.opsi.find((o) => o.nilai === opsi?.[p.id])?.label ?? [])
+}
+
 function TokohPemain({ p, menang }: { p: Player; menang: boolean }) {
   const props = { ekspresi: menang ? ('happy' as const) : ('normal' as const), aksi: menang ? ('jump' as const) : ('wave' as const) }
   return p.avatar === 'cpu' ? <Karakter who={p.tokoh ?? 'bima'} {...props} /> : <AvatarKarakter avatar={p.avatar} {...props} />
@@ -97,7 +102,7 @@ function Hasil({ game, sesi, hasil, stempelBaru }: StateHasil & { game: GameData
         <section className={s.pahlawan} aria-labelledby="judul-hasil">
           <div className={s.kepalaPahlawan}>
             <div className={s.subjudul}>
-              {game.nama} · {NAMA_MODE[sesi.mode]}
+              {[game.nama, NAMA_MODE[sesi.mode], ...labelPilihan(game, sesi.opsi)].join(' · ')}
             </div>
             <h1 id="judul-hasil" className={s.judul}>
               {judul}

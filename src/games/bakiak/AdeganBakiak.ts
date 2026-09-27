@@ -3,7 +3,9 @@
  * hitungan, aba-aba berirama, dua tim di lintasan, sampai finis.
  */
 import * as Phaser from 'phaser'
-import { WARNA, type NamaWarna } from '../../app/tokens'
+import { jedakanAdegan, lanjutkanAdegan } from '../../shared/phaser/modul'
+import { teks } from '../../shared/phaser/teks'
+import { GELAP_PEMAIN, WARNA, type NamaWarna } from '../../app/tokens'
 import { audio } from '../../shared/audio/AudioManager'
 import type { GameResult, Kesulitan, Player } from '../../shared/types'
 import { kakiKetukan, KelompokKompak, LogikaTim, OtakCpu, bpmKetukan, waktuKetukan, type Peristiwa } from './aturan'
@@ -12,7 +14,7 @@ import { AKURASI_CPU, BANGKIT_CPU, BANGKIT_KETUK, JEDA_AWAL, JEDA_HASIL, KETUKAN
 import { JamLagu } from './JamLagu'
 import { PanelKontrol } from './PanelKontrol'
 import type { Anggota } from './tekstur'
-import { gambarLintasan, KONTROL_Y, LAJUR, LEBAR, TINGGI, teks, w } from './tata'
+import { gambarLintasan, KONTROL_Y, LAJUR, LEBAR, TINGGI, w } from './tata'
 import { TimView, type TeksturSiswa } from './TimView'
 
 export interface DataTim {
@@ -38,14 +40,6 @@ export interface OpsiAdegan {
 }
 
 export const kunciTekstur = (tim: number, siswa: number, raut: string) => `t${tim}-s${siswa}-${raut}`
-
-/** Warna gelap untuk warna tim (dari WARNA_PEMAIN). */
-const GELAP: Record<string, NamaWarna> = {
-  [WARNA.kunyit]: 'kunyit-gelap',
-  [WARNA['merah-bata']]: 'merah-bata-gelap',
-  [WARNA['biru-nila']]: 'biru-nila-gelap',
-  [WARNA['daun-pisang']]: 'daun-pisang-gelap',
-}
 
 const hex = (s: string) => parseInt(s.slice(1), 16)
 const meter = (m: number) => m.toLocaleString('id-ID', { maximumFractionDigits: 1 })
@@ -131,17 +125,14 @@ export class AdeganBakiak extends Phaser.Scene {
     this.dijeda = true
     this.jam?.jeda()
     // Sebelum create() adegan belum bisa dijeda; create() memanggil jeda() lagi.
-    const st = this.sys.getStatus()
-    if (st === Phaser.Scenes.CREATING || st === Phaser.Scenes.RUNNING) this.scene.pause()
+    jedakanAdegan(this)
   }
 
   lanjut() {
     this.dijeda = false
     if (!this.sys.isPaused()) return
-    this.scene.resume()
+    lanjutkanAdegan(this)
     this.jam?.lanjut()
-    // Ukuran panggung bisa berubah selama jeda (HP diputar): perbarui konversi sentuhan.
-    this.scale.refresh()
   }
 
   // ── Persiapan ─────────────────────────────────────────────
@@ -292,7 +283,7 @@ export class AdeganBakiak extends Phaser.Scene {
         x0: duel ? i * (LEBAR / 2) : 0,
         lebar: duel ? LEBAR / 2 : LEBAR,
         warnaTim: warna,
-        warnaTimGelap: w(GELAP[tim.data.pemain.warna] ?? 'kayu-gelap'),
+        warnaTimGelap: w(GELAP_PEMAIN[tim.data.pemain.warna] ?? 'kayu-gelap'),
         // Tombol kiri → kanan = siswa paling belakang → paling depan.
         kepala: this.kompak ? [2, 1, 0].map((j) => kunciTekstur(i, j, 'kepala')) : undefined,
         petunjuk: kb ? huruf[i] : undefined,

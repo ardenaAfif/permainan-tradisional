@@ -35,6 +35,14 @@ export const WARNA = {
 
 export type NamaWarna = keyof typeof WARNA
 
+/** Tone gelap tiap warna pemain (sisi tebal tombol, tepi kelereng, dsb.). */
+export const GELAP_PEMAIN: Record<string, NamaWarna> = {
+  [WARNA_PEMAIN[0]]: 'kunyit-gelap',
+  [WARNA_PEMAIN[1]]: 'merah-bata-gelap',
+  [WARNA_PEMAIN[2]]: 'biru-nila-gelap',
+  [WARNA_PEMAIN[3]]: 'daun-pisang-gelap',
+}
+
 /** Ubah '#rrggbb' menjadi angka 0xrrggbb untuk Phaser. */
 export const hexKeAngka = (hex: string) => parseInt(hex.slice(1), 16)
 

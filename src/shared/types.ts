@@ -29,6 +29,17 @@ export type Benda =
 
 export type JenisKontrol = 'tap' | 'irama' | 'joystick' | 'swipe-tap' | 'kiri-kanan' | 'tarik-lepas' | 'seret'
 
+/**
+ * Pengaturan tambahan khusus satu game, dipilih di Kenalan Dulu (mis. jumlah
+ * giliran). Nilai dibawa ke game lewat MountOptions.opsi[id] sebagai string.
+ */
+export interface PilihanGame {
+  id: string
+  label: string
+  opsi: { nilai: string; label: string }[]
+  bawaan: string
+}
+
 /** Satu entri di src/data/games.json. */
 export interface GameData {
   id: GameId
@@ -52,6 +63,8 @@ export interface GameData {
   pakaiKesulitan?: boolean
   /** Jumlah lawan komputer di mode Lawan Komputer [min, maks]. */
   lawanKomputer: [number, number]
+  /** Pengaturan tambahan di Kenalan Dulu (berlaku untuk semua mode). */
+  pilihan?: PilihanGame[]
   /** Ajakan memainkan versi asli di layar hasil (draf, perlu dicek guru). */
   tantanganLapangan: string
   orientasi: Orientasi
@@ -98,6 +111,8 @@ export interface MountOptions {
   mode: GameMode
   players: Player[]
   difficulty: Kesulitan
+  /** Nilai pilihan game dari Kenalan Dulu (lihat GameData.pilihan), per id. */
+  opsi: Readonly<Record<string, string>>
   onFinish(result: GameResult): void
 }
 

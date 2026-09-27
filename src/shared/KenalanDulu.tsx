@@ -48,6 +48,9 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
   const [minCpu, maksCpu] = game.lawanKomputer
   const [jumlahCpu, setJumlahCpu] = useState(minCpu)
   const [nama, setNama] = useState<string[]>([namaUtama, 'Pemain 2', 'Pemain 3', 'Pemain 4'])
+  const [pilihan, setPilihan] = useState<Record<string, string>>(() =>
+    Object.fromEntries((game.pilihan ?? []).map((p) => [p.id, p.bawaan])),
+  )
 
   // Pak Guru menyapa: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
   const lineVO = `kenalan-${game.id}`
@@ -76,6 +79,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
       pemainUtama: avatar,
       namaPemain: nama.slice(0, jumlahMain),
       lawanKomputer: jumlahCpu,
+      pilihan,
     })
     navigate(`/main/${game.id}`, { state: { sesi } })
   }
@@ -174,6 +178,28 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
               ))}
             </div>
           </section>
+
+          {game.pilihan?.map((p) => (
+            <section key={p.id} className={s.pengaturanMain} aria-labelledby={`judul-pilihan-${p.id}`}>
+              <h2 id={`judul-pilihan-${p.id}`} className={s.subJudul}>
+                {p.label}
+              </h2>
+              <div className={s.pilSegmen} role="radiogroup" aria-labelledby={`judul-pilihan-${p.id}`}>
+                {p.opsi.map((o) => (
+                  <button
+                    key={o.nilai}
+                    type="button"
+                    role="radio"
+                    aria-checked={pilihan[p.id] === o.nilai}
+                    className={`${s.segmen} ${pilihan[p.id] === o.nilai ? s.segmenAktif : ''}`}
+                    onClick={() => setPilihan({ ...pilihan, [p.id]: o.nilai })}
+                  >
+                    {o.label}
+                  </button>
+                ))}
+              </div>
+            </section>
+          ))}
 
           {mode === 'cpu' && maksCpu > minCpu && (
             <section className={s.pengaturanMain} aria-labelledby="judul-lawan">

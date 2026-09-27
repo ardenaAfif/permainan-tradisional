@@ -217,12 +217,38 @@
       "Pemain yang berhasil mencapai target sesuai kesepakatan mendapatkan poin.",
       "Pemain dengan poin terbanyak menjadi pemenang."
     ],
-    "caraMainWeb": "Tampak atas di tanah. Tarik ke belakang untuk membidik (garis bidik + kekuatan), lepas untuk menyentil. Dua mode: Lubang (pemain bebas menaruh lubang di awal, sesuai aturan) dan Tembak (kenai kelereng lawan). Poin terbanyak menang.",
+    "caraMainWeb": "Tampak atas di tanah. Sentuh layar, tarik ke belakang untuk membidik (garis bidik putus-putus dan meter kekuatan), lalu lepas untuk menyentil gacoan. Lubang: di awal, pemain bergantian menaruh lubang di mana saja (atau tekan Acak), gacoan masuk lubang = +1 poin. Tembak: kenai kelereng di lingkaran tengah sampai keluar lingkaran, tiap kelereng = +1 poin. Poin terbanyak menang, kalau sama berarti seri.",
+    "catatanWeb": [
+      "Gacoan keluar garis batas = giliran hangus. Di mode Tembak, kelereng yang kena pada giliran itu dikembalikan ke lingkaran.",
+      "Mode Lubang: gacoan tetap di tempat berhentinya dan disentil dari situ pada giliran berikutnya. Setelah masuk lubang atau keluar garis, mulai lagi dari garis sentil.",
+      "Sebelum menyentil dari garis sentil, tap di dekat garis untuk menggeser gacoan. Keyboard: ← → arah, ↑ ↓ kekuatan, W/S geser, Spasi menyentil."
+    ],
     "kontrol": "Tarik-lepas",
     "jenisKontrol": "tarik-lepas",
     "mode": ["cpu", "hotseat"],
     "pemainBergantian": [2, 4],
     "lawanKomputer": [1, 1],
+    "pilihan": [
+      {
+        "id": "jenis",
+        "label": "Jenis permainan",
+        "opsi": [
+          { "nilai": "lubang", "label": "Lubang" },
+          { "nilai": "tembak", "label": "Tembak" }
+        ],
+        "bawaan": "lubang"
+      },
+      {
+        "id": "giliran",
+        "label": "Giliran per pemain",
+        "opsi": [
+          { "nilai": "3", "label": "3 giliran" },
+          { "nilai": "5", "label": "5 giliran" },
+          { "nilai": "7", "label": "7 giliran" }
+        ],
+        "bawaan": "5"
+      }
+    ],
     "orientasi": "landscape",
     "isBonus": false,
     "asalDaerah": "",
