@@ -1,4 +1,4 @@
-import { JUMLAH_KOTAK, TANGGA, ULAR, type Tangga, type Ular } from './config'
+import { ANGKA_LEMPAR_LAGI, JUMLAH_KOTAK, TANGGA, ULAR, type Tangga, type Ular } from './config'
 
 export interface HasilLangkah {
   /** Kotak yang dilewati satu per satu (tidak termasuk posisi awal), termasuk pantulan. */
@@ -34,6 +34,29 @@ export function hitungLangkah(posisi: number, dadu: number, tangga = TANGGA, ula
   const u = ular.find((x) => x.kepala === mendarat)
   const akhir = t ? t.ke : u ? u.ekor : mendarat
   return { jalur, mendarat, akhir, memantul: arah === -1, tangga: t, ular: u, menang: akhir === JUMLAH_KOTAK }
+}
+
+/** Bilangan acak 32-bit dari generator kriptografis peramban (diambil dari OS setiap kali). */
+export function acakAman(): number {
+  return crypto.getRandomValues(new Uint32Array(1))[0]!
+}
+
+/**
+ * Lempar dadu 1–6. Memakai crypto, bukan Math.random, supaya urutan lemparan
+ * tidak mungkin berulang antarpermainan. Nilai di atas batas kelipatan 6
+ * dibuang agar keenam muka sama peluangnya.
+ */
+export function lemparDadu(acak: () => number = acakAman): number {
+  const batas = 2 ** 32 - (2 ** 32 % 6)
+  for (;;) {
+    const n = acak()
+    if (n < batas) return 1 + (n % 6)
+  }
+}
+
+/** Aturan web: dapat 6 (dan belum menang) → lempar lagi, berulang selama terus dapat 6. */
+export function bolehLemparLagi(dadu: number, menang: boolean): boolean {
+  return dadu === ANGKA_LEMPAR_LAGI && !menang
 }
 
 /** Kotak n (1–100) → kolom & baris (baris 0 = paling bawah), pola zig-zag. */

@@ -40,6 +40,9 @@ export const ULAR: Ular[] = [
   { kepala: 99, ekor: 77 },
 ]
 
+/** Dapat angka ini → pemain melempar lagi (berulang selama terus dapat angka ini). */
+export const ANGKA_LEMPAR_LAGI = 6
+
 /** Jeda komputer sebelum melempar dadu (ms). */
 export const JEDA_KOMPUTER = 1000
 /** Lama animasi dadu berguling (ms). */

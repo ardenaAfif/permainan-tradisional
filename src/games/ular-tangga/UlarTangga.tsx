@@ -6,8 +6,8 @@ import { BendaGambar } from '../../shared/benda/BendaGambar'
 import { kirimHud } from '../../shared/hud'
 import type { MountOptions, Player } from '../../shared/types'
 import { useReducedMotion } from '../../shared/useReducedMotion'
-import { hitungLangkah } from './aturan'
-import { JEDA_KOMPUTER, JUMLAH_KOTAK, LAMA_DADU, LAMA_KARTU_KOMPUTER, LAMA_LANGKAH } from './config'
+import { bolehLemparLagi, hitungLangkah, lemparDadu } from './aturan'
+import { ANGKA_LEMPAR_LAGI, JEDA_KOMPUTER, JUMLAH_KOTAK, LAMA_DADU, LAMA_KARTU_KOMPUTER, LAMA_LANGKAH } from './config'
 import { MukaDadu } from './Dadu'
 import { TumpukanFakta, type Fakta } from './fakta'
 import { geserBersama, PAPAN_X, PAPAN_Y, pusatKotak } from './geometri'
@@ -41,6 +41,7 @@ export function UlarTangga({ opsi, host, kontrol }: { opsi: MountOptions; host: 
   }, [gerak])
   const [posisi, setPosisi] = useState<Record<string, number>>(() => Object.fromEntries(players.map((p) => [p.id, 0])))
   const [giliran, setGiliran] = useState(0)
+  const [lemparLagi, setLemparLagi] = useState(false)
   const [fase, setFase] = useState<Fase>('menunggu')
   const [angka, setAngka] = useState(6)
   const [pesan, setPesan] = useState('')
@@ -118,20 +119,23 @@ export function UlarTangga({ opsi, host, kontrol }: { opsi: MountOptions; host: 
     const jalan = async () => {
       await rapikan(0)
       let i = 0
+      // Giliran tambahan karena dapat 6 (berulang selama terus dapat 6).
+      let lagi = false
       // Setiap `await` bisa kembali setelah game dilepas (mis. efek ganda StrictMode);
       // loop lama berhenti di sini supaya tidak mengambil alih tombol dadu.
       for (;;) {
         if (jam.dihentikan) return
         const p = players[i]!
         setGiliran(i)
+        setLemparLagi(lagi)
         hud(i)
         if (p.avatar === 'cpu') {
           setFase('komputer')
-          setPesan(`${p.nama} bersiap melempar dadu…`)
+          setPesan(lagi ? `Dapat ${ANGKA_LEMPAR_LAGI}! ${p.nama} lempar lagi…` : `${p.nama} bersiap melempar dadu…`)
           await jam.tunggu(JEDA_KOMPUTER)
         } else {
           setFase('menunggu')
-          setPesan(`Giliran ${p.nama}. Lempar dadunya!`)
+          setPesan(lagi ? `Dapat ${ANGKA_LEMPAR_LAGI}! ${p.nama} boleh lempar lagi.` : `Giliran ${p.nama}. Lempar dadunya!`)
           await new Promise<void>((res) => (tungguLempar.current = res))
           tungguLempar.current = null
         }
@@ -140,7 +144,7 @@ export function UlarTangga({ opsi, host, kontrol }: { opsi: MountOptions; host: 
         // Dadu berguling ±0,8 detik.
         setFase('berguling')
         audio.sfx('dadu')
-        const hasilDadu = 1 + Math.floor(Math.random() * 6)
+        const hasilDadu = lemparDadu()
         await jam.tunggu(gerakRef.current ? LAMA_DADU : 200)
         setAngka(hasilDadu)
         setFase('bergerak')
@@ -202,8 +206,9 @@ export function UlarTangga({ opsi, host, kontrol }: { opsi: MountOptions; host: 
           })
           return
         }
-        i = (i + 1) % players.length
-        await jam.tunggu(350)
+        lagi = bolehLemparLagi(hasilDadu, h.menang)
+        if (!lagi) i = (i + 1) % players.length
+        await jam.tunggu(lagi ? 600 : 350)
       }
     }
     void jalan()
@@ -297,7 +302,7 @@ export function UlarTangga({ opsi, host, kontrol }: { opsi: MountOptions; host: 
       {/* Kanan: dadu */}
       <div className={s.panelDadu}>
         <div className={s.giliran} aria-live="polite">
-          {fase === 'selesai' ? 'Selesai!' : `Giliran ${aktif.nama}`}
+          {fase === 'selesai' ? 'Selesai!' : lemparLagi ? `${aktif.nama} lempar lagi!` : `Giliran ${aktif.nama}`}
         </div>
         <button
           type="button"

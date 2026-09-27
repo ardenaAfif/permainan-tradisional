@@ -72,7 +72,8 @@
     ],
     "caraMainWeb": "Papan 10×10 bermotif nusantara. Tap dadu, pion berjalan otomatis. Setiap tangga membuka fakta singkat tentang permainan lain di kotak.",
     "catatanWeb": [
-      "Kotak 100 harus dicapai dengan angka dadu yang pas. Kalau angkanya lebih, pion memantul mundur sebanyak sisanya. Contoh: di kotak 97 lalu dapat 5, pion maju ke 100 lalu mundur ke 98."
+      "Kotak 100 harus dicapai dengan angka dadu yang pas. Kalau angkanya lebih, pion memantul mundur sebanyak sisanya. Contoh: di kotak 97 lalu dapat 5, pion maju ke 100 lalu mundur ke 98.",
+      "Dapat angka 6? Kamu boleh melempar dadu lagi. Selama terus dapat 6, kamu terus melempar."
     ],
     "kontrol": "Tap",
     "jenisKontrol": "tap",

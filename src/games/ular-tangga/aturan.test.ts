@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { hitungLangkah, kotakKeGrid } from './aturan'
+import { bolehLemparLagi, hitungLangkah, kotakKeGrid, lemparDadu } from './aturan'
 import { JUMLAH_KOTAK, TANGGA, ULAR } from './config'
 
 describe('hitungLangkah', () => {
@@ -50,6 +50,40 @@ describe('hitungLangkah', () => {
     const h = hitungLangkah(99, 3, [], [{ kepala: 98, ekor: 79 }])
     expect(h.jalur).toEqual([100, 99, 98])
     expect(h.akhir).toBe(79)
+  })
+})
+
+describe('lemparDadu', () => {
+  it('selalu 1–6 dan semua muka muncul', () => {
+    const muncul = new Set<number>()
+    for (let i = 0; i < 2000; i++) {
+      const d = lemparDadu()
+      expect(d).toBeGreaterThanOrEqual(1)
+      expect(d).toBeLessThanOrEqual(6)
+      muncul.add(d)
+    }
+    expect(muncul.size).toBe(6)
+  })
+
+  it('dua urutan lemparan tidak sama', () => {
+    const urutan = () => Array.from({ length: 20 }, () => lemparDadu()).join('')
+    expect(urutan()).not.toBe(urutan())
+  })
+
+  it('nilai di atas batas kelipatan 6 dibuang (tidak berat sebelah)', () => {
+    const nilai = [2 ** 32 - 1, 2 ** 32 - 2, 13]
+    expect(lemparDadu(() => nilai.shift()!)).toBe(2)
+  })
+})
+
+describe('bolehLemparLagi', () => {
+  it('dapat 6 → lempar lagi; angka lain tidak', () => {
+    expect(bolehLemparLagi(6, false)).toBe(true)
+    ;[1, 2, 3, 4, 5].forEach((d) => expect(bolehLemparLagi(d, false)).toBe(false))
+  })
+
+  it('dapat 6 tapi sudah menang → selesai', () => {
+    expect(bolehLemparLagi(6, true)).toBe(false)
   })
 })
 
