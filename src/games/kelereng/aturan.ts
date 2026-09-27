@@ -58,6 +58,73 @@ export function kecepatanUntukJarak(d: number): number {
 /** Kekuatan 0..1 (meter) → kecepatan awal. Kekuatan sebanding dengan jarak tempuh. */
 export const kecepatanDariKekuatan = (p: number) => kecepatanUntukJarak(Math.max(0, Math.min(1, p)) * JARAK_MAKS)
 
+// ── Tumbukan ───────────────────────────────────────────────
+
+/** Kelereng yang bergerak: posisi (px) dan kecepatan (px per langkah). Massa sebanding luas (r²). */
+export interface Bola {
+  x: number
+  y: number
+  vx: number
+  vy: number
+  r: number
+}
+
+/**
+ * Tumbukan dua kelereng yang saling bertumpuk setelah satu langkah fisika.
+ * Keduanya dimundurkan ke saat pas bersentuhan, dipantulkan secara elastis
+ * (restitusi `e`) di sepanjang garis pusat, lalu dimajukan lagi sisa waktunya.
+ * Jadi penabrak ikut terpental: menyerempet = berbelok, tabrak lurus = melambat.
+ * Mengubah `a` dan `b`. Mengembalikan kecepatan tumbukan (0 jika tidak bertumbuk).
+ */
+export function tumbukan(a: Bola, b: Bola, e: number): number {
+  const R = a.r + b.r
+  let dx = b.x - a.x
+  let dy = b.y - a.y
+  const d2 = dx * dx + dy * dy
+  if (d2 >= R * R) return 0
+  // Mundur τ langkah (0..1) sampai jarak pusat = R: |d − v_rel·τ|² = R².
+  const rvx = b.vx - a.vx
+  const rvy = b.vy - a.vy
+  const A = rvx * rvx + rvy * rvy
+  const B = dx * rvx + dy * rvy
+  const tau = A > 1e-9 ? Math.min(1, Math.max(0, (B + Math.sqrt(Math.max(0, B * B - A * (d2 - R * R)))) / A)) : 0
+  a.x -= a.vx * tau
+  a.y -= a.vy * tau
+  b.x -= b.vx * tau
+  b.y -= b.vy * tau
+  dx = b.x - a.x
+  dy = b.y - a.y
+  const jarakPusat = Math.hypot(dx, dy) || 1
+  const nx = dx / jarakPusat
+  const ny = dy / jarakPusat
+  const ma = a.r * a.r
+  const mb = b.r * b.r
+  const vn = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny
+  let kuat = 0
+  if (vn < 0) {
+    const j = (-(1 + e) * vn) / (1 / ma + 1 / mb)
+    a.vx -= (j / ma) * nx
+    a.vy -= (j / ma) * ny
+    b.vx += (j / mb) * nx
+    b.vy += (j / mb) * ny
+    kuat = -vn
+  }
+  a.x += a.vx * tau
+  a.y += a.vy * tau
+  b.x += b.vx * tau
+  b.y += b.vy * tau
+  // Sisa tumpukan (mis. sudah bertumpuk tanpa bergerak): pisahkan menurut massa.
+  const sisa = R - Math.hypot(b.x - a.x, b.y - a.y)
+  if (sisa > 0) {
+    const bagiA = mb / (ma + mb)
+    a.x -= nx * sisa * bagiA
+    a.y -= ny * sisa * bagiA
+    b.x += nx * sisa * (1 - bagiA)
+    b.y += ny * sisa * (1 - bagiA)
+  }
+  return kuat
+}
+
 // ── Area ───────────────────────────────────────────────────
 
 export interface Kotak {

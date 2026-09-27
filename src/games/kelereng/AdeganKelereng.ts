@@ -26,6 +26,8 @@ import {
   susunTaruhan,
   tempatDiGaris,
   terdekat,
+  tumbukan,
+  type Bola,
   type Titik,
 } from './aturan'
 import { bunyi } from './bunyi'
@@ -52,6 +54,7 @@ import {
   R_LUBANG,
   R_TARUHAN,
   REDAM_BIBIR,
+  RESTITUSI,
   TARIK_MAKS,
   V_MASUK,
 } from './config'
@@ -86,7 +89,12 @@ export const KUNCI = {
 /** Kedalaman gambar. */
 const D = { lubang: 1, bayang: 2, kelereng: 3, bidik: 4, ui: 10 }
 
-const OPSI_BODY = { restitution: 0.9, friction: 0, frictionStatic: 0, frictionAir: 0, inertia: Infinity, slop: 0.02 }
+/**
+ * Matter hanya menggerakkan kelereng (sensor: tidak menyelesaikan tumbukan).
+ * Tumbukan kaca dihitung sendiri oleh tumbukan() supaya pantulannya lenting
+ * pada kecepatan berapa pun dan arahnya tepat walau kelereng melaju kencang.
+ */
+const OPSI_BODY = { isSensor: true, friction: 0, frictionStatic: 0, frictionAir: 0, inertia: Infinity }
 
 interface Kelereng {
   jenis: 'gacoan' | 'taruhan'
@@ -196,11 +204,6 @@ export class AdeganKelereng extends Phaser.Scene {
     this.input.on('pointerup', (p: Phaser.Input.Pointer) => this.lepas(p))
     this.input.on('pointerupoutside', (p: Phaser.Input.Pointer) => this.lepas(p))
     this.input.keyboard?.on('keydown', (e: KeyboardEvent) => this.tombolKeyboard(e))
-    this.matter.world.on('collisionstart', (ev: { pairs: { bodyA: MatterJS.BodyType; bodyB: MatterJS.BodyType }[] }) => {
-      let kuat = 0
-      for (const { bodyA: a, bodyB: b } of ev.pairs) kuat = Math.max(kuat, Math.hypot(a.velocity.x - b.velocity.x, a.velocity.y - b.velocity.y))
-      if (kuat > 0.6) bunyi.klikKaca(kuat / 14)
-    })
 
     if (o.jenis === 'lubang') this.mulaiLubang()
     else {
@@ -499,6 +502,7 @@ export class AdeganKelereng extends Phaser.Scene {
 
   private langkahFisika() {
     this.matter.world.step(LANGKAH_MS)
+    this.selesaikanTumbukan()
     const penembak = this.gacoanAktif
     for (const k of [...this.kelereng]) {
       const b = k.body
@@ -519,6 +523,39 @@ export class AdeganKelereng extends Phaser.Scene {
       this.matter.body.setVelocity(b, s > 0 ? { x: (v.x / s) * baru, y: (v.y / s) * baru } : { x: 0, y: 0 })
       if (diLuarBatas(b.position)) this.keluarGaris(k)
     }
+  }
+
+  /** Pantulkan setiap pasang kelereng yang bertumpuk setelah langkah ini (dua putaran untuk tumbukan beruntun). */
+  private selesaikanTumbukan() {
+    const aktif = this.kelereng.filter((k) => k.body)
+    const bola: Bola[] = aktif.map((k) => ({
+      x: k.body!.position.x,
+      y: k.body!.position.y,
+      vx: k.body!.velocity.x,
+      vy: k.body!.velocity.y,
+      r: k.r,
+    }))
+    const berubah = new Set<number>()
+    let kuatMaks = 0
+    for (let putaran = 0; putaran < 2; putaran++) {
+      for (let i = 0; i < bola.length; i++) {
+        for (let j = i + 1; j < bola.length; j++) {
+          const a = bola[i]!
+          const b = bola[j]!
+          const R = a.r + b.r
+          if ((b.x - a.x) ** 2 + (b.y - a.y) ** 2 >= R * R) continue
+          kuatMaks = Math.max(kuatMaks, tumbukan(a, b, RESTITUSI))
+          berubah.add(i).add(j)
+        }
+      }
+    }
+    for (const i of berubah) {
+      const body = aktif[i]!.body!
+      const b = bola[i]!
+      this.matter.body.setPosition(body, { x: b.x, y: b.y }, false)
+      this.matter.body.setVelocity(body, { x: b.vx, y: b.vy })
+    }
+    if (kuatMaks > 0.6) bunyi.klikKaca(kuatMaks / 14)
   }
 
   private masukLubang(k: Kelereng, l: Titik) {

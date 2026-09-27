@@ -35,6 +35,9 @@ export const V_MASUK = 5.5
 /** Bibir lubang memperlambat kelereng yang lewat terlalu cepat (per langkah). */
 export const REDAM_BIBIR = 0.9
 
+/** Kelentingan tumbukan kaca ke kaca (1 = pantul sempurna). */
+export const RESTITUSI = 0.92
+
 /** Gesekan tanah: v' = v·(1 − REDAM) − GESEK; di bawah BERHENTI dianggap diam. */
 export const REDAM = 0.012
 export const GESEK = 0.05

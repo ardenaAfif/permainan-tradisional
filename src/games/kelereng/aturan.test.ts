@@ -18,6 +18,8 @@ import {
   susunTaruhan,
   tempatDiGaris,
   terdekat,
+  tumbukan,
+  type Bola,
 } from './aturan'
 import { BATAS, GALAT_CPU, GARIS_X, GARIS_Y_MAKS, LUBANG_ANTAR, PUSAT_LINGKARAN, R_LINGKARAN, R_TARUHAN, V_MAKS } from './config'
 
@@ -144,5 +146,69 @@ describe('komputer', () => {
   it('kekuatan cukup untuk berhenti di target', () => {
     const b = bidikCpu({ x: 0, y: 0 }, { x: 400, y: 0 }, 0, 0, 0)
     expect(jarakLuncur(kecepatanDariKekuatan(b.kekuatan))).toBeCloseTo(400, -1)
+  })
+})
+
+describe('tumbukan', () => {
+  const bola = (x: number, y: number, vx: number, vy: number, r = 13): Bola => ({ x, y, vx, vy, r })
+  const momentum = (a: Bola, b: Bola) => [a.vx * a.r ** 2 + b.vx * b.r ** 2, a.vy * a.r ** 2 + b.vy * b.r ** 2]
+
+  it('tidak bersentuhan = tidak berubah', () => {
+    const a = bola(0, 0, 5, 0)
+    const b = bola(40, 0, 0, 0)
+    expect(tumbukan(a, b, 1)).toBe(0)
+    expect(a.vx).toBe(5)
+  })
+
+  it('tabrak lurus, massa sama, lenting sempurna: penabrak berhenti, target melaju', () => {
+    const a = bola(0, 0, 10, 0)
+    const b = bola(24, 0, 0, 0) // sudah bertumpuk 2 px setelah langkah
+    expect(tumbukan(a, b, 1)).toBeCloseTo(10)
+    expect(a.vx).toBeCloseTo(0)
+    expect(b.vx).toBeCloseTo(10)
+  })
+
+  it('menyerempet: penabrak ikut terpental ke samping (±90° dari target, massa sama)', () => {
+    const a = bola(0, 0, 10, 0)
+    const b = bola(20, 14, 0, 0)
+    tumbukan(a, b, 1)
+    expect(a.vy).toBeLessThan(-1) // penabrak berbelok menjauh
+    expect(b.vy).toBeGreaterThan(1)
+    expect(a.vx * b.vx + a.vy * b.vy).toBeCloseTo(0) // arah keduanya saling tegak lurus
+  })
+
+  it('momentum tetap; energi berkurang sesuai restitusi', () => {
+    const a = bola(0, 0, 12, 3, 17)
+    const b = bola(26, 8, -1, 0)
+    const sebelum = momentum(a, b)
+    tumbukan(a, b, 0.92)
+    const sesudah = momentum(a, b)
+    expect(sesudah[0]).toBeCloseTo(sebelum[0]!)
+    expect(sesudah[1]).toBeCloseTo(sebelum[1]!)
+  })
+
+  it('gacoan yang lebih besar tetap maju sedikit setelah tabrak lurus', () => {
+    const a = bola(0, 0, 10, 0, 17)
+    const b = bola(29, 0, 0, 0, 13)
+    tumbukan(a, b, 0.92)
+    expect(a.vx).toBeGreaterThan(0)
+    expect(a.vx).toBeLessThan(3)
+    expect(b.vx).toBeGreaterThan(10)
+  })
+
+  it('tumbukan cepat yang bertumpuk dalam tetap diarahkan dari saat bersentuhan', () => {
+    // Dari (−14, 10) melaju 22 px ke kanan: bersentuhan saat menyerempet, bukan di tumpukan dalam.
+    const a = bola(8, 10, 22, 0)
+    const b = bola(20, 0, 0, 0)
+    tumbukan(a, b, 1)
+    expect(b.vy).toBeLessThan(0) // target terdorong ke atas (menjauh dari penabrak)
+    expect(a.vy).toBeGreaterThan(0) // penabrak terpental ke bawah
+  })
+
+  it('setelah tumbukan tidak bertumpuk lagi', () => {
+    const a = bola(0, 0, 0, 0)
+    const b = bola(10, 0, 0, 0)
+    tumbukan(a, b, 0.92)
+    expect(Math.hypot(b.x - a.x, b.y - a.y)).toBeGreaterThanOrEqual(26 - 1e-9)
   })
 })
