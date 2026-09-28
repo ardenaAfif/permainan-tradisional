@@ -1,9 +1,8 @@
 /**
- * Tekstur karakter untuk Phaser: SVG dari character kit (design/) dirasterisasi
- * ke <canvas> sekali saat game dipasang. Karakter tidak digambar ulang per frame.
+ * Tekstur siswa Bakiak (lihat shared/phaser/karakter.ts): raut per anggota tim.
  */
-import logoSnt from '../../assets/snt-mark.png'
-import { karakterSvg, type Mata, type Mulut, type Pose, type Tokoh } from '../../characters/kit'
+import type { Mata, Mulut, Pose, Tokoh } from '../../characters/kit'
+import { gambarKarakter } from '../../shared/phaser/karakter'
 import type { AvatarConfig, Player } from '../../shared/types'
 
 /** Satu siswa di atas bakiak. */
@@ -47,67 +46,14 @@ export function susunTim(pemimpin: Player): Anggota[] {
   return [anggotaDari(pemimpin), ...teman]
 }
 
-let logoCache: Promise<string> | null = null
-
-/** Logo SNT sebagai data URL: SVG yang dimuat sebagai gambar tidak boleh memuat file luar. */
-function logoDataUrl(): Promise<string> {
-  logoCache ??= fetch(logoSnt)
-    .then((r) => r.blob())
-    .then(
-      (b) =>
-        new Promise<string>((resolve) => {
-          const fr = new FileReader()
-          fr.onload = () => resolve(typeof fr.result === 'string' ? fr.result : '')
-          fr.onerror = () => resolve('')
-          fr.readAsDataURL(b)
-        }),
-    )
-    .catch(() => '')
-  return logoCache
-}
-
-let nomor = 0
-/** Hasil cek sekali: apakah browser mengizinkan logo (gambar di dalam SVG) tanpa mencemari kanvas. */
-let logoAman: Promise<boolean> | null = null
-
-async function rasterSvg(svg: string, lebar: number, tinggi: number): Promise<HTMLCanvasElement> {
-  const w = Math.round(lebar)
-  const h = Math.round(tinggi)
-  const berukuran = svg.replace('<svg ', `<svg width="${w}" height="${h}" `)
-  const img = new Image()
-  await new Promise<void>((resolve, reject) => {
-    img.onload = () => resolve()
-    img.onerror = () => reject(new Error('SVG karakter gagal dimuat'))
-    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(berukuran)
-  })
-  const c = document.createElement('canvas')
-  c.width = w
-  c.height = h
-  c.getContext('2d')?.drawImage(img, 0, 0, w, h)
-  return c
-}
-
-/** Sebagian browser menandai kanvas "tercemar" jika SVG berisi gambar lain; WebGL lalu menolaknya. */
-function tercemar(c: HTMLCanvasElement) {
-  try {
-    c.getContext('2d')?.getImageData(0, 0, 1, 1)
-    return false
-  } catch {
-    return true
-  }
-}
-
 /**
  * Gambar satu anggota dengan raut tertentu. `tinggi` = tinggi tekstur (px);
  * lebar mengikuti viewBox (kepala: persegi hampir, 108x122).
  */
 export async function gambarAnggota(a: Anggota, raut: Raut, tinggi: number): Promise<HTMLCanvasElement> {
   const r = RAUT[raut]
-  const lebar = r.crop === 'head' ? (tinggi * 108) / 122 : tinggi * RASIO_KARAKTER
-  const svg = (logo: string) =>
-    karakterSvg({
-      uid: `bk${++nomor}`,
-      logo,
+  return gambarKarakter(
+    {
       who: a.who,
       pose: r.pose,
       eyes: r.eyes,
@@ -116,8 +62,7 @@ export async function gambarAnggota(a: Anggota, raut: Raut, tinggi: number): Pro
       skin: a.avatar?.kulit,
       hair: a.avatar?.rambut,
       headwear: a.avatar?.penutupKepala,
-    })
-  // Tanpa logo SNT jika browser menolak gambar di dalam SVG.
-  logoAman ??= logoDataUrl().then(async (logo) => !!logo && !tercemar(await rasterSvg(svg(logo), 8, 8)))
-  return rasterSvg(svg((await logoAman) ? await logoDataUrl() : ''), lebar, tinggi)
+    },
+    tinggi,
+  )
 }

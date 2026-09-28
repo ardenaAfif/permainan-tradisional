@@ -42,7 +42,12 @@
       "Jika berhasil sampai akhir dan kembali, pemain mengambil gacuk.",
       "Jika melakukan kesalahan, giliran berpindah."
     ],
-    "caraMainWeb": "Fase 1: lempar gacuk dengan meter kekuatan yang berayun, tap untuk berhenti. Fase 2: lompat dengan tap tepat waktu; kotak berpasangan butuh tap dua tombol bersamaan. Kotak bergacuk dilewati. Salah waktu berarti menginjak garis, giliran pindah. Saat kembali, tahan tombol untuk mengambil gacuk sambil menjaga meter keseimbangan.",
+    "caraMainWeb": "Level = nomor kotak tujuan gacuk (1 sampai 8). Lempar: jarum meter berayun, tap LEMPAR saat jarum di kotak tujuan. Lompat: tap saat lingkaran yang menyusut ada di zona hijau. Kotak tunggal pakai SATU KAKI, kotak berpasangan pakai DUA KAKI (atau dua jari bersamaan). Kotak bergacuk dilewati. Ambil: di kotak sebelum gacuk, tahan AMBIL lalu lepas saat jarum keseimbangan di tengah. Siapa yang pertama menuntaskan kotak 8, dia menang.",
+    "catatanWeb": [
+      "Berhasil sampai keluar lagi berarti naik level dan main lagi. Kalau salah (gacuk kena garis atau meleset, injak garis, salah kaki, atau oleng), giliran pindah dan level tetap.",
+      "Setengah lingkaran di ujung dipakai untuk berbalik: mendarat dengan DUA KAKI.",
+      "Keyboard: Spasi untuk satu kaki atau lempar, Shift atau D untuk dua kaki, tahan E untuk ambil."
+    ],
     "kontrol": "Tap berirama",
     "jenisKontrol": "irama",
     "mode": ["cpu", "hotseat"],
