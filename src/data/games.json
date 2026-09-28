@@ -42,7 +42,7 @@
       "Jika berhasil sampai akhir dan kembali, pemain mengambil gacuk.",
       "Jika melakukan kesalahan, giliran berpindah."
     ],
-    "caraMainWeb": "Level = nomor kotak tujuan gacuk (1 sampai 8). Lempar: jarum meter berayun, tap LEMPAR saat jarum di kotak tujuan. Lompat: tap saat lingkaran yang menyusut ada di zona hijau. Kotak tunggal pakai SATU KAKI, kotak berpasangan pakai DUA KAKI (atau dua jari bersamaan). Kotak bergacuk dilewati. Ambil: di kotak sebelum gacuk, tahan AMBIL lalu lepas saat jarum keseimbangan di tengah. Siapa yang pertama menuntaskan kotak 8, dia menang.",
+    "caraMainWeb": "Level = nomor kotak tujuan gacuk (1 sampai 8). Lempar: jarum meter berayun, tap LEMPAR saat jarum di kotak tujuan. Lompat: tap saat lingkaran yang menyusut ada di zona hijau. Kotak tunggal pakai SATU KAKI, kotak berpasangan pakai DUA KAKI (atau dua jari bersamaan). Kotak bergacuk selalu dilewati, saat pergi maupun pulang. Ambil: di kotak sebelum gacuk, tahan AMBIL lalu lepas saat jarum keseimbangan di tengah, lalu lompati kotak itu. Siapa yang pertama menuntaskan kotak 8, dia menang.",
     "catatanWeb": [
       "Berhasil sampai keluar lagi berarti naik level dan main lagi. Kalau salah (gacuk kena garis atau meleset, injak garis, salah kaki, atau oleng), giliran pindah dan level tetap.",
       "Setengah lingkaran di ujung dipakai untuk berbalik: mendarat dengan DUA KAKI.",

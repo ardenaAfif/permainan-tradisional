@@ -46,26 +46,29 @@ describe('pola', () => {
 })
 
 describe('urutan lompatan', () => {
-  it('gacuk di kotak 1: kotak 1 dilompati, gacuk diambil dari kotak 2', () => {
-    expect(ringkas(susunLangkah(POLA, 1))).toBe('2s 3s 4+5d 6s 7+8d Pd 7+8d 6s 4+5d 3s 2s* 1s')
+  it('gacuk di kotak 1: kotak 1 dilompati, gacuk diambil dari kotak 2, lalu langsung keluar', () => {
+    expect(ringkas(susunLangkah(POLA, 1))).toBe('2s 3s 4+5d 6s 7+8d Pd 7+8d 6s 4+5d 3s 2s*')
   })
 
   it('gacuk di kotak berpasangan: kotak sebelahnya diinjak satu kaki', () => {
-    expect(ringkas(susunLangkah(POLA, 4))).toBe('1s 2s 3s 5s 6s 7+8d Pd 7+8d 6s* 4+5d 3s 2s 1s')
+    expect(ringkas(susunLangkah(POLA, 4))).toBe('1s 2s 3s 5s 6s 7+8d Pd 7+8d 6s* 5s 3s 2s 1s')
   })
 
-  it('gacuk di kotak 8: diambil dari setengah lingkaran', () => {
-    expect(ringkas(susunLangkah(POLA, 8))).toBe('1s 2s 3s 4+5d 6s 7s Pd* 7+8d 6s 4+5d 3s 2s 1s')
+  it('gacuk di kotak 8: diambil dari setengah lingkaran, kotak 8 tetap dilompati', () => {
+    expect(ringkas(susunLangkah(POLA, 8))).toBe('1s 2s 3s 4+5d 6s 7s Pd* 7s 6s 4+5d 3s 2s 1s')
   })
 
-  it('tepat satu kali ambil, dan kotak bergacuk tidak pernah diinjak sebelum diambil', () => {
+  it('tepat satu kali ambil, dan kotak bergacuk tidak pernah diinjak (pergi maupun pulang)', () => {
     for (let t = 1; t <= 8; t++) {
       const l = susunLangkah(POLA, t)
       expect(l.filter((x) => x.ambil)).toHaveLength(1)
+      for (const x of l) expect(x.kotak).not.toContain(t)
+      // Gacuk diambil dari pijakan tepat sebelum baris bergacuk saat pulang.
       const iAmbil = l.findIndex((x) => x.ambil)
-      for (const x of l.slice(0, iAmbil + 1)) expect(x.kotak).not.toContain(t)
-      // Setelah diambil, lompatan berikutnya masuk ke baris bergacuk.
-      expect(l[iAmbil + 1]?.kotak).toContain(t)
+      const barisGacuk = POLA.baris.findIndex((b) => b.includes(t))
+      expect(l[iAmbil]!.baris).toBeGreaterThan(barisGacuk)
+      const berikut = l[iAmbil + 1]
+      if (berikut) expect(berikut.baris).toBeLessThanOrEqual(barisGacuk)
     }
   })
 
@@ -79,7 +82,7 @@ describe('urutan lompatan', () => {
 
   it('pola tanpa setengah lingkaran berbalik di baris terakhir', () => {
     const pola: Pola = { baris: [[1], [2, 3], [4]], putar: false }
-    expect(ringkas(susunLangkah(pola, 2), 3)).toBe('1s 3s 4s* 2+3d 1s')
+    expect(ringkas(susunLangkah(pola, 2), 3)).toBe('1s 3s 4s* 3s 1s')
     // Gacuk di baris terakhir: diambil dari titik balik.
     expect(ringkas(susunLangkah(pola, 4), 3)).toBe('1s 2+3d* 1s')
   })

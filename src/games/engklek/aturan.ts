@@ -57,10 +57,10 @@ export function polaSah(pola: Pola): boolean {
 
 /**
  * Urutan lompatan untuk level `target` (nomor kotak bergacuk): maju baris demi
- * baris tanpa menginjak kotak bergacuk, berbalik di setengah lingkaran (atau di
- * baris terakhir), lalu kembali. Gacuk diambil dari tempat pijakan tepat sebelum
- * baris bergacuk; setelah itu kotaknya boleh diinjak. Lompatan keluar dari
- * kotak pertama ke garis mulai tidak termasuk (otomatis).
+ * baris, berbalik di setengah lingkaran (atau di baris terakhir), lalu kembali.
+ * Kotak bergacuk tidak pernah diinjak, baik saat pergi maupun pulang: gacuk
+ * diambil dari tempat pijakan tepat sebelum baris bergacuk, lalu kotaknya tetap
+ * dilompati. Lompatan keluar ke garis mulai tidak termasuk (otomatis).
  */
 export function susunLangkah(pola: Pola, target: number): Langkah[] {
   const n = pola.baris.length
@@ -68,10 +68,10 @@ export function susunLangkah(pola: Pola, target: number): Langkah[] {
   const hasil: Langkah[] = []
   const tambah = (baris: number, kotak: number[], arah: Langkah['arah']) =>
     hasil.push({ baris, kotak, kaki: kotak.length > 1 ? 'dua' : 'satu', arah, ambil: false })
-  const pijakan = (i: number, adaGacuk: boolean) => pola.baris[i]!.filter((k) => !(adaGacuk && k === target))
+  const pijakan = (i: number) => pola.baris[i]!.filter((k) => k !== target)
 
   for (let i = 0; i < n; i++) {
-    const k = pijakan(i, true)
+    const k = pijakan(i)
     if (k.length) tambah(i, k, 'maju')
   }
   if (pola.putar) hasil.push({ baris: n, kotak: [], kaki: KAKI_PUTAR, arah: 'maju', ambil: false })
@@ -84,7 +84,7 @@ export function susunLangkah(pola: Pola, target: number): Langkah[] {
       hasil[hasil.length - 1]!.ambil = true
       diambil = true
     }
-    const k = pijakan(i, !diambil)
+    const k = pijakan(i)
     if (k.length) tambah(i, k, 'balik')
   }
   // Gacuk di baris terakhir tanpa setengah lingkaran: diambil di titik balik.
