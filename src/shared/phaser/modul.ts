@@ -21,6 +21,12 @@ export interface LingkunganPhaser {
   gerak: boolean
   /** Perangkat bermouse/keyboard: tampilkan petunjuk huruf. */
   keyboard: boolean
+  /**
+   * Panggung tegak (720x1280) saat dipasang; hanya untuk game orientasi 'any'.
+   * Jika HP diputar, ukuran game berubah dan adegan menerima event 'resize'
+   * dari this.scale (lebar/tinggi baru = this.scale.width / resolusi).
+   */
+  tegak: boolean
 }
 
 interface DefinisiModul {
@@ -34,6 +40,7 @@ interface DefinisiModul {
 
 interface Pasangan {
   wadah: HTMLDivElement
+  pantau: ResizeObserver | null
   game: Phaser.Game | null
   adegan: AdeganJeda | null
   batal: boolean
@@ -46,8 +53,14 @@ function tungguFont() {
   return Promise.race([Promise.all(muat), new Promise((r) => setTimeout(r, 2500))])
 }
 
+/** Ukuran panggung (px panggung, sebelum diskalakan): 1280x720, atau 720x1280 bila tegak. */
+function ukuranPanggung(el: HTMLElement, orientasi: Orientasi) {
+  const tegak = orientasi === 'any' && el.offsetHeight > el.offsetWidth
+  return { tegak, lebar: tegak ? STAGE_H : STAGE_W, tinggi: tegak ? STAGE_W : STAGE_H }
+}
+
 function hitungResolusi(el: HTMLElement) {
-  const skalaPanggung = el.getBoundingClientRect().width / STAGE_W || 1
+  const skalaPanggung = el.getBoundingClientRect().width / (el.offsetWidth || STAGE_W) || 1
   return Math.min(1.5, Math.max(1, Math.round(skalaPanggung * (window.devicePixelRatio || 1) * 4) / 4))
 }
 
@@ -69,10 +82,12 @@ export function buatModulPhaser(def: DefinisiModul): GameModule {
 
   async function pasang(el: HTMLElement, opts: MountOptions, p: Pasangan) {
     const resolusi = hitungResolusi(el)
+    const ukuran = ukuranPanggung(el, def.orientation)
     const env: LingkunganPhaser = {
       resolusi,
       gerak: !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
       keyboard: window.matchMedia('(pointer: fine)').matches,
+      tegak: ukuran.tegak,
     }
     const [, adegan] = await Promise.all([tungguFont(), def.siapkan(opts, env)])
     if (p.batal) return
@@ -86,10 +101,21 @@ export function buatModulPhaser(def: DefinisiModul): GameModule {
       banner: false,
       audio: { noAudio: true },
       disableContextMenu: true,
-      scale: { mode: Phaser.Scale.NONE, width: STAGE_W * resolusi, height: STAGE_H * resolusi, zoom: 1 / resolusi },
+      scale: { mode: Phaser.Scale.NONE, width: ukuran.lebar * resolusi, height: ukuran.tinggi * resolusi, zoom: 1 / resolusi },
       ...(def.physics && { physics: def.physics }),
       scene: adegan,
     })
+    // Game orientasi 'any': panggung berputar bersama HP, kanvas ikut berubah ukuran.
+    if (def.orientation === 'any' && 'ResizeObserver' in window) {
+      let lalu = ukuran.tegak
+      p.pantau = new ResizeObserver(() => {
+        const baru = ukuranPanggung(el, def.orientation)
+        if (baru.tegak === lalu || !p.game) return
+        lalu = baru.tegak
+        p.game.scale.resize(baru.lebar * resolusi, baru.tinggi * resolusi)
+      })
+      p.pantau.observe(el)
+    }
   }
 
   return {
@@ -105,7 +131,7 @@ export function buatModulPhaser(def: DefinisiModul): GameModule {
         'background:var(--kayu);color:var(--kertas-terang);font:800 40px var(--font-judul)'
       wadah.textContent = 'Menyiapkan permainan…'
       el.appendChild(wadah)
-      const p: Pasangan = { wadah, game: null, adegan: null, batal: false, dijeda: false }
+      const p: Pasangan = { wadah, pantau: null, game: null, adegan: null, batal: false, dijeda: false }
       aktif = p
       pasang(el, opts, p).catch(() => {
         if (!p.batal) wadah.textContent = 'Permainan gagal disiapkan. Keluar lalu coba lagi.'
@@ -117,6 +143,7 @@ export function buatModulPhaser(def: DefinisiModul): GameModule {
       aktif = null
       if (!p) return
       p.batal = true
+      p.pantau?.disconnect()
       p.game?.destroy(true)
       p.wadah.remove()
     },

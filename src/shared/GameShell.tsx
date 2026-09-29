@@ -129,6 +129,15 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
     }
   }, [perluPutar, modul, bukaJeda])
 
+  // Game orientasi 'any': panggung ikut berputar dan tata letak berubah, jadi
+  // permainan dijeda supaya pemain tidak kehilangan giliran saat HP diputar.
+  const arahLalu = useRef(portrait)
+  useEffect(() => {
+    if (arahLalu.current === portrait) return
+    arahLalu.current = portrait
+    if (!wajibMendatar) bukaJeda()
+  }, [portrait, wajibMendatar, bukaJeda])
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape' || jeda) return // Modal menangani Escape saat jeda
@@ -151,7 +160,7 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
 
   return (
     <>
-      <Stage wajibMendatar={wajibMendatar} ui={modul && hudUi}>
+      <Stage wajibMendatar={wajibMendatar} bolehTegak={!wajibMendatar} ui={modul && hudUi}>
         <div ref={host} className={s.host} />
         {!modul && (
           <div className={s.memuat}>

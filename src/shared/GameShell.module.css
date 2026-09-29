@@ -1,4 +1,4 @@
-/* Game dipasang di sini: 1280x720 piksel panggung. */
+/* Game dipasang di sini: 1280x720 piksel panggung (720x1280 untuk game orientasi any di layar tegak). */
 .host {
   position: absolute;
   inset: 0;

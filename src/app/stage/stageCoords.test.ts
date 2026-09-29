@@ -25,6 +25,13 @@ describe('fitContain', () => {
     expect(f.y).toBeCloseTo((844 - 720 * f.scale) / 2)
   })
 
+  it('panggung tegak 720x1280 di HP tegak 390x844: sama besar dengan HP mendatar', () => {
+    const f = fitContain(390, 844, STAGE_H, STAGE_W)
+    expect(f.scale).toBeCloseTo(390 / 720)
+    expect(f.x).toBeCloseTo(0)
+    expect(f.y).toBeCloseTo((844 - 1280 * f.scale) / 2)
+  })
+
   it('PID 1920x1080 diperbesar 1,5x', () => {
     expect(fitContain(1920, 1080).scale).toBeCloseTo(1.5)
   })
