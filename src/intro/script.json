@@ -116,7 +116,7 @@
       "tokoh": "sekar",
       "mulai": 5,
       "teks": "Yaah… lowbat lagi.",
-      "teksEn": "Aww… low battery again.",
+      "teksEn": "Aww… my battery is dead.",
       "balon": { "x": 690, "y": 350, "lebar": 260, "ekor": "kiri", "ekorX": 0 }
     },
     {
@@ -135,7 +135,7 @@
       "tokoh": "sekar",
       "mulai": 6.5,
       "teks": "Ini semua apa, Pak?",
-      "teksEn": "What is all this, sir?",
+      "teksEn": "What is all this, Sir?",
       "balon": { "x": 830, "y": 390, "lebar": 230, "ekor": "kanan", "ekorX": 230 }
     },
     {
@@ -155,7 +155,7 @@
       "tokoh": "guru",
       "mulai": 2,
       "teks": "Tapi lihat. Kalau nggak ada yang mainin lagi, permainan ini bisa hilang.",
-      "teksEn": "But look. If nobody plays them anymore, these games could disappear.",
+      "teksEn": "But look. If nobody plays them anymore, these traditional games could disappear.",
       "teksVO": "Tapi lihat. Kalau nggak ada yang mainin lagi, permainan ini bisa hilang. (pelan, sedih)",
       "balon": { "x": 330, "y": 70, "lebar": 520, "ekor": "kiri", "ekorX": 0 }
     },
@@ -165,7 +165,7 @@
       "tokoh": "dimas",
       "mulai": 2.5,
       "teks": "Eh… kalau gitu, kita mainin lagi aja, Pak?",
-      "teksEn": "Uh… so why don't we play them again, sir?",
+      "teksEn": "Uh… so why don't we play them again, Sir?",
       "balon": { "x": 560, "y": 56, "lebar": 360, "ekor": "bawah", "ekorX": 170 }
     },
     {

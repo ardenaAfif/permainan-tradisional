@@ -76,7 +76,7 @@ export function waktuAksi(id: IdAdegan): (aksi: string) => AksiAdegan {
 export const durasiTeks = (b: Pick<Baris, 'teks' | 'teksEn'>) => Math.max(1.8, Math.max(b.teks.length, b.teksEn?.length ?? 0) / 14)
 
 export const NAMA_TOKOH: Record<TokohBicara, string> = {
-  guru: 'Pak Ahsan',
+  guru: 'Mr. Ahsan',
   bima: 'Bima',
   sekar: 'Sekar',
   dimas: 'Dimas',

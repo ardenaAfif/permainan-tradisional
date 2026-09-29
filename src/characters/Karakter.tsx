@@ -131,7 +131,7 @@ export const Karakter = memo(function Karakter({
 
 type TanpaTokoh = Omit<KarakterProps, 'who'>
 
-export const PakGuru = (p: TanpaTokoh) => <Karakter who="guru" label="Pak Ahsan" {...p} />
+export const PakGuru = (p: TanpaTokoh) => <Karakter who="guru" label="Mr Ahsan" {...p} />
 export const Bima = (p: TanpaTokoh) => <Karakter who="bima" label="Bima" {...p} />
 export const Sekar = (p: TanpaTokoh) => <Karakter who="sekar" label="Sekar" {...p} />
 export const Dimas = (p: TanpaTokoh) => <Karakter who="dimas" label="Dimas" {...p} />
