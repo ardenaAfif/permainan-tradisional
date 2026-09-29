@@ -134,13 +134,19 @@
       "Bola harus ditangkap kembali sebelum menyentuh lantai.",
       "Jika bola jatuh atau pemain gagal melakukan gerakan, giliran berpindah."
     ],
-    "caraMainWeb": "Swipe ke atas untuk melempar bola. Selama bola di udara (ditandai lingkaran menyusut), tap biji bekel sesuai tahap. Tap zona tangkap saat bola turun. Tahap naik dari ambil 1 biji sampai membalik biji ke sisi tertentu. Gagal berarti giliran pindah.",
+    "caraMainWeb": "Swipe ke atas untuk melempar bola: makin kuat swipe-nya, makin lama bola di udara (1–2 detik). Selama bola di udara, tap biji bekel sesuai tahap. Lalu tap bola saat lingkaran yang menyusut masuk cincin hijau. Bola jatuh, terlalu cepat menangkap, atau salah jumlah/salah biji berarti giliran pindah. Pemain pertama yang menuntaskan semua tahap menang.",
+    "catatanWeb": [
+      "Tahap: ambil 1 biji tiap lemparan sampai habis, lalu 2 biji, lalu 3 biji, lalu semua sekaligus, terakhir balik 2 biji tiap lemparan sampai semua menghadap sisi Pit (ikon titik).",
+      "Lemparan kuat memberi waktu lebih untuk mengambil biji, tapi bola jatuh lebih cepat sehingga cincin tangkapnya lebih sempit.",
+      "Kalau gagal, tahapmu tersimpan. Saat giliranmu tiba lagi, biji disebar ulang dan tahap itu diulang dari awal.",
+      "Keyboard: tahan lalu lepas Spasi untuk melempar, angka 1–6 untuk biji, Spasi untuk menangkap."
+    ],
     "kontrol": "Swipe + tap",
     "jenisKontrol": "swipe-tap",
     "mode": ["cpu", "hotseat"],
     "pemainBergantian": [2, 4],
     "lawanKomputer": [1, 1],
-    "orientasi": "landscape",
+    "orientasi": "any",
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
