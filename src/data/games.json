@@ -200,11 +200,18 @@
       "Pemain tidak boleh mendorong atau mengganggu pemain lain.",
       "Pemain yang berhasil mencapai garis finish tanpa jatuh menjadi pemenang."
     ],
-    "caraMainWeb": "Tampak samping, balapan 4 jalur (memenuhi minimal 4 pemain). Angkat egrang kiri dan kanan bergantian sambil menjaga badan tetap tegak. Rintangan: tanah bergelombang dan genangan. Tidak ada aksi mendorong.",
+    "caraMainWeb": "Tampak samping, balapan di 4 lintasan berpagar sepanjang 30 meter. Tekan KIRI dan KANAN bergantian dengan irama tenang untuk mengangkat egrang. Setiap langkah membuat badan sedikit miring; jarum meter keseimbangan menunjukkan miringnya. Terlalu cepat, atau mengangkat egrang yang sama dua kali, membuat badan makin miring. Tahan tombol TAHAN untuk menegakkan badan tanpa maju. Yang pertama sampai finis menang.",
+    "catatanWeb": [
+      "Jatuh berarti kembali ke garis start. Di tingkat Mudah, kembali ke pos terakhir (10 m atau 20 m).",
+      "Rintangan: tanah bergelombang dan genangan air membuat badan lebih mudah oleng. Di genangan, langkah juga lebih pendek.",
+      "Duel Satu Layar untuk 2–4 pemain: tiap lintasan punya tombol sendiri, dan lintasan yang kosong diisi pemain komputer. Keyboard: A/S (tahan W) dan K/L (tahan O).",
+      "Di HP atau tablet bisa memakai kendali miring: miringkan perangkat melawan arah miringnya badan. Tombol tetap bisa dipakai."
+    ],
     "kontrol": "Tap kiri-kanan, opsional miring HP",
     "jenisKontrol": "kiri-kanan",
     "mode": ["cpu", "split"],
-    "pemainBergantian": [2, 2],
+    "pemainBergantian": [2, 4],
+    "pesertaSplit": 4,
     "lawanKomputer": [3, 3],
     "orientasi": "landscape",
     "isBonus": false,

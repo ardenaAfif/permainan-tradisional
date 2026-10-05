@@ -57,8 +57,13 @@ export interface GameData {
   /** Jenis animasi kontrol di layar Kenalan Dulu. */
   jenisKontrol: JenisKontrol
   mode: GameMode[]
-  /** Jumlah pemain untuk mode Main Bergantian [min, maks]. */
+  /** Jumlah pemain manusia untuk mode Main Bergantian / Duel Satu Layar [min, maks]. */
   pemainBergantian: [number, number]
+  /**
+   * Duel Satu Layar: jumlah peserta lomba. Jika pemain manusia lebih sedikit,
+   * sisanya diisi lawan komputer (mis. egrang selalu 4 lintasan).
+   */
+  pesertaSplit?: number
   /** false jika tingkat kesulitan komputer tidak berpengaruh (mis. murni dadu). Bawaan: true. */
   pakaiKesulitan?: boolean
   /** Jumlah lawan komputer di mode Lawan Komputer [min, maks]. */

@@ -70,7 +70,11 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
     }
   }, [lineVO, pakaiVO])
 
-  const jumlahMain = mode === 'split' ? 2 : jumlah
+  // Duel Satu Layar dua sisi (kiri/kanan) atau 2–4 pemain bersama (mis. egrang).
+  const splitBanyak = maksPemain > 2
+  const jumlahMain = mode === 'split' && !splitBanyak ? 2 : jumlah
+  const isiKomputer = mode === 'split' && !!game.pesertaSplit && jumlahMain < game.pesertaSplit
+  const pakaiKesulitan = game.pakaiKesulitan !== false && (mode === 'cpu' || (mode === 'split' && !!game.pesertaSplit))
   const main = () => {
     audio.sfx('tap')
     const sesi: Sesi = buatSesi({
@@ -79,6 +83,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
       pemainUtama: avatar,
       namaPemain: nama.slice(0, jumlahMain),
       lawanKomputer: jumlahCpu,
+      pesertaSplit: game.pesertaSplit,
       pilihan,
     })
     navigate(`/main/${game.id}`, { state: { sesi } })
@@ -172,7 +177,9 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
                   </span>
                   <span className={s.modeTeks}>
                     <span className={s.modeLabel}>{MODE[m].label}</span>
-                    <span className={s.modeDesc}>{MODE[m].desc}</span>
+                    <span className={s.modeDesc}>
+                      {m === 'split' && splitBanyak ? `Satu layar, ${minPemain}–${maksPemain} pemain bersamaan` : MODE[m].desc}
+                    </span>
                   </span>
                 </button>
               ))}
@@ -223,7 +230,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
             </section>
           )}
 
-          {mode === 'cpu' && game.pakaiKesulitan !== false && (
+          {pakaiKesulitan && (
             <section className={s.pengaturanMain} aria-labelledby="judul-kesulitan">
               <h2 id="judul-kesulitan" className={s.subJudul}>
                 Tingkat kesulitan
@@ -248,9 +255,9 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
           {mode !== 'cpu' && (
             <section className={s.pengaturanMain} aria-labelledby="judul-pemain">
               <h2 id="judul-pemain" className={s.subJudul}>
-                {mode === 'split' ? 'Nama pemain kiri & kanan' : 'Jumlah & nama pemain'}
+                {mode === 'split' && !splitBanyak ? 'Nama pemain kiri & kanan' : 'Jumlah & nama pemain'}
               </h2>
-              {mode === 'hotseat' && maksPemain > minPemain && (
+              {maksPemain > minPemain && (
                 <div className={s.pilSegmen} role="radiogroup" aria-label="Jumlah pemain">
                   {Array.from({ length: maksPemain - minPemain + 1 }, (_, i) => minPemain + i).map((n) => (
                     <button
@@ -270,7 +277,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
                 {nama.slice(0, jumlahMain).map((n, i) => (
                   <label key={i} className={s.kolomNama}>
                     <span className={s.labelNama}>
-                      {mode === 'split' ? (i === 0 ? 'Kiri' : 'Kanan') : `Pemain ${i + 1}`}
+                      {mode === 'split' && !splitBanyak ? (i === 0 ? 'Kiri' : 'Kanan') : `Pemain ${i + 1}`}
                     </span>
                     <input
                       className={s.masukan}
@@ -281,6 +288,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
                   </label>
                 ))}
               </div>
+              {isiKomputer && <p className={s.teks}>Lintasan yang kosong diisi pemain komputer.</p>}
             </section>
           )}
         </div>
