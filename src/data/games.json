@@ -108,7 +108,13 @@
       "Pemain harus melewati seluruh area dan kembali tanpa tersentuh.",
       "Setelah satu ronde, kedua tim bertukar peran."
     ],
-    "caraMainWeb": "Lapangan tampak atas dengan garis jaga. Pemain mengendalikan satu penyerang untuk melewati semua garis lalu kembali. Penjaga komputer hanya bisa bergerak di garisnya. Tersentuh berarti gugur. Setelah satu ronde, peran bertukar dan pemain mengendalikan penjaga.",
+    "caraMainWeb": "Lapangan tampak atas dengan 4 garis jaga mendatar dan 1 garis sodor membujur di tengah. Tiap tim berisi 5 orang. Saat menyerang, gerakkan satu penyerang dengan joystick melewati semua garis sampai UJUNG, lalu pulang ke START tanpa tersentuh untuk mendapat 1 poin. Tersentuh penjaga berarti gugur dan penyerang berikutnya masuk. Ronde selesai jika semua penyerang gugur atau 90 detik habis. Saat menjaga, kendalikan satu penjaga yang hanya bisa bergerak di garisnya.",
+    "catatanWeb": [
+      "Satu pertandingan = 4 ronde. Tiap tim 2 kali menyerang dan 2 kali menjaga, bergantian. Poin terbanyak menang; poin sama = seri.",
+      "Penyerang yang sudah dapat poin antre lagi di belakang, jadi bisa menyerang lagi selama waktu masih ada.",
+      "Ronde menjaga: ketuk penjaga lain di lapangan untuk pindah mengendalikannya. Penjaga lain digerakkan komputer.",
+      "Duel Satu Layar: pemain penyerang memakai joystick di sisinya, pemain lawan memakai slider untuk menggerakkan sodor. Peran bertukar setiap ronde. Keyboard: P1 W A S D, P2 tombol panah."
+    ],
     "kontrol": "Joystick virtual / tombol panah",
     "jenisKontrol": "joystick",
     "mode": ["cpu", "split"],
