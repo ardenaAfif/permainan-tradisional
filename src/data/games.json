@@ -15,6 +15,13 @@
       "Pemain yang berhasil menghabiskan atau membuat bidak lawan tidak dapat bergerak menjadi pemenang."
     ],
     "caraMainWeb": "Papan bergaris diagonal (varian papan 5×5 sebagai dasar). Tap bidak, langkah yang sah menyala, lalu tap tujuan. Lompatan beruntun untuk menangkap. Menang jika bidak lawan habis atau tidak bisa bergerak.",
+    "catatanWeb": [
+      "Bidak melangkah satu titik ke titik kosong yang tersambung garis. Garis miring hanya ada di titik-titik tertentu, jadi perhatikan garis papannya.",
+      "Menangkap: lompati bidak lawan di sebelahmu ke titik kosong tepat di baliknya. Kalau masih bisa, lompat lagi. Menangkap tidak wajib, dan kamu boleh berhenti melompat kapan saja.",
+      "Bidak boleh mundur dan boleh menangkap ke segala arah.",
+      "Seri jika 40 langkah berturut-turut tidak ada bidak yang tertangkap.",
+      "Keyboard: tombol panah untuk memilih titik, Spasi atau Enter untuk memilih."
+    ],
     "kontrol": "Tap",
     "jenisKontrol": "tap",
     "mode": ["cpu", "hotseat"],

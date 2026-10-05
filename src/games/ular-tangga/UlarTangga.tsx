@@ -11,7 +11,7 @@ import { ANGKA_LEMPAR_LAGI, JEDA_KOMPUTER, JUMLAH_KOTAK, LAMA_DADU, LAMA_KARTU_K
 import { MukaDadu } from './Dadu'
 import { TumpukanFakta, type Fakta } from './fakta'
 import { geserBersama, PAPAN_X, PAPAN_Y, pusatKotak } from './geometri'
-import { Jam } from './jam'
+import { Jam } from '../../shared/jam'
 import { Papan } from './Papan'
 import s from './UlarTangga.module.css'
 
