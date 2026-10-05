@@ -44,6 +44,11 @@
   --kelir-tepi: #e9a955;
   --blencong: #fff6de;
 
+  /* ── Air (balon air, genangan, parit; dari design/objects.js) ── */
+  --air: #4f8fc9;
+  --air-gelap: #3a76b0;
+  --air-muda: #d6e6f2;
+
   /* ── Warna kulit avatar (tone utama dari character kit) ── */
   --kulit-0: #f4d2ae;
   --kulit-1: #e6b887;

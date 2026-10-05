@@ -105,6 +105,12 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
           <div className={s.balon}>
             <span className={s.namaTokoh}>Mr. Ahsan</span>
             <p>{game.deskripsi}</p>
+            {game.pesanGuru && (
+              <p className={s.pesanGuru}>
+                <span className={s.pesanGuruLabel}>Fair play</span>
+                {game.pesanGuru}
+              </p>
+            )}
           </div>
           <div className={s.guruTokoh}>
             <PakGuru

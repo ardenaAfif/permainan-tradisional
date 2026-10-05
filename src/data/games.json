@@ -302,8 +302,14 @@
       "Jika balon pecah sebelum mencapai tujuan, pemain harus mengambil balon berikutnya.",
       "Kelompok yang berhasil menyelesaikan tantangan paling cepat menjadi pemenang."
     ],
-    "caraMainWeb": "Estafet membawa balon ke tujuan. Balon punya meter tekanan; gerakan terlalu cepat atau tiba-tiba membuatnya pecah dan pemain mengambil balon baru. Setiap ronde punya cara membawa yang berbeda, misalnya dua tangan atau di atas kepala. Tim tercepat menang.",
-    "kontrol": "Seret",
+    "caraMainWeb": "Estafet 4 putaran: setiap putaran, satu anggota timmu membawa balon air dari START ke keranjang, melewati batu, genangan, dan papan titian. Balon punya meter tekanan. Mengerem atau berbelok mendadak dan menabrak rintangan menaikkan tekanan, bergerak halus menurunkannya perlahan. Tekanan penuh berarti balon pecah dan pelari kembali ke START dengan balon baru. Waktu tim = total waktu 4 putaran. Tim tercepat menang.",
+    "catatanWeb": [
+      "Setiap putaran punya cara membawa sendiri: 1) dua tangan, 2) di atas kepala (lebih cepat, tapi balon lebih gampang pecah), 3) diapit berdua (temanmu menyusul sedikit terlambat, jaga jarak tetap pas), 4) jalan mundur (arah kendali terbalik).",
+      "Genangan membuat langkah lambat dan licin. Di papan titian, jalan pelan-pelan supaya papan tidak bergoyang.",
+      "Lawan Komputer: lawanmu tampil sebagai bayangan pelari di lintasanmu. Duel Satu Layar: P1 di layar atas, P2 di layar bawah. Keyboard: P1 W A S D, P2 tombol panah."
+    ],
+    "pesanGuru": "Ingat, balon air itu dibawa, bukan dilempar. Jangan pernah melempar balon ke arah wajah teman. Main yang sportif, ya!",
+    "kontrol": "Seret pelari / joystick / tombol panah",
     "jenisKontrol": "seret",
     "mode": ["cpu", "split"],
     "pemainBergantian": [2, 2],

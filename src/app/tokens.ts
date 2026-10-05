@@ -30,6 +30,11 @@ export const WARNA = {
   'garis-krem': '#e3d1ae',
   lantai: '#e8c68a',
   'abu-kartu': '#a39c91',
+  'abu-kartu-gelap': '#8e877c',
+  'abu-kartu-muda': '#ddd8cf',
+  air: '#4f8fc9',
+  'air-gelap': '#3a76b0',
+  'air-muda': '#d6e6f2',
   'langit-jendela': '#cfe0ee',
 } as const
 

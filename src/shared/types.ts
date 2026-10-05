@@ -53,6 +53,8 @@ export interface GameData {
   caraMainWeb: string
   /** Aturan tambahan khusus versi web (ditampilkan di Kenalan Dulu). */
   catatanWeb?: string[]
+  /** Pesan fair play Pak Guru, ditampilkan di balon kata Kenalan Dulu setelah deskripsi. */
+  pesanGuru?: string
   kontrol: string
   /** Jenis animasi kontrol di layar Kenalan Dulu. */
   jenisKontrol: JenisKontrol

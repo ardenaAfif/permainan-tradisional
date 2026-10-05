@@ -33,6 +33,22 @@
   font: 600 var(--teks-kecil) / 1.5 var(--font-isi);
 }
 
+/* Pesan fair play Pak Guru di bawah deskripsi. */
+.balon .pesanGuru {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-m);
+  border-left: 5px solid var(--daun-pisang);
+  background: var(--kertas-krem);
+  font-weight: 700;
+}
+
+.pesanGuruLabel {
+  display: block;
+  font: 800 var(--teks-kecil) var(--font-judul);
+  color: var(--daun-pisang-gelap);
+}
+
 .balon::after {
   content: '';
   position: absolute;
