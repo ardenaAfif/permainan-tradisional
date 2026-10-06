@@ -25,3 +25,9 @@ dist-ssr
 
 # Arsip ekspor Claude Design (isinya sudah ada di design/)
 *.zip
+
+# Rekaman audio asli (sebelum dikompres ke public/audio dengan npm run audio)
+audio-mentah/
+
+# Hasil build PWA dev
+dev-dist

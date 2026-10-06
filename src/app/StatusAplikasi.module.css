@@ -1,0 +1,93 @@
+/* Pesan status kecil di bawah layar (offline, versi baru). */
+.wadah {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(var(--ruang-3), env(safe-area-inset-bottom));
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  padding: 0 var(--ruang-3);
+  pointer-events: none;
+}
+
+.pesan {
+  display: flex;
+  align-items: center;
+  gap: var(--ruang-3);
+  max-width: 560px;
+  min-height: var(--tap-min);
+  padding: 4px 6px 4px var(--ruang-4);
+  border-radius: var(--radius-l);
+  background: var(--kertas-terang);
+  color: var(--tinta);
+  box-shadow: inset 0 0 0 2px var(--kayu), 0 4px 0 var(--kayu), var(--bayang-melayang);
+  pointer-events: auto;
+  animation: naik 220ms ease-out;
+}
+
+.nila {
+  background: var(--biru-nila);
+  --warna-fokus: var(--cahaya-kelir);
+  color: var(--putih);
+  box-shadow: 0 4px 0 var(--biru-nila-gelap), var(--bayang-melayang);
+}
+
+.teks {
+  flex: 1;
+  padding: 8px 0;
+  font: 700 var(--teks-kecil) / 1.3 var(--font-isi);
+}
+
+.titik {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--merah-bata);
+}
+
+.titikHijau {
+  background: var(--daun-pisang-gelap);
+}
+
+.aksi {
+  flex: none;
+  min-height: var(--tap-min);
+  padding: 0 var(--ruang-4);
+  border: 0;
+  border-radius: var(--radius-m);
+  background: var(--kunyit);
+  color: var(--kayu-gelap);
+  font: 800 18px var(--font-judul);
+  box-shadow: 0 3px 0 var(--kunyit-gelap);
+}
+
+.tutup {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+}
+
+@media (min-width: 1600px) {
+  .pesan {
+    max-width: 760px;
+  }
+  .teks {
+    font-size: 22px;
+  }
+}
+
+@keyframes naik {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}

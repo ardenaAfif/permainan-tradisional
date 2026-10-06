@@ -153,7 +153,7 @@ export function Intro() {
   const mode = pilihMode(scale, height - (y + tinggiPanggung))
 
   return (
-    <div className={s.intro} onPointerUp={tap}>
+    <main className={s.intro} onPointerUp={tap}>
       <Stage
         ui={
           <>
@@ -186,6 +186,6 @@ export function Intro() {
           {indeks === 0 && <p className={`${s.petunjuk} ${s.petunjukSudut}`}>Tap untuk lanjut</p>}
         </div>
       )}
-    </div>
+    </main>
   )
 }

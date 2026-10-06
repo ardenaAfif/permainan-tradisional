@@ -648,7 +648,7 @@ export function DamDaman({ opsi, host, kontrol }: { opsi: MountOptions; host: HT
           width={tata.bingkai.w + 28}
           height={tata.bingkai.h + 28}
           onPointerDown={ketukPapan}
-          aria-label="Papan dam-daman"
+          aria-hidden="true"
         />
       </svg>
 

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router'
 import { hitungStempel, useKotak } from '../app/store'
-import logoSnt from '../assets/snt-mark.png'
+import logoSnt from '../assets/snt-mark-kecil.webp'
 import { AvatarKarakter } from '../characters/Karakter'
 import { GAMES, KATEGORI } from '../data/games'
 import { isGameReady } from '../games'
@@ -32,7 +32,7 @@ export function Menu() {
     <div className={s.menu}>
       <div className={s.pita} aria-hidden="true" />
       <header className={s.kepala}>
-        <img className={s.logo} src={logoSnt} alt="SNT 2 Banyumas" />
+        <img className={s.logo} src={logoSnt} alt="SNT 2 Banyumas" width={45} height={36} />
         <h1 className={s.judul}>Kotak Dolanan</h1>
         <div className={s.stempel} role="status" aria-label={`Stempel terkumpul ${jumlahStempel} dari ${GAMES.length}`}>
           <svg width="40" height="40" viewBox="0 0 200 200" aria-hidden="true" className={s.stempelIkon}>
@@ -56,7 +56,7 @@ export function Menu() {
         </Link>
       </header>
 
-      <div className={s.alat}>
+      <section className={s.alat} aria-label="Progres dan pengaturan">
         <div className={s.progres}>
           <div className={s.progresTeks}>
             {jumlahBerwarna} dari {GAMES.length} benda sudah berwarna lagi
@@ -82,7 +82,7 @@ export function Menu() {
           </TombolIkon>
           <TombolSuara />
         </div>
-      </div>
+      </section>
 
       <nav className={s.filter} aria-label="Filter kategori">
         {(['semua', ...KATEGORI] as Filter[]).map((f) => (

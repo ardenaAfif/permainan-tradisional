@@ -80,6 +80,14 @@ export function IkonUlang({ ukuran = 22 }: IkonProps) {
   )
 }
 
+export function IkonPasang({ ukuran = 22 }: IkonProps) {
+  return (
+    <svg width={ukuran} height={ukuran} viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3 V14 M7 10 L12 15 L17 10 M5 20 H19" stroke="currentColor" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export function IkonGembok({ ukuran = 20 }: IkonProps) {
   return (
     <svg width={ukuran} height={ukuran} viewBox="0 0 24 24" aria-hidden="true">

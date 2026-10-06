@@ -76,8 +76,11 @@ export interface GameData {
   tantanganLapangan: string
   orientasi: Orientasi
   isBonus: boolean
+  /** Asal daerah dan nama lain diisi dari riset siswa (docs/brief.md), bukan tebakan. */
   asalDaerah: string
   namaLain: string[]
+  /** Sumber riset asal daerah/nama lain (buku, situs, wawancara), tampil di halaman Kredit. */
+  sumberAsal: string[]
 }
 
 export type WarnaKulit = 0 | 1 | 2 | 3 | 4

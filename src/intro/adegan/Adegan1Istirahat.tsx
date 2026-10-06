@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import logoSnt from '../../assets/snt-mark.png'
+import logoSnt from '../../assets/snt-mark.webp'
 import type { Mata, Mulut } from '../../characters/kit'
 import { Karakter, type KarakterHandle } from '../../characters/Karakter'
 import { waktuAksi } from '../naskah'
@@ -58,7 +58,7 @@ export function Adegan1Istirahat({ ref, ...p }: AdeganProps) {
         <div className={s.listTapis} />
         <div className={s.papan}>
           <div className={s.papanTeks}>Jum'at · Kokurikuler</div>
-          <img className={s.papanLogo} src={logoSnt} alt="" />
+          <img className={s.papanLogo} src={logoSnt} alt="" width={65} height={52} />
           <div className={s.papanRak} />
         </div>
         <div className={s.jendela} />

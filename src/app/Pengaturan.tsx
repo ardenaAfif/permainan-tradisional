@@ -1,10 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import { useNavigate } from 'react-router'
 import { Halaman } from '../shared/ui/Halaman'
-import { IkonKembali } from '../shared/ui/Ikon'
+import { IkonKembali, IkonPasang } from '../shared/ui/Ikon'
 import { Modal } from '../shared/ui/Modal'
 import { Tombol, TombolIkon } from '../shared/ui/Tombol'
 import { TombolSuara } from '../shared/ui/TombolSuara'
+import { alasanBelumBisa, simpanSemuaUntukOffline } from './offline'
+import { pasangAplikasi, perangkatIos, sudahTerpasang, useBisaPasang } from './pwa'
 import { useKotak, type Pengaturan as PengaturanT } from './store'
 import s from './Pengaturan.module.css'
 
@@ -55,6 +57,8 @@ export function Pengaturan() {
           />
         </section>
 
+        <PasangDanOffline />
+
         <GantiPin pinSekarang={pengaturan.pinGuru} onSimpan={(pinGuru) => setPengaturan({ pinGuru })} />
 
         <section className={s.panel} aria-labelledby="judul-progres">
@@ -74,6 +78,18 @@ export function Pengaturan() {
               {pesanReset}
             </p>
           )}
+        </section>
+
+        <section className={s.panel} aria-labelledby="judul-tentang">
+          <h2 id="judul-tentang" className={s.judulPanel}>
+            Tentang
+          </h2>
+          <p className={s.teks}>Tim guru dan siswa, sumber suara, dan sumber riset asal daerah setiap permainan.</p>
+          <div>
+            <Tombol varian="sekunder" onClick={() => navigate('/kredit')}>
+              Lihat kredit
+            </Tombol>
+          </div>
         </section>
       </div>
 
@@ -136,6 +152,72 @@ function Sakelar({
         <span className={s.kenop} />
       </span>
     </button>
+  )
+}
+
+function PasangDanOffline() {
+  const bisaPasang = useBisaPasang()
+  const terpasang = sudahTerpasang()
+  const [progres, setProgres] = useState<{ selesai: number; total: number } | null>(null)
+  const [pesan, setPesan] = useState<{ ok: boolean; teks: string } | null>(null)
+  const sedangMenyimpan = progres !== null && progres.selesai < progres.total
+
+  const simpan = async () => {
+    const alasan = alasanBelumBisa()
+    if (alasan) return setPesan({ ok: false, teks: alasan })
+    setPesan(null)
+    try {
+      const { gagal } = await simpanSemuaUntukOffline((selesai, total) => setProgres({ selesai, total }))
+      setPesan(
+        gagal === 0
+          ? { ok: true, teks: 'Semua game sudah tersimpan. Sekarang bisa dimainkan tanpa internet.' }
+          : { ok: false, teks: `${gagal} berkas gagal diunduh. Cek sambungan, lalu tekan lagi.` },
+      )
+    } catch {
+      setPesan({ ok: false, teks: 'Daftar game belum bisa diunduh. Cek sambungan, lalu coba lagi.' })
+    }
+    setProgres(null)
+  }
+
+  return (
+    <section className={s.panel} aria-labelledby="judul-offline">
+      <h2 id="judul-offline" className={s.judulPanel}>
+        Pasang &amp; offline
+      </h2>
+      {terpasang ? (
+        <p className={s.teks}>Kotak Dolanan sudah terpasang di perangkat ini.</p>
+      ) : bisaPasang ? (
+        <>
+          <p className={s.teks}>Pasang Kotak Dolanan di layar utama supaya bisa dibuka seperti aplikasi, juga saat WiFi putus.</p>
+          <div>
+            <Tombol varian="nila" onClick={() => void pasangAplikasi()}>
+              <IkonPasang />
+              Pasang di HP
+            </Tombol>
+          </div>
+        </>
+      ) : (
+        <p className={s.teks}>
+          {perangkatIos()
+            ? 'Untuk memasang di iPhone atau iPad: buka di Safari, tap tombol Bagikan, lalu pilih "Tambah ke Layar Utama".'
+            : 'Untuk memasang: buka di Chrome atau Edge, lalu pilih menu ⋮ → "Tambahkan ke layar utama" atau "Instal aplikasi".'}
+        </p>
+      )}
+      <p className={s.teks}>
+        Game tersimpan otomatis di perangkat setelah dibuka sekali. Guru bisa menyimpan semuanya sekaligus sebelum kelas
+        dimulai (±1,5 MB).
+      </p>
+      <div>
+        <Tombol varian="sekunder" disabled={sedangMenyimpan} onClick={() => void simpan()}>
+          {sedangMenyimpan ? `Menyimpan… ${progres.selesai}/${progres.total}` : 'Simpan semua game'}
+        </Tombol>
+      </div>
+      {pesan && (
+        <p className={pesan.ok ? s.berhasil : s.gagal} role="status">
+          {pesan.teks}
+        </p>
+      )}
+    </section>
   )
 }
 

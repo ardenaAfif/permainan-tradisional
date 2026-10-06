@@ -34,6 +34,7 @@
 .logo {
   height: 36px;
   width: auto;
+  aspect-ratio: 5 / 4;
   flex: none;
 }
 

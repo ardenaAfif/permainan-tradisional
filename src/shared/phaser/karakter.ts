@@ -2,7 +2,7 @@
  * Tekstur karakter untuk Phaser: SVG dari character kit (design/) dirasterisasi
  * ke <canvas> sekali saat game dipasang. Karakter tidak digambar ulang per frame.
  */
-import logoSnt from '../../assets/snt-mark.png'
+import logoSnt from '../../assets/snt-mark-kecil.webp'
 import { karakterSvg, type KitOptions } from '../../characters/kit'
 
 export type OpsiKarakter = Omit<KitOptions, 'uid' | 'logo'>

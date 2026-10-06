@@ -279,7 +279,7 @@
 
 .labelTantangan {
   font: 700 var(--teks-kecil) var(--font-isi);
-  color: var(--cahaya-kelir);
+  color: var(--kertas-terang);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
@@ -371,7 +371,7 @@
 
 .formPin:focus-within .kotakAktif {
   box-shadow:
-    inset 0 0 0 3px var(--kunyit),
+    inset 0 0 0 3px var(--biru-nila),
     0 0 0 4px var(--cahaya-kelir);
 }
 

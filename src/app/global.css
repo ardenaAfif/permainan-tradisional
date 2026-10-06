@@ -37,8 +37,10 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* Cincin fokus keyboard: gelap di layar terang, --warna-fokus diganti terang di layar gelap
+   (judul, panggung intro/game) supaya kontrasnya selalu ≥ 3:1. */
 :focus-visible {
-  outline: 3px solid var(--kunyit);
+  outline: 3px solid var(--warna-fokus);
   outline-offset: 3px;
 }
 

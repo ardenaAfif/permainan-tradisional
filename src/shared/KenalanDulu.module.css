@@ -357,7 +357,7 @@
 }
 
 .masukan:focus {
-  box-shadow: inset 0 0 0 3px var(--kunyit);
+  box-shadow: inset 0 0 0 3px var(--biru-nila);
 }
 
 @media (min-width: 700px) {

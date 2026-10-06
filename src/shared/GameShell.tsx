@@ -44,7 +44,8 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
   const navigate = useNavigate()
   const catatHasil = useKotak((st) => st.catatHasil)
   const [modul, setModul] = useState<GameModule | null>(null)
-  const [gagal, setGagal] = useState(false)
+  /** 'belum-ada': folder game belum dibuat; 'unduh': berkas game gagal diunduh (mis. offline dan belum tersimpan). */
+  const [gagal, setGagal] = useState<null | 'belum-ada' | 'unduh'>(null)
   const [putaran, setPutaran] = useState(0)
   const [jeda, setJeda] = useState(false)
   const [hud, setHud] = useState<HudData>({})
@@ -60,9 +61,9 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
       .then((m) => {
         if (batal) return
         if (m) setModul(m)
-        else setGagal(true)
+        else setGagal('belum-ada')
       })
-      .catch(() => !batal && setGagal(true))
+      .catch(() => !batal && setGagal('unduh'))
     return () => {
       batal = true
     }
@@ -164,8 +165,21 @@ function Shell({ game, sesi }: { game: GameData; sesi: Sesi }) {
         <div ref={host} className={s.host} />
         {!modul && (
           <div className={s.memuat}>
-            <p>{gagal ? 'Permainan ini belum tersedia.' : 'Menyiapkan permainan…'}</p>
-            {gagal && <Tombol onClick={() => navigate('/menu')}>Kembali ke menu</Tombol>}
+            <p>
+              {gagal === 'unduh'
+                ? 'Game ini belum tersimpan di perangkat. Sambungkan ke internet sekali untuk membukanya; sesudah itu bisa dimainkan tanpa internet.'
+                : gagal
+                  ? 'Permainan ini belum tersedia.'
+                  : 'Menyiapkan permainan…'}
+            </p>
+            {gagal && (
+              <div className={s.aksiGagal}>
+                {gagal === 'unduh' && <Tombol onClick={() => window.location.reload()}>Coba lagi</Tombol>}
+                <Tombol varian="sekunder" onClick={() => navigate('/menu')}>
+                  Kembali ke menu
+                </Tombol>
+              </div>
+            )}
           </div>
         )}
       </Stage>

@@ -3,7 +3,8 @@
  *
  * - Suara baru aktif setelah buka() dipanggil dari tap pertama (syarat browser iPhone).
  * - File diambil dari public/audio/{sfx,musik,vo}/<nama>.mp3. File yang belum
- *   ada dilewati tanpa error (daftar dari virtual:audio-manifest).
+ *   ada dilewati tanpa error (daftar dari virtual:audio-manifest). URL membawa ?v=<sidik isi>
+ *   supaya cache offline (service worker) ikut berganti saat rekamannya diganti.
  * - Mengikuti pengaturan di store: suara (mute semua), musik, VO.
  * - levelVO() memberi volume VO 0..1 untuk lip-sync karakter.
  */
@@ -11,10 +12,12 @@ import { Howl, Howler } from 'howler'
 import daftarFile from 'virtual:audio-manifest'
 import { useKotak } from '../../app/store'
 
-const ADA = new Set(daftarFile)
 const cari = (folder: string, nama: string) =>
-  ['mp3', 'ogg', 'm4a', 'wav'].map((ext) => `${folder}/${nama}.${ext}`).find((f) => ADA.has(f))
-const url = (file: string) => `${import.meta.env.BASE_URL}audio/${file}`
+  ['mp3', 'ogg', 'm4a', 'wav'].map((ext) => `${folder}/${nama}.${ext}`).find((f) => f in daftarFile)
+const url = (file: string) => `${import.meta.env.BASE_URL}audio/${file}?v=${daftarFile[file]}`
+
+/** URL semua file audio, untuk diunduh sekaligus ("Simpan untuk offline" di Pengaturan). */
+export const semuaUrlAudio = () => Object.keys(daftarFile).map(url)
 
 const VOLUME_MUSIK = 0.45
 const FADE_MUSIK = 800
@@ -134,19 +137,30 @@ class AudioManager {
     const p = this.pengaturan
     if (!file || !this.terbuka || !p.suara || !p.vo) return Promise.resolve()
     return new Promise<void>((resolve) => {
-      const el = new Audio(url(file))
-      el.crossOrigin = 'anonymous'
+      const el = new Audio()
       this.voEl = el
+      let blobUrl = ''
       const selesai = () => {
         if (this.voEl === el) this.voEl = null
         this.voSelesai = null
+        if (blobUrl) URL.revokeObjectURL(blobUrl)
         resolve()
       }
       this.voSelesai = selesai
       el.addEventListener('ended', selesai, { once: true })
       el.addEventListener('error', selesai, { once: true })
-      this.sambungAnalyser(el)
-      el.play().catch(selesai)
+      // Diunduh utuh lewat fetch (bukan streaming <audio> dengan Range) supaya service worker
+      // bisa menyimpannya untuk dimainkan offline.
+      fetch(url(file))
+        .then((r) => (r.ok ? r.blob() : Promise.reject(new Error(String(r.status)))))
+        .then((b) => {
+          if (this.voEl !== el) return selesai()
+          blobUrl = URL.createObjectURL(b)
+          el.src = blobUrl
+          this.sambungAnalyser(el)
+          return el.play()
+        })
+        .catch(selesai)
     })
   }
 

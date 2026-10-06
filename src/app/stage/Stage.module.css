@@ -22,6 +22,8 @@
 .ui {
   position: absolute;
   pointer-events: none;
+  /* Tombol HUD berlatar tabir gelap: cincin fokus terang. */
+  --warna-fokus: var(--cahaya-kelir);
 }
 
 .ui > * {
@@ -30,6 +32,7 @@
 
 .putar {
   position: absolute;
+  --warna-fokus: var(--cahaya-kelir);
   inset: 0;
   display: grid;
   place-content: center;

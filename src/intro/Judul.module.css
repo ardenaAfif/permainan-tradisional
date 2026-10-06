@@ -1,6 +1,7 @@
 /* Layar judul — design/Judul.dc.html + adegan 0 storyboard. */
 .judulLayar {
   --pad: 20px;
+  --warna-fokus: var(--cahaya-kelir);
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
@@ -42,8 +43,8 @@
 }
 
 .sekolah img {
+  width: 45px;
   height: 36px;
-  width: auto;
 }
 
 .tengah {
@@ -159,11 +160,42 @@
 
 .kaki {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px var(--ruang-4);
+  padding: var(--ruang-2) var(--pad) max(var(--ruang-2), env(safe-area-inset-bottom));
+}
+
+.kakiTeks {
   margin: 0;
-  padding: var(--pad) var(--pad) max(var(--pad), env(safe-area-inset-bottom));
   text-align: center;
   font: 700 var(--teks-kecil) var(--font-isi);
-  opacity: 0.9;
+}
+
+.kakiAksi {
+  display: flex;
+  gap: var(--ruang-2);
+}
+
+/* Tombol teks kecil di kaki layar (Pasang di HP, Kredit): tetap 48px tingginya. */
+.kakiTombol {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: var(--tap-min);
+  padding: 0 var(--ruang-4);
+  border: 2px solid var(--cahaya-kelir);
+  border-radius: var(--radius-pil);
+  background: var(--biru-nila-gelap);
+  color: var(--cahaya-kelir);
+  font: 800 var(--teks-kecil) var(--font-judul);
+  text-decoration: none;
+}
+
+.kakiTombol:active {
+  transform: translateY(2px);
 }
 
 /* HP mendatar: judul dan kotak berdampingan supaya tidak terpotong */
@@ -198,10 +230,27 @@
   .judul {
     font-size: 52px;
   }
-  .atas,
-  .kaki {
+  .atas {
     padding-top: 12px;
     padding-bottom: 12px;
+  }
+  .kaki {
+    flex-direction: row;
+    padding-top: 4px;
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+  }
+}
+
+/* HP tegak yang pendek (mis. 360x640): rapatkan supaya kaki layar tidak terdorong keluar. */
+@media (orientation: portrait) and (max-height: 720px) {
+  .tengah {
+    gap: 16px;
+  }
+  .kotak {
+    --box: 200px;
+  }
+  .judul {
+    font-size: 56px;
   }
 }
 
@@ -209,6 +258,9 @@
   .judulLayar {
     --pad: 28px;
     background-size: 40px;
+  }
+  .kaki {
+    flex-direction: row;
   }
   .judul {
     font-size: 80px;
@@ -228,7 +280,8 @@
     gap: 22px;
   }
   .petunjuk,
-  .kaki {
+  .kakiTeks,
+  .kakiTombol {
     font-size: 17px;
   }
 }
@@ -245,7 +298,7 @@
     font-size: 36px;
   }
   .kotak {
-    --box: 420px;
+    --box: 390px;
   }
   .mulai {
     min-height: 108px;
@@ -253,11 +306,16 @@
     font-size: 48px;
   }
   .tengah {
-    gap: 34px;
+    gap: 28px;
   }
   .petunjuk,
-  .kaki {
+  .kakiTeks,
+  .kakiTombol {
     font-size: 24px;
+  }
+  .kakiTombol {
+    min-height: 64px;
+    padding: 0 var(--ruang-6);
   }
 }
 

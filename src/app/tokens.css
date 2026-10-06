@@ -126,6 +126,8 @@
   --bayang-modal: 0 8px 0 var(--kayu-gelap), 0 24px 48px rgba(0, 0, 0, 0.3);
   --bayang-balon: 0 5px 0 rgba(74, 44, 23, 0.18);
   --cincin-fokus: 0 0 0 4px var(--kertas-terang), 0 0 0 7px var(--kunyit);
+  /* Warna outline :focus-visible. Layar berlatar gelap menimpanya dengan --cahaya-kelir. */
+  --warna-fokus: var(--tinta-gelap);
 
   /* ── Lapisan transparan ── */
   --tabir-gelap: rgba(43, 33, 28, 0.72);

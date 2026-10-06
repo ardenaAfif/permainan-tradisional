@@ -1,5 +1,5 @@
 import { memo, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef, type Ref } from 'react'
-import logoSnt from '../assets/snt-mark.png'
+import logoSnt from '../assets/snt-mark-kecil.webp'
 import { useReducedMotion } from '../shared/useReducedMotion'
 import type { AvatarConfig } from '../shared/types'
 import { AnimatorKarakter, type Aksi, type Ekspresi } from './animasi'

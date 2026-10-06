@@ -104,7 +104,7 @@
 }
 
 .abu .chip {
-  background: var(--abu-kartu-gelap);
+  background: var(--abu-teks);
 }
 
 .nama {
@@ -203,6 +203,9 @@
     left: 8px;
     right: 8px;
     text-align: center;
+    white-space: normal;
+    line-height: 1.15;
+    padding: 3px 8px;
   }
   .stempel {
     left: auto;

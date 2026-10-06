@@ -1,9 +1,10 @@
-import { useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router'
+import { pasangAplikasi, sudahTerpasang, useBisaPasang } from '../app/pwa'
 import { useKotak } from '../app/store'
 import { audio } from '../shared/audio/AudioManager'
-import logoSnt from '../assets/snt-mark.png'
+import logoSnt from '../assets/snt-mark-kecil.webp'
 import { BendaGambar } from '../shared/benda/BendaGambar'
-import { IkonMain } from '../shared/ui/Ikon'
+import { IkonMain, IkonPasang } from '../shared/ui/Ikon'
 import { TombolSuara } from '../shared/ui/TombolSuara'
 import s from './Judul.module.css'
 
@@ -12,6 +13,7 @@ export function Judul() {
   const navigate = useNavigate()
   const introDilihat = useKotak((st) => st.introSudahDilihat)
   const punyaAvatar = useKotak((st) => st.avatar !== null)
+  const bisaPasang = useBisaPasang() && !sudahTerpasang()
 
   const mulai = () => {
     audio.buka()
@@ -22,14 +24,14 @@ export function Judul() {
   return (
     <div className={s.judulLayar}>
       <div className={s.cahaya} aria-hidden="true" />
-      <div className={s.atas}>
+      <header className={s.atas}>
         <div className={s.sekolah}>
-          <img src={logoSnt} alt="" />
+          <img src={logoSnt} alt="" width={45} height={36} />
           <span>SNT 2 Banyumas</span>
         </div>
         <TombolSuara gaya="kertas" />
-      </div>
-      <div className={s.tengah}>
+      </header>
+      <main className={s.tengah}>
         <div className={s.judulBlok}>
           <h1 className={s.judul}>
             Kotak
@@ -50,8 +52,21 @@ export function Judul() {
           Mulai
         </button>
         <p className={s.petunjuk}>Tap Mulai untuk menyalakan suara</p>
-      </div>
-      <p className={s.kaki}>Kokurikuler SMP · SNT 2 Banyumas</p>
+      </main>
+      <footer className={s.kaki}>
+        <p className={s.kakiTeks}>Kokurikuler SMP · SNT 2 Banyumas</p>
+        <div className={s.kakiAksi}>
+          {bisaPasang && (
+            <button type="button" className={s.kakiTombol} onClick={() => void pasangAplikasi()}>
+              <IkonPasang ukuran={20} />
+              Pasang di HP
+            </button>
+          )}
+          <Link className={s.kakiTombol} to="/kredit">
+            Kredit
+          </Link>
+        </div>
+      </footer>
     </div>
   )
 }

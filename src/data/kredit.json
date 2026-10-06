@@ -1,0 +1,23 @@
+{
+  "guru": [],
+  "siswa": [],
+  "musikDanSuara": [
+    {
+      "judul": "Efek suara permainan (kentongan, lemparan, pantulan, sorakan)",
+      "pembuat": "Tim Kotak Dolanan",
+      "sumber": "Dibuat langsung di browser dengan Web Audio, tanpa rekaman dari luar",
+      "lisensi": "Bagian dari aplikasi Kotak Dolanan"
+    }
+  ],
+  "pustaka": [
+    { "nama": "Baloo 2 (huruf judul)", "pembuat": "Ek Type", "lisensi": "SIL Open Font License 1.1", "tautan": "https://fonts.google.com/specimen/Baloo+2" },
+    { "nama": "Nunito (huruf isi)", "pembuat": "Vernon Adams, Cyreal, Jacques Le Bailly", "lisensi": "SIL Open Font License 1.1", "tautan": "https://fonts.google.com/specimen/Nunito" },
+    { "nama": "Phaser 3", "pembuat": "Phaser Studio", "lisensi": "MIT", "tautan": "https://phaser.io" },
+    { "nama": "Matter.js (fisika kelereng, bawaan Phaser)", "pembuat": "Liam Brummitt", "lisensi": "MIT", "tautan": "https://brm.io/matter-js/" },
+    { "nama": "React dan React Router", "pembuat": "Meta dan Remix Software", "lisensi": "MIT", "tautan": "https://react.dev" },
+    { "nama": "GSAP", "pembuat": "GreenSock (Webflow)", "lisensi": "GSAP Standard No Charge License", "tautan": "https://gsap.com/standard-license" },
+    { "nama": "Howler.js", "pembuat": "James Simpson (GoldFire Studios)", "lisensi": "MIT", "tautan": "https://howlerjs.com" },
+    { "nama": "Zustand", "pembuat": "Poimandres", "lisensi": "MIT", "tautan": "https://zustand.docs.pmnd.rs" },
+    { "nama": "Vite dan Workbox", "pembuat": "VoidZero dan Google", "lisensi": "MIT", "tautan": "https://vite.dev" }
+  ]
+}

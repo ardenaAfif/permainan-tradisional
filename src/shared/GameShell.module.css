@@ -18,7 +18,15 @@
 }
 
 .memuat p {
+  max-width: 900px;
   margin: 0;
+  padding: 0 48px;
+  text-align: center;
+}
+
+.aksiGagal {
+  display: flex;
+  gap: var(--ruang-4);
 }
 
 /* ── HUD (lapisan UI tak-terskala: ukuran dalam px layar) ── */

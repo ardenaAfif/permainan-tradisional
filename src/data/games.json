@@ -31,6 +31,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Gambar papan dam-daman dengan kapur di lantai atau lapangan, pakai batu kecil atau tutup botol sebagai bidak, lalu bertanding dengan satu teman."
   },
   {
@@ -64,6 +65,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Gambar kotak engklek dengan kapur di lapangan sekolah, siapkan gacuk dari batu pipih atau pecahan genting, lalu main bergiliran bersama teman."
   },
   {
@@ -97,6 +99,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Gambar papan ular tangga dengan kapur di lapangan sekolah, lalu mainkan bersama 2–4 teman memakai dadu besar."
   },
   {
@@ -131,6 +134,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Buat lapangan bergaris dengan kapur, bentuk dua tim berisi 4–6 orang, lalu bergantian menjadi penjaga dan penyerang."
   },
   {
@@ -163,6 +167,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Siapkan bola bekel dan biji bekel, duduk melingkar di lantai kelas atau teras, lalu main bergiliran dari tahap paling mudah."
   },
   {
@@ -196,6 +201,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Pakai bakiak panjang untuk 3–5 orang per tim, tentukan garis start dan finish di lapangan, lalu berlomba dengan aba-aba bersama."
   },
   {
@@ -230,6 +236,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Berlatih berjalan dengan egrang bambu atau batok kelapa di lapangan, didampingi guru, lalu berlomba perlahan sampai garis finish tanpa saling dorong."
   },
   {
@@ -284,6 +291,7 @@
     "isBonus": false,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Buat area bermain dan lubang kecil di tanah, bawa beberapa kelereng, lalu bergiliran menyentil bersama teman."
   },
   {
@@ -318,6 +326,7 @@
     "isBonus": true,
     "asalDaerah": "",
     "namaLain": [],
+    "sumberAsal": [],
     "tantanganLapangan": "Isi balon dengan air, bagi kelas menjadi beberapa kelompok, lalu estafet membawa balon ke garis tujuan dengan cara yang ditentukan guru."
   }
 ]
