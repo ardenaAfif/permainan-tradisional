@@ -45,3 +45,9 @@ Catatan keputusan yang tidak tertulis di brief atau daftar permainan. Tambahkan 
 - **Gobak sodor — pertandingan:** 4 ronde (tiap tim 2 kali menyerang, 2 kali menjaga, bergantian; tim pemain utama menyerang lebih dulu). Poin terbanyak menang, sama = seri. Ketua tim (pemain atau tokoh komputer) menjadi sodor saat menjaga dan penyerang pertama saat menyerang.
 - **Gobak sodor — ronde menjaga (Lawan Komputer):** pemain mulai dengan mengendalikan sodor, lalu bisa pindah ke penjaga mana pun dengan mengetuknya (keyboard: Spasi/Tab berurutan, angka 1–5). Teman penjaga komputer dibuat **kebalikan** tingkat kesulitan (Mudah = teman sigap, Sulit = teman lambat), supaya tingkat Sulit memang lebih sulit bagi pemain. Penyerang komputer menilai celah dengan membayangkan gerak penjaga sesaat ke depan; makin lama menunggu makin nekat.
 - **Gobak sodor — Duel Satu Layar:** kendali tetap di sisi masing-masing pemain (P1 kiri, P2 kanan). Penyerang memakai joystick di sisinya, lawannya memakai slider sodor di sisinya; peran bertukar tiap ronde. Penjaga garis digerakkan komputer di tingkat Sedang (Kenalan Dulu tidak menampilkan pilihan tingkat di Duel tanpa `pesertaSplit`). Keyboard: P1 W A S D, P2 tombol panah.
+
+## 6 Oktober 2026
+
+- **Hosting: Cloudflare Pages**, bukan Vercel seperti di brief. Header cache di `public/_headers`; rute layar dilayani `index.html` lewat mode SPA bawaan Pages (tanpa `404.html`). `vercel.json` dihapus.
+- **Offline:** shell, judul, intro, avatar, menu, Kenalan Dulu, hasil, dan Kredit di-precache. Game (`assets/game/`) dan audio di-cache saat pertama dibuka; guru bisa mengunduh semuanya lewat Pengaturan → "Simpan semua game".
+

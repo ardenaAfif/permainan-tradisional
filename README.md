@@ -18,7 +18,7 @@ npm run lint       # cek gaya kode
 npm test           # uji aturan dan AI permainan
 ```
 
-Mode offline (service worker) hanya aktif di hasil build (`preview`/`uji-hp`/Vercel), tidak di `npm run dev`.
+Mode offline (service worker) hanya aktif di hasil build (`preview`/`uji-hp`/Cloudflare Pages), tidak di `npm run dev`.
 
 ## Struktur singkat
 
@@ -109,23 +109,25 @@ Aturan wajib untuk game baru: input lewat Pointer Events atau input Phaser (tanp
 - Saat ada versi baru, muncul pesan "Versi baru Kotak Dolanan sudah siap" dengan tombol Perbarui; aplikasi tidak memuat ulang sendiri di tengah permainan.
 - Ikon aplikasi dibuat dari gambar kotak di `design/objects.js`. Jalankan `npm run ikon` jika gambarnya berubah.
 
-## Deploy ke Vercel
+## Deploy (Cloudflare Pages)
 
-Konfigurasi sudah ada di `vercel.json`: build `npm run build`, output `dist/`, semua rute diarahkan ke `index.html` (kecuali berkas statis), dan header cache:
+Aplikasi di-host di Cloudflare Pages. Pengaturan build di dashboard Cloudflare (Workers & Pages → proyek → Settings → Build):
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Versi Node dibaca dari `.node-version` (22). Vite 8 butuh Node 20.19 atau lebih baru.
+
+Rute layar (`/menu`, `/main/egrang`, dan seterusnya) otomatis dilayani `index.html` karena build tidak punya `404.html` (mode SPA Cloudflare Pages), jadi tidak perlu `_redirects`.
+
+Header cache ada di `public/_headers` (ikut tersalin ke `dist/`):
 
 | Berkas | Cache-Control |
 | --- | --- |
 | `/assets/*` (nama ber-hash) | `public, max-age=31536000, immutable` |
 | `/audio/*` | `public, max-age=2592000` (URL di aplikasi membawa `?v=`) |
 | `/icons/*` | `public, max-age=604800` |
-| `index.html`, `sw.js`, `workbox-*.js`, `manifest.webmanifest`, `offline-game.json` | `max-age=0, must-revalidate` (selalu dicek ulang) |
+| `sw.js`, `workbox-*`, `manifest.webmanifest`, `offline-game.json` | `max-age=0, must-revalidate` (selalu dicek ulang) |
 
-Langkah menghubungkan repo GitHub:
-
-1. Unggah repo ke GitHub (`git remote add origin https://github.com/<akun>/kotak-dolanan.git`, lalu `git push -u origin master`).
-2. Masuk ke vercel.com dengan akun GitHub, pilih **Add New → Project**, lalu **Import** repo `kotak-dolanan`. Jika repo tidak muncul, klik **Adjust GitHub App Permissions** dan beri akses ke repo itu.
-3. Vercel membaca `vercel.json`: Framework Preset **Vite**, Build Command `npm run build`, Output Directory `dist`. Tidak perlu environment variable. Klik **Deploy**.
-4. Setiap `git push` ke `master` otomatis di-deploy ke produksi; push ke cabang lain atau pull request mendapat URL pratinjau sendiri.
-5. Opsional: tambahkan domain sekolah di **Project → Settings → Domains**.
+Halaman HTML memakai bawaan Cloudflare (selalu dicek ulang). Jika proyek tersambung ke GitHub, setiap push ke `master` otomatis di-deploy dan cabang lain mendapat URL pratinjau. Jika di-deploy manual: `npm run build` lalu `npx wrangler pages deploy dist`.
 
 Setelah deploy, buka URL-nya di HP Android dengan Chrome, tunggu beberapa detik, lalu cek tombol "Pasang di HP" dan coba mode pesawat.
