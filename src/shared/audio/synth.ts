@@ -19,6 +19,7 @@ export function konteks(): KonteksSynth | null {
   const ctx = Howler.ctx
   const keluar = Howler.masterGain
   if (!ctx || !keluar || ctx.state === 'closed') return null
+  audio.pastikanJalan()
   return { ctx, keluar }
 }
 

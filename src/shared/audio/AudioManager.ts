@@ -21,6 +21,13 @@ export const semuaUrlAudio = () => Object.keys(daftarFile).map(url)
 
 const VOLUME_MUSIK = 0.45
 const FADE_MUSIK = 800
+/** Batas tunggu tambahan setelah durasi VO, kalau event 'ended' tidak pernah datang. */
+const CADANGAN_VO_MS = 2500
+
+// Howler menangguhkan AudioContext 30 detik setelah tidak ada Howl yang berbunyi. VO (lewat
+// analyser lip-sync) dan bunyi sintesis game juga memakai konteks ini, jadi VO akan membeku dan
+// bunyi game hilang. Konteks dibiarkan tetap jalan.
+Howler.autoSuspend = false
 
 class AudioManager {
   private terbuka = false
@@ -70,6 +77,12 @@ class AudioManager {
 
   get sudahTerbuka() {
     return this.terbuka
+  }
+
+  /** Lanjutkan AudioContext yang terhenti (mis. "interrupted" di iPhone setelah telepon masuk). */
+  pastikanJalan() {
+    const ctx = Howler.ctx
+    if (this.terbuka && ctx && ctx.state !== 'running' && ctx.state !== 'closed') void ctx.resume().catch(() => {})
   }
 
   // ── Efek suara ───────────────────────────────────────────
@@ -136,12 +149,18 @@ class AudioManager {
     const file = cari('vo', lineId)
     const p = this.pengaturan
     if (!file || !this.terbuka || !p.suara || !p.vo) return Promise.resolve()
+    this.pastikanJalan()
     return new Promise<void>((resolve) => {
       const el = new Audio()
       this.voEl = el
       let blobUrl = ''
+      let cadangan = 0
       const selesai = () => {
-        if (this.voEl === el) this.voEl = null
+        window.clearTimeout(cadangan)
+        if (this.voEl === el) {
+          this.voEl = null
+          el.pause()
+        }
         this.voSelesai = null
         if (blobUrl) URL.revokeObjectURL(blobUrl)
         resolve()
@@ -149,6 +168,14 @@ class AudioManager {
       this.voSelesai = selesai
       el.addEventListener('ended', selesai, { once: true })
       el.addEventListener('error', selesai, { once: true })
+      // Pemutaran yang macet tidak boleh menahan intro/layar selamanya.
+      el.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (Number.isFinite(el.duration)) cadangan = window.setTimeout(selesai, el.duration * 1000 + CADANGAN_VO_MS)
+        },
+        { once: true },
+      )
       // Diunduh utuh lewat fetch (bukan streaming <audio> dengan Range) supaya service worker
       // bisa menyimpannya untuk dimainkan offline.
       fetch(url(file))

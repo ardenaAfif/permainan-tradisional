@@ -5,7 +5,7 @@ Simpan semua file di `public/audio/vo/` dengan nama persis seperti kolom **File*
 
 | Bagian | Jumlah | Status kode |
 | --- | --- | --- |
-| A. Intro | 8 | Sudah tersambung. Begitu file ada, langsung diputar dengan lip-sync. |
+| A. Intro | 8 | Selesai: file sudah terpasang dan diputar dengan lip-sync. |
 | B. Kenalan Dulu | 9 | Sudah tersambung. Kalimat pembuka perlu ditambahkan ke balon kata (lihat catatan B). |
 | C. Komentar layar hasil | 24 | Belum tersambung. Disambungkan setelah file lengkap. |
 | D. Aba-aba di dalam game | 16 | Belum tersambung. Disambungkan setelah file lengkap. |
@@ -18,28 +18,20 @@ Simpan semua file di `public/audio/vo/` dengan nama persis seperti kolom **File*
 1. Tempel **Teks** ke *Text Input* persis seperti di tabel. Jangan menambah kata, karena subtitle di layar memakai kalimat yang sama.
 2. Pilih **Voice Character** sesuai tabel Pemeran. Satu tokoh selalu memakai suara yang sama.
 3. Pilih **Speaking Style** sesuai kolom **Gaya** di tiap baris. Kolom **Cadangan** dipakai kalau hasil gaya pertama kurang pas.
-4. Unduh, ganti nama sesuai kolom **File**, lalu kecilkan ukurannya (perintah di bawah).
+4. Unduh, ganti nama sesuai kolom **File**, lalu kecilkan ukurannya (lihat di bawah).
 5. Kalau ada kata yang salah ucap, lihat kolom **Catatan**: di situ ada ejaan alternatif untuk diketik di *Text Input*. Ejaan ini hanya untuk rekaman; subtitle di layar tetap memakai ejaan biasa.
 
 Tips sebelum mulai: generate dulu satu baris per tokoh (misalnya `intro-2-guru`, `hasil-bima-menang-1`, `hasil-sekar-menang-1`, `hasil-dimas-kalah-1`) dengan suara utama dan suara cadangan, dengarkan di HP, baru tentukan pemerannya.
 
 ### Kecilkan ukuran file dan potong jeda kosong
 
-Siswa kebanyakan memakai HP Android kelas bawah dan aplikasi menyimpan audio untuk offline, jadi file harus kecil. Target: MP3 mono 48 kbps, tanpa jeda kosong di awal dan akhir.
+Siswa kebanyakan memakai HP Android kelas bawah dan aplikasi menyimpan audio untuk offline, jadi file harus kecil. Proyek ini sudah punya skripnya:
 
-Jalankan di folder berisi hasil unduhan yang sudah diberi nama (butuh [ffmpeg](https://ffmpeg.org)). Perintah ini menerima `.wav` maupun `.mp3`, hasilnya masuk ke folder `siap/`:
+1. Taruh hasil unduhan RD Voice (`.wav` atau `.mp3`, sudah diberi nama) di `audio-mentah/vo/`. Folder ini tidak ikut di-commit.
+2. Jalankan `npm run audio`. Hasilnya MP3 mono 64 kbps di `public/audio/vo/`, jeda kosong di awal dan akhir dipotong, dan kerasnya suara disamakan.
+3. Cek dengan `npm run audio -- --cek`.
 
-```sh
-mkdir -p siap
-for f in *.wav *.mp3; do
-  [ -e "$f" ] || continue
-  ffmpeg -y -i "$f" -ac 1 -ar 24000 -b:a 48k \
-    -af "silenceremove=start_periods=1:start_threshold=-45dB,areverse,silenceremove=start_periods=1:start_threshold=-45dB,areverse,loudnorm=I=-16:TP=-1.5" \
-    "siap/${f%.*}.mp3"
-done
-```
-
-Lalu salin isi folder `siap/` ke `public/audio/vo/`.
+Jangan menaruh `.wav` langsung di `public/audio/vo/`: file itu ikut terunduh ke HP siswa.
 
 Pemotongan jeda paling penting untuk bagian D: hitungan "Tiga, Dua, Satu" hanya punya waktu 0,7 detik per angka.
 
@@ -170,7 +162,7 @@ Kalimat yang berubah dari teks layar sekarang (di `src/shared/komentar.ts`):
 
 Suara: **Wasit** (James, atau Andrew kalau James kurang lantang). Pakai suara yang sama untuk semua baris di bagian ini.
 
-Baris hitungan wajib dipotong jeda kosongnya (perintah ffmpeg di atas). Durasi tiap angka harus kurang dari 0,6 detik, karena jeda antarangka di game hanya 0,7 detik.
+Jeda kosong dipotong otomatis oleh `npm run audio`. Durasi tiap angka harus kurang dari 0,6 detik, karena jeda antarangka di game hanya 0,7 detik.
 
 ### Hitungan mulai (Egrang, Gobak Sodor, Pecah Balon Air)
 
@@ -221,14 +213,14 @@ Ronde dan putaran terakhir memakai Epik / Megah supaya terasa lebih tegang.
 Centang setelah file ada di `public/audio/vo/`.
 
 **A. Intro (8)**
-- [ ] intro-1-bima
-- [ ] intro-1-sekar
-- [ ] intro-2-guru
-- [ ] intro-3-sekar
-- [ ] intro-4-guru
-- [ ] intro-5-guru
-- [ ] intro-6-dimas
-- [ ] intro-6-guru
+- [x] intro-1-bima
+- [x] intro-1-sekar
+- [x] intro-2-guru
+- [x] intro-3-sekar
+- [x] intro-4-guru
+- [x] intro-5-guru
+- [x] intro-6-dimas
+- [x] intro-6-guru
 
 **B. Kenalan Dulu (9)**
 - [ ] kenalan-dam-daman

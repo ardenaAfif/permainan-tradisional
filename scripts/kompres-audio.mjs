@@ -18,6 +18,8 @@ const MENTAH = 'audio-mentah'
 const TUJUAN = join('public', 'audio')
 const AUDIO = /\.(wav|mp3|m4a|ogg|flac|aac)$/i
 const bitrate = (rel) => (rel.split(sep)[0] === 'vo' ? '64k' : '96k')
+const sunyi = 'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05'
+const POTONG_SUNYI = `${sunyi},areverse,${sunyi},areverse`
 
 function berkas(dir) {
   if (!existsSync(dir)) return []
@@ -64,7 +66,9 @@ for (const f of daftar) {
   const keluar = join(TUJUAN, rel.replace(AUDIO, '.mp3'))
   mkdirSync(dirname(keluar), { recursive: true })
   // loudnorm menyamakan kerasnya suara antarrekaman; -ar 44100 aman untuk semua browser.
-  execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', f, '-ac', '1', '-ar', '44100', '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-codec:a', 'libmp3lame', '-b:a', bitrate(rel), keluar])
+  // VO: jeda kosong di awal & akhir dipotong (sisa 50 ms) supaya lip-sync dan aba-aba tidak telat.
+  const filter = [rel.split(sep)[0] === 'vo' && POTONG_SUNYI, 'loudnorm=I=-16:TP=-1.5:LRA=11'].filter(Boolean).join(',')
+  execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', f, '-ac', '1', '-ar', '44100', '-af', filter, '-codec:a', 'libmp3lame', '-b:a', bitrate(rel), keluar])
   console.log(`${rel} → ${relative('.', keluar)} (${bitrate(rel)})`)
 }
 console.log(`\n${daftar.length} file selesai. Jalankan ulang "npm run dev" bila daftar audio belum terbaca.`)
