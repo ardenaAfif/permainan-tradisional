@@ -107,6 +107,8 @@ class AudioManager {
     void Howler.ctx?.resume()
     // Masih di dalam tap: play() musik di sini diizinkan browser iPhone.
     this.segarkanMusik()
+    // Efek suara kecil-kecil (±300 KB): dimuat sekarang supaya bunyi pertama tidak telat.
+    for (const file of Object.keys(daftarFile)) if (file.startsWith('sfx/')) this.howlSfx(file)
   }
 
   get sudahTerbuka() {
@@ -125,13 +127,18 @@ class AudioManager {
     if (!this.terbuka || !this.pengaturan.suara) return
     const file = cari('sfx', nama)
     if (!file) return
+    const h = this.howlSfx(file)
+    const id = h.play()
+    h.volume(volume, id)
+  }
+
+  private howlSfx(file: string) {
     let h = this.sfxCache.get(file)
     if (!h) {
       h = new Howl({ src: [url(file)], preload: true })
       this.sfxCache.set(file, h)
     }
-    const id = h.play()
-    h.volume(volume, id)
+    return h
   }
 
   // ── Musik ────────────────────────────────────────────────

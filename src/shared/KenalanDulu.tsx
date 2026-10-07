@@ -76,7 +76,6 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
   const isiKomputer = mode === 'split' && !!game.pesertaSplit && jumlahMain < game.pesertaSplit
   const pakaiKesulitan = game.pakaiKesulitan !== false && (mode === 'cpu' || (mode === 'split' && !!game.pesertaSplit))
   const main = () => {
-    audio.sfx('tap')
     const sesi: Sesi = buatSesi({
       mode,
       difficulty: kesulitan,

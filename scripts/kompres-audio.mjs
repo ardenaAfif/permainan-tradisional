@@ -68,8 +68,9 @@ for (const f of daftar) {
   // loudnorm menyamakan kerasnya suara antarrekaman; -ar 44100 aman untuk semua browser.
   // VO & musik: jeda kosong di awal & akhir dipotong (sisa 50 ms) supaya lip-sync dan aba-aba
   // tidak telat, dan musik yang diputar berulang tidak hening beberapa detik di sambungannya.
-  const potong = ['vo', 'musik'].includes(rel.split(sep)[0])
-  const filter = [potong && POTONG_SUNYI, 'loudnorm=I=-16:TP=-1.5:LRA=11'].filter(Boolean).join(',')
+  // sfx tidak di-loudnorm: kerasnya sengaja dibedakan (tap pelan, sorakan keras) di sumbernya.
+  const panjang = ['vo', 'musik'].includes(rel.split(sep)[0])
+  const filter = panjang ? `${POTONG_SUNYI},loudnorm=I=-16:TP=-1.5:LRA=11` : 'anull'
   execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', f, '-ac', '1', '-ar', '44100', '-af', filter, '-codec:a', 'libmp3lame', '-b:a', bitrate(rel), keluar])
   console.log(`${rel} → ${relative('.', keluar)} (${bitrate(rel)})`)
 }

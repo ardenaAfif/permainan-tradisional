@@ -3,9 +3,9 @@
   "siswa": [],
   "musikDanSuara": [
     {
-      "judul": "Efek suara permainan (kentongan, lemparan, pantulan, sorakan)",
+      "judul": "Efek suara intro, layar, dan permainan (gamelan, angklung, kentongan, lemparan, pantulan, sorakan)",
       "pembuat": "Tim Kotak Dolanan",
-      "sumber": "Dibuat langsung di browser dengan Web Audio, tanpa rekaman dari luar",
+      "sumber": "Disintesis dengan Web Audio dan skrip scripts/buat-sfx.mjs, tanpa rekaman dari luar",
       "lisensi": "Bagian dari aplikasi Kotak Dolanan"
     }
   ],
