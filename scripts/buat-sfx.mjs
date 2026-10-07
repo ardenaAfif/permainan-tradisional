@@ -255,6 +255,25 @@ function dentum(f0 = 120, f1 = 48, detik = 0.18) {
   return x
 }
 
+/**
+ * Tepuk tangan penonton: ratusan tepukan pendek (derau berpita acak) yang makin ramai
+ * lalu mereda. `ramai` = tepukan per detik di puncaknya.
+ */
+function tepuk(detik, ramai = 110, naik = 0.25) {
+  const x = kosong(detik)
+  for (let t = 0; t < detik; ) {
+    const r = t / detik
+    const kerapatan = Math.min(1, 0.3 + t / naik) * (r < 0.45 ? 1 : Math.max(0.05, 1 - (r - 0.45) / 0.55))
+    const lama = 0.006 + acak() * 0.01
+    const p = kosong(lama + 0.02)
+    for (let i = 0; i < p.length; i++) p[i] = derau() * Math.exp(-i / (lama * SR * 0.35))
+    const satu = biquad(p, 'bp', 900 + acak() * 1800, 1.5 + acak())
+    tambah(x, satu, t, (0.4 + acak() * 0.6) * kerapatan)
+    t += (-Math.log(1 - acak()) / ramai) / Math.max(0.08, kerapatan)
+  }
+  return x
+}
+
 // ── Resep ────────────────────────────────────────────────────
 
 const RESEP = {
@@ -276,6 +295,17 @@ const RESEP = {
     ;[0, 2, 4, 5].forEach((k, i) => tambah(x, logam(slendro(k, 784), 1.2, 0.8), 0.12 + i * 0.07, 0.35))
     return rapikan(gema(x, 0.3, 1.2), 0.85)
   },
+
+  // Layar hasil (semua game): menang disoraki, kalah/seri tetap diberi tepuk tangan sportif.
+  sorak: () => {
+    const x = kosong(3.2)
+    tambah(x, tepuk(3, 140, 0.2), 0, 1)
+    ;[0, 2, 3, 5, 7].forEach((k, i) => tambah(x, logam(slendro(k, 523), 1, 1), 0.05 + i * 0.09, 0.55))
+    tambah(x, gong(98, 2), 0.5, 0.25)
+    return rapikan(gema(x, 0.25, 0.8), 0.7)
+  },
+
+  tepuk: () => rapikan(gema(tepuk(2.4, 70, 0.3), 0.2, 0.6), 0.7),
 
   // Intro
   bel: () => {

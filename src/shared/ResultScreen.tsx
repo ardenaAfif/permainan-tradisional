@@ -1,5 +1,5 @@
 import gsap from 'gsap'
-import { useLayoutEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState, type FormEvent } from 'react'
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router'
 import { hitungStempel, useKotak } from '../app/store'
 import { AvatarKarakter, Karakter } from '../characters/Karakter'
@@ -69,6 +69,17 @@ function Hasil({ game, sesi, hasil, stempelBaru }: StateHasil & { game: GameData
   const sudahEmas = !!progresGame?.stempelEmas || emasBaru
   const jumlahStempel = hitungStempel(progres)
   const [tanyaPin, setTanyaPin] = useState(false)
+
+  // Menang disoraki; kalah atau seri tetap diberi tepuk tangan sportif. Sekali per layar hasil
+  // (ref menahan efek ganda StrictMode).
+  const sudahBersorak = useRef(false)
+  useEffect(() => {
+    if (sudahBersorak.current) return
+    sudahBersorak.current = true
+    audio.sfx(jenis === 'menang' ? 'sorak' : 'tepuk')
+    // Tanpa animasi stempel (gerak dikurangi), bunyi capnya tetap ada.
+    if (kurangiGerak) window.setTimeout(() => audio.sfx('stempel'), 500)
+  }, [jenis, kurangiGerak])
 
   // Stempel "dicapkan": jatuh dari besar, memantul, lalu kertas sedikit bergetar.
   useLayoutEffect(() => {
