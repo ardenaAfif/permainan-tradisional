@@ -32,7 +32,7 @@ src/
   games/<id>/   satu folder per game, mengekspor GameModule
   shared/       GameShell, HUD, ModePicker, ResultScreen, KenalanDulu, AudioManager, types.ts
   data/games.json   satu-satunya sumber data permainan
-public/audio/   sfx/ dan vo/<lineId>.mp3 (opsional)
+public/audio/   sfx/, musik/latar.mp3, vo/<lineId>.mp3 (hasil `npm run audio` dari audio-mentah/)
 ```
 
 ## Aturan wajib

@@ -99,7 +99,6 @@ export function Intro() {
       onAdeganSelesai: () => void keAdeganBerikutRef.current(),
     })
     sutradaraRef.current = sut
-    audio.musik('intro')
     // Kain tersingkap di awal intro.
     sut.kunci = true
     void transisiRef.current?.buka().then(() => {
@@ -110,7 +109,6 @@ export function Intro() {
       sut.hentikanAdegan()
       sutradaraRef.current = null
       audio.hentikanVO()
-      audio.hentikanMusik()
     }
   }, [])
 

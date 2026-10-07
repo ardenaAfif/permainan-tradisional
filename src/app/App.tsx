@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, type ReactNode } from 'react'
-import { createBrowserRouter, Navigate, Outlet, RouterProvider, type RouteObject } from 'react-router'
+import { createBrowserRouter, Navigate, Outlet, RouterProvider, useLocation, type RouteObject } from 'react-router'
 import { Judul } from '../intro/Judul'
+import { audio } from '../shared/audio/AudioManager'
 import { GagalMuat } from './GagalMuat'
 import { StatusAplikasi } from './StatusAplikasi'
 
@@ -39,9 +40,23 @@ function useMuatDulu() {
   }, [])
 }
 
+/**
+ * Musik latar selama website terbuka (mulai setelah tap pertama). Ditahan selama game dimainkan
+ * supaya tidak bertabrakan dengan bunyi petunjuk dan ketukan ritme (Bakiak), lalu lanjut dari
+ * posisi yang sama. Intro memakai musik "intro" jika filenya ada.
+ */
+function useMusikLatar() {
+  const { pathname } = useLocation()
+  useEffect(() => {
+    if (pathname.startsWith('/main/')) audio.jedaMusik()
+    else audio.musik(pathname === '/intro' && audio.adaMusik('intro') ? 'intro' : 'latar')
+  }, [pathname])
+}
+
 /** Kerangka semua layar: isi rute + pesan status (offline, versi baru). */
 function Kerangka() {
   useMuatDulu()
+  useMusikLatar()
   return (
     <>
       <Outlet />

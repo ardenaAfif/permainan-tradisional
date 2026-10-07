@@ -66,8 +66,10 @@ for (const f of daftar) {
   const keluar = join(TUJUAN, rel.replace(AUDIO, '.mp3'))
   mkdirSync(dirname(keluar), { recursive: true })
   // loudnorm menyamakan kerasnya suara antarrekaman; -ar 44100 aman untuk semua browser.
-  // VO: jeda kosong di awal & akhir dipotong (sisa 50 ms) supaya lip-sync dan aba-aba tidak telat.
-  const filter = [rel.split(sep)[0] === 'vo' && POTONG_SUNYI, 'loudnorm=I=-16:TP=-1.5:LRA=11'].filter(Boolean).join(',')
+  // VO & musik: jeda kosong di awal & akhir dipotong (sisa 50 ms) supaya lip-sync dan aba-aba
+  // tidak telat, dan musik yang diputar berulang tidak hening beberapa detik di sambungannya.
+  const potong = ['vo', 'musik'].includes(rel.split(sep)[0])
+  const filter = [potong && POTONG_SUNYI, 'loudnorm=I=-16:TP=-1.5:LRA=11'].filter(Boolean).join(',')
   execFileSync('ffmpeg', ['-y', '-v', 'error', '-i', f, '-ac', '1', '-ar', '44100', '-af', filter, '-codec:a', 'libmp3lame', '-b:a', bitrate(rel), keluar])
   console.log(`${rel} → ${relative('.', keluar)} (${bitrate(rel)})`)
 }
