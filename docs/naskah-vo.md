@@ -42,6 +42,7 @@ Pemotongan jeda paling penting untuk bagian D: hitungan "Tiga, Dua, Satu" hanya 
 | Tokoh | Sifat | Suara utama | Cadangan |
 | --- | --- | --- | --- |
 | **Pak Ahsan** (guru muda) | Hangat, suka bercerita, sedikit jenaka | **James** (Ramah & Santai) | David (Sabar & Mengayomi) |
+| **Bu Pavitra** (guru) | Ramah, tenang, murah senyum | Suara wanita dewasa yang hangat, **bukan Sophia** (dipakai Sekar) | Amelia (Antusias & Menggebu) bila tidak ada suara wanita dewasa lain |
 | **Bima** (siswa) | Kompetitif, semangat, suka bercanda | **Alexander** (Lucu & Ekspresif) | Matthew (Muda & Gaul) |
 | **Sekar** (siswi) | Ceria, penasaran, suka bertanya | **Sophia** (Ceria & Energik) | Amelia (Antusias & Menggebu) |
 | **Dimas** (siswa) | Pemalu, lembut, tapi berani di saat penting | **Matthew** (Muda & Gaul) | David (Sabar & Mengayomi) |
@@ -73,23 +74,25 @@ Adegan intro (`src/intro/script.json`). Durasi adegan otomatis menunggu VO seles
 
 ## B. Kenalan Dulu
 
-Diputar saat layar Kenalan Dulu terbuka. Pak Ahsan memperkenalkan permainan. Kalimat pertama adalah pembuka baru; sisanya sama dengan deskripsi di `src/data/games.json`.
+Diputar saat layar Kenalan Dulu terbuka. Guru (Pak Ahsan atau Bu Pavitra) memperkenalkan permainan. Kalimat pertama adalah pembuka baru; sisanya sama dengan deskripsi di `src/data/games.json`.
 
 Catatan B: saat VO disambungkan, kalimat pembuka ini akan ditambahkan ke `games.json` (kolom baru `sapaanGuru`) supaya ikut tampil di balon kata. Kalau file sudah dipasang sebelum itu, VO tetap jalan, hanya kalimat pembukanya belum tampil di subtitle.
 
-Suara: **Pak Ahsan** untuk semua baris.
+Suara mengikuti guru yang tampil di layar (kolom `guru` di `src/data/games.json`):
+- **Pak Ahsan**: Dam-daman, Gobak Sodor, Egrang, Kelereng.
+- **Bu Pavitra**: Sunda Manda (Engklek), Ular Tangga, Bola Bekel, Bakiak, Pecah Balon Air.
 
 | File | Teks | Gaya | Cadangan | Catatan |
 | --- | --- | --- | --- | --- |
-| `kenalan-dam-daman.mp3` | Yang ini Dam-daman. Cocok buat kalian yang suka mikir dua langkah ke depan. Permainan papan tradisional yang dimainkan oleh dua orang menggunakan bidak. Pemain berusaha memindahkan dan menangkap bidak lawan dengan strategi tertentu. | Santai / Kasual | Mendongeng | |
-| `kenalan-engklek.mp3` | Ini Sunda Manda, atau yang lebih sering kita sebut engklek. Siapkan satu kaki kalian! Permainan melompat pada kotak-kotak yang digambar di tanah menggunakan satu kaki. Pemain harus melewati semua kotak tanpa menginjak garis. | Santai / Kasual | Ceria / Semangat | Kalau "engklek" salah ucap, ketik: éngklék |
-| `kenalan-ular-tangga.mp3` | Ular Tangga! Siapa di sini yang belum pernah main? Hayo, ngaku. Permainan papan yang menggunakan dadu dan pion. Pemain bergerak dari angka kecil menuju angka terbesar dengan bantuan tangga dan hambatan ular. | Santai / Kasual | Ceria / Semangat | |
-| `kenalan-gobak-sodor.mp3` | Gobak Sodor. Dulu Bapak paling suka jadi penjaga. Permainan kelompok yang menggabungkan kecepatan, strategi, dan kerja sama. Satu tim berusaha melewati garis penjagaan tim lawan dan kembali tanpa tersentuh. | Santai / Kasual | Mendongeng | |
-| `kenalan-bola-bekel.mp3` | Bola Bekel. Yang ini butuh tangan cepat dan mata yang jeli. Permainan menggunakan bola kecil dan beberapa biji bekel. Pemain melempar bola ke atas, mengambil atau mengatur biji bekel, kemudian menangkap kembali bola. | Santai / Kasual | Mendongeng | Kalau "bekel" salah ucap, ketik: békel |
-| `kenalan-bakiak.mp3` | Bakiak! Di permainan ini, kompak itu nomor satu. Permainan kelompok menggunakan papan kayu panjang dengan tali untuk tempat kaki. Pemain harus berjalan bersama-sama dengan menjaga keseimbangan dan kekompakan. | Santai / Kasual | Motivasi | |
-| `kenalan-egrang.mp3` | Egrang. Iya, yang tadi nyangkut di pintu itu. Permainan menggunakan dua batang bambu atau kayu yang memiliki pijakan kaki. Pemain berdiri di atas pijakan dan berjalan menggunakan keseimbangan tubuh. | Santai / Kasual | Mendongeng | Kalau "egrang" salah ucap, ketik: égrang |
-| `kenalan-kelereng.mp3` | Kelereng. Bapak dulu punya satu toples penuh, lho. Permainan menggunakan kelereng yang dimainkan dengan cara menyentil kelereng menggunakan jari. Permainan dapat dilakukan dengan target lubang atau kelereng milik pemain lain. | Santai / Kasual | Mendongeng | |
-| `kenalan-pecah-balon-air.mp3` | Pecah Balon Air! Tenang, di layar kalian nggak bakal basah. Permainan kelompok yang menggunakan balon berisi air. Pemain bekerja sama untuk memecahkan atau memindahkan balon air sesuai tantangan yang diberikan. Permainan ini melatih kerja sama, koordinasi, dan ketangkasan. Ingat, balon air itu dibawa, bukan dilempar. Jangan pernah melempar balon ke arah wajah teman. Main yang sportif, ya! | Santai / Kasual | Motivasi | Pesan keselamatan di akhir harus terdengar jelas. |
+| `kenalan-dam-daman.mp3` | Yang ini Dam-daman. Cocok buat kalian yang suka mikir dua langkah ke depan. Permainan papan tradisional yang dimainkan oleh dua orang menggunakan bidak. Pemain berusaha memindahkan dan menangkap bidak lawan dengan strategi tertentu. | Santai / Kasual | Mendongeng | Suara Pak Ahsan. |
+| `kenalan-engklek.mp3` | Ini Sunda Manda, atau yang lebih sering kita sebut engklek. Siapkan satu kaki kalian! Permainan melompat pada kotak-kotak yang digambar di tanah menggunakan satu kaki. Pemain harus melewati semua kotak tanpa menginjak garis. | Santai / Kasual | Ceria / Semangat | Suara Bu Pavitra. Kalau "engklek" salah ucap, ketik: éngklék |
+| `kenalan-ular-tangga.mp3` | Ular Tangga! Siapa di sini yang belum pernah main? Hayo, ngaku. Permainan papan yang menggunakan dadu dan pion. Pemain bergerak dari angka kecil menuju angka terbesar dengan bantuan tangga dan hambatan ular. | Santai / Kasual | Ceria / Semangat | Suara Bu Pavitra. |
+| `kenalan-gobak-sodor.mp3` | Gobak Sodor. Dulu Bapak paling suka jadi penjaga. Permainan kelompok yang menggabungkan kecepatan, strategi, dan kerja sama. Satu tim berusaha melewati garis penjagaan tim lawan dan kembali tanpa tersentuh. | Santai / Kasual | Mendongeng | Suara Pak Ahsan. |
+| `kenalan-bola-bekel.mp3` | Bola Bekel. Yang ini butuh tangan cepat dan mata yang jeli. Permainan menggunakan bola kecil dan beberapa biji bekel. Pemain melempar bola ke atas, mengambil atau mengatur biji bekel, kemudian menangkap kembali bola. | Santai / Kasual | Mendongeng | Suara Bu Pavitra. Kalau "bekel" salah ucap, ketik: békel |
+| `kenalan-bakiak.mp3` | Bakiak! Di permainan ini, kompak itu nomor satu. Permainan kelompok menggunakan papan kayu panjang dengan tali untuk tempat kaki. Pemain harus berjalan bersama-sama dengan menjaga keseimbangan dan kekompakan. | Santai / Kasual | Motivasi | Suara Bu Pavitra. |
+| `kenalan-egrang.mp3` | Egrang. Iya, yang tadi nyangkut di pintu itu. Permainan menggunakan dua batang bambu atau kayu yang memiliki pijakan kaki. Pemain berdiri di atas pijakan dan berjalan menggunakan keseimbangan tubuh. | Santai / Kasual | Mendongeng | Suara Pak Ahsan. Kalau "egrang" salah ucap, ketik: égrang |
+| `kenalan-kelereng.mp3` | Kelereng. Bapak dulu punya satu toples penuh, lho. Permainan menggunakan kelereng yang dimainkan dengan cara menyentil kelereng menggunakan jari. Permainan dapat dilakukan dengan target lubang atau kelereng milik pemain lain. | Santai / Kasual | Mendongeng | Suara Pak Ahsan. |
+| `kenalan-pecah-balon-air.mp3` | Pecah Balon Air! Tenang, di layar kalian nggak bakal basah. Permainan kelompok yang menggunakan balon berisi air. Pemain bekerja sama untuk memecahkan atau memindahkan balon air sesuai tantangan yang diberikan. Permainan ini melatih kerja sama, koordinasi, dan ketangkasan. Ingat, balon air itu dibawa, bukan dilempar. Jangan pernah melempar balon ke arah wajah teman. Main yang sportif, ya! | Santai / Kasual | Motivasi | Suara Bu Pavitra. Pesan keselamatan di akhir harus terdengar jelas. |
 
 Satu-satunya perbedaan teks dengan `games.json`: deskripsi Egrang tertulis "bambu/kayu", di sini ditulis "bambu atau kayu" supaya tidak dibaca "bambu garis miring kayu".
 

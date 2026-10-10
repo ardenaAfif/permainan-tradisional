@@ -6,6 +6,7 @@
     "jumlahPemainAsli": "2 pemain",
     "bintang": 3,
     "benda": "papan",
+    "guru": "ahsan",
     "deskripsi": "Permainan papan tradisional yang dimainkan oleh dua orang menggunakan bidak. Pemain berusaha memindahkan dan menangkap bidak lawan dengan strategi tertentu.",
     "aturanAsli": [
       "Dimainkan oleh 2 orang.",
@@ -41,6 +42,7 @@
     "jumlahPemainAsli": "Min. 2 pemain",
     "bintang": 2,
     "benda": "gacuk",
+    "guru": "pavitra",
     "deskripsi": "Permainan melompat pada kotak-kotak yang digambar di tanah menggunakan satu kaki. Pemain harus melewati semua kotak tanpa menginjak garis.",
     "aturanAsli": [
       "Buat pola kotak engklek di tanah.",
@@ -75,6 +77,7 @@
     "jumlahPemainAsli": "2 pemain atau lebih",
     "bintang": 1,
     "benda": "dadu",
+    "guru": "pavitra",
     "deskripsi": "Permainan papan yang menggunakan dadu dan pion. Pemain bergerak dari angka kecil menuju angka terbesar dengan bantuan tangga dan hambatan ular.",
     "aturanAsli": [
       "Setiap pemain memilih satu pion.",
@@ -109,6 +112,7 @@
     "jumlahPemainAsli": "2 tim, 4–6 orang",
     "bintang": 3,
     "benda": "kapur",
+    "guru": "ahsan",
     "deskripsi": "Permainan kelompok yang menggabungkan kecepatan, strategi, dan kerja sama. Satu tim berusaha melewati garis penjagaan tim lawan dan kembali tanpa tersentuh.",
     "aturanAsli": [
       "Bagi pemain menjadi dua tim.",
@@ -144,6 +148,7 @@
     "jumlahPemainAsli": "2 pemain atau lebih",
     "bintang": 2,
     "benda": "bekel",
+    "guru": "pavitra",
     "deskripsi": "Permainan menggunakan bola kecil dan beberapa biji bekel. Pemain melempar bola ke atas, mengambil atau mengatur biji bekel, kemudian menangkap kembali bola.",
     "aturanAsli": [
       "Pemain duduk di lantai dan menyiapkan bola serta biji bekel.",
@@ -177,6 +182,7 @@
     "jumlahPemainAsli": "Tim 3–5 orang",
     "bintang": 2,
     "benda": "bakiak",
+    "guru": "pavitra",
     "deskripsi": "Permainan kelompok menggunakan papan kayu panjang dengan tali untuk tempat kaki. Pemain harus berjalan bersama-sama dengan menjaga keseimbangan dan kekompakan.",
     "aturanAsli": [
       "Setiap kelompok terdiri dari beberapa pemain.",
@@ -211,6 +217,7 @@
     "jumlahPemainAsli": "Min. 4 pemain",
     "bintang": 2,
     "benda": "egrang",
+    "guru": "ahsan",
     "deskripsi": "Permainan menggunakan dua batang bambu/kayu yang memiliki pijakan kaki. Pemain berdiri di atas pijakan dan berjalan menggunakan keseimbangan tubuh.",
     "aturanAsli": [
       "Pemain berdiri di atas pijakan egrang.",
@@ -246,6 +253,7 @@
     "jumlahPemainAsli": "2 pemain atau lebih",
     "bintang": 2,
     "benda": "kelereng",
+    "guru": "ahsan",
     "deskripsi": "Permainan menggunakan kelereng yang dimainkan dengan cara menyentil kelereng menggunakan jari. Permainan dapat dilakukan dengan target lubang atau kelereng milik pemain lain.",
     "aturanAsli": [
       "Buat area bermain dan tentukan garis batas.",
@@ -301,6 +309,7 @@
     "jumlahPemainAsli": "Min. 4 pemain",
     "bintang": 2,
     "benda": "balon",
+    "guru": "pavitra",
     "deskripsi": "Permainan kelompok yang menggunakan balon berisi air. Pemain bekerja sama untuk memecahkan atau memindahkan balon air sesuai tantangan yang diberikan. Permainan ini melatih kerja sama, koordinasi, dan ketangkasan.",
     "aturanAsli": [
       "Bagi pemain menjadi beberapa kelompok.",

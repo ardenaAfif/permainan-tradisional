@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
 import { useKotak } from '../app/store'
-import { PakGuru } from '../characters/Karakter'
+import { Karakter } from '../characters/Karakter'
+import type { Tokoh } from '../characters/kit'
 import { getGame } from '../data/games'
 import { isGameReady } from '../games'
 import { kelasKategori } from '../menu/kategori'
 import { AnimasiKontrol } from './AnimasiKontrol'
 import { audio } from './audio/AudioManager'
 import { buatSesi, type Sesi } from './sesi'
-import type { GameData, GameMode, Kesulitan } from './types'
+import type { GameData, GameMode, IdGuru, Kesulitan } from './types'
 import { Halaman } from './ui/Halaman'
 import { IkonKembali, IkonMain } from './ui/Ikon'
 import { Tombol, TombolIkon } from './ui/Tombol'
@@ -19,6 +20,12 @@ const MODE: Record<GameMode, { label: string; desc: string; ikon: string }> = {
   cpu: { label: 'Lawan Komputer', desc: 'Main sendiri melawan komputer', ikon: 'K' },
   hotseat: { label: 'Main Bergantian', desc: 'Satu perangkat, gantian giliran', ikon: '⇄' },
   split: { label: 'Duel Satu Layar', desc: 'Layar dibagi dua, main bersamaan', ikon: '½' },
+}
+
+/** Guru yang memperkenalkan permainan (kolom `guru` di games.json). */
+const GURU: Record<IdGuru, { nama: string; who: Tokoh }> = {
+  ahsan: { nama: 'Mr. Ahsan', who: 'guru' },
+  pavitra: { nama: 'Ms. Pavitra', who: 'pavitra' },
 }
 
 const KESULITAN: { id: Kesulitan; label: string }[] = [
@@ -52,7 +59,9 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
     Object.fromEntries((game.pilihan ?? []).map((p) => [p.id, p.bawaan])),
   )
 
-  // Pak Guru menyapa: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
+  const guru = GURU[game.guru]
+
+  // Guru menyapa: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
   const lineVO = `kenalan-${game.id}`
   const pakaiVO = audio.adaVO(lineVO)
   const [bicara, setBicara] = useState(true)
@@ -102,7 +111,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
       <div className={s.tata}>
         <div className={s.guru}>
           <div className={s.balon}>
-            <span className={s.namaTokoh}>Mr. Ahsan</span>
+            <span className={s.namaTokoh}>{guru.nama}</span>
             <p>{game.deskripsi}</p>
             {game.pesanGuru && (
               <p className={s.pesanGuru}>
@@ -112,7 +121,9 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
             )}
           </div>
           <div className={s.guruTokoh}>
-            <PakGuru
+            <Karakter
+              who={guru.who}
+              label={guru.nama}
               pose="talk"
               bicara={bicara && !pakaiVO}
               lipSync={bicara && pakaiVO ? audio.levelVO : null}

@@ -459,7 +459,7 @@ export class AdeganBalonAir extends Phaser.Scene {
         700,
       )
     }
-    if (this.putaran === 0) baris('Ingat pesan Pak Ahsan: balon air dibawa, bukan dilempar ke wajah teman!', 'daun-pisang-gelap', 700)
+    if (this.putaran === 0) baris('Ingat pesan Bu Pavitra: balon air dibawa, bukan dilempar ke wajah teman!', 'daun-pisang-gelap', 700)
 
     // Gambar cara membawa.
     const tex = this.teksturPutaran(0, false)

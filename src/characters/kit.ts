@@ -16,7 +16,7 @@
  */
 import type { GayaRambut, PenutupKepala, WarnaKulit } from '../shared/types'
 
-export type Tokoh = 'guru' | 'bima' | 'sekar' | 'dimas' | 'avatar'
+export type Tokoh = 'guru' | 'pavitra' | 'bima' | 'sekar' | 'dimas' | 'avatar'
 export type Pose = 'idle' | 'talk' | 'happy' | 'gobak' | 'engklek' | 'egrang'
 export type Mata = 'open' | 'closed' | 'happy' | 'surprised'
 export type Mulut = 'smile' | 'talk-a' | 'talk-o' | 'flat'
@@ -75,6 +75,14 @@ interface CharDef {
   headwear?: PenutupKepala | null
   bottom?: 'skirt'
   boldBrow?: boolean
+  /** Warna kerudung bila bukan putih. */
+  kerudungC?: [string, string]
+  /** Kerudung panjang (pashmina) yang menutup dada, dengan bros di bahu. */
+  pashmina?: boolean
+  /** Bulu mata di sudut luar mata. */
+  bulumata?: boolean
+  /** Warna bibir; senyumnya terbuka memperlihatkan gigi. */
+  bibir?: string
 }
 
 const CHARS: Record<Tokoh, CharDef> = {
@@ -94,6 +102,24 @@ const CHARS: Record<Tokoh, CharDef> = {
     legW: 27,
     watch: true,
     prop: 'box',
+  },
+  // Bu Pavitra, guru: pashmina cokelat susu dengan bros, rompi nila SNT di atas kemeja nila tua, rok panjang.
+  pavitra: {
+    skin: 1,
+    headwear: 'kerudung',
+    kerudungC: ['#C99A72', '#A87A55'],
+    pashmina: true,
+    bulumata: true,
+    bibir: '#C2503A',
+    shirt: 'rompi',
+    sleeve: 'long',
+    sleeveC: ['#253B5E', '#1A2B47'],
+    bottom: 'skirt',
+    pants: ['#2A2320', '#3A322D'],
+    W: 84,
+    headW: 36,
+    watch: true,
+    prop: 'book',
   },
   bima: { skin: 3, hair: 'jabrik', sleeve: 'rolled', boldBrow: true },
   sekar: { skin: 1, headwear: 'kerudung', sleeve: 'long', bottom: 'skirt', prop: 'book' },
@@ -159,7 +185,7 @@ export function karakterSvg(a: KitOptions): string {
   const lw = C.legW ?? 22
   const pants = (C.pants ?? NILA).map(col)
   const shoe = SHOE.map(col)
-  const kc = WHITE.map(col)
+  const kc = (C.kerudungC ?? WHITE).map(col)
   const W = C.W ?? 72
   const long = C.sleeve === 'long'
   const skirt = C.bottom === 'skirt'
@@ -186,11 +212,11 @@ export function karakterSvg(a: KitOptions): string {
   function arm(s: 'l' | 'r'): string {
     const L = s === 'l'
     const sx = L ? 100 - (W / 2 - 8) : 100 + (W / 2 - 8)
-    let up = `<rect x="-10" y="-8" width="20" height="58" rx="10" fill="${long ? sh[0] : sk[0]}"/>`
+    let up = `<rect x="-10" y="-8" width="20" height="58" rx="10" fill="${long ? sc[0] : sk[0]}"/>`
     if (C.sleeve === 'short') up += `<rect x="-12" y="-10" width="24" height="34" rx="11" fill="${sc[0]}"/><rect x="-12" y="19" width="24" height="5" rx="2.5" fill="${sc[1]}"/>`
     if (C.sleeve === 'rolled') up += `<rect x="-12" y="-10" width="24" height="40" rx="11" fill="${sh[0]}"/><rect x="-12.5" y="26" width="25" height="10" rx="5" fill="${sh[1]}"/>`
-    let lo = `<rect x="-9" y="-6" width="18" height="52" rx="9" fill="${long ? sh[0] : sk[0]}"/>`
-    if (long) lo += `<rect x="-10" y="36" width="20" height="8" rx="4" fill="${sh[1]}"/>`
+    let lo = `<rect x="-9" y="-6" width="18" height="52" rx="9" fill="${long ? sc[0] : sk[0]}"/>`
+    if (long) lo += `<rect x="-10" y="36" width="20" height="8" rx="4" fill="${sc[1]}"/>`
     if (C.watch && !L) lo += `<rect x="-10" y="33" width="20" height="8" rx="3" fill="${col('#C9CDD2')}"/><rect x="-6" y="31.5" width="12" height="11" rx="3" fill="${col('#3A3F45')}"/>`
     const hand =
       (L && C.prop ? grup('prop', prop(C.prop)) : '') +
@@ -226,6 +252,13 @@ export function karakterSvg(a: KitOptions): string {
     const waist = `<rect x="${x0 + 4}" y="210" width="${W - 8}" height="42" rx="12" fill="${pants[0]}"/>`
     let s = `<rect x="91" y="92" width="18" height="24" rx="6" fill="${sk[1]}"/>`
     if (C.shirt === 'batik') s += waist + shirt
+    else if (C.shirt === 'rompi' && skirt)
+      // Ujung kemeja mengintip di bawah rompi, rok panjang di belakangnya.
+      s +=
+        `<rect x="${x0 + 6}" y="190" width="${W - 12}" height="26" rx="10" fill="${sc[0]}"/>` +
+        `<path d="M68 200 L132 200 L146 352 Q100 360 54 352 Z" fill="${pants[0]}"/>` +
+        (face ? `<path d="M86 214 L80 352 M114 214 L120 352" stroke="${pants[1]}" stroke-width="3"/>` : '') +
+        `<rect x="${x0}" y="106" width="${W}" height="98" rx="28" fill="${sh[0]}"/>`
     else if (C.shirt === 'rompi')
       // Ujung kemeja cokelat mengintip di bawah rompi, lalu celana & ikat pinggang.
       s +=
@@ -237,11 +270,13 @@ export function karakterSvg(a: KitOptions): string {
       s += shirt + `<path d="M70 206 L130 206 L144 352 Q100 360 56 352 Z" fill="${pants[0]}"/>` + (face ? `<path d="M86 214 L80 352 M114 214 L120 352" stroke="${pants[1]}" stroke-width="3"/>` : '')
     else s += shirt + waist + `<rect x="${x0 + 4}" y="210" width="${W - 8}" height="7" rx="3" fill="${col('#2A2320')}"/>`
     if (face && C.shirt === 'rompi') {
-      // Kerah berdiri, ritsleting, bendera merah putih, dan badge SNT.
+      // Kerah berdiri, ritsleting, bendera merah putih, dan badge SNT
+      // (lebih rendah bila dada tertutup pashmina).
+      const by = C.pashmina ? 38 : 0
       s += `<path d="M82 100 Q100 112 118 100 L120 114 Q100 126 80 114Z" fill="${sh[1]}"/>`
       s += `<rect x="98.5" y="116" width="3" height="88" rx="1.5" fill="#1A2233"/>`
-      s += `<rect x="75" y="134" width="18" height="12" rx="1.5" fill="#FFFFFF"/><rect x="75" y="134" width="18" height="6" rx="1.5" fill="#D8322E"/>`
-      s += `<circle cx="117" cy="141" r="11" fill="#E8A33D"/><circle cx="117" cy="141" r="9" fill="#FFF8EA"/><image href="${a.logo}" x="109" y="135" width="16" height="12" preserveAspectRatio="xMidYMid meet"/>`
+      s += `<rect x="75" y="${134 + by}" width="18" height="12" rx="1.5" fill="#FFFFFF"/><rect x="75" y="${134 + by}" width="18" height="6" rx="1.5" fill="#D8322E"/>`
+      s += `<circle cx="117" cy="${141 + by}" r="11" fill="#E8A33D"/><circle cx="117" cy="${141 + by}" r="9" fill="#FFF8EA"/><image href="${a.logo}" x="109" y="${135 + by}" width="16" height="12" preserveAspectRatio="xMidYMid meet"/>`
     } else if (face) {
       s += `<rect x="98.5" y="124" width="3" height="${C.shirt === 'batik' ? 104 : 84}" rx="1.5" fill="${sh[1]}"/>`
       if (!kerudung) s += `<path d="M86 106 L100 124 L92 132 L80 112Z M114 106 L100 124 L108 132 L120 112Z" fill="${sh[1]}"/>`
@@ -292,11 +327,15 @@ export function karakterSvg(a: KitOptions): string {
     if (t === 'closed') return `<path d="M${x - 6} 0 Q${x} 5 ${x + 6} 0" ${st}/>`
     if (t === 'happy') return `<path d="M${x - 6} 3 Q${x} -5 ${x + 6} 3" ${st}/>`
     if (t === 'surprised') return `<circle cx="${x}" r="7" fill="#fff" stroke="${INK}" stroke-width="2"/><circle cx="${x}" cy=".5" r="3.2" fill="${INK}"/>`
-    return `<ellipse cx="${x}" rx="4.2" ry="5.6" fill="${INK}"/><circle cx="${x + 1.6}" cy="-2" r="1.6" fill="#fff"/>`
+    const o = x < 0 ? -1 : 1
+    const bulu = C.bulumata ? `<path d="M${x + 3 * o} -4.6 Q${x + 6 * o} -5.6 ${x + 8.5 * o} -8.5" stroke="${INK}" stroke-width="2.2" fill="none" stroke-linecap="round"/>` : ''
+    return `<ellipse cx="${x}" rx="4.2" ry="5.6" fill="${INK}"/><circle cx="${x + 1.6}" cy="-2" r="1.6" fill="#fff"/>` + bulu
   }
 
   const MOUTH: Record<Mulut, string> = {
-    smile: `<path d="M-9 -2 Q0 8 9 -2" stroke="${INK}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`,
+    smile: C.bibir
+      ? `<path d="M-10 -2.5 Q0 0 10 -2.5 Q7 9 0 9 Q-7 9 -10 -2.5Z" fill="#FFFDF8" stroke="${C.bibir}" stroke-width="3" stroke-linejoin="round"/>`
+      : `<path d="M-9 -2 Q0 8 9 -2" stroke="${INK}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`,
     'talk-a': `<path d="M-10 -3 Q0 -4 10 -3 Q8 11 0 11 Q-8 11 -10 -3Z" fill="#5A2A1E"/><ellipse cy="7" rx="5" ry="2.6" fill="#C8604A"/>`,
     'talk-o': `<ellipse cy="3" rx="5.5" ry="7" fill="#5A2A1E"/>`,
     flat: `<path d="M-7 2 L7 2" stroke="${INK}" stroke-width="3.5" stroke-linecap="round"/>`,
@@ -304,19 +343,30 @@ export function karakterSvg(a: KitOptions): string {
 
   function head(): string {
     let s = ''
-    if (kerudung) s += `<path d="M56 66 Q56 14 100 14 Q144 14 144 66 L150 122 Q100 142 50 122 Z" fill="${kc[0]}"/>`
+    if (kerudung && C.pashmina) s += `<path d="M54 66 Q54 12 100 12 Q146 12 146 66 L154 128 Q100 146 46 128 Z" fill="${kc[0]}"/>`
+    else if (kerudung) s += `<path d="M56 66 Q56 14 100 14 Q144 14 144 66 L150 122 Q100 142 50 122 Z" fill="${kc[0]}"/>`
     if (C.hair === 'kuncir' && !kerudung)
       s += grup('hair-back', `<ellipse cx="142" cy="76" rx="11" ry="24" transform="rotate(-18 142 76)" fill="${hc[0]}"/><circle cx="135" cy="52" r="5" fill="${col('#E8A33D')}"/>`)
     if (!kerudung)
       s +=
         `<circle cx="${100 - hw + 2}" cy="68" r="8" fill="${sk[0]}"/><circle cx="${100 + hw - 2}" cy="68" r="8" fill="${sk[0]}"/>` +
         (face ? `<circle cx="${100 - hw + 2}" cy="68" r="3.5" fill="${sk[1]}"/><circle cx="${100 + hw - 2}" cy="68" r="3.5" fill="${sk[1]}"/>` : '')
-    s += `<ellipse cx="100" cy="64" rx="${kerudung ? 31 : hw}" ry="${kerudung ? 36 : 38}" fill="${sk[0]}"/>`
+    s += `<ellipse cx="100" cy="64" rx="${kerudung ? hw - 3 : hw}" ry="${kerudung ? 36 : 38}" fill="${sk[0]}"/>`
     if (face)
       s += `<ellipse cx="100" cy="77" rx="3.6" ry="2.6" fill="${sk[1]}"/><circle cx="${100 - hw + 13}" cy="82" r="5.5" fill="#B5462F" opacity=".16"/><circle cx="${100 + hw - 13}" cy="82" r="5.5" fill="#B5462F" opacity=".16"/>`
     s += grup('hair', hair(kerudung ? 'none' : C.hair))
     let wear = ''
-    if (kerudung)
+    if (kerudung && C.pashmina)
+      // Bingkai wajah, lalu kain yang dililit di bawah dagu dan jatuh menutup dada, bros di bahu kiri.
+      wear +=
+        `<path d="M66 64 Q64 26 100 26 Q136 26 134 64 Q122 42 100 42 Q78 42 66 64Z" fill="${kc[0]}"/>` +
+        `<path d="M62 98 Q100 132 138 98 L152 124 Q150 150 120 160 Q98 167 74 160 Q50 148 48 126 Z" fill="${kc[0]}"/>` +
+        (face
+          ? `<path d="M70 102 Q100 126 130 102" stroke="${kc[1]}" stroke-width="5" fill="none" stroke-linecap="round"/>` +
+            `<path d="M56 130 Q96 150 146 122 M72 150 Q100 160 132 142" stroke="${kc[1]}" stroke-width="3" fill="none" stroke-linecap="round"/>` +
+            `<g transform="translate(130 120) rotate(-28)"><rect x="-9" y="-2.5" width="18" height="5" rx="2.5" fill="#E8A33D"/><circle r="3.6" fill="#2E4C7A" stroke="#E8A33D" stroke-width="1.4"/></g>`
+          : '')
+    else if (kerudung)
       wear += `<path d="M68 62 Q66 28 100 28 Q134 28 132 62 Q120 44 100 44 Q80 44 68 62Z" fill="${kc[0]}"/>` + (face ? `<path d="M72 100 Q100 122 128 100 L132 114 Q100 132 68 114Z" fill="${kc[1]}"/>` : '')
     if (C.headwear === 'peci')
       wear += `<path d="M66 42 L70 14 Q100 8 130 14 L134 42 Q100 36 66 42Z" fill="${col('#24211F')}"/>` + (face ? `<path d="M67 35 Q100 29 133 35 L134 42 Q100 36 66 42Z" fill="#3E3935"/>` : '')

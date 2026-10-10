@@ -40,6 +40,9 @@ export interface PilihanGame {
   bawaan: string
 }
 
+/** Guru yang memperkenalkan permainan di Kenalan Dulu. */
+export type IdGuru = 'ahsan' | 'pavitra'
+
 /** Satu entri di src/data/games.json. */
 export interface GameData {
   id: GameId
@@ -53,7 +56,8 @@ export interface GameData {
   caraMainWeb: string
   /** Aturan tambahan khusus versi web (ditampilkan di Kenalan Dulu). */
   catatanWeb?: string[]
-  /** Pesan fair play Pak Guru, ditampilkan di balon kata Kenalan Dulu setelah deskripsi. */
+  guru: IdGuru
+  /** Pesan fair play guru, ditampilkan di balon kata Kenalan Dulu setelah deskripsi. */
   pesanGuru?: string
   kontrol: string
   /** Jenis animasi kontrol di layar Kenalan Dulu. */
