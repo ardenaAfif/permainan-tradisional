@@ -6,7 +6,7 @@
     "jumlahPemainAsli": "2 pemain",
     "bintang": 3,
     "benda": "papan",
-    "guru": "ahsan",
+    "guru": "pavitra",
     "deskripsi": "Permainan papan tradisional yang dimainkan oleh dua orang menggunakan bidak. Pemain berusaha memindahkan dan menangkap bidak lawan dengan strategi tertentu.",
     "aturanAsli": [
       "Dimainkan oleh 2 orang.",
@@ -42,7 +42,7 @@
     "jumlahPemainAsli": "Min. 2 pemain",
     "bintang": 2,
     "benda": "gacuk",
-    "guru": "pavitra",
+    "guru": "ahsan",
     "deskripsi": "Permainan melompat pada kotak-kotak yang digambar di tanah menggunakan satu kaki. Pemain harus melewati semua kotak tanpa menginjak garis.",
     "aturanAsli": [
       "Buat pola kotak engklek di tanah.",
@@ -182,7 +182,7 @@
     "jumlahPemainAsli": "Tim 3–5 orang",
     "bintang": 2,
     "benda": "bakiak",
-    "guru": "pavitra",
+    "guru": "ahsan",
     "deskripsi": "Permainan kelompok menggunakan papan kayu panjang dengan tali untuk tempat kaki. Pemain harus berjalan bersama-sama dengan menjaga keseimbangan dan kekompakan.",
     "aturanAsli": [
       "Setiap kelompok terdiri dari beberapa pemain.",
@@ -217,7 +217,7 @@
     "jumlahPemainAsli": "Min. 4 pemain",
     "bintang": 2,
     "benda": "egrang",
-    "guru": "ahsan",
+    "guru": "pavitra",
     "deskripsi": "Permainan menggunakan dua batang bambu/kayu yang memiliki pijakan kaki. Pemain berdiri di atas pijakan dan berjalan menggunakan keseimbangan tubuh.",
     "aturanAsli": [
       "Pemain berdiri di atas pijakan egrang.",
