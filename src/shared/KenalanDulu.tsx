@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useSyncExternalStore, type KeyboardEvent } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router'
 import { useKotak } from '../app/store'
 import { Karakter } from '../characters/Karakter'
@@ -44,6 +44,21 @@ function susunMonolog(game: GameData): HalamanMonolog[] {
     ...m.balon.map((b, i) => ({ jenis: b.bagian, vo: `moral-${game.id}-${i + 1}`, teks: b.teks, en: b.en })),
     { jenis: 'pesan', vo: `moral-${game.id}-pesan`, teks: m.pesanUtama },
   ]
+}
+
+/** Aturan dibagi dua tab supaya kartu tidak memanjang dan tidak menyisakan ruang kosong. */
+type IdTab = 'cara' | 'aturan'
+const TAB: { id: IdTab; label: string }[] = [
+  { id: 'cara', label: 'Cara main di web' },
+  { id: 'aturan', label: 'Aturan asli' },
+]
+
+/** Layar lebar & cukup tinggi: guru tampil utuh di samping balon; di HP cukup wajahnya. */
+const QUERY_LEBAR = '(min-width: 700px) and (min-height: 501px)'
+const pantauLebar = (cb: () => void) => {
+  const mq = window.matchMedia(QUERY_LEBAR)
+  mq.addEventListener('change', cb)
+  return () => mq.removeEventListener('change', cb)
 }
 
 const KESULITAN: { id: Kesulitan; label: string }[] = [
@@ -106,6 +121,17 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
     setBicara(true)
   }
 
+  const layarLebar = useSyncExternalStore(pantauLebar, () => window.matchMedia(QUERY_LEBAR).matches, () => true)
+  const [tab, setTab] = useState<IdTab>('cara')
+  // Panah kiri/kanan berpindah tab (pola tablist WAI-ARIA).
+  const geserTab = (e: KeyboardEvent) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+    const i = TAB.findIndex((t) => t.id === tab)
+    const baru = TAB[(i + (e.key === 'ArrowRight' ? 1 : TAB.length - 1)) % TAB.length]!
+    setTab(baru.id)
+    document.getElementById(`tab-${baru.id}`)?.focus()
+  }
+
   // Duel Satu Layar dua sisi (kiri/kanan) atau 2–4 pemain bersama (mis. egrang).
   const splitBanyak = maksPemain > 2
   const jumlahMain = mode === 'split' && !splitBanyak ? 2 : jumlah
@@ -136,37 +162,49 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
       kanan={<TombolSuara />}
     >
       <div className={s.tata}>
-        <div className={s.guru}>
-          <section className={s.balon} aria-roledescription="monolog" aria-label={`${guru.nama} bercerita`}>
-            <span className={s.namaTokoh}>{guru.nama}</span>
-            <div className={s.isiBalon} aria-live="polite">
-              {isi.jenis !== 'kenalan' && (
-                <div className={s.kepalaBalon}>
-                  <span className={s.labelBagian}>{LABEL_BAGIAN[isi.jenis]}</span>
-                  <span className={s.chipSteam}>{game.pesanMoral.steam}</span>
+        <section className={s.panggung} aria-label={`${guru.nama} bercerita`}>
+          <div className={s.guruTokoh}>
+            <Karakter
+              who={guru.who}
+              label={guru.nama}
+              pose="talk"
+              crop={layarLebar ? undefined : 'head'}
+              bicara={bicara && !pakaiVO}
+              lipSync={bicara && pakaiVO ? audio.levelVO : null}
+            />
+          </div>
+          <span className={s.namaTokoh}>{guru.nama}</span>
+          <div className={s.balon}>
+            <div className={s.tumpukBalon} aria-live="polite">
+              {monolog.map((m, i) => (
+                <div key={m.vo} className={`${s.isiBalon} ${i === hal ? s.isiAktif : ''}`} aria-hidden={i !== hal}>
+                  {m.jenis !== 'kenalan' && (
+                    <div className={s.kepalaBalon}>
+                      <span className={s.labelBagian}>{LABEL_BAGIAN[m.jenis]}</span>
+                      <span className={s.chipSteam}>{game.pesanMoral.steam}</span>
+                    </div>
+                  )}
+                  {m.jenis === 'pesan' ? <p className={s.pesanUtama}>“{m.teks}”</p> : <p className={s.teksBalon}>{m.teks}</p>}
+                  {'en' in m && m.en && (
+                    <p className={s.teksInggris} lang="en">
+                      {m.en}
+                    </p>
+                  )}
+                  {m.jenis === 'kenalan' && game.pesanGuru && (
+                    <p className={s.pesanGuru}>
+                      <span className={s.pesanGuruLabel}>Fair play</span>
+                      {game.pesanGuru}
+                    </p>
+                  )}
                 </div>
-              )}
-              {isi.jenis === 'pesan' ? (
-                <p className={s.pesanUtama}>“{isi.teks}”</p>
-              ) : (
-                <p>{isi.teks}</p>
-              )}
-              {'en' in isi && isi.en && (
-                <p className={s.teksInggris} lang="en">
-                  {isi.en}
-                </p>
-              )}
-              {isi.jenis === 'kenalan' && game.pesanGuru && (
-                <p className={s.pesanGuru}>
-                  <span className={s.pesanGuruLabel}>Fair play</span>
-                  {game.pesanGuru}
-                </p>
-              )}
+              ))}
             </div>
             <div className={s.navBalon}>
-              <span className={s.nomorHal} aria-label={`Bagian ${hal + 1} dari ${monolog.length}`}>
-                {hal + 1}/{monolog.length}
-              </span>
+              <div className={s.titikHal} aria-label={`Bagian ${hal + 1} dari ${monolog.length}`} role="img">
+                {monolog.map((m, i) => (
+                  <span key={m.vo} className={`${s.titik} ${i === hal ? s.titikAktif : ''} ${i < hal ? s.titikLewat : ''}`} />
+                ))}
+              </div>
               <button
                 type="button"
                 className={`${s.tombolBalon} ${s.tombolBalonIkon}`}
@@ -178,200 +216,213 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
               </button>
               <button type="button" className={s.tombolBalon} onClick={() => keHalaman(terakhir ? 0 : hal + 1)}>
                 {terakhir ? 'Dari awal' : 'Lanjut'}
+                {!terakhir && (
+                  <span className={s.panahLanjut} aria-hidden="true">
+                    <IkonKembali ukuran={20} />
+                  </span>
+                )}
               </button>
             </div>
-          </section>
-          <div className={s.guruTokoh}>
-            <Karakter
-              who={guru.who}
-              label={guru.nama}
-              pose="talk"
-              bicara={bicara && !pakaiVO}
-              lipSync={bicara && pakaiVO ? audio.levelVO : null}
-            />
           </div>
-        </div>
+        </section>
 
-        <div className={s.kanan}>
-          <div className={s.info}>
-            <span className={`${s.chip} ${kelasKategori(game.kategori)}`}>{game.kategori}</span>
-            <span className={s.chipPemain}>{game.jumlahPemainAsli}</span>
-          </div>
-          <div className={s.duaKolom}>
-            <section className={s.kartu}>
-              <h2 className={s.kartuJudul}>
-                <span className={`${s.kartuIkon} ${s.ikonKayu}`} aria-hidden="true">
-                  ≡
-                </span>
-                Aturan asli
-              </h2>
-              <ul className={s.daftar}>
-                {game.aturanAsli.map((a) => (
-                  <li key={a}>{a}</li>
-                ))}
-              </ul>
-            </section>
-            <section className={s.kartu}>
-              <h2 className={s.kartuJudul}>
-                <span className={`${s.kartuIkon} ${s.ikonKunyit}`} aria-hidden="true">
-                  ▭
-                </span>
-                Cara main di web
-              </h2>
-              <p className={s.teks}>{game.caraMainWeb}</p>
-              {game.catatanWeb?.map((c) => (
-                <p key={c} className={s.catatanWeb}>
-                  <span className={s.catatanLabel}>Penting</span>
-                  {c}
-                </p>
-              ))}
-              <AnimasiKontrol jenis={game.jenisKontrol} />
-            </section>
-          </div>
-
-          {(game.asalDaerah || game.namaLain.length > 0) && (
-            <div className={s.riset}>
-              <span className={s.risetJudul}>Asal daerah &amp; nama lain</span>
-              <span>{[game.asalDaerah, game.namaLain.join(', ')].filter(Boolean).join(' · ')}</span>
+        <div className={s.bawah}>
+          <section className={s.kartuInfo} aria-label="Tentang permainan">
+            <div className={s.info}>
+              <span className={`${s.chip} ${kelasKategori(game.kategori)}`}>{game.kategori}</span>
+              <span className={s.chipPemain}>{game.jumlahPemainAsli}</span>
             </div>
-          )}
-
-          <section className={s.mode} aria-labelledby="judul-mode">
-            <h2 id="judul-mode" className={s.kartuJudulNila}>
-              Pilih mode
-            </h2>
-            <div className={s.barisMode}>
-              {game.mode.map((m) => (
+            <div className={s.tab} role="tablist" aria-label="Aturan permainan" onKeyDown={geserTab}>
+              {TAB.map((t) => (
                 <button
-                  key={m}
+                  key={t.id}
+                  id={`tab-${t.id}`}
                   type="button"
-                  className={`${s.tombolMode} ${mode === m ? s.modeAktif : ''}`}
-                  aria-pressed={mode === m}
-                  onClick={() => setMode(m)}
+                  role="tab"
+                  aria-selected={tab === t.id}
+                  aria-controls={`panel-${t.id}`}
+                  tabIndex={tab === t.id ? 0 : -1}
+                  className={`${s.tombolTab} ${tab === t.id ? s.tabAktif : ''}`}
+                  onClick={() => setTab(t.id)}
                 >
-                  <span className={s.modeIkon} aria-hidden="true">
-                    {MODE[m].ikon}
-                  </span>
-                  <span className={s.modeTeks}>
-                    <span className={s.modeLabel}>{MODE[m].label}</span>
-                    <span className={s.modeDesc}>
-                      {m === 'split' && splitBanyak ? `Satu layar, ${minPemain}–${maksPemain} pemain bersamaan` : MODE[m].desc}
-                    </span>
-                  </span>
+                  {t.label}
                 </button>
               ))}
             </div>
+            {tab === 'cara' ? (
+              <div id="panel-cara" role="tabpanel" aria-labelledby="tab-cara" className={s.panel}>
+                <p className={s.teks}>{game.caraMainWeb}</p>
+                {game.catatanWeb?.map((c) => (
+                  <p key={c} className={s.catatanWeb}>
+                    <span className={s.catatanLabel}>Penting</span>
+                    {c}
+                  </p>
+                ))}
+                <AnimasiKontrol jenis={game.jenisKontrol} />
+              </div>
+            ) : (
+              <div id="panel-aturan" role="tabpanel" aria-labelledby="tab-aturan" className={s.panel}>
+                <ol className={s.daftar}>
+                  {game.aturanAsli.map((a) => (
+                    <li key={a}>{a}</li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            {(game.asalDaerah || game.namaLain.length > 0) && (
+              <div className={s.riset}>
+                <span className={s.risetJudul}>Asal daerah &amp; nama lain</span>
+                <span>{[game.asalDaerah, game.namaLain.join(', ')].filter(Boolean).join(' · ')}</span>
+              </div>
+            )}
           </section>
 
-          {game.pilihan?.map((p) => (
-            <section key={p.id} className={s.pengaturanMain} aria-labelledby={`judul-pilihan-${p.id}`}>
-              <h2 id={`judul-pilihan-${p.id}`} className={s.subJudul}>
-                {p.label}
+          <section className={s.panelMain} aria-labelledby="judul-siap">
+            <h2 id="judul-siap" className={s.judulSiap}>
+              Siap main?
+            </h2>
+            <section className={s.mode} aria-labelledby="judul-mode">
+              <h2 id="judul-mode" className={s.subJudul}>
+                Pilih mode
               </h2>
-              <div className={s.pilSegmen} role="radiogroup" aria-labelledby={`judul-pilihan-${p.id}`}>
-                {p.opsi.map((o) => (
+              <div className={s.barisMode}>
+                {game.mode.map((m) => (
                   <button
-                    key={o.nilai}
+                    key={m}
                     type="button"
-                    role="radio"
-                    aria-checked={pilihan[p.id] === o.nilai}
-                    className={`${s.segmen} ${pilihan[p.id] === o.nilai ? s.segmenAktif : ''}`}
-                    onClick={() => setPilihan({ ...pilihan, [p.id]: o.nilai })}
+                    className={`${s.tombolMode} ${mode === m ? s.modeAktif : ''}`}
+                    aria-pressed={mode === m}
+                    onClick={() => setMode(m)}
                   >
-                    {o.label}
+                    <span className={s.modeIkon} aria-hidden="true">
+                      {MODE[m].ikon}
+                    </span>
+                    <span className={s.modeTeks}>
+                      <span className={s.modeLabel}>{MODE[m].label}</span>
+                      <span className={s.modeDesc}>
+                        {m === 'split' && splitBanyak ? `Satu layar, ${minPemain}–${maksPemain} pemain bersamaan` : MODE[m].desc}
+                      </span>
+                    </span>
                   </button>
                 ))}
               </div>
             </section>
-          ))}
 
-          {mode === 'cpu' && maksCpu > minCpu && (
-            <section className={s.pengaturanMain} aria-labelledby="judul-lawan">
-              <h2 id="judul-lawan" className={s.subJudul}>
-                Jumlah lawan komputer
-              </h2>
-              <div className={s.pilSegmen} role="radiogroup" aria-labelledby="judul-lawan">
-                {Array.from({ length: maksCpu - minCpu + 1 }, (_, i) => minCpu + i).map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    role="radio"
-                    aria-checked={jumlahCpu === n}
-                    className={`${s.segmen} ${jumlahCpu === n ? s.segmenAktif : ''}`}
-                    onClick={() => setJumlahCpu(n)}
-                  >
-                    {n} lawan
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
+            {game.pilihan?.map((p) => (
+              <section key={p.id} className={s.pengaturanMain} aria-labelledby={`judul-pilihan-${p.id}`}>
+                <h2 id={`judul-pilihan-${p.id}`} className={s.subJudul}>
+                  {p.label}
+                </h2>
+                <div className={s.pilSegmen} role="radiogroup" aria-labelledby={`judul-pilihan-${p.id}`}>
+                  {p.opsi.map((o) => (
+                    <button
+                      key={o.nilai}
+                      type="button"
+                      role="radio"
+                      aria-checked={pilihan[p.id] === o.nilai}
+                      className={`${s.segmen} ${pilihan[p.id] === o.nilai ? s.segmenAktif : ''}`}
+                      onClick={() => setPilihan({ ...pilihan, [p.id]: o.nilai })}
+                    >
+                      {o.label}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            ))}
 
-          {pakaiKesulitan && (
-            <section className={s.pengaturanMain} aria-labelledby="judul-kesulitan">
-              <h2 id="judul-kesulitan" className={s.subJudul}>
-                Tingkat kesulitan
-              </h2>
-              <div className={s.pilSegmen} role="radiogroup" aria-labelledby="judul-kesulitan">
-                {KESULITAN.map((k) => (
-                  <button
-                    key={k.id}
-                    type="button"
-                    role="radio"
-                    aria-checked={kesulitan === k.id}
-                    className={`${s.segmen} ${kesulitan === k.id ? s.segmenAktif : ''}`}
-                    onClick={() => setKesulitan(k.id)}
-                  >
-                    {k.label}
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {mode !== 'cpu' && (
-            <section className={s.pengaturanMain} aria-labelledby="judul-pemain">
-              <h2 id="judul-pemain" className={s.subJudul}>
-                {mode === 'split' && !splitBanyak ? 'Nama pemain kiri & kanan' : 'Jumlah & nama pemain'}
-              </h2>
-              {maksPemain > minPemain && (
-                <div className={s.pilSegmen} role="radiogroup" aria-label="Jumlah pemain">
-                  {Array.from({ length: maksPemain - minPemain + 1 }, (_, i) => minPemain + i).map((n) => (
+            {mode === 'cpu' && maksCpu > minCpu && (
+              <section className={s.pengaturanMain} aria-labelledby="judul-lawan">
+                <h2 id="judul-lawan" className={s.subJudul}>
+                  Jumlah lawan komputer
+                </h2>
+                <div className={s.pilSegmen} role="radiogroup" aria-labelledby="judul-lawan">
+                  {Array.from({ length: maksCpu - minCpu + 1 }, (_, i) => minCpu + i).map((n) => (
                     <button
                       key={n}
                       type="button"
                       role="radio"
-                      aria-checked={jumlah === n}
-                      className={`${s.segmen} ${jumlah === n ? s.segmenAktif : ''}`}
-                      onClick={() => setJumlah(n)}
+                      aria-checked={jumlahCpu === n}
+                      className={`${s.segmen} ${jumlahCpu === n ? s.segmenAktif : ''}`}
+                      onClick={() => setJumlahCpu(n)}
                     >
-                      {n} pemain
+                      {n} lawan
                     </button>
                   ))}
                 </div>
-              )}
-              <div className={s.daftarNama}>
-                {nama.slice(0, jumlahMain).map((n, i) => (
-                  <label key={i} className={s.kolomNama}>
-                    <span className={s.labelNama}>
-                      {mode === 'split' && !splitBanyak ? (i === 0 ? 'Kiri' : 'Kanan') : `Pemain ${i + 1}`}
-                    </span>
-                    <input
-                      className={s.masukan}
-                      value={n}
-                      maxLength={12}
-                      onChange={(e) => setNama(nama.map((x, j) => (j === i ? e.target.value : x)))}
-                    />
-                  </label>
-                ))}
-              </div>
-              {isiKomputer && <p className={s.teks}>Lintasan yang kosong diisi pemain komputer.</p>}
-            </section>
-          )}
+              </section>
+            )}
+
+            {pakaiKesulitan && (
+              <section className={s.pengaturanMain} aria-labelledby="judul-kesulitan">
+                <h2 id="judul-kesulitan" className={s.subJudul}>
+                  Tingkat kesulitan
+                </h2>
+                <div className={s.pilSegmen} role="radiogroup" aria-labelledby="judul-kesulitan">
+                  {KESULITAN.map((k) => (
+                    <button
+                      key={k.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={kesulitan === k.id}
+                      className={`${s.segmen} ${kesulitan === k.id ? s.segmenAktif : ''}`}
+                      onClick={() => setKesulitan(k.id)}
+                    >
+                      {k.label}
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {mode !== 'cpu' && (
+              <section className={s.pengaturanMain} aria-labelledby="judul-pemain">
+                <h2 id="judul-pemain" className={s.subJudul}>
+                  {mode === 'split' && !splitBanyak ? 'Nama pemain kiri & kanan' : 'Jumlah & nama pemain'}
+                </h2>
+                {maksPemain > minPemain && (
+                  <div className={s.pilSegmen} role="radiogroup" aria-label="Jumlah pemain">
+                    {Array.from({ length: maksPemain - minPemain + 1 }, (_, i) => minPemain + i).map((n) => (
+                      <button
+                        key={n}
+                        type="button"
+                        role="radio"
+                        aria-checked={jumlah === n}
+                        className={`${s.segmen} ${jumlah === n ? s.segmenAktif : ''}`}
+                        onClick={() => setJumlah(n)}
+                      >
+                        {n} pemain
+                      </button>
+                    ))}
+                  </div>
+                )}
+                <div className={s.daftarNama}>
+                  {nama.slice(0, jumlahMain).map((n, i) => (
+                    <label key={i} className={s.kolomNama}>
+                      <span className={s.labelNama}>
+                        {mode === 'split' && !splitBanyak ? (i === 0 ? 'Kiri' : 'Kanan') : `Pemain ${i + 1}`}
+                      </span>
+                      <input
+                        className={s.masukan}
+                        value={n}
+                        maxLength={12}
+                        onChange={(e) => setNama(nama.map((x, j) => (j === i ? e.target.value : x)))}
+                      />
+                    </label>
+                  ))}
+                </div>
+                {isiKomputer && <p className={s.teks}>Lintasan yang kosong diisi pemain komputer.</p>}
+              </section>
+            )}
+          </section>
         </div>
       </div>
 
       <div className={s.kaki}>
+        <p className={s.ringkasan} aria-live="polite">
+          <span className={s.ringkasanLabel}>Mode</span>
+          {MODE[mode].label}
+          {pakaiKesulitan && ` · ${KESULITAN.find((k) => k.id === kesulitan)!.label}`}
+        </p>
         <Tombol className={s.main} disabled={!siap} onClick={main}>
           <IkonMain ukuran={26} />
           {siap ? 'Main' : 'Segera hadir'}
