@@ -43,6 +43,20 @@ export interface PilihanGame {
 /** Guru yang memperkenalkan permainan di Kenalan Dulu. */
 export type IdGuru = 'ahsan' | 'pavi'
 
+/**
+ * Pesan moral & STEAM satu permainan (dokumen "Let the Games Teach: Culture &
+ * STEAM Discoveries"). Dibawakan guru sebagai monolog di Kenalan Dulu;
+ * refleksi tampil di layar hasil.
+ */
+export interface PesanMoral {
+  /** Paduan STEAM, mis. "Arts + Math". */
+  steam: string
+  /** Satu balon kata per butir; `en` = terjemahan Inggris yang tampil di bawahnya. */
+  balon: { bagian: 'budaya' | 'steam'; teks: string; en?: string }[]
+  pesanUtama: string
+  refleksi: string[]
+}
+
 /** Satu entri di src/data/games.json. */
 export interface GameData {
   id: GameId
@@ -59,6 +73,7 @@ export interface GameData {
   guru: IdGuru
   /** Pesan fair play guru, ditampilkan di balon kata Kenalan Dulu setelah deskripsi. */
   pesanGuru?: string
+  pesanMoral: PesanMoral
   kontrol: string
   /** Jenis animasi kontrol di layar Kenalan Dulu. */
   jenisKontrol: JenisKontrol

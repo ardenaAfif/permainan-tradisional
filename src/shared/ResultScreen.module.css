@@ -241,6 +241,43 @@
 }
 
 /* ── Tantangan Lapangan ── */
+/* Refleksi pesan moral (games.json → pesanMoral), bahan diskusi kelas. */
+.refleksi {
+  display: grid;
+  gap: var(--ruang-2);
+  padding: var(--ruang-4);
+  border-radius: var(--radius-2xl);
+  background: var(--kertas-terang);
+  box-shadow: var(--bayang-panel);
+}
+
+.labelRefleksi {
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--merah-bata-gelap);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pesanUtama {
+  margin: 0;
+  font: 800 20px/1.3 var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.daftarRefleksi {
+  display: grid;
+  gap: var(--ruang-2);
+  margin: 0;
+  padding-left: 1.4em;
+  font: 600 var(--teks-kecil) / 1.5 var(--font-isi);
+}
+
+.catatanRefleksi {
+  margin: 0;
+  font: 600 var(--teks-kecil) / 1.4 var(--font-isi);
+  color: var(--teks-kayu-muda);
+}
+
 .tantangan {
   display: grid;
   gap: var(--ruang-3);
@@ -463,8 +500,12 @@
     font-size: 84px;
   }
   .kartuStempel,
+  .refleksi,
   .tantangan {
     padding: 30px;
+  }
+  .pesanUtama {
+    font-size: 30px;
   }
   .stempel {
     width: 190px;
@@ -476,7 +517,9 @@
   }
   .teks,
   .balon p,
-  .teksTantangan {
+  .teksTantangan,
+  .daftarRefleksi,
+  .catatanRefleksi {
     font-size: 22px;
   }
   .wajahKomentator {

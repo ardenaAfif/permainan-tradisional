@@ -28,6 +28,24 @@ const GURU: Record<IdGuru, { nama: string; who: Tokoh }> = {
   pavi: { nama: 'Ms. Pavi', who: 'pavi' },
 }
 
+/** Satu halaman monolog guru di balon kata. */
+type HalamanMonolog =
+  | { jenis: 'kenalan'; vo: string; teks: string }
+  | { jenis: 'budaya' | 'steam'; vo: string; teks: string; en?: string }
+  | { jenis: 'pesan'; vo: string; teks: string }
+
+const LABEL_BAGIAN = { budaya: 'Nilai budaya', steam: 'Sisi STEAM', pesan: 'Pesan utama' } as const
+
+/** Deskripsi permainan, lalu pesan moral & STEAM (games.json), ditutup pesan utama. */
+function susunMonolog(game: GameData): HalamanMonolog[] {
+  const m = game.pesanMoral
+  return [
+    { jenis: 'kenalan', vo: `kenalan-${game.id}`, teks: game.deskripsi },
+    ...m.balon.map((b, i) => ({ jenis: b.bagian, vo: `moral-${game.id}-${i + 1}`, teks: b.teks, en: b.en })),
+    { jenis: 'pesan', vo: `moral-${game.id}-pesan`, teks: m.pesanUtama },
+  ]
+}
+
 const KESULITAN: { id: Kesulitan; label: string }[] = [
   { id: 'mudah', label: 'Mudah' },
   { id: 'sedang', label: 'Sedang' },
@@ -60,24 +78,33 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
   )
 
   const guru = GURU[game.guru]
+  const monolog = susunMonolog(game)
+  const [hal, setHal] = useState(0)
+  const isi = monolog[hal]!
+  const terakhir = hal === monolog.length - 1
 
-  // Guru menyapa: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
-  const lineVO = `kenalan-${game.id}`
+  // Guru bicara di setiap halaman: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
+  const lineVO = isi.vo
   const pakaiVO = audio.adaVO(lineVO)
   const [bicara, setBicara] = useState(true)
+  const lamaBicara = Math.min(9000, Math.max(2500, isi.teks.length * 40))
   useEffect(() => {
     let batal = false
     if (pakaiVO) {
       void audio.vo(lineVO).then(() => !batal && setBicara(false))
     } else {
-      const t = window.setTimeout(() => setBicara(false), 3500)
+      const t = window.setTimeout(() => setBicara(false), lamaBicara)
       return () => window.clearTimeout(t)
     }
     return () => {
       batal = true
       audio.hentikanVO()
     }
-  }, [lineVO, pakaiVO])
+  }, [lineVO, pakaiVO, lamaBicara])
+  const keHalaman = (i: number) => {
+    setHal(i)
+    setBicara(true)
+  }
 
   // Duel Satu Layar dua sisi (kiri/kanan) atau 2–4 pemain bersama (mis. egrang).
   const splitBanyak = maksPemain > 2
@@ -110,16 +137,50 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
     >
       <div className={s.tata}>
         <div className={s.guru}>
-          <div className={s.balon}>
+          <section className={s.balon} aria-roledescription="monolog" aria-label={`${guru.nama} bercerita`}>
             <span className={s.namaTokoh}>{guru.nama}</span>
-            <p>{game.deskripsi}</p>
-            {game.pesanGuru && (
-              <p className={s.pesanGuru}>
-                <span className={s.pesanGuruLabel}>Fair play</span>
-                {game.pesanGuru}
-              </p>
-            )}
-          </div>
+            <div className={s.isiBalon} aria-live="polite">
+              {isi.jenis !== 'kenalan' && (
+                <div className={s.kepalaBalon}>
+                  <span className={s.labelBagian}>{LABEL_BAGIAN[isi.jenis]}</span>
+                  <span className={s.chipSteam}>{game.pesanMoral.steam}</span>
+                </div>
+              )}
+              {isi.jenis === 'pesan' ? (
+                <p className={s.pesanUtama}>“{isi.teks}”</p>
+              ) : (
+                <p>{isi.teks}</p>
+              )}
+              {'en' in isi && isi.en && (
+                <p className={s.teksInggris} lang="en">
+                  {isi.en}
+                </p>
+              )}
+              {isi.jenis === 'kenalan' && game.pesanGuru && (
+                <p className={s.pesanGuru}>
+                  <span className={s.pesanGuruLabel}>Fair play</span>
+                  {game.pesanGuru}
+                </p>
+              )}
+            </div>
+            <div className={s.navBalon}>
+              <span className={s.nomorHal} aria-label={`Bagian ${hal + 1} dari ${monolog.length}`}>
+                {hal + 1}/{monolog.length}
+              </span>
+              <button
+                type="button"
+                className={`${s.tombolBalon} ${s.tombolBalonIkon}`}
+                aria-label="Bagian sebelumnya"
+                disabled={hal === 0}
+                onClick={() => keHalaman(hal - 1)}
+              >
+                <IkonKembali ukuran={22} />
+              </button>
+              <button type="button" className={s.tombolBalon} onClick={() => keHalaman(terakhir ? 0 : hal + 1)}>
+                {terakhir ? 'Dari awal' : 'Lanjut'}
+              </button>
+            </div>
+          </section>
           <div className={s.guruTokoh}>
             <Karakter
               who={guru.who}

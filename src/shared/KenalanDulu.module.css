@@ -35,7 +35,7 @@
 
 /* Pesan fair play Pak Guru di bawah deskripsi. */
 .balon .pesanGuru {
-  margin-top: 10px;
+  margin-top: 0;
   padding: 8px 12px;
   border-radius: var(--radius-m);
   border-left: 5px solid var(--daun-pisang);
@@ -47,6 +47,97 @@
   display: block;
   font: 800 var(--teks-kecil) var(--font-judul);
   color: var(--daun-pisang-gelap);
+}
+
+/* Monolog guru: label bagian, teks, terjemahan Inggris, lalu tombol pindah bagian. */
+.isiBalon {
+  display: grid;
+  gap: 10px;
+}
+
+.kepalaBalon {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.labelBagian {
+  font: 800 var(--teks-kecil) var(--font-judul);
+  color: var(--merah-bata-gelap);
+}
+
+.chipSteam {
+  padding: 1px 10px;
+  border-radius: var(--radius-pil);
+  background: var(--cahaya-kelir-muda);
+  box-shadow: inset 0 0 0 2px var(--kunyit);
+  font: 700 var(--teks-kecil) var(--font-judul);
+  color: var(--kayu-gelap);
+}
+
+.balon .pesanUtama {
+  font: 800 20px/1.35 var(--font-judul);
+  color: var(--biru-nila);
+}
+
+.balon .teksInggris {
+  padding-top: 10px;
+  border-top: 2px dashed var(--garis-putus);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--teks-kayu-muda);
+}
+
+.navBalon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.nomorHal {
+  margin-right: auto;
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--teks-kayu-muda);
+}
+
+.tombolBalon {
+  min-width: 48px;
+  min-height: 48px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--radius-m);
+  background: var(--biru-nila);
+  box-shadow: var(--bayang-nila);
+  color: var(--putih);
+  font: 800 18px var(--font-judul);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.tombolBalon:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.tombolBalon:focus-visible {
+  outline: 3px solid var(--kunyit);
+  outline-offset: 3px;
+}
+
+.tombolBalon:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.tombolBalonIkon {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: var(--kertas-krem);
+  box-shadow: var(--bayang-kayu);
+  color: var(--kayu-gelap);
 }
 
 .balon::after {
@@ -411,6 +502,18 @@
   }
   .guruTokoh {
     height: 560px;
+  }
+  .balon .pesanUtama {
+    font-size: 28px;
+  }
+  .labelBagian,
+  .chipSteam,
+  .nomorHal {
+    font-size: 20px;
+  }
+  .tombolBalon {
+    min-height: 56px;
+    font-size: 22px;
   }
   .balon p,
   .daftar,

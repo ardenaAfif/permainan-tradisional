@@ -23,6 +23,36 @@
       "Seri jika 40 langkah berturut-turut tidak ada bidak yang tertangkap.",
       "Keyboard: tombol panah untuk memilih titik, Spasi atau Enter untuk memilih."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Math",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Pernahkah kamu merasa deg-degan karena satu langkah yang salah bisa membuat bidakmu “dimakan” lawan? Itulah serunya Dam-daman, permainan yang sudah dimainkan secara turun-temurun.",
+          "en": "People have played Dam-daman for many generations."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Dam-daman mengajarkan tentang kesabaran dan sikap berpikir sebelum bertindak. Berkaca dari pepatah orang Jawa yang berbunyi ‘alon-alon waton kelakon’ atau ‘pelan-pelan asal tercapai’, maka pemain Dam-daman yang tergesa-gesa biasanya menyesal belakangan, sedangkan yang tenang justru bisa membaca arah permainan.",
+          "en": "It teaches us to be patient and to think before we act."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Lalu di bagian mana Matematika bekerja? Setiap kali menggeser bidak, otakmu sedang menghitung, “Kalau aku jalan ke sini, lawan akan membalas ke mana?” Adanya pertanyaan tersebut, berarti kamu sedang berlatih berpikir logis dan memprediksi beberapa langkah ke depan.",
+          "en": "Every time you move a piece, you think: “If I move here, where will my opponent move?” By doing that, you practise logical thinking and planning a few moves ahead."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Jadi, menang di Dam-daman bukan soal beruntung, tetapi soal siapa yang paling cermat menghitung dan paling sabar menunggu saat yang tepat.",
+          "en": "Winning Dam-daman is not only about luck. It is about careful thinking and waiting for the right time."
+        }
+      ],
+      "pesanUtama": "Menang bukan soal cepat melangkah, tetapi soal sabar berpikir sebelum bertindak.",
+      "refleksi": [
+        "Pernahkah kamu menyesal karena mengambil keputusan terlalu cepat? Apa yang akan kamu lakukan berbeda sekarang?",
+        "Dalam kehidupan sehari-hari, kapan kamu perlu “berpikir dua atau tiga langkah ke depan” seperti di Dam-daman?"
+      ]
+    },
     "kontrol": "Tap",
     "jenisKontrol": "tap",
     "mode": ["cpu", "hotseat"],
@@ -58,6 +88,40 @@
       "Setengah lingkaran di ujung dipakai untuk berbalik: mendarat dengan DUA KAKI.",
       "Keyboard: Spasi untuk satu kaki atau lempar, Shift atau D untuk dua kaki, tahan E untuk ambil."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Science",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Engklek dimainkan di pekarangan atau halaman sekolah, dan hampir tidak pernah ada wasit. Lalu, siapa yang menjaga aturan permainannya? Jawabannya adalah dirimu sendiri.",
+          "en": "Honesty is very important in Engklek. There is usually no referee, so the players must watch themselves."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Kalau kakimu menginjak garis, kamu sendiri yang harus jujur mengakuinya dan menyerahkan giliran. Hal tersebut merupakan nilai kejujuran yang menjadi jiwa permainan ini.",
+          "en": "If your foot touches a line, nobody may see it, but you know it. A good player tells the truth and gives the turn to the next person. This makes the game fair for everyone."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Engklek juga mengajarkan bahwa untuk sampai ke petak teratas, kamu harus melewati petak demi petak. Tidak ada jalan pintas dalam mencapai tujuan."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Apakah kamu pernah heran kenapa kamu bisa melompat dengan satu kaki tanpa jatuh? Nah, itulah Science di balik Engklek.",
+          "en": "There’s one more lesson you should know about Engklek. Have you ever wondered how you can jump on one foot and not fall? This is the science behind Engklek."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Tubuhmu terus mengatur keseimbangan dengan menjaga titik berat tetap berada di atas satu kaki yang menopang. Otot kaki, perut, dan bahkan lenganmu bekerja bersama tanpa kamu sadari. Tanpa disengaja, kamu sedang praktik fisika tubuh manusia.",
+          "en": "Your leg, stomach, and arm muscles work together to keep your balance, even when you do not notice it. When you play Engklek, you learn how your body works!"
+        }
+      ],
+      "pesanUtama": "Jujur pada aturan, bahkan saat tidak ada yang mengawasi, adalah kemenangan yang sesungguhnya.",
+      "refleksi": [
+        "Pernahkah kamu berada di situasi saat bisa curang tanpa ketahuan? Apa yang kamu pilih, dan bagaimana rasanya?",
+        "Mengapa menurutmu kejujuran membuat sebuah permainan (dan pertemanan) jadi lebih berharga?"
+      ]
+    },
     "kontrol": "Tap berirama",
     "jenisKontrol": "irama",
     "mode": ["cpu", "hotseat"],
@@ -92,6 +156,31 @@
       "Kotak 100 harus dicapai dengan angka dadu yang pas. Kalau angkanya lebih, pion memantul mundur sebanyak sisanya. Contoh: di kotak 97 lalu dapat 5, pion maju ke 100 lalu mundur ke 98.",
       "Dapat angka 6? Kamu boleh melempar dadu lagi. Selama terus dapat 6, kamu terus melempar."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Math",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Ular Tangga mengajarkan sesuatu tentang hidup. Kadang kamu beruntung karena mendapat kesempatan untuk naik tangga dan melesat jauh, kadang kamu digigit ular dan terpaksa harus turun lagi.",
+          "en": "Ular Tangga teaches us about life. Sometimes you are lucky because a ladder takes you forward, but sometimes you are unlucky because a snake takes you back."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Pesan yang dapat dipetik yakni hidup memang naik turun, namun yang terpenting adalah tetap melanjutkan permainan. Pemenang yang baik tidak merasa sombong saat menang, dan yang belum menang tidak berhenti bermain. Sikap tenang dalam menerima untung dan rugi adalah bekal berharga yang dibawa sampai dewasa.",
+          "en": "Life is the same, it has good times and bad times. The important thing is to keep going."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Tidak hanya itu, ada Matematika yang menarik di balik permainan Ular Tangga ini, lho. Saat kamu melempar dadu berkali-kali, setiap angka punya peluang yang sama untuk muncul. Hal tersebut merupakan dasar probabilitas yang kamu pelajari lebih dalam di mata pelajaran Matematika.",
+          "en": "There is also Math in this game. When you roll a dice many times, each number has the same chance to come up. This is the basic idea of probability."
+        }
+      ],
+      "pesanUtama": "Hidup punya naik dan turun, dan yang terpenting adalah terus melangkah.",
+      "refleksi": [
+        "Ceritakan pengalaman “digigit ular”, yaitu saat kamu mengalami kemunduran. Bagaimana kamu bangkit?",
+        "Mengapa kita sebaiknya tidak sombong saat sedang “naik tangga” dan tidak putus asa saat “turun”?"
+      ]
+    },
     "kontrol": "Tap",
     "jenisKontrol": "tap",
     "mode": ["cpu", "hotseat"],
@@ -129,6 +218,39 @@
       "Ronde menjaga: ketuk penjaga lain di lapangan untuk pindah mengendalikannya. Penjaga lain digerakkan komputer.",
       "Duel Satu Layar: pemain penyerang memakai joystick di sisinya, pemain lawan memakai slider untuk menggerakkan sodor. Peran bertukar setiap ronde. Keyboard: P1 W A S D, P2 tombol panah."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Math",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Gobak Sodor bukan permainan untuk jagoan tunggal, namun permainan kerja sama. Satu tim penjaga berdiri di garis-garis, dan tim lain berusaha melewati semuanya tanpa tersentuh.",
+          "en": "Gobak Sodor is not a game for one person, it is a team game. One team stands on the lines as guards. The other team tries to pass all the lines without being touched."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Rahasia kemenangan dari permainan Gobak Sodor ini adalah kerja sama dan gotong royong. Penjaga memiliki tugas untuk saling menutup celah sehingga lawan tidak bisa menerobos dengan mudah, sedangkan penyerang memiliki tugas untuk saling memberi isyarat dan mengelabui lawan bersama-sama.",
+          "en": "The secret to winning is teamwork and helping each other. The guards work together to close the gaps, so the other team cannot get through easily. The attackers give signals to each other and trick the guards together."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Nilai ini sejalan dengan semangat gotong royong yang sudah lama hidup di masyarakat Indonesia, bahwa beban yang dipikul bersama terasa lebih ringan.",
+          "en": "In Indonesia, this value is called ‘gotong royong’. It means that a heavy job feels lighter when we carry it together."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Maukah kamu tahu fakta menarik lainnya? Nah, lapangan Gobak Sodor sebenarnya adalah bangun datar yang dibagi dengan garis-garis berpola, seperti persegi panjang yang dipecah menjadi beberapa petak."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Penjaga yang cerdas menghitung jarak antarpetak dan menentukan posisi paling efektif untuk mengunci gerakan lawan. Jadi, di balik tawa dan teriakan seru, kamu sedang mempraktikkan geometri dan strategi ruang. Keren sekali permainan tradisional ini, bukan?"
+        }
+      ],
+      "pesanUtama": "Satu orang bisa cepat, tetapi satu tim yang kompak bisa jauh lebih kuat.",
+      "refleksi": [
+        "Ceritakan pengalamanmu bekerja dalam tim. Apa yang membuat tim itu berhasil, atau justru gagal?",
+        "Peran apa yang biasanya kamu ambil dalam kelompok, dan bagaimana kamu bisa mendukung teman yang berperan berbeda?"
+      ]
+    },
     "kontrol": "Joystick virtual / tombol panah",
     "jenisKontrol": "joystick",
     "mode": ["cpu", "split"],
@@ -163,6 +285,31 @@
       "Kalau gagal, tahapmu tersimpan. Saat giliranmu tiba lagi, biji disebar ulang dan tahap itu diulang dari awal.",
       "Keyboard: tahan lalu lepas Spasi untuk melempar, angka 1–6 untuk biji, Spasi untuk menangkap."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Science",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Bola bekel tampak memiliki aturan permainan yang sederhana, yakni pemain melempar bola, lalu mengambil biji, dan menangkap kembali sebelum jatuh. Namun, permainan ini diam-diam melatih sesuatu yang sangat berharga, yaitu fokus dan ketekunan.",
+          "en": "Bola Bekel looks like a simple game. You throw the ball, pick up the jackstones, and catch the ball before it falls. But this game quietly trains two very important skills that are focus and patience."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Apa lagi pengetahuan yang dapat kalian peroleh? Nah, coba perhatikan juga gerak bolanya. Saat bola dilempar ke bawah, bola akan memantul naik karena gravitasi menariknya turun dan elastisitas bola mendorongnya kembali ke atas.",
+          "en": "What else can you learn? Look at how the ball moves. When you bounce the ball down, it goes back up. Gravity pulls the ball down, and the ball's bounce pushes it up again."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Selain itu, kamu harus bisa memperkirakan kapan dan di mana bola akan kembali sehingga tanganmu bisa meraih bola tersebut. Kecepatan reaksi mata dan tanganmu inilah yang sedang diasah, sebuah kemampuan yang berguna di banyak bidang, dari olahraga sampai bermain alat musik.",
+          "en": "You also have to guess when and where the ball will come back, so your hand can catch it. This trains how fast your eyes and hand work together. It is a useful skill in many things, from sports to playing music."
+        }
+      ],
+      "pesanUtama": "Kemampuan hebat lahir dari latihan kecil yang diulang dengan sabar.",
+      "refleksi": [
+        "Keterampilan apa yang pernah kamu kuasai karena berlatih terus-menerus? Seberapa lama prosesnya?",
+        "Apa yang biasanya membuatmu ingin menyerah saat berlatih, dan bagaimana cara kamu bertahan?"
+      ]
+    },
     "kontrol": "Swipe + tap",
     "jenisKontrol": "swipe-tap",
     "mode": ["cpu", "hotseat"],
@@ -198,6 +345,36 @@
       "Duel Satu Layar: layar kiri untuk tim kiri, layar kanan untuk tim kanan. Keyboard: A/S untuk tim kiri, K/L untuk tim kanan.",
       "Pilihan Tim Kompak (untuk papan interaktif): tiap siswa memegang satu tombol kaki. Tim hanya maju kalau ketiga tombol ditekan bersamaan."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Engineering",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Yuk, coba bayangkan tiga orang berdiri di atas satu papan panjang, lalu harus melangkah bersama. Kalau satu orang melangkah lebih cepat, semuanya pasti akan terjatuh, bukan? Hal tersebut merupakan pelajaran terbesar dari permainan tradisional bernama Bakiak, yakni kekompakan.",
+          "en": "Bakiak is a fun traditional game. If one person moves faster, everyone may fall. This is the biggest lesson from Bakiak: teamwork."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Kamu harus menyamakan langkah dengan teman satu tim, dan mengontrol emosi kalau ada yang tertinggal. Dalam permainan ini, juara sejati bukan yang paling cepat sendirian, tetapi tim yang paling selaras.",
+          "en": "Playing Bakiak helps you realize that the best team is not the team with one fast person, but it is the team that moves together."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Selain itu, masih ada lagi hal lain yang perlu kamu ketahui, yakni rancangan Bakiak. Bakiak yang bagus tidak dibuat asal-asalan, lho. Panjang papan harus sesuai dengan jumlah pemain, kayunya harus cukup kuat menahan beban, dan tali pijakannya harus nyaman dan tidak mudah putus.",
+          "en": "Now, imagine you are the engineer of Bakiak. A good Bakiak is not made carelessly. The board must be the right length for the number of players. The wood must be strong enough, and the foot straps must be comfortable and strong."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Saat kamu membuat bakiak buatanmu sendiri, kamu akan berperan layaknya seorang insinyur andal yang memproduksi bakiak terbaik untuk tim. Kamu akan melalui proses merancang, melakukan uji coba, mengalami kegagalan, lalu memperbaiki kembali tanpa mudah menyerah.",
+          "en": "When you make your own Bakiak, you follow the steps that engineers use: design it, try it, learn from mistakes, and make it better."
+        }
+      ],
+      "pesanUtama": "Kita hanya bisa melangkah jauh bila mau menyamakan irama dengan teman.",
+      "refleksi": [
+        "Apa yang harus kamu lakukan agar langkah timmu selaras, misalnya mendengar, memberi aba-aba, atau menunggu?",
+        "Pernahkah kamu merasa harus mengalah demi kebaikan kelompok? Bagaimana hasilnya?"
+      ]
+    },
     "kontrol": "Tap kiri-kanan",
     "jenisKontrol": "kiri-kanan",
     "mode": ["cpu", "split"],
@@ -233,6 +410,34 @@
       "Duel Satu Layar untuk 2–4 pemain: tiap lintasan punya tombol sendiri, dan lintasan yang kosong diisi pemain komputer. Keyboard: A/S (tahan W) dan K/L (tahan O).",
       "Di HP atau tablet bisa memakai kendali miring: miringkan perangkat melawan arah miringnya badan. Tombol tetap bisa dipakai."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Engineering",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Siapa yang tidak pernah jatuh waktu pertama kali naik egrang? Hampir semua orang pernah. Jangan merasa malu karena setiap jatuh bukan tanda kamu gagal, melainkan bagian dari belajar.",
+          "en": "Who has never fallen when trying Egrang for the first time? Many people have! This is where Egrang teaches us to be brave and never give up. Falling does not mean you have failed because it is part of learning."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Semua orang yang belajar egrang akan melalui proses yang sama, yaitu jatuh, bangun, coba lagi, sampai akhirnya bisa berjalan tegak di atas bambu. Rasa takut tidak hilang karena dinasihati, tetapi karena dihadapi sedikit demi sedikit. Melalui permainan egrang, kamu dilatih untuk memiliki keberanian dan pantang menyerah.",
+          "en": "We do not lose our fear just by failing. We learn to face it little by little."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Sekarang bayangkan kamu yang membuat egrangnya. Berapa tinggi pijakan yang aman untuk pemula? Di mana letak pijakan agar kaki terasa stabil? Bagaimana cara menyambung bambu agar tidak lepas?"
+        },
+        {
+          "bagian": "steam",
+          "teks": "Tanpa kamu sadari, melalui pertanyaan tersebut, kamu dapat belajar mengenai ilmu teknik (engineering). Semakin tinggi pijakan pada egrang, semakin menantang keseimbangannya. Kamu akan belajar bahwa merancang sesuatu berarti mempertimbangkan keselamatan, kekuatan, dan kenyamanan sekaligus."
+        }
+      ],
+      "pesanUtama": "Jatuh bukan tanda gagal, tetapi tanda bahwa kamu sedang belajar.",
+      "refleksi": [
+        "Ceritakan satu hal yang awalnya membuatmu takut atau sering gagal, lalu akhirnya bisa kamu lakukan.",
+        "Jika temanmu sedang takut mencoba sesuatu yang baru, kata-kata apa yang bisa kamu ucapkan untuk menyemangatinya?"
+      ]
+    },
     "kontrol": "Tap kiri-kanan, opsional miring HP",
     "jenisKontrol": "kiri-kanan",
     "mode": ["cpu", "split"],
@@ -269,6 +474,35 @@
       "Mode Lubang: gacoan tetap di tempat berhentinya dan disentil dari situ pada giliran berikutnya. Setelah masuk lubang atau keluar garis, mulai lagi dari garis sentil.",
       "Sebelum menyentil dari garis sentil, tap di dekat garis untuk menggeser gacoan. Keyboard: ← → arah, ↑ ↓ kekuatan, W/S geser, Spasi menyentil."
     ],
+    "pesanMoral": {
+      "steam": "Arts + Science",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Saat bermain kelereng, kamu adalah pemeran utama yang menentukan jarak bidik, giliran, dan kapan sebuah kelereng dianggap “mati”, maka kejujuran dan sportivitas menjadi inti permainan ini.",
+          "en": "In Kelereng, nobody watches you every second. Players are trusted to follow the rules about where to shoot, whose turn it is, and when a marble is out. So, honesty and fair play are very important."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Anak-anak yang curang biasanya tidak lama diajak bermain lagi, karena kepercayaan teman adalah hadiah terbesar. Saat kamu kalah, kamu belajar menerimanya dengan lapang dada, lalu mencoba lagi dengan bidikan yang lebih baik."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Tahukah kamu, saat bermain kelereng, kamu telah menerapkan ilmu Science, lho. Saat menjentikkan jari selama permainan, berarti kamu sedang melakukan percobaan. Kamu mencoba seberapa kuat jentikan jarimu menentukan seberapa cepat kelereng melaju.",
+          "en": "When you flick a marble, you are doing a small Science experiment. How hard you flick it affects how fast it moves."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Lalu, ketika ia menabrak kelereng lain, sebagian geraknya berpindah ke kelereng yang tertabrak, itulah tumbukan dan momentum. Tanah yang kasar atau licin juga mengubah seberapa jauh kelerengmu menggelinding. Jadi, setiap bidikan adalah eksperimen kecil yang bisa kamu perbaiki.",
+          "en": "When it hits another marble, some of its movement passes to the other marble. This is called a collision, and it is related to momentum."
+        }
+      ],
+      "pesanUtama": "Sportivitas berarti jujur saat menang dan lapang dada saat kalah.",
+      "refleksi": [
+        "Bagaimana perasaanmu saat kalah dalam permainan? Apa yang bisa kamu lakukan agar kekalahan menjadi pelajaran, bukan kekesalan?",
+        "Mengapa menurutmu teman yang jujur lebih mudah dipercaya dan diajak bermain lagi?"
+      ]
+    },
     "kontrol": "Tarik-lepas",
     "jenisKontrol": "tarik-lepas",
     "mode": ["cpu", "hotseat"],
@@ -326,6 +560,36 @@
       "Lawan Komputer: lawanmu tampil sebagai bayangan pelari di lintasanmu. Duel Satu Layar: P1 di layar atas, P2 di layar bawah. Keyboard: P1 W A S D, P2 tombol panah."
     ],
     "pesanGuru": "Ingat, balon air itu dibawa, bukan dilempar. Jangan pernah melempar balon ke arah wajah teman. Main yang sportif, ya!",
+    "pesanMoral": {
+      "steam": "Arts + Science",
+      "balon": [
+        {
+          "bagian": "budaya",
+          "teks": "Dalam lomba Agustusan di kampung atau di sekolah, permainan ini hampir selalu membuat suasana pecah oleh tawa. Pesan budayanya terasa hangat: kegembiraan yang dibagi bersama.",
+          "en": "This traditional game teaches us to share happiness."
+        },
+        {
+          "bagian": "budaya",
+          "teks": "Anak-anak, orang tua, bahkan para guru ikut tertawa, basah kuyup, dan lupa pada sekat usia atau jabatan. Permainan pecah balon air mengajarkan bahwa kebersamaan tidak selalu butuh hal besar, terkadang cukup sebuah permainan sederhana yang membuat semua orang menjadi setara.",
+          "en": "We learn that being together does not always need a big event, sometimes a simple game can make everyone feel happy and loved."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Namun, pernahkah kamu bertanya, kenapa balon bisa menampung air tanpa pecah, tetapi bisa tiba-tiba pecah saat ditekan sedikit lebih keras? Jawabannya ada di Science.",
+          "en": "Hey, have you ever wondered why a balloon can hold water without breaking, but can suddenly break when you press it too hard? Science can explain this."
+        },
+        {
+          "bagian": "steam",
+          "teks": "Karet balon bersifat elastis, sehingga balon akan melar karena menahan tekanan air sampai batas tertentu. Begitu batasnya terlampaui, maka balon akan pecah. Dari permainan pecah balon air, kamu bisa memahami bagaimana tekanan dan bahan bekerja, hanya dari sebuah balon dan seember air.",
+          "en": "The rubber of the balloon can stretch and hold the water up to a limit. When the pressure is too great, the balloon breaks. With just a balloon and a bucket of water, you can learn how pressure and materials work."
+        }
+      ],
+      "pesanUtama": "Kegembiraan yang dibagi bersama menyatukan semua orang, tua maupun muda.",
+      "refleksi": [
+        "Kapan terakhir kali kamu tertawa lepas bersama banyak orang? Apa yang membuat suasananya begitu seru?",
+        "Bagaimana kamu bisa mengajak orang tua atau tetangga di sekitarmu ikut menikmati permainan tradisional?"
+      ]
+    },
     "kontrol": "Seret pelari / joystick / tombol panah",
     "jenisKontrol": "seret",
     "mode": ["cpu", "split"],

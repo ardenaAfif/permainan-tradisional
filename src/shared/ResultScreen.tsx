@@ -167,6 +167,19 @@ function Hasil({ game, sesi, hasil, stempelBaru }: StateHasil & { game: GameData
             </div>
           </div>
 
+          <section className={s.refleksi} aria-labelledby="judul-refleksi">
+            <div className={s.labelRefleksi}>Refleksi · {game.pesanMoral.steam}</div>
+            <h2 id="judul-refleksi" className={s.pesanUtama}>
+              “{game.pesanMoral.pesanUtama}”
+            </h2>
+            <ol className={s.daftarRefleksi}>
+              {game.pesanMoral.refleksi.map((r) => (
+                <li key={r}>{r}</li>
+              ))}
+            </ol>
+            <p className={s.catatanRefleksi}>Ceritakan jawabanmu ke teman atau guru.</p>
+          </section>
+
           <section className={s.tantangan} aria-labelledby="judul-tantangan">
             <div className={s.kepalaTantangan}>
               <div className={s.slotEmas}>

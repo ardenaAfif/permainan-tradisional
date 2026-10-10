@@ -9,7 +9,8 @@ Simpan semua file di `public/audio/vo/` dengan nama persis seperti kolom **File*
 | B. Kenalan Dulu | 9 | Sudah tersambung. Kalimat pembuka perlu ditambahkan ke balon kata (lihat catatan B). |
 | C. Komentar layar hasil | 24 | Belum tersambung. Disambungkan setelah file lengkap. |
 | D. Aba-aba di dalam game | 16 | Belum tersambung. Disambungkan setelah file lengkap. |
-| **Total** | **57** | |
+| E. Monolog pesan moral | 45 | Sudah tersambung (Kenalan Dulu, tombol Lanjut). |
+| **Total** | **102** | |
 
 ---
 
@@ -211,6 +212,106 @@ Ronde dan putaran terakhir memakai Epik / Megah supaya terasa lebih tegang.
 | --- | --- | --- | --- | --- |
 | `aba-finis.mp3` | Finis! | Bakiak, Egrang | Ceria / Semangat | Epik / Megah |
 
+## E. Monolog pesan moral (Kenalan Dulu)
+
+Lanjutan Kenalan Dulu: setelah memperkenalkan permainan (bagian B), guru bercerita tentang nilai budaya dan sisi STEAM, lalu menutup dengan pesan utama. Siswa pindah balon dengan tombol **Lanjut**; tiap balon memutar satu file. Teks diambil dari dokumen *Let the Games Teach: Culture & STEAM Discoveries* (kolom `pesanMoral` di `src/data/games.json`).
+
+Yang direkam hanya teks bahasa Indonesia. Terjemahan Inggris tampil sebagai teks di bawahnya, tidak disuarakan. Pertanyaan refleksi tampil di layar hasil dan tidak direkam.
+
+Ada kata Inggris di teks Indonesia (Science, engineering) dan pepatah Jawa (*alon-alon waton kelakon*). Kalau salah ucap, ketik ejaan alternatif hanya untuk rekaman, misalnya "sains" atau "enjiniring"; teks di layar tetap seperti tabel.
+
+Kode sudah tersambung: begitu file ada, VO diputar dengan lip-sync. Selama belum ada, mulut guru bergerak sebentar dan teks tetap tampil.
+
+### Dam-daman · suara Bu Pavi
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-dam-daman-1.mp3` | Pernahkah kamu merasa deg-degan karena satu langkah yang salah bisa membuat bidakmu “dimakan” lawan? Itulah serunya Dam-daman, permainan yang sudah dimainkan secara turun-temurun. | Mendongeng | Santai / Kasual |
+| `moral-dam-daman-2.mp3` | Dam-daman mengajarkan tentang kesabaran dan sikap berpikir sebelum bertindak. Berkaca dari pepatah orang Jawa yang berbunyi ‘alon-alon waton kelakon’ atau ‘pelan-pelan asal tercapai’, maka pemain Dam-daman yang tergesa-gesa biasanya menyesal belakangan, sedangkan yang tenang justru bisa membaca arah permainan. | Mendongeng | Santai / Kasual |
+| `moral-dam-daman-3.mp3` | Lalu di bagian mana Matematika bekerja? Setiap kali menggeser bidak, otakmu sedang menghitung, “Kalau aku jalan ke sini, lawan akan membalas ke mana?” Adanya pertanyaan tersebut, berarti kamu sedang berlatih berpikir logis dan memprediksi beberapa langkah ke depan. | Santai / Kasual | Ceria / Semangat |
+| `moral-dam-daman-4.mp3` | Jadi, menang di Dam-daman bukan soal beruntung, tetapi soal siapa yang paling cermat menghitung dan paling sabar menunggu saat yang tepat. | Santai / Kasual | Ceria / Semangat |
+| `moral-dam-daman-pesan.mp3` | Menang bukan soal cepat melangkah, tetapi soal sabar berpikir sebelum bertindak. | Motivasi | Menenangkan |
+
+### Sunda Manda (Engklek) · suara Pak Ahsan
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-engklek-1.mp3` | Engklek dimainkan di pekarangan atau halaman sekolah, dan hampir tidak pernah ada wasit. Lalu, siapa yang menjaga aturan permainannya? Jawabannya adalah dirimu sendiri. | Mendongeng | Santai / Kasual |
+| `moral-engklek-2.mp3` | Kalau kakimu menginjak garis, kamu sendiri yang harus jujur mengakuinya dan menyerahkan giliran. Hal tersebut merupakan nilai kejujuran yang menjadi jiwa permainan ini. | Mendongeng | Santai / Kasual |
+| `moral-engklek-3.mp3` | Engklek juga mengajarkan bahwa untuk sampai ke petak teratas, kamu harus melewati petak demi petak. Tidak ada jalan pintas dalam mencapai tujuan. | Mendongeng | Santai / Kasual |
+| `moral-engklek-4.mp3` | Apakah kamu pernah heran kenapa kamu bisa melompat dengan satu kaki tanpa jatuh? Nah, itulah Science di balik Engklek. | Santai / Kasual | Ceria / Semangat |
+| `moral-engklek-5.mp3` | Tubuhmu terus mengatur keseimbangan dengan menjaga titik berat tetap berada di atas satu kaki yang menopang. Otot kaki, perut, dan bahkan lenganmu bekerja bersama tanpa kamu sadari. Tanpa disengaja, kamu sedang praktik fisika tubuh manusia. | Santai / Kasual | Ceria / Semangat |
+| `moral-engklek-pesan.mp3` | Jujur pada aturan, bahkan saat tidak ada yang mengawasi, adalah kemenangan yang sesungguhnya. | Motivasi | Menenangkan |
+
+### Ular Tangga · suara Bu Pavi
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-ular-tangga-1.mp3` | Ular Tangga mengajarkan sesuatu tentang hidup. Kadang kamu beruntung karena mendapat kesempatan untuk naik tangga dan melesat jauh, kadang kamu digigit ular dan terpaksa harus turun lagi. | Mendongeng | Santai / Kasual |
+| `moral-ular-tangga-2.mp3` | Pesan yang dapat dipetik yakni hidup memang naik turun, namun yang terpenting adalah tetap melanjutkan permainan. Pemenang yang baik tidak merasa sombong saat menang, dan yang belum menang tidak berhenti bermain. Sikap tenang dalam menerima untung dan rugi adalah bekal berharga yang dibawa sampai dewasa. | Mendongeng | Santai / Kasual |
+| `moral-ular-tangga-3.mp3` | Tidak hanya itu, ada Matematika yang menarik di balik permainan Ular Tangga ini, lho. Saat kamu melempar dadu berkali-kali, setiap angka punya peluang yang sama untuk muncul. Hal tersebut merupakan dasar probabilitas yang kamu pelajari lebih dalam di mata pelajaran Matematika. | Santai / Kasual | Ceria / Semangat |
+| `moral-ular-tangga-pesan.mp3` | Hidup punya naik dan turun, dan yang terpenting adalah terus melangkah. | Motivasi | Menenangkan |
+
+### Gobak Sodor · suara Pak Ahsan
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-gobak-sodor-1.mp3` | Gobak Sodor bukan permainan untuk jagoan tunggal, namun permainan kerja sama. Satu tim penjaga berdiri di garis-garis, dan tim lain berusaha melewati semuanya tanpa tersentuh. | Mendongeng | Santai / Kasual |
+| `moral-gobak-sodor-2.mp3` | Rahasia kemenangan dari permainan Gobak Sodor ini adalah kerja sama dan gotong royong. Penjaga memiliki tugas untuk saling menutup celah sehingga lawan tidak bisa menerobos dengan mudah, sedangkan penyerang memiliki tugas untuk saling memberi isyarat dan mengelabui lawan bersama-sama. | Mendongeng | Santai / Kasual |
+| `moral-gobak-sodor-3.mp3` | Nilai ini sejalan dengan semangat gotong royong yang sudah lama hidup di masyarakat Indonesia, bahwa beban yang dipikul bersama terasa lebih ringan. | Mendongeng | Santai / Kasual |
+| `moral-gobak-sodor-4.mp3` | Maukah kamu tahu fakta menarik lainnya? Nah, lapangan Gobak Sodor sebenarnya adalah bangun datar yang dibagi dengan garis-garis berpola, seperti persegi panjang yang dipecah menjadi beberapa petak. | Santai / Kasual | Ceria / Semangat |
+| `moral-gobak-sodor-5.mp3` | Penjaga yang cerdas menghitung jarak antarpetak dan menentukan posisi paling efektif untuk mengunci gerakan lawan. Jadi, di balik tawa dan teriakan seru, kamu sedang mempraktikkan geometri dan strategi ruang. Keren sekali permainan tradisional ini, bukan? | Santai / Kasual | Ceria / Semangat |
+| `moral-gobak-sodor-pesan.mp3` | Satu orang bisa cepat, tetapi satu tim yang kompak bisa jauh lebih kuat. | Motivasi | Menenangkan |
+
+### Bola Bekel · suara Bu Pavi
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-bola-bekel-1.mp3` | Bola bekel tampak memiliki aturan permainan yang sederhana, yakni pemain melempar bola, lalu mengambil biji, dan menangkap kembali sebelum jatuh. Namun, permainan ini diam-diam melatih sesuatu yang sangat berharga, yaitu fokus dan ketekunan. | Mendongeng | Santai / Kasual |
+| `moral-bola-bekel-2.mp3` | Apa lagi pengetahuan yang dapat kalian peroleh? Nah, coba perhatikan juga gerak bolanya. Saat bola dilempar ke bawah, bola akan memantul naik karena gravitasi menariknya turun dan elastisitas bola mendorongnya kembali ke atas. | Santai / Kasual | Ceria / Semangat |
+| `moral-bola-bekel-3.mp3` | Selain itu, kamu harus bisa memperkirakan kapan dan di mana bola akan kembali sehingga tanganmu bisa meraih bola tersebut. Kecepatan reaksi mata dan tanganmu inilah yang sedang diasah, sebuah kemampuan yang berguna di banyak bidang, dari olahraga sampai bermain alat musik. | Santai / Kasual | Ceria / Semangat |
+| `moral-bola-bekel-pesan.mp3` | Kemampuan hebat lahir dari latihan kecil yang diulang dengan sabar. | Motivasi | Menenangkan |
+
+### Bakiak · suara Pak Ahsan
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-bakiak-1.mp3` | Yuk, coba bayangkan tiga orang berdiri di atas satu papan panjang, lalu harus melangkah bersama. Kalau satu orang melangkah lebih cepat, semuanya pasti akan terjatuh, bukan? Hal tersebut merupakan pelajaran terbesar dari permainan tradisional bernama Bakiak, yakni kekompakan. | Mendongeng | Santai / Kasual |
+| `moral-bakiak-2.mp3` | Kamu harus menyamakan langkah dengan teman satu tim, dan mengontrol emosi kalau ada yang tertinggal. Dalam permainan ini, juara sejati bukan yang paling cepat sendirian, tetapi tim yang paling selaras. | Mendongeng | Santai / Kasual |
+| `moral-bakiak-3.mp3` | Selain itu, masih ada lagi hal lain yang perlu kamu ketahui, yakni rancangan Bakiak. Bakiak yang bagus tidak dibuat asal-asalan, lho. Panjang papan harus sesuai dengan jumlah pemain, kayunya harus cukup kuat menahan beban, dan tali pijakannya harus nyaman dan tidak mudah putus. | Santai / Kasual | Ceria / Semangat |
+| `moral-bakiak-4.mp3` | Saat kamu membuat bakiak buatanmu sendiri, kamu akan berperan layaknya seorang insinyur andal yang memproduksi bakiak terbaik untuk tim. Kamu akan melalui proses merancang, melakukan uji coba, mengalami kegagalan, lalu memperbaiki kembali tanpa mudah menyerah. | Santai / Kasual | Ceria / Semangat |
+| `moral-bakiak-pesan.mp3` | Kita hanya bisa melangkah jauh bila mau menyamakan irama dengan teman. | Motivasi | Menenangkan |
+
+### Egrang · suara Bu Pavi
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-egrang-1.mp3` | Siapa yang tidak pernah jatuh waktu pertama kali naik egrang? Hampir semua orang pernah. Jangan merasa malu karena setiap jatuh bukan tanda kamu gagal, melainkan bagian dari belajar. | Mendongeng | Santai / Kasual |
+| `moral-egrang-2.mp3` | Semua orang yang belajar egrang akan melalui proses yang sama, yaitu jatuh, bangun, coba lagi, sampai akhirnya bisa berjalan tegak di atas bambu. Rasa takut tidak hilang karena dinasihati, tetapi karena dihadapi sedikit demi sedikit. Melalui permainan egrang, kamu dilatih untuk memiliki keberanian dan pantang menyerah. | Mendongeng | Santai / Kasual |
+| `moral-egrang-3.mp3` | Sekarang bayangkan kamu yang membuat egrangnya. Berapa tinggi pijakan yang aman untuk pemula? Di mana letak pijakan agar kaki terasa stabil? Bagaimana cara menyambung bambu agar tidak lepas? | Santai / Kasual | Ceria / Semangat |
+| `moral-egrang-4.mp3` | Tanpa kamu sadari, melalui pertanyaan tersebut, kamu dapat belajar mengenai ilmu teknik (engineering). Semakin tinggi pijakan pada egrang, semakin menantang keseimbangannya. Kamu akan belajar bahwa merancang sesuatu berarti mempertimbangkan keselamatan, kekuatan, dan kenyamanan sekaligus. | Santai / Kasual | Ceria / Semangat |
+| `moral-egrang-pesan.mp3` | Jatuh bukan tanda gagal, tetapi tanda bahwa kamu sedang belajar. | Motivasi | Menenangkan |
+
+### Kelereng · suara Pak Ahsan
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-kelereng-1.mp3` | Saat bermain kelereng, kamu adalah pemeran utama yang menentukan jarak bidik, giliran, dan kapan sebuah kelereng dianggap “mati”, maka kejujuran dan sportivitas menjadi inti permainan ini. | Mendongeng | Santai / Kasual |
+| `moral-kelereng-2.mp3` | Anak-anak yang curang biasanya tidak lama diajak bermain lagi, karena kepercayaan teman adalah hadiah terbesar. Saat kamu kalah, kamu belajar menerimanya dengan lapang dada, lalu mencoba lagi dengan bidikan yang lebih baik. | Mendongeng | Santai / Kasual |
+| `moral-kelereng-3.mp3` | Tahukah kamu, saat bermain kelereng, kamu telah menerapkan ilmu Science, lho. Saat menjentikkan jari selama permainan, berarti kamu sedang melakukan percobaan. Kamu mencoba seberapa kuat jentikan jarimu menentukan seberapa cepat kelereng melaju. | Santai / Kasual | Ceria / Semangat |
+| `moral-kelereng-4.mp3` | Lalu, ketika ia menabrak kelereng lain, sebagian geraknya berpindah ke kelereng yang tertabrak, itulah tumbukan dan momentum. Tanah yang kasar atau licin juga mengubah seberapa jauh kelerengmu menggelinding. Jadi, setiap bidikan adalah eksperimen kecil yang bisa kamu perbaiki. | Santai / Kasual | Ceria / Semangat |
+| `moral-kelereng-pesan.mp3` | Sportivitas berarti jujur saat menang dan lapang dada saat kalah. | Motivasi | Menenangkan |
+
+### Pecah Balon Air · suara Bu Pavi
+
+| File | Teks | Gaya | Cadangan |
+| --- | --- | --- | --- |
+| `moral-pecah-balon-air-1.mp3` | Dalam lomba Agustusan di kampung atau di sekolah, permainan ini hampir selalu membuat suasana pecah oleh tawa. Pesan budayanya terasa hangat: kegembiraan yang dibagi bersama. | Mendongeng | Santai / Kasual |
+| `moral-pecah-balon-air-2.mp3` | Anak-anak, orang tua, bahkan para guru ikut tertawa, basah kuyup, dan lupa pada sekat usia atau jabatan. Permainan pecah balon air mengajarkan bahwa kebersamaan tidak selalu butuh hal besar, terkadang cukup sebuah permainan sederhana yang membuat semua orang menjadi setara. | Mendongeng | Santai / Kasual |
+| `moral-pecah-balon-air-3.mp3` | Namun, pernahkah kamu bertanya, kenapa balon bisa menampung air tanpa pecah, tetapi bisa tiba-tiba pecah saat ditekan sedikit lebih keras? Jawabannya ada di Science. | Santai / Kasual | Ceria / Semangat |
+| `moral-pecah-balon-air-4.mp3` | Karet balon bersifat elastis, sehingga balon akan melar karena menahan tekanan air sampai batas tertentu. Begitu batasnya terlampaui, maka balon akan pecah. Dari permainan pecah balon air, kamu bisa memahami bagaimana tekanan dan bahan bekerja, hanya dari sebuah balon dan seember air. | Santai / Kasual | Ceria / Semangat |
+| `moral-pecah-balon-air-pesan.mp3` | Kegembiraan yang dibagi bersama menyatukan semua orang, tua maupun muda. | Motivasi | Menenangkan |
+
 ---
 
 ## Daftar periksa
@@ -256,5 +357,15 @@ Centang setelah file ada di `public/audio/vo/`.
 - [ ] ronde-2, ronde-3, ronde-4
 - [ ] putaran-2, putaran-3, putaran-4
 - [ ] aba-finis
+**E. Monolog pesan moral (45)**
+- [ ] moral-dam-daman-1 … -4, moral-dam-daman-pesan
+- [ ] moral-engklek-1 … -5, moral-engklek-pesan
+- [ ] moral-ular-tangga-1 … -3, moral-ular-tangga-pesan
+- [ ] moral-gobak-sodor-1 … -5, moral-gobak-sodor-pesan
+- [ ] moral-bola-bekel-1 … -3, moral-bola-bekel-pesan
+- [ ] moral-bakiak-1 … -4, moral-bakiak-pesan
+- [ ] moral-egrang-1 … -4, moral-egrang-pesan
+- [ ] moral-kelereng-1 … -4, moral-kelereng-pesan
+- [ ] moral-pecah-balon-air-1 … -4, moral-pecah-balon-air-pesan
 
-Total: 8 + 9 + 24 + 16 = **57 file**.
+Total: 8 + 9 + 24 + 16 + 45 = **102 file**.
