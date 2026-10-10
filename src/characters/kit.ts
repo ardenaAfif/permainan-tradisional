@@ -77,7 +77,7 @@ interface CharDef {
   boldBrow?: boolean
   /** Warna kerudung bila bukan putih. */
   kerudungC?: [string, string]
-  /** Kerudung panjang (pashmina) yang menutup dada, dengan bros di bahu. */
+  /** Kerudung panjang (pashmina) yang menutup dada; bendera & badge SNT jadi pin di kerudung. */
   pashmina?: boolean
   /** Bulu mata di sudut luar mata. */
   bulumata?: boolean
@@ -103,7 +103,7 @@ const CHARS: Record<Tokoh, CharDef> = {
     watch: true,
     prop: 'box',
   },
-  // Bu Pavitra, guru: pashmina cokelat susu dengan bros, rompi nila SNT di atas kemeja nila tua, rok panjang.
+  // Bu Pavitra, guru: pashmina cokelat susu dengan pin merah putih & SNT, rompi nila SNT di atas kemeja nila tua, rok panjang.
   pavitra: {
     skin: 1,
     headwear: 'kerudung',
@@ -271,12 +271,13 @@ export function karakterSvg(a: KitOptions): string {
     else s += shirt + waist + `<rect x="${x0 + 4}" y="210" width="${W - 8}" height="7" rx="3" fill="${col('#2A2320')}"/>`
     if (face && C.shirt === 'rompi') {
       // Kerah berdiri, ritsleting, bendera merah putih, dan badge SNT
-      // (lebih rendah bila dada tertutup pashmina).
-      const by = C.pashmina ? 38 : 0
+      // (pemakai pashmina menyematkan bendera & badge sebagai pin di kerudung).
       s += `<path d="M82 100 Q100 112 118 100 L120 114 Q100 126 80 114Z" fill="${sh[1]}"/>`
       s += `<rect x="98.5" y="116" width="3" height="88" rx="1.5" fill="#1A2233"/>`
-      s += `<rect x="75" y="${134 + by}" width="18" height="12" rx="1.5" fill="#FFFFFF"/><rect x="75" y="${134 + by}" width="18" height="6" rx="1.5" fill="#D8322E"/>`
-      s += `<circle cx="117" cy="${141 + by}" r="11" fill="#E8A33D"/><circle cx="117" cy="${141 + by}" r="9" fill="#FFF8EA"/><image href="${a.logo}" x="109" y="${135 + by}" width="16" height="12" preserveAspectRatio="xMidYMid meet"/>`
+      if (!C.pashmina) {
+        s += `<rect x="75" y="134" width="18" height="12" rx="1.5" fill="#FFFFFF"/><rect x="75" y="134" width="18" height="6" rx="1.5" fill="#D8322E"/>`
+        s += `<circle cx="117" cy="141" r="11" fill="#E8A33D"/><circle cx="117" cy="141" r="9" fill="#FFF8EA"/><image href="${a.logo}" x="109" y="135" width="16" height="12" preserveAspectRatio="xMidYMid meet"/>`
+      }
     } else if (face) {
       s += `<rect x="98.5" y="124" width="3" height="${C.shirt === 'batik' ? 104 : 84}" rx="1.5" fill="${sh[1]}"/>`
       if (!kerudung) s += `<path d="M86 106 L100 124 L92 132 L80 112Z M114 106 L100 124 L108 132 L120 112Z" fill="${sh[1]}"/>`
@@ -357,14 +358,16 @@ export function karakterSvg(a: KitOptions): string {
     s += grup('hair', hair(kerudung ? 'none' : C.hair))
     let wear = ''
     if (kerudung && C.pashmina)
-      // Bingkai wajah, lalu kain yang dililit di bawah dagu dan jatuh menutup dada, bros di bahu kiri.
+      // Bingkai wajah, lalu kain yang dililit di bawah dagu dan jatuh menutup dada,
+      // dengan pin bendera merah putih dan pin badge SNT tersemat di kain.
       wear +=
         `<path d="M66 64 Q64 26 100 26 Q136 26 134 64 Q122 42 100 42 Q78 42 66 64Z" fill="${kc[0]}"/>` +
         `<path d="M62 98 Q100 132 138 98 L152 124 Q150 150 120 160 Q98 167 74 160 Q50 148 48 126 Z" fill="${kc[0]}"/>` +
         (face
           ? `<path d="M70 102 Q100 126 130 102" stroke="${kc[1]}" stroke-width="5" fill="none" stroke-linecap="round"/>` +
             `<path d="M56 130 Q96 150 146 122 M72 150 Q100 160 132 142" stroke="${kc[1]}" stroke-width="3" fill="none" stroke-linecap="round"/>` +
-            `<g transform="translate(130 120) rotate(-28)"><rect x="-9" y="-2.5" width="18" height="5" rx="2.5" fill="#E8A33D"/><circle r="3.6" fill="#2E4C7A" stroke="#E8A33D" stroke-width="1.4"/></g>`
+            `<g transform="translate(73 130) rotate(-8)"><rect x="-9" y="-6.5" width="18" height="13" rx="2.5" fill="#E8A33D"/><rect x="-7.5" y="-5" width="15" height="10" rx="1.5" fill="#FFFFFF"/><rect x="-7.5" y="-5" width="15" height="5" rx="1.5" fill="#D8322E"/></g>` +
+            `<circle cx="126" cy="130" r="10.5" fill="#E8A33D"/><circle cx="126" cy="130" r="8.5" fill="#FFF8EA"/><image href="${a.logo}" x="118.5" y="124.5" width="15" height="11" preserveAspectRatio="xMidYMid meet"/>`
           : '')
     else if (kerudung)
       wear += `<path d="M68 62 Q66 28 100 28 Q134 28 132 62 Q120 44 100 44 Q80 44 68 62Z" fill="${kc[0]}"/>` + (face ? `<path d="M72 100 Q100 122 128 100 L132 114 Q100 132 68 114Z" fill="${kc[1]}"/>` : '')
