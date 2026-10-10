@@ -41,7 +41,7 @@ export interface PilihanGame {
 }
 
 /** Guru yang memperkenalkan permainan di Kenalan Dulu. */
-export type IdGuru = 'ahsan' | 'pavitra'
+export type IdGuru = 'ahsan' | 'pavi'
 
 /** Satu entri di src/data/games.json. */
 export interface GameData {

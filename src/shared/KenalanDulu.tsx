@@ -25,7 +25,7 @@ const MODE: Record<GameMode, { label: string; desc: string; ikon: string }> = {
 /** Guru yang memperkenalkan permainan (kolom `guru` di games.json). */
 const GURU: Record<IdGuru, { nama: string; who: Tokoh }> = {
   ahsan: { nama: 'Mr. Ahsan', who: 'guru' },
-  pavitra: { nama: 'Ms. Pavitra', who: 'pavitra' },
+  pavi: { nama: 'Ms. Pavi', who: 'pavi' },
 }
 
 const KESULITAN: { id: Kesulitan; label: string }[] = [

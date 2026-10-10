@@ -11,7 +11,7 @@ import { Karakter, type KarakterHandle } from './Karakter'
 import type { Pose, Tokoh } from './kit'
 import s from './DevKarakter.module.css'
 
-const TOKOH: Tokoh[] = ['guru', 'pavitra', 'bima', 'sekar', 'dimas', 'avatar']
+const TOKOH: Tokoh[] = ['guru', 'pavi', 'bima', 'sekar', 'dimas', 'avatar']
 const EKSPRESI: Ekspresi[] = ['normal', 'happy', 'surprised', 'flat']
 const POSE: Pose[] = ['idle', 'talk', 'happy', 'gobak', 'engklek', 'egrang']
 

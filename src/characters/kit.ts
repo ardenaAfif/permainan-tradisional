@@ -16,7 +16,7 @@
  */
 import type { GayaRambut, PenutupKepala, WarnaKulit } from '../shared/types'
 
-export type Tokoh = 'guru' | 'pavitra' | 'bima' | 'sekar' | 'dimas' | 'avatar'
+export type Tokoh = 'guru' | 'pavi' | 'bima' | 'sekar' | 'dimas' | 'avatar'
 export type Pose = 'idle' | 'talk' | 'happy' | 'gobak' | 'engklek' | 'egrang'
 export type Mata = 'open' | 'closed' | 'happy' | 'surprised'
 export type Mulut = 'smile' | 'talk-a' | 'talk-o' | 'flat'
@@ -103,8 +103,8 @@ const CHARS: Record<Tokoh, CharDef> = {
     watch: true,
     prop: 'box',
   },
-  // Bu Pavitra, guru: pashmina cokelat susu dengan pin merah putih & SNT, rompi nila SNT di atas kemeja nila tua, rok panjang.
-  pavitra: {
+  // Bu Pavi, guru: pashmina cokelat susu dengan pin merah putih & SNT, rompi nila SNT di atas kemeja nila tua, rok panjang.
+  pavi: {
     skin: 1,
     headwear: 'kerudung',
     kerudungC: ['#C99A72', '#A87A55'],
