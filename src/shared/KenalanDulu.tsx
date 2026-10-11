@@ -61,6 +61,17 @@ const pantauLebar = (cb: () => void) => {
   return () => mq.removeEventListener('change', cb)
 }
 
+/**
+ * Kutipan bahasa Inggris (teks dokumen) di samping balon. Bagian tanpa terjemahan
+ * memakai kutipan terdekat (mundur dulu, lalu maju), jadi kutipan tidak pernah kosong.
+ */
+function kutipanInggris(monolog: HalamanMonolog[], hal: number) {
+  const en = monolog.map((m) => ('en' in m ? m.en : undefined))
+  const daftarEn = [...new Set(en.filter((e): e is string => !!e))]
+  const dekat = en.slice(0, hal + 1).reverse().find(Boolean) ?? en.slice(hal + 1).find(Boolean)
+  return { daftarEn, enAktif: dekat ? daftarEn.indexOf(dekat) : -1 }
+}
+
 const KESULITAN: { id: Kesulitan; label: string }[] = [
   { id: 'mudah', label: 'Mudah' },
   { id: 'sedang', label: 'Sedang' },
@@ -97,6 +108,7 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
   const [hal, setHal] = useState(0)
   const isi = monolog[hal]!
   const terakhir = hal === monolog.length - 1
+  const { daftarEn, enAktif } = kutipanInggris(monolog, hal)
 
   // Guru bicara di setiap halaman: lip-sync jika ada rekaman VO, jika tidak mulut bergerak sebentar.
   const lineVO = isi.vo
@@ -185,11 +197,6 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
                     </div>
                   )}
                   {m.jenis === 'pesan' ? <p className={s.pesanUtama}>“{m.teks}”</p> : <p className={s.teksBalon}>{m.teks}</p>}
-                  {'en' in m && m.en && (
-                    <p className={s.teksInggris} lang="en">
-                      {m.en}
-                    </p>
-                  )}
                   {m.jenis === 'kenalan' && game.pesanGuru && (
                     <p className={s.pesanGuru}>
                       <span className={s.pesanGuruLabel}>Fair play</span>
@@ -224,6 +231,21 @@ function IsiKenalan({ game, namaUtama }: { game: GameData; namaUtama: string }) 
               </button>
             </div>
           </div>
+          {daftarEn.length > 0 && (
+            <aside className={s.kutipan} aria-label="Versi bahasa Inggris">
+              <span className={s.tandaKutip} aria-hidden="true">
+                “
+              </span>
+              <span className={s.labelKutipan}>In English</span>
+              <div className={s.tumpukKutipan}>
+                {daftarEn.map((e, i) => (
+                  <blockquote key={e} lang="en" className={`${s.isiKutipan} ${i === enAktif ? s.isiAktif : ''}`} aria-hidden={i !== enAktif}>
+                    {e}
+                  </blockquote>
+                ))}
+              </div>
+            </aside>
+          )}
         </section>
 
         <div className={s.bawah}>

@@ -15,7 +15,8 @@
   grid-template-columns: 64px minmax(0, 1fr);
   grid-template-areas:
     'tokoh nama'
-    'balon balon';
+    'balon balon'
+    'kutipan kutipan';
   align-items: center;
   gap: var(--ruang-3) var(--ruang-3);
 }
@@ -119,11 +120,51 @@
   color: var(--biru-nila);
 }
 
-.teksInggris {
-  padding-top: 10px;
-  border-top: 2px dashed var(--garis-putus);
-  font: italic 500 var(--teks-kecil) / 1.5 var(--font-isi);
-  color: var(--teks-kayu-muda);
+/* Kutipan bahasa Inggris: kartu nila di samping balon (HP: di bawahnya). */
+.kutipan {
+  grid-area: kutipan;
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 18px 18px 18px 20px;
+  border-radius: var(--radius-xl);
+  background: var(--biru-nila);
+  box-shadow: var(--bayang-nila);
+  color: var(--kertas-terang);
+  overflow: hidden;
+}
+
+.tandaKutip {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font: 800 96px/0.8 var(--font-judul);
+  color: var(--kunyit);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.labelKutipan {
+  font: 700 var(--teks-kecil) var(--font-isi);
+  color: var(--cahaya-kelir);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tumpukKutipan {
+  display: grid;
+}
+
+.isiKutipan {
+  grid-area: 1 / 1;
+  margin: 0;
+  font: italic 600 var(--teks-kecil) / 1.55 var(--font-isi);
+}
+
+.isiKutipan:not(.isiAktif) {
+  display: none;
 }
 
 .pesanGuru {
@@ -538,8 +579,9 @@
     grid-template-columns: 170px minmax(0, 1fr);
     grid-template-areas:
       'tokoh nama'
-      'tokoh balon';
-    grid-template-rows: auto 1fr;
+      'tokoh balon'
+      'tokoh kutipan';
+    grid-template-rows: auto 1fr auto;
     align-items: end;
     gap: 8px 22px;
     padding: var(--ruang-4) var(--ruang-5) var(--ruang-4) var(--ruang-3);
@@ -592,11 +634,36 @@
   }
 }
 
+/* Layar lebar: balon Indonesia 3/4, kutipan Inggris 1/4. Semua kutipan ditumpuk
+ * supaya tingginya tetap saat pindah bagian. */
+@media (min-width: 900px) {
+  .panggung {
+    grid-template-columns: 170px minmax(0, 3fr) minmax(0, 1fr);
+    grid-template-areas:
+      'tokoh nama nama'
+      'tokoh balon kutipan';
+    grid-template-rows: auto 1fr;
+  }
+  .kutipan {
+    align-self: stretch;
+    align-content: center;
+  }
+  .isiKutipan:not(.isiAktif) {
+    display: block;
+    visibility: hidden;
+  }
+}
+
 /* HP mendatar (layar pendek): wajah guru saja dan balon setinggi bagian yang tampil,
  * supaya tombol Lanjut dan pilihan mode tidak terdorong jauh ke bawah. */
 @media (orientation: landscape) and (max-height: 500px) {
   .panggung {
     grid-template-columns: 72px minmax(0, 1fr);
+    grid-template-areas:
+      'tokoh nama'
+      'tokoh balon'
+      'tokoh kutipan';
+    grid-template-rows: auto auto auto;
     align-items: start;
     padding: var(--ruang-3) var(--ruang-4) var(--ruang-3) var(--ruang-3);
   }
@@ -613,7 +680,8 @@
     top: 22px;
     bottom: auto;
   }
-  .isiBalon:not(.isiAktif) {
+  .isiBalon:not(.isiAktif),
+  .isiKutipan:not(.isiAktif) {
     display: none;
   }
 }
@@ -632,8 +700,8 @@
     gap: 28px;
   }
   .panggung {
-    grid-template-columns: 280px minmax(0, 1fr);
-    gap: 10px 32px;
+    grid-template-columns: 280px minmax(0, 3fr) minmax(0, 1fr);
+    gap: 10px 28px;
     padding: 28px 36px 28px 20px;
   }
   .guruTokoh {
@@ -654,7 +722,8 @@
   .teksBalon {
     font-size: 26px;
   }
-  .teksInggris,
+  .isiKutipan,
+  .labelKutipan,
   .pesanGuru,
   .daftar,
   .teks,
