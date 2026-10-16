@@ -295,7 +295,24 @@
 }
 
 /* ── Adegan 3: kotak terbuka ────────────────────────── */
+/*
+ * Kamera adegan 3 di-zoom terus selama 10 dtk. Tanpa will-change, browser me-raster ulang
+ * seluruh isi kamera (sinar conic-gradient, benda, Sekar) di tiap frame; di HP kelas bawah
+ * raster tertinggal dan sebagian layar tampil kosong (Sekar hilang / area coklat polos).
+ * will-change mengunci hasil raster sehingga zoom cukup dikerjakan GPU. Zoom hanya 6%,
+ * jadi tidak tampak buram. (Adegan 6 zoom 260% sengaja tidak memakai ini.)
+ */
+.kameraZoom {
+  will-change: transform;
+}
+
+/* Lapisan yang dianimasikan terus / masuk di tengah adegan: siapkan sejak awal adegan. */
+.lapisTetap {
+  will-change: transform;
+}
+
 .sinar {
+  will-change: transform;
   position: absolute;
   left: 190px;
   top: -240px;

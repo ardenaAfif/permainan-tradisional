@@ -90,7 +90,7 @@ export function Adegan3KotakDibuka({ ref, ...p }: AdeganProps) {
 
   return (
     <div ref={akar} className={`${s.adegan} ${s.hangat}`}>
-      <div ref={kamera} className={s.kamera}>
+      <div ref={kamera} className={`${s.kamera} ${s.kameraZoom}`}>
         <div className={s.lantaiHangat} />
         <div ref={sinar} className={s.sinar} />
         <div ref={pendar} className={s.pendar} />
@@ -119,7 +119,7 @@ export function Adegan3KotakDibuka({ ref, ...p }: AdeganProps) {
             </div>
           </div>
         ))}
-        <Tokoh kotak={{ left: 1040, bottom: -80, width: 240, height: 450 }} luarRef={sekar} balik>
+        <Tokoh kotak={{ left: 1040, bottom: -80, width: 240, height: 450 }} luarRef={sekar} className={s.lapisTetap} balik>
           <Karakter who="sekar" pose="talk" ekspresi="surprised" {...mulut(p, 'sekar')} />
         </Tokoh>
       </div>
