@@ -17,7 +17,9 @@ export function Pengaturan() {
   const pengaturan = useKotak((st) => st.pengaturan)
   const setPengaturan = useKotak((st) => st.setPengaturan)
   const resetProgres = useKotak((st) => st.resetProgres)
+  const resetSemua = useKotak((st) => st.resetSemua)
   const [tanyaReset, setTanyaReset] = useState(false)
+  const [tanyaResetSemua, setTanyaResetSemua] = useState(false)
   const [pesanReset, setPesanReset] = useState('')
 
   return (
@@ -80,6 +82,21 @@ export function Pengaturan() {
           )}
         </section>
 
+        <section className={s.panel} aria-labelledby="judul-reset-semua">
+          <h2 id="judul-reset-semua" className={s.judulPanel}>
+            Mulai dari awal
+          </h2>
+          <p className={s.teks}>
+            Hapus semua data di perangkat ini: avatar, stempel, dan pengaturan suara. Game kembali ke layar judul, lalu
+            intro dan pembuatan avatar diulang. PIN guru tetap tersimpan.
+          </p>
+          <div>
+            <Tombol varian="merah" onClick={() => setTanyaResetSemua(true)}>
+              Reset semua data
+            </Tombol>
+          </div>
+        </section>
+
         <section className={s.panel} aria-labelledby="judul-tentang">
           <h2 id="judul-tentang" className={s.judulPanel}>
             Tentang
@@ -116,6 +133,34 @@ export function Pengaturan() {
           }
         >
           <p className={s.teks}>Semua stempel, termasuk stempel emas dari guru, akan hilang dan tidak bisa dikembalikan.</p>
+        </Modal>
+      )}
+
+      {tanyaResetSemua && (
+        <Modal
+          judul="Reset semua data?"
+          onTutup={() => setTanyaResetSemua(false)}
+          aksi={
+            <>
+              <Tombol varian="sekunder" onClick={() => setTanyaResetSemua(false)}>
+                Batal
+              </Tombol>
+              <Tombol
+                varian="merah"
+                onClick={() => {
+                  resetSemua()
+                  navigate('/', { replace: true })
+                }}
+              >
+                Ya, hapus semua
+              </Tombol>
+            </>
+          }
+        >
+          <p className={s.teks}>
+            Avatar, semua stempel (termasuk stempel emas dari guru), dan pengaturan suara akan hilang dan tidak bisa
+            dikembalikan.
+          </p>
         </Modal>
       )}
     </Halaman>

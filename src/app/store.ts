@@ -33,6 +33,8 @@ interface KotakState {
   beriStempelEmas: (id: string) => void
   setPengaturan: (ubah: Partial<Pengaturan>) => void
   resetProgres: () => void
+  /** Hapus avatar, progres, stempel, dan pengaturan; intro tampil lagi. PIN guru tetap. */
+  resetSemua: () => void
 }
 
 export const PIN_GURU_BAWAAN = '1234'
@@ -47,13 +49,15 @@ const progresKosong = (): ProgresGame => ({
 const semuaProgresKosong = () =>
   Object.fromEntries(GAME_IDS.map((id) => [id, progresKosong()])) as Record<GameId, ProgresGame>
 
+const pengaturanAwal = (pinGuru = PIN_GURU_BAWAAN): Pengaturan => ({ suara: true, musik: true, vo: true, pinGuru })
+
 export const useKotak = create<KotakState>()(
   persist(
     (set, get) => ({
       avatar: null,
       progres: semuaProgresKosong(),
       introSudahDilihat: false,
-      pengaturan: { suara: true, musik: true, vo: true, pinGuru: PIN_GURU_BAWAAN },
+      pengaturan: pengaturanAwal(),
 
       setAvatar: (avatar) => set({ avatar }),
       tandaiIntroDilihat: () => set({ introSudahDilihat: true }),
@@ -75,6 +79,14 @@ export const useKotak = create<KotakState>()(
       },
       setPengaturan: (ubah) => set((s) => ({ pengaturan: { ...s.pengaturan, ...ubah } })),
       resetProgres: () => set({ progres: semuaProgresKosong() }),
+      resetSemua: () =>
+        set((s) => ({
+          avatar: null,
+          progres: semuaProgresKosong(),
+          introSudahDilihat: false,
+          // PIN guru tidak ikut: reset oleh siswa tidak boleh membuka kembali PIN bawaan.
+          pengaturan: pengaturanAwal(s.pengaturan.pinGuru),
+        })),
     }),
     {
       name: 'kotak-dolanan',
