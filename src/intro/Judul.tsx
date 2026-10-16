@@ -2,9 +2,10 @@ import { Link, useNavigate } from 'react-router'
 import { pasangAplikasi, sudahTerpasang, useBisaPasang } from '../app/pwa'
 import { useKotak } from '../app/store'
 import { audio } from '../shared/audio/AudioManager'
+import { useAudioTerbuka } from '../shared/audio/useAudioTerbuka'
 import logoSnt from '../assets/snt-mark-kecil.webp'
 import { BendaGambar } from '../shared/benda/BendaGambar'
-import { IkonMain, IkonPasang } from '../shared/ui/Ikon'
+import { IkonMain, IkonPasang, IkonSuara } from '../shared/ui/Ikon'
 import { TombolSuara } from '../shared/ui/TombolSuara'
 import s from './Judul.module.css'
 
@@ -14,6 +15,8 @@ export function Judul() {
   const introDilihat = useKotak((st) => st.introSudahDilihat)
   const punyaAvatar = useKotak((st) => st.avatar !== null)
   const bisaPasang = useBisaPasang() && !sudahTerpasang()
+  const suaraTerbuka = useAudioTerbuka()
+  const suaraAktif = useKotak((st) => st.pengaturan.suara)
 
   const mulai = () => {
     audio.buka()
@@ -51,7 +54,13 @@ export function Judul() {
           <IkonMain ukuran={30} />
           Mulai
         </button>
-        <p className={s.petunjuk}>Tap Mulai untuk menyalakan suara</p>
+        {/* Browser baru mengizinkan suara setelah layar disentuh; tempatnya tetap dipakai supaya tata letak tidak melompat. */}
+        <p className={`${s.petunjuk} ${suaraTerbuka || !suaraAktif ? s.petunjukSelesai : ''}`} aria-hidden={suaraTerbuka || !suaraAktif}>
+          <span className={s.petunjukIkon}>
+            <IkonSuara ukuran={22} aktif />
+          </span>
+          Ketuk di mana saja untuk menyalakan suara
+        </p>
       </main>
       <footer className={s.kaki}>
         <p className={s.kakiTeks}>Kokurikuler SMP · SNT 2 Banyumas</p>

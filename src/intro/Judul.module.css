@@ -152,10 +152,30 @@
 }
 
 .petunjuk {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin: 0;
   font: 600 var(--teks-kecil) var(--font-isi);
   color: var(--kertas-krem-gelap);
   text-align: center;
+  transition: opacity 0.4s;
+}
+
+.petunjukIkon {
+  display: inline-flex;
+  flex: none;
+  color: var(--cahaya-kelir);
+  animation: getarSuara 1.6s ease-in-out infinite;
+}
+
+.petunjukSelesai {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s,
+    visibility 0s 0.4s;
 }
 
 .kaki {
@@ -346,6 +366,23 @@
   }
   50% {
     transform: scale(1.05);
+  }
+}
+
+@keyframes getarSuara {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0);
+  }
+  70% {
+    transform: rotate(-12deg) scale(1.1);
+  }
+  80% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  90% {
+    transform: rotate(-6deg);
   }
 }
 

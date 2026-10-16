@@ -75,6 +75,7 @@ class AudioManager {
   private musikJeda = false
   private musikM: Musik | null = null
   private musikTimer = 0
+  private pendengarBuka = new Set<() => void>()
   private voEl: HTMLAudioElement | null = null
   private voSelesai: (() => void) | null = null
   private analyser: AnalyserNode | null = null
@@ -109,10 +110,17 @@ class AudioManager {
     this.segarkanMusik()
     // Efek suara kecil-kecil (±300 KB): dimuat sekarang supaya bunyi pertama tidak telat.
     for (const file of Object.keys(daftarFile)) if (file.startsWith('sfx/')) this.howlSfx(file)
+    for (const f of this.pendengarBuka) f()
   }
 
   get sudahTerbuka() {
     return this.terbuka
+  }
+
+  /** Dipanggil sekali saat audio dibuka (untuk useSyncExternalStore). @returns pelepas. */
+  ikutiBuka = (f: () => void) => {
+    this.pendengarBuka.add(f)
+    return () => void this.pendengarBuka.delete(f)
   }
 
   /** Lanjutkan AudioContext yang terhenti (mis. "interrupted" di iPhone setelah telepon masuk). */

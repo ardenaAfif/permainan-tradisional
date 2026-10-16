@@ -6,8 +6,16 @@ import { App } from './app/App'
 import { audio } from './shared/audio/AudioManager'
 import './app/pwa' // menangkap tawaran pasang (beforeinstallprompt) sedini mungkin
 
-// Cadangan untuk tautan langsung (tanpa lewat tombol Mulai): tap pertama membuka audio.
-window.addEventListener('pointerdown', () => audio.buka(), { once: true, capture: true })
+// Cadangan untuk tautan langsung (tanpa lewat tombol Mulai): tap atau tombol keyboard pertama
+// membuka audio. Esc tidak dihitung browser sebagai interaksi, jadi ditunggu tombol lain.
+const bukaAudio = (e: Event) => {
+  if (e instanceof KeyboardEvent && e.key === 'Escape') return
+  audio.buka()
+  window.removeEventListener('pointerdown', bukaAudio, true)
+  window.removeEventListener('keydown', bukaAudio, true)
+}
+window.addEventListener('pointerdown', bukaAudio, true)
+window.addEventListener('keydown', bukaAudio, true)
 
 // Bunyi tap untuk semua tombol dan tautan, kecuali di arena game (game punya bunyinya sendiri).
 document.addEventListener(
